@@ -228,28 +228,41 @@
             }, 800, 'swing');
         }
         //监听提交
+        //失去焦点事件
+
         $("#L_account").blur(function () {
-            console.log("554")
+            let phone=$("#L_account").val()
+            if (!(/^1[3|4|5|6|7|8|9]\d{9}$/.test(phone))) {
+                layer.msg('请输入正确的手机号！', {time: 1000, icon:6});
+            }
+
         })
+
         form.on('submit(login)', function (data) {
             var num = show_num.join("");
             var account = $("#L_account").val();
             var password = $("#L_pass").val();
             var verifycode = $("#L_vercode").val();
-            if (verifycode.toLowerCase() == num) {
-                $.post(url+"/login/logincheck","phone="+account+"&psw="+password ,function (data) {
-                    if(data.code==1){
+            if (!(/^1[3|4|5|6|7|8|9]\d{9}$/.test(account))) {
+                layer.alert("手机号不合法哦！", {icon: 2});
 
-                        window.location.href = "/sybida/manager/managerIndex.html";
-                    }else{
-                            layer.alert("手机号或密码错误，请重新输入！", {icon: 2});
+            }else{
+                if (verifycode.toLowerCase() == num) {
+                    $.post(url+"/login/logincheck","phone="+account+"&psw="+password ,function (data) {
+                        if(data.code==1){
+
+                            window.location.href = "/sybida/manager/managerIndex.html";
+                        }else{
+                            layer.alert("用户名或密码错误，请重新输入！", {icon: 2});
                             draw(show_num);
-                    }
-                },"json");
-            } else {
-                layer.alert("验证码错误，请重新输入！", {icon: 2});
-                draw(show_num);
+                        }
+                    },"json");
+                } else {
+                    layer.alert("验证码错误，请重新输入！", {icon: 2});
+                    draw(show_num);
+                }
             }
+
             draw(show_num);
             return false;
         });
