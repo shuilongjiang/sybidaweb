@@ -228,6 +228,9 @@
             }, 800, 'swing');
         }
         //监听提交
+        $("#L_account").blur(function () {
+            console.log("554")
+        })
         form.on('submit(login)', function (data) {
             var num = show_num.join("");
             var account = $("#L_account").val();

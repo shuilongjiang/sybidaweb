@@ -1,1 +1,1 @@
-var url="http://192.168.5.199:8080"
+var url="http://localhost:8080"
