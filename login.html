@@ -229,7 +229,6 @@
         }
         //监听提交
         //失去焦点事件
-
         $("#L_account").blur(function () {
             let phone=$("#L_account").val()
             if (!(/^1[3|4|5|6|7|8|9]\d{9}$/.test(phone))) {
@@ -237,7 +236,6 @@
             }
 
         })
-
         form.on('submit(login)', function (data) {
             var num = show_num.join("");
             var account = $("#L_account").val();
@@ -245,13 +243,25 @@
             var verifycode = $("#L_vercode").val();
             if (!(/^1[3|4|5|6|7|8|9]\d{9}$/.test(account))) {
                 layer.alert("手机号不合法哦！", {icon: 2});
-
             }else{
                 if (verifycode.toLowerCase() == num) {
                     $.post(url+"/login/logincheck","phone="+account+"&psw="+password,function (data) {
                         if(data.code==1){
+                            if(data.data[0].userAuthority==9){
+                                //转到管理员页面
+                                window.location.href = "/sybida/manager/managerIndex.html";
+                            }else if(data.data.userAuthority==0){
+                                //转到班主任页面
+                                window.location.href = "/sybida/teacher/managerIndex.html";
+                            }else if(data.data.userAuthority==2){
+                                //转到学生页面
+                                window.location.href = "/sybida/student/managerIndex.html";
+                            }else{
+                                //转到任课教师页面
+                                window.location.href = "/sybida/teacher/managerIndex.html";
+                            }
 
-                            window.location.href = "/sybida/manager/managerIndex.html";
+
                         }else{
                             layer.alert("用户名或密码错误，请重新输入！", {icon: 2});
                             draw(show_num);
@@ -262,7 +272,6 @@
                     draw(show_num);
                 }
             }
-
             draw(show_num);
             return false;
         });
