@@ -248,10 +248,7 @@
 
                     $.post(url+"/login/logincheck","phone="+account+"&psw="+password,function (data) {
                         if(data.code==1){
-
-
                              // location.href=url+"/checkisfirst"
-
                             if(data.data[0].userAuthority==9){
                                 //转到管理员页面
                                 window.location.href = "/sybida/manager/managerIndex.html";
@@ -265,8 +262,6 @@
                                 //转到任课教师页面
                                 window.location.href = "/sybida/teacher/managerIndex.html";
                             }
-
-
                         }else{
                             layer.alert("用户名或密码错误，请重新输入！", {icon: 2});
                             draw(show_num);
