@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="background:#4EC094;">
 <head>
     <meta name="save" content="history">
     <meta name="renderer" content="webkit">
@@ -9,17 +9,13 @@
     <title>思必达管理系统</title>
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
     <link rel="stylesheet"  href="/sybida/layui/css/layui.css">
-    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link href='/sybida/common/css/changepassword1.css' rel='stylesheet' type='text/css'>
-    <link href='/sybida/common/css/changepassword2.css' rel='stylesheet' type='text/css'>
+
     <style>
         .layui-row {
             margin: 45px 0;
         }
 
-        .captcha {
-            height: 36px;
-        }
+
 
         #login-form {
             background-color: rgba(255, 255, 255, .8);
@@ -29,7 +25,7 @@
         }
 
         #login-form .login-bottom {
-            border-top: 1px #eee solid;
+            border-top: 1px #1ee solid;
             padding: 10px 0 5px;
             color: #444;
         }
@@ -54,26 +50,72 @@
             color: #444;
         }
 
-        #captcha {
-            display: none;
+        .warning-msg {display:block; bottom:58px; right:0px; position:fixed;}
+        * html .warning-msg {position:absolute; right:18px}
+        .notification {
+            font-family:Digital,'Microsoft YaHei',STFangsong;
+            display: flex;
+            margin: 0 auto;
+            width: 300px;
+            min-height: 200px;
         }
-
-        .blur {
-            -webkit-filter: blur(5px);
-            -moz-filter: blur(5px);
-            -ms-filter: blur(5px);
-            filter: blur(5px);
+        .notification .info {
+            flex: 1;
+            padding: 10px 10px 0 10px;
+            background: #6c7e98;
+            border-radius: 3px 0 0 3px;
+            border-bottom: 3px solid #c0cdd1;
+        }
+        .notification .info span {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            color: #fff;
+        }
+        .notification .info p {
+            margin: 0;
+            padding: 5px 0;
+            font-size: 12px;
+            color: #c5bebe;
+        }
+        .notification .info .button {
+            display: inline-block;
+            margin: 3px 3px 5px 0;
+            padding: 3px 7px;
+            border-radius: 2px;
+            border-bottom: 1px solid;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ecf0f1;
+        }
+        .notification .info .button.gray {
+            background: #95a5a6 ;
+            border-bottom-color: #798d8f;
+        }
+        .notification .info .button {
+            background: #435d8a;
+            border-bottom-color: #435d8a;
         }
     </style>
 </head>
 <body >
-<div class="layui-container"  style="background:#4EC094;" >
+<div class="warning-msg">
+    <div class="notification">
+        <div class="info">
+            <span></span>
+            <p></p>
+            <a href="#" class="button" style="font-size: 18px;">公告</a><br><a href="#" class="button gray">请新注册的同学抓紧时间完善个人信息</a>
+        </div>
+    </div>
+</div>
+<div class="layui-container"   >
     <div class="layui-row">
-        <div class="layui-col-md3 " style="float: left">&nbsp;</div>
-        <div class="layui-col-md5   layui-form layui-form-pane" style="float: left;box-shadow: 2px 4px 6px #000;">
-            <form method="post" id="login-form">
+        <div class="layui-col-md3 " >&nbsp;</div>
+        <div class="layui-col-md5   layui-form layui-form-pane"  style="margin-left: 50px;" >
+            <form  method="post" id="login-form" style="box-shadow:4px 6px 6px #000;">
                 <div class="layui-form-item">
-                    <h2>思必达管理系统</h2>
+                    <h2 style="font-size: 20px;">思必达管理系统</h2>
                 </div>
                 <div id="pc-login">
                     <div class="layui-form-item">
@@ -122,13 +164,10 @@
     <p>更好体验，请使用<a href='https://www.baidu.com/s?wd=%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8'
                   target="_blank">谷歌浏览器</a></p>
 </div>
+</body>
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/layui/layui.js"></script>
-<script type="text/javascript" src="/sybida/common/js/changepassword1.js"></script>
-<script type="text/javascript" src="/sybida/common/js/changepassword2.js"></script>
-<script type="text/javascript">
 
-</script>
 <script>
     //获取在线人数
     var getOnlineUser = function () {
@@ -230,7 +269,7 @@
         var h = $(window).height();
         if (h > 550) {
             $('#login-form').animate({
-                marginTop: (h - 550) / 2 + 'px',
+                marginTop: (h - 500) / 2 + 'px',
             }, 800, 'swing');
         }
         //监听提交
@@ -305,7 +344,7 @@
                 type: 1,//Page层类型
                 area: ['500px', width],
                 skin: "",
-                title: ['找回密码',
+                title: ['忘记密码',
                     'border:none; background:#CAE1FF; color:#000;'],
                 shade: 0.6, //遮罩透明度
                 maxmin: false, //允许全屏最小化
@@ -438,5 +477,5 @@
 
 </script>
 
-</body>
+
 </html>
