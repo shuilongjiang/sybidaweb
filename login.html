@@ -9,6 +9,9 @@
     <title>思必达管理系统</title>
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
     <link rel="stylesheet"  href="/sybida/layui/css/layui.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href='/sybida/common/css/changepassword1.css' rel='stylesheet' type='text/css'>
+    <link href='/sybida/common/css/changepassword2.css' rel='stylesheet' type='text/css'>
     <style>
         .layui-row {
             margin: 45px 0;
@@ -63,11 +66,11 @@
         }
     </style>
 </head>
-<body style="background-color: rgb(199,237,204)">
-<div class="layui-container">
+<body >
+<div class="layui-container"  style="background:#4EC094;" >
     <div class="layui-row">
         <div class="layui-col-md3 " style="float: left">&nbsp;</div>
-        <div class="layui-col-md5   layui-form layui-form-pane" style="float: left">
+        <div class="layui-col-md5   layui-form layui-form-pane" style="float: left;box-shadow: 2px 4px 6px #000;">
             <form method="post" id="login-form">
                 <div class="layui-form-item">
                     <h2>思必达管理系统</h2>
@@ -121,7 +124,10 @@
 </div>
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/layui/layui.js"></script>
+<script type="text/javascript" src="/sybida/common/js/changepassword1.js"></script>
+<script type="text/javascript" src="/sybida/common/js/changepassword2.js"></script>
 <script type="text/javascript">
+
 </script>
 <script>
     //获取在线人数
@@ -242,12 +248,27 @@
             var password = $("#L_pass").val();
             var verifycode = $("#L_vercode").val();
             if (!(/^1[3|4|5|6|7|8|9]\d{9}$/.test(account))) {
-                layer.alert("手机号不合法哦！", {icon: 2});
+                layer.msg("手机号不合法哦！", {icon: 2});
             }else{
                 if (verifycode.toLowerCase() == num) {
 
                     $.post(url+"/login/logincheck","phone="+account+"&psw="+password,function (data) {
                         if(data.code==1){
+
+                            if(data.message==1){
+                                layer.open({
+                                    type: 1,
+                                    skin: 'layui-layer-rim', //加上边框
+                                    area: ['420px', '240px'], //宽高
+                                    content: '<form id="myform">\n' +
+                                        '    <p>\n' +
+                                        '        <label>Type a test password</label>\n' +
+                                        '        <input type="password" id="myPassword" name="myPassword" value="" minlength="4" maxlength="8">\n' +
+                                        '    </p>\n' +
+                                        '\n' +
+                                        '</form>'
+                                });
+                            }else{
                              // location.href=url+"/checkisfirst"
                             if(data.data[0].userAuthority==9){
                                 //转到管理员页面
@@ -261,14 +282,15 @@
                             }else{
                                 //转到任课教师页面
                                 window.location.href = "/sybida/teacher/managerIndex.html";
-                            }
+                            }}
                         }else{
-                            layer.alert("用户名或密码错误，请重新输入！", {icon: 2});
+                            layer.msg("用户名或密码错误，请重新输入！", {icon: 2});
                             draw(show_num);
                         }
                     },"json");
                 } else {
-                    layer.alert("验证码错误，请重新输入！", {icon: 2});
+                    layer.msg('验证码错误，请重新输入！');
+                    // ("", {icon: 2});
                     draw(show_num);
                 }
             }
@@ -312,6 +334,8 @@
                         }
                     })
                     $("#btnSendCode1").click(function () {
+                        let phone2=$('#account').val()
+                        //向手机发送验证码
                         $("#btnSendCode1").attr("disabled", "disabled")
                         reloadSendBtn(60);
                     })
@@ -342,7 +366,7 @@
             var account = data.field.account;
             var verifycode = data.field.verifycode;
             $.ajax({
-                url: url+"/login/changepsw",
+                url: url+"/login/resetpsw",
                 type: "post",
                 data: {
                     account: account,

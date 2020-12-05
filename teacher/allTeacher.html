@@ -142,18 +142,21 @@
 
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
-<script src="/sybida/layui/layui.js" charset="utf-8"></script>
+<script src="/sybida/layui/layui.js"    ></script>
 <script src="/sybida/teacher/js/allTeacher.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-$("#canle").click(function (){
+var layer
+layui.use('layer', function(){
+    layer = layui.layer;
+});
+    $("#canle").click(function (){
     $("#exampleModalAll").attr("class","modal fade")
     $("#exampleModalAll").css("display","none")
 })
 $("#deleteAllSure").click(function (){
 
     var checkbox = $("input[name='optionAll']");
-    if (checkbox.length > 0) {
     var s=new Array();
     var j=0
     for(var i = 0;i<checkbox.length;i++)
@@ -163,27 +166,33 @@ $("#deleteAllSure").click(function (){
             s[j++]=(checkbox[i].value)
         }
     }
-
-    $.post({
+    if(s.length>0){ $.post({
         url:url+"/teacher/deleteallteacher",
         // 告知传递参数类型为json，不可缺少
         contentType:"application/json",
         data:JSON.stringify(s),
         success:function(data){
-            if(data.code==1){
+            if(data.code===1){
                 location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy
 
             }else{
-                alert("删除失败请重试！");
+                layer.alert("删除失败请重试！");
+                $("#exampleModalAll").attr("class","modal fade")
+                $("#exampleModalAll").css("display","none")
             }
 
         }
-    })
+    })}else{
 
-
-    }else{
-        alert("未选中任何数据！");
+        layer.alert("所选数据为空！");
+        $("#exampleModalAll").attr("class","modal fade")
+        $("#exampleModalAll").css("display","none")
     }
+
+
+
+
+
 
 })
 </script>

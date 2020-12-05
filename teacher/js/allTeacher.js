@@ -33,6 +33,10 @@ $('#pageSizeSel').change(
 $("#selectButt").click(function (){
    location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy
 })
+var layer
+layui.use('layer', function(){
+    layer = layui.layer;
+});
 //学习方向下拉选框
 $.getJSON(url+"/teacher/selectStudy",function (data){
 
@@ -216,7 +220,7 @@ $("#deleteOneSure").click(function (){
           if(data.code==1){
               location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy
           }else{
-              alert("删除失败");
+              layer.alert("删除失败");
           }
     },"json")
 
