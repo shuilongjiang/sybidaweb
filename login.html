@@ -245,21 +245,26 @@
                 layer.alert("手机号不合法哦！", {icon: 2});
             }else{
                 if (verifycode.toLowerCase() == num) {
+
                     $.post(url+"/login/logincheck","phone="+account+"&psw="+password,function (data) {
                         if(data.code==1){
-                            if(data.data[0].userAuthority==9){
-                                //转到管理员页面
-                                window.location.href = "/sybida/manager/managerIndex.html";
-                            }else if(data.data.userAuthority==0){
-                                //转到班主任页面
-                                window.location.href = "/sybida/teacher/managerIndex.html";
-                            }else if(data.data.userAuthority==2){
-                                //转到学生页面
-                                window.location.href = "/sybida/student/managerIndex.html";
-                            }else{
-                                //转到任课教师页面
-                                window.location.href = "/sybida/teacher/managerIndex.html";
-                            }
+
+
+                             location.href=url+"/checkisfirst"
+
+                            // if(data.data[0].userAuthority==9){
+                            //     //转到管理员页面
+                            //     window.location.href = "/sybida/manager/managerIndex.html";
+                            // }else if(data.data.userAuthority==0){
+                            //     //转到班主任页面
+                            //     window.location.href = "/sybida/teacher/managerIndex.html";
+                            // }else if(data.data.userAuthority==2){
+                            //     //转到学生页面
+                            //     window.location.href = "/sybida/student/managerIndex.html";
+                            // }else{
+                            //     //转到任课教师页面
+                            //     window.location.href = "/sybida/teacher/managerIndex.html";
+                            // }
 
 
                         }else{
@@ -298,7 +303,7 @@
                             $('#btnSendCode1').addClass("layui-btn-disabled").attr("disabled", true).val("获取验证码");
 
                         }else{
-                            $.post(url+"/login/changephone","phone="+phone1,function (data) {
+                            $.post(url+"/login/checkphone","phone="+phone1,function (data) {
                                 if(data.code==0){
                                     layer.msg('该手机号未注册！', {time: 1000, icon:6});
                                     $('#btnSendCode1').addClass("layui-btn-disabled").attr("disabled", true).val("获取验证码");
