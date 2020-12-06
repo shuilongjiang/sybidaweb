@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form{
+            width: 30%;
+            margin: 0 auto;
+        }
+        .form-group .tip{
+            text-align: right;
+            color: red;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+    </style>
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <form enctype="multipart/form-data">
+    <div class="form-group">
+        <select class="form-control" name="selectClass">
+            <option>请选择班级</option>
+        </select>
+    </div>
+        <div class="form-group">
+            <select class="form-control" name="selectStudy">
+                <option>请选择学习方向</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="selectTeacher">
+                <option>请选择任课老师</option>
+            </select>
+        </div>
+    <div class="form-group">
+            <input type="file" name="excel">
+    </div>
+    <div class="form-group"><input type="button" class="btn btn-success" value="确定"></div>
+    </form>
+</div>
+
+    <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/sybida/register/js/register.js"></script>
+
+<script>$("[type='button']").click(function () {
+    let formData = new FormData();
+    formData.append("excel", $('[type="file"]')[0].files[0]);
+    $.ajax({
+        url:url+"/file/upload",
+        type : 'post',
+        data : formData,
+        cache: false,   //上传文件无需缓存
+        processData: false,   // 用于对参数进行序列化处理，这里必须设为false
+        contentType:false,
+        dataType:"json",
+        success:function (data) {
+            if(data.code == 1) {
+                location.reload()
+            } else if(data.code == 2){
+                alert("修改失败")
+            }
+        },
+        error:function (xhr, textStatus, errorThrown) {
+            console.log('error',textStatus)
+        }
+    })
+});
+</script>
+</body>
+</html>

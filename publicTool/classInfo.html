@@ -2,13 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>班级信息管理</title>
-
-    <link rel="stylesheet" href="/web06/Sybida/manager/layui-v2.5.6/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="/web06/Sybida/publicTool/css/bootstrap.min.css">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        .body{
+            width: 100%;
+            /*border: blue solid 1px;*/
+        }
+
+
+        .body .header{
+            width: 95%;
+            /*border:black solid 1px;*/
+            margin: 0 auto;
+            margin-top: 5%;
+        }
+
+        .body .view{
+            width: 95%;
+            /*border: red solid 1px;*/
+            margin: 0 auto;
+        }
+
+        .body .page{
+            /*border: red solid 1px;*/
+            margin: 0 auto;
+            width: 95%;
+        }
         body {
             margin: 10px;
         }
@@ -19,98 +46,11 @@
             text-align: center;
         }
     </style>
-    <style>
-        .btn, .ios-switch::before, .ios-switch {
-            border-radius: 31px;
-            width: 62px;
-            height: 32px;
-            background-color: #e9e9eb;
-        }
-
-        .ios-switch {
-            position: relative;
-            appearance: none;
-            cursor: pointer;
-            transition: all 100ms;
-        }
-
-        .ios-switch::before {
-            position: absolute;
-            content: "";
-            transition: all 300ms cubic-bezier(0.45, 1, 0.4, 1);
-        }
-
-        .ios-switch::after {
-            position: absolute;
-            left:1px;
-            top:1px;
-            border-radius: 27px;
-            width: 30px;
-            height: 30px;
-            background-color: #fff;
-            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-            content: "";
-            transition: all 300ms cubic-bezier(0.4, 0.4, 0.25, 1.35);
-        }
-
-        .ios-switch:checked {
-            background-color: #5eb662;
-        }
-
-        .ios-switch:checked::before {
-            transform: scale(0);
-        }
-
-        .ios-switch:checked::after {
-            transform: translateX(40px);
-        }
-
-        .ios-switch:checked ~ header, .ios-switch:checked ~ div {
-            filter: invert(1) hue-rotate(180deg);
-        }
-
-        .ios-switch:checked ~ header img, .ios-switch:checked ~ header video, .ios-switch:checked ~ header .logo, .ios-switch:checked ~ header .icon, .ios-switch:checked ~ header .jubao-con, .ios-switch:checked ~ div img, .ios-switch:checked ~ div video, .ios-switch:checked ~ div .logo, .ios-switch:checked ~ div .icon, .ios-switch:checked ~ div .jubao-con {
-            filter: invert(1) hue-rotate(180deg);
-        }
-
-        .ios-switch ~ header, .ios-switch ~ div {
-            background-color: #fff;
-            transition: all 300ms;
-        }
-
-        .ios-switch {
-            position: absolute;
-            right: 0;
-            top: 0;
-            z-index: 99999;
-            outline: none;
-        }
-
-        .ios-switch {
-            position: absolute;
-            right: 0;
-            top: 0;
-            z-index: 99999;
-            outline: none;
-        }
-
-        img,
-        video,
-        .logo,
-        .icon,
-        .jubao-con {
-            filter: invert(1) hue-rotate(180deg);
-        }
-
-        .exclude {
-            filter: invert(1) hue-rotate(180deg);
-        }
-    </style>
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
 </head>
 <body>
-
 <div class="body">
-    <div class="top">班级管理</div>
     <div class="header">
         <span>班级编号：</span><input type="text" id="a" value=""/>
         <span>开课时间：</span><input type="text" id="b" value=""/>
@@ -121,7 +61,6 @@
     </div>
     <div class="view">
         <table class="table table-dark">
-            <thead>
             <tr>
                 <th scope="col"><input type="checkbox" id="chk">&nbsp;&nbsp;全选</th>
                 <th scope="col">班级ID</th>
@@ -133,128 +72,19 @@
                 <th scope="col">是否结业</th>
                 <th scope="col">修改时间</th>
             </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><input type="checkbox"></td>
-                <th scope="row">1</th>
-                <td>1班</td>
-                <td>李老师</td>
-                <td>张老师</td>
-                <td>java</td>
-                <td>9月16号</td>
-                <td>否</td>
-                <td>2010</td>
-                <th scope="col"><a href="">修改</a></th>
-                <th scope="col"><a href="">删除</a></th>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <th scope="row">2</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <th scope="col"><a href="">修改</a></btton></th>
-                <th scope="col"><a href="">删除</a></th>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <th scope="row">3</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <th scope="col"><a href="">修改</a></btton></th>
-                <th scope="col"><a href="">删除</a></th>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <th scope="row">4</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <th scope="col"><a href="">修改</a></btton></th>
-                <th scope="col"><a href="">删除</a></th>
-            </tr>
-            </tbody>
         </table>
+
+        <nav style="text-align: left">
+            <ul class="pagination" style="margin: 0 auto;">
+
+            </ul>
+        </nav>
     </div>
-
-
-    <div id="page" class="page">
-
-        <!--<fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;">-->
-        <!--</fieldset>-->
-
-        <div id="demo3"></div>
-        <script src="/web06/Sybida/manager/layui-v2.5.6/layui/layui.js"></script>
-        <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-        <script>
-            layui.use(['laypage', 'layer'], function () {
-                var laypage = layui.laypage
-                    , layer = layui.layer;
-
-                //自定义首页、尾页、上一页、下一页文本
-                laypage.render({
-                    elem: 'demo3'
-                    , count: 100
-                    , first: '首页'
-                    , last: '尾页'
-                    , prev: '上一页'
-                    , next: '下一页'
-                });
-
-
-                //调用分页
-                // laypage.render({
-                //     elem: 'demo20'
-                //      ,count: data.length
-                //     ,jump: function(obj){
-                //         //模拟渲染
-                //         document.getElementById('biuuu_city_list').innerHTML = function(){
-                //             var arr = []
-                //                 ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-                //             layui.each(thisData, function(index, item){
-                //                 arr.push('<li>'+ item +'</li>');
-                //             });
-                //             return arr.join('');
-                //         }();
-                //     }
-                // });
-
-            });
-
-        </script>
-
-
-    </div>
-
 
 </div>
-<script src="/web06/Sybida/manager/jquery/jquery-3.3.1.js"></script>
-<script>
+<base href="/">
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/publicTool/js/classinfo.js"></script>
 
-    $("#chk").click(function () {
-        console.log($(this).prop('checked'))
-        if (!$(this).prop('checked')) {
-            $("tr>td>[type='checkbox']").prop("checked", false);
-        } else {
-            $("tr>td>[type='checkbox']").prop("checked", true)
-        }
-    })
-
-
-</script>
 </body>
 </html>
