@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="background:#4EC094;">
 <head>
     <meta name="save" content="history">
     <meta name="renderer" content="webkit">
@@ -14,9 +14,7 @@
             margin: 45px 0;
         }
 
-        .captcha {
-            height: 36px;
-        }
+
 
         #login-form {
             background-color: rgba(255, 255, 255, .8);
@@ -26,7 +24,7 @@
         }
 
         #login-form .login-bottom {
-            border-top: 1px #eee solid;
+            border-top: 1px #1ee solid;
             padding: 10px 0 5px;
             color: #444;
         }
@@ -51,26 +49,92 @@
             color: #444;
         }
 
-        #captcha {
-            display: none;
+        .warning-msg {display:block; bottom:58px; right:0px; position:fixed;}
+        * html .warning-msg {position:absolute; right:18px}
+        .notification {
+            font-family:Digital,'Microsoft YaHei',STFangsong;
+            display: flex;
+            margin: 0 auto;
+            width: 300px;
+            min-height: 200px;
         }
+        .notification .info {
+            flex: 1;
+            padding: 10px 10px 0 10px;
+            background: #6c7e98;
+            border-radius: 3px 0 0 3px;
+            border-bottom: 3px solid #c0cdd1;
+        }
+        .notification .info span {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            color: #fff;
+        }
+        .notification .info p {
+            margin: 0;
+            padding: 5px 0;
+            font-size: 12px;
+            color: #c5bebe;
+        }
+        .notification .info .button {
+            display: inline-block;
+            margin: 3px 3px 5px 0;
+            padding: 3px 7px;
+            border-radius: 2px;
+            border-bottom: 1px solid;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ecf0f1;
+        }
+        .notification .info .button.gray {
+            background: #95a5a6 ;
+            border-bottom-color: #798d8f;
+        }
+        .notification .info .button {
+            background: #435d8a;
+            border-bottom-color: #435d8a;
+        }
+        html, body {
+            position: absolute;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background:#0F0;
+            touch-action: none;
+            content-zooming: none;
+        }
+        #canvas1 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:#000;
 
-        .blur {
-            -webkit-filter: blur(5px);
-            -moz-filter: blur(5px);
-            -ms-filter: blur(5px);
-            filter: blur(5px);
         }
     </style>
+
 </head>
-<body style="background-color: rgb(199,237,204)">
-<div class="layui-container">
+<body >
+<canvas id="canvas1"></canvas>
+<div class="warning-msg" style="z-index:5;">
+    <div class="notification">
+        <div class="info">
+            <span></span>
+            <p></p>
+            <a href="#" class="button" style="font-size: 18px;">公告</a><br><a href="#" class="button gray">请新注册的同学抓紧时间完善个人信息</a>
+        </div>
+    </div>
+</div>
+<div class="layui-container"   >
     <div class="layui-row">
-        <div class="layui-col-md3 " style="float: left">&nbsp;</div>
-        <div class="layui-col-md5   layui-form layui-form-pane" style="float: left">
-            <form method="post" id="login-form">
+        <div class="layui-col-md3 " >&nbsp;</div>
+        <div class="layui-col-md5   layui-form layui-form-pane"  style="margin-left: 50px;" >
+            <form  method="post" id="login-form" style="box-shadow:4px 6px 6px #000;">
                 <div class="layui-form-item">
-                    <h2>思必达管理系统</h2>
+                    <h2 style="font-size: 20px;">思必达管理系统</h2>
                 </div>
                 <div id="pc-login">
                     <div class="layui-form-item">
@@ -119,9 +183,178 @@
     <p>更好体验，请使用<a href='https://www.baidu.com/s?wd=%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8'
                   target="_blank">谷歌浏览器</a></p>
 </div>
+</body>
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/layui/layui.js"></script>
-<script type="text/javascript">
+<script>
+    "use strict";
+    {
+        // particles class
+
+        class Particle {
+            constructor(k, i, j) {
+                this.i = i;
+                this.j = j;
+                this.init();
+                this.x = this.x0;
+                this.y = this.y0;
+                this.pos = posArray.subarray(k * 3, k * 3 + 3);
+                this.pointer = pointer;
+            }
+            init() {
+                this.x0 = canvas.width * 0.5 + this.i * canvas.width / 240;
+                this.y0 = canvas.height * 0.5 + this.j * canvas.height / 160;
+            }
+
+            move() {
+                 const dx = this.pointer.x - this.x;
+                const dy = this.pointer.y - this.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                const s = 1000 / d;
+                this.x += -s * (dx / d) + (this.x0 - this.x) * 0.02;
+                this.y += -s * (dy / d) + (this.y0 - this.y) * 0.02;
+                // update buffer position
+                this.pos[0] = this.x;
+                this.pos[1] = this.y;
+                this.pos[2] = 0.15 * s * s;
+            }
+        }
+        // webGL canvas
+        const canvas = {
+            init(options) {
+                // set webGL context
+                this.elem = document.querySelector("canvas");
+                const gl = (this.gl =
+                    this.elem.getContext("webgl", options) ||
+                    this.elem.getContext("experimental-webgl", options));
+                if (!gl) return false;
+                // compile shaders
+                const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+                gl.shaderSource(
+                    vertexShader,
+                    `
+					precision highp float;
+					attribute vec3 aPosition;
+					uniform vec2 uResolution;
+					void main() {
+						gl_PointSize = max(2.0, min(30.0, aPosition.z));
+						gl_Position = vec4(
+							( aPosition.x / uResolution.x * 2.0) - 1.0,
+							(-aPosition.y / uResolution.y * 2.0) + 1.0,
+							0.0,
+							1.0
+						);
+					}
+      	`
+                );
+                gl.compileShader(vertexShader);
+                const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+                gl.shaderSource(
+                    fragmentShader,
+                    `
+					precision highp float;
+					void main() {
+						vec2 pc = 2.0 * gl_PointCoord - 1.0;
+						gl_FragColor = vec4(1.0, 0.85, 0.25, 1.0 - dot(pc, pc));
+					}
+				`
+                );
+                gl.compileShader(fragmentShader);
+                const program = (this.program = gl.createProgram());
+                gl.attachShader(this.program, vertexShader);
+                gl.attachShader(this.program, fragmentShader);
+                gl.linkProgram(this.program);
+                gl.useProgram(this.program);
+                // resolution
+                this.uResolution = gl.getUniformLocation(this.program, "uResolution");
+                gl.enableVertexAttribArray(this.uResolution);
+                // canvas resize
+                this.resize();
+                window.addEventListener("resize", () => this.resize(), false);
+                return gl;
+            },
+            resize() {
+                this.width = this.elem.width = this.elem.offsetWidth;
+                this.height = this.elem.height = this.elem.offsetHeight;
+                for (const p of particles) p.init();
+                this.gl.uniform2f(this.uResolution, this.width, this.height);
+                this.gl.viewport(
+                    0,
+                    0,
+                    this.gl.drawingBufferWidth,
+                    this.gl.drawingBufferHeight
+                );
+            }
+        };
+        const pointer = {
+            init(canvas) {
+                this.x = 0.1 + canvas.width * 0.8;
+                this.y = canvas.height * 0.8;
+                this.s = 0;
+                ["mousemove", "touchstart", "touchmove"].forEach((event, touch) => {
+                    document.addEventListener(
+                        event,
+                        e => {
+                            if (touch) {
+                                e.preventDefault();
+                                this.x = e.targetTouches[0].clientX;
+                                this.y = e.targetTouches[0].clientY;
+                            } else {
+                                this.x = e.clientX;
+                                this.y = e.clientY;
+                            }
+                        },
+                        false
+                    );
+                });
+            }
+        };
+        // init webGL canvas
+        const particles = [];
+        const gl = canvas.init({
+            alpha: false,
+            stencil: true,
+            antialias: true,
+            depth: false
+        });
+        // additive blending "lighter"
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+        gl.enable(gl.BLEND);
+        // init pointer
+        pointer.init(canvas);
+        // init particles
+        const nParticles = 240 * 80;
+        const posArray = new Float32Array(nParticles * 3);
+        let k = 0;
+        for (let i = -120; i < 120; i++) {
+            for (let j = -40; j < 40; j++) {
+                particles.push(new Particle(k++, i, j));
+            }
+        }
+        // create position buffer
+        const aPosition = gl.getAttribLocation(canvas.program, "aPosition");
+        gl.enableVertexAttribArray(aPosition);
+        const positionBuffer = gl.createBuffer();
+        // draw all particles
+        const draw = () => {
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.vertexAttribPointer(aPosition, 3, gl.FLOAT, false, 0, 0);
+            gl.bufferData(
+                gl.ARRAY_BUFFER,
+                posArray,
+                gl.DYNAMIC_DRAW
+            );
+            gl.drawArrays(gl.GL_POINTS, 0, nParticles);
+        }
+        // main animation loop
+        const run = () => {
+            requestAnimationFrame(run);
+            for (const p of particles) p.move();
+            draw();
+        };
+
+        requestAnimationFrame(run);
+    }
 </script>
 <script>
     //获取在线人数
@@ -189,6 +422,7 @@
         return "rgb(" + r + "," + g + "," + b + ")";
     }
     <!--验证码结束-->
+    //浏览器版本问题
     layui.use(['layer', 'form'], function () {
         var layer = layui.layer
             , form = layui.form;
@@ -224,12 +458,11 @@
         var h = $(window).height();
         if (h > 550) {
             $('#login-form').animate({
-                marginTop: (h - 550) / 2 + 'px',
+                marginTop: (h - 500) / 2 + 'px',
             }, 800, 'swing');
         }
         //监听提交
-        //失去焦点事件
-
+        //手机号填写失去焦点事件
         $("#L_account").blur(function () {
             let phone=$("#L_account").val()
             if (!(/^1[3|4|5|6|7|8|9]\d{9}$/.test(phone))) {
@@ -237,36 +470,71 @@
             }
 
         })
-
+        //登录验证
         form.on('submit(login)', function (data) {
             var num = show_num.join("");
             var account = $("#L_account").val();
             var password = $("#L_pass").val();
             var verifycode = $("#L_vercode").val();
             if (!(/^1[3|4|5|6|7|8|9]\d{9}$/.test(account))) {
-                layer.alert("手机号不合法哦！", {icon: 2});
-
+                layer.msg("手机号不合法哦！", {icon: 2});
             }else{
                 if (verifycode.toLowerCase() == num) {
+
                     $.post(url+"/login/logincheck","phone="+account+"&psw="+password,function (data) {
                         if(data.code==1){
 
-                            window.location.href = "/sybida/manager/managerIndex.html";
+                            if(data.message==1){
+                                showFetch1()
+                            }else{
+                             // location.href=url+"/checkisfirst"
+                            if(data.data[0].userAuthority==9){
+                                //转到管理员页面
+                                window.location.href = "/sybida/manager/managerIndex.html";
+                            }else if(data.data.userAuthority==0){
+                                //转到班主任页面
+                                window.location.href = "/sybida/teacher/managerIndex.html";
+                            }else if(data.data.userAuthority==2){
+                                //转到学生页面
+                                window.location.href = "/sybida/student/managerIndex.html";
+                            }else{
+                                //转到任课教师页面
+                                window.location.href = "/sybida/teacher/managerIndex.html";
+                            }}
                         }else{
-                            layer.alert("用户名或密码错误，请重新输入！", {icon: 2});
+                            layer.msg("用户名或密码错误，请重新输入！", {icon: 2});
                             draw(show_num);
                         }
                     },"json");
                 } else {
-                    layer.alert("验证码错误，请重新输入！", {icon: 2});
+                    layer.msg('验证码错误，请重新输入！');
+                    // ("", {icon: 2});
                     draw(show_num);
                 }
             }
-
             draw(show_num);
             return false;
         });
+        //找回密码
         $('#find-pass-btn').click(showFetch);
+        //重置密码
+        function showFetch1() {
+
+            layer.open({
+                type: 2,//Page层类型
+                area: ['800px', '800px'],
+                skin: "",
+                title: ['忘记密码',
+                    'border:none; background:#CAE1FF; color:#000;'],
+                shade: 0.6, //遮罩透明度
+                maxmin: false, //允许全屏最小化
+                anim: 6, //0-6的动画形式，-1不开启
+                // content: $('#findPassTp2').html(),
+                content: '/sybida/jiaoben4956/jiaoben4956/index.html',
+                success: function () {}
+
+            });
+        }
         function showFetch() {
             var width = '350px';
             width = '300px';
@@ -274,7 +542,7 @@
                 type: 1,//Page层类型
                 area: ['500px', width],
                 skin: "",
-                title: ['找回密码',
+                title: ['忘记密码',
                     'border:none; background:#CAE1FF; color:#000;'],
                 shade: 0.6, //遮罩透明度
                 maxmin: false, //允许全屏最小化
@@ -289,7 +557,7 @@
                             $('#btnSendCode1').addClass("layui-btn-disabled").attr("disabled", true).val("获取验证码");
 
                         }else{
-                            $.post(url+"/login/changephone","phone="+phone1,function (data) {
+                            $.post(url+"/login/checkphone","phone="+phone1,function (data) {
                                 if(data.code==0){
                                     layer.msg('该手机号未注册！', {time: 1000, icon:6});
                                     $('#btnSendCode1').addClass("layui-btn-disabled").attr("disabled", true).val("获取验证码");
@@ -303,6 +571,8 @@
                         }
                     })
                     $("#btnSendCode1").click(function () {
+                        let phone2=$('#account').val()
+                        //向手机发送验证码
                         $("#btnSendCode1").attr("disabled", "disabled")
                         reloadSendBtn(60);
                     })
@@ -310,7 +580,6 @@
 
             });
         }
-
 
 
         // 控制发送短信的按钮
@@ -324,7 +593,7 @@
                 }, 1000);
             }
         }
-
+         //重置密码的提交
         form.on('submit(fetch)', function (data) {
             var l_index = layer.load(1, {
                 shade: [0.1, '#fff']
@@ -333,7 +602,7 @@
             var account = data.field.account;
             var verifycode = data.field.verifycode;
             $.ajax({
-                url: url+"/login/changepsw",
+                url: url+"/login/resetpsw",
                 type: "post",
                 data: {
                     account: account,
@@ -368,6 +637,7 @@
 
 </script>
 
+<!--//重置密码的HTML文档-->
 <script type="text/html" id="findPassTpl">
     <div style="padding:20px;">
         <form class="layui-form layui-form-pane" action="" lay-filter="fetchForm">
@@ -389,23 +659,19 @@
                 <input id="btnSendCode1" type="button" class="btn btn-default layui-btn layui-btn-warm" value="获取验证码"/>
 
                 <div class="layui-form-mid" style="padding: 0 !important; margin-right:0">
-
                 </div>
                 <br><br>
             </div>
             <div class="layui-form-item">
                 <button class="layui-btn layui-btn-warm" lay-filter="fetch" lay-submit>找回</button>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color: red">找回后默认密码为1234</span>
-
             </div>
 
         </form>
     </div>
 
 </script>
-<script>
 
-</script>
 
-</body>
+
 </html>

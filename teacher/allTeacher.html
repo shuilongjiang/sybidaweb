@@ -46,9 +46,8 @@
 <span >
 
 </span>
-<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="/" class="nav_guide">教师档案|</a>
-    <a href="/demo/" class="nav_guide">演示|</a>
-    <span style="font-size: 12px;">导航元素</span></div>
+<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="/" class="nav_guide">所有教师档案</a>
+    </div>
 <div class="container">
     <br>
      <div class="layui-form-item">
@@ -82,12 +81,12 @@
            <th>头像</th>
            <th>姓名</th>
            <th>性别</th>
-           <th>教学方向</th>
+           <th>职务</th>
            <th>电话</th>
            <th>微信</th>
            <th>QQ</th>
            <th>修改</th>
-           <th>删除</th>
+           <th>离职</th>
        </tr>
         <hr/>
  </table>
@@ -99,6 +98,7 @@
     </ul>
 </nav>
 </div>
+<!--单个删除模态框-->
 <div class="modal fade" style="margin-top:100px;padding-top:100px;" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -112,28 +112,29 @@
             </div>
             <div class="modal-footer">
                 <button type="button"  class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" id="deleteOneSure" class="btn btn-primary">确认删除</button>
+                <button type="button" id="deleteOneSure" class="btn btn-primary">确定</button>
             </div>
         </div>
     </div>
 </div>
+<!--多个删除模态框-->
 <div class="modal fade" id="exampleModalAll" style="margin-top:100px;padding-top:100px;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-                <h4 class="modal-title" id="exampleModalLabel">删除</h4>
+                <h4 class="modal-title" id="exampleModalLabel">离职</h4>
             </div>
             <div class="modal-body" style="margin-top: 20px;">
                 <form>
                     <div class="form-group">
-                        <label id="mm" class="control-label">确认删除所选的全部教师</label>
+                        <label id="mm" class="control-label">确认将所选的全部教师离职</label>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button"  id="canle" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" id="deleteAllSure" class="btn btn-primary">确认删除</button>
+                <button type="button" id="deleteAllSure" class="btn btn-primary">确认离职</button>
             </div>
         </div>
     </div>
@@ -141,16 +142,58 @@
 
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
-<script src="/sybida/layui/layui.js" charset="utf-8"></script>
+<script src="/sybida/layui/layui.js"    ></script>
 <script src="/sybida/teacher/js/allTeacher.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-$("#canle").click(function (){
+var layer
+layui.use('layer', function(){
+    layer = layui.layer;
+});
+    $("#canle").click(function (){
     $("#exampleModalAll").attr("class","modal fade")
     $("#exampleModalAll").css("display","none")
 })
 $("#deleteAllSure").click(function (){
-    console.log("45+++++++-")
+
+    var checkbox = $("input[name='optionAll']");
+    var s=new Array();
+    var j=0
+    for(var i = 0;i<checkbox.length;i++)
+    {
+        if(checkbox[i].checked==true)
+        {console.log(checkbox[i].value)
+            s[j++]=(checkbox[i].value)
+        }
+    }
+    if(s.length>0){ $.post({
+        url:url+"/teacher/deleteallteacher",
+        // 告知传递参数类型为json，不可缺少
+        contentType:"application/json",
+        data:JSON.stringify(s),
+        success:function(data){
+            if(data.code===1){
+                location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy
+
+            }else{
+                layer.alert("删除失败请重试！");
+                $("#exampleModalAll").attr("class","modal fade")
+                $("#exampleModalAll").css("display","none")
+            }
+
+        }
+    })}else{
+
+        layer.alert("所选数据为空！");
+        $("#exampleModalAll").attr("class","modal fade")
+        $("#exampleModalAll").css("display","none")
+    }
+
+
+
+
+
+
 })
 </script>
 
