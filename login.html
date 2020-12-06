@@ -187,6 +187,42 @@
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/layui/layui.js"></script>
 <script>
+    // var layer1
+    // layui.use('layer', function(){
+    //     layer1 = layui.layer;
+    // });
+    // layer1.open({
+    //     type: 1
+    //     ,offset: 't' //具体配置参考：offset参数项
+    //     ,content: '<div style="padding: 20px 80px;">内容</div>'
+    //     ,btn: '关闭全部'
+    //     ,btnAlign: 'c' //按钮居中
+    //     ,shade: 0 //不显示遮罩
+    //     ,yes: function(){
+    //         layer.closeAll();
+    //     }
+    // });
+
+
+    // var url11 = decodeURI(window.location.href.split('?')[1]);
+    // var search=location.search
+    // var arr=url11.split("=")
+    // var check=arr[1]
+    // console.log(check)
+    // if(check){
+    //
+    //
+    //     // window.alert=function (msg,callback) {
+    //     //     parent.layer.alert(msg,function (index) {
+    //     //         parent.layer.close(index);
+    //     //         if(typeof(callback==="function")){
+    //     //             callback("ok");
+    //     //         }
+    //     //     })
+    //     // }
+    //    alert('密码修改成功需要重新登录哦！');
+    //
+    // }
     "use strict";
     {
         // particles class
@@ -522,15 +558,15 @@
 
             layer.open({
                 type: 2,//Page层类型
-                area: ['800px', '800px'],
+                area: ['500px', '400px'],
                 skin: "",
-                title: ['忘记密码',
+                title: ['您是第一次登录请修改密码',
                     'border:none; background:#CAE1FF; color:#000;'],
                 shade: 0.6, //遮罩透明度
                 maxmin: false, //允许全屏最小化
                 anim: 6, //0-6的动画形式，-1不开启
                 // content: $('#findPassTp2').html(),
-                content: '/sybida/jiaoben4956/jiaoben4956/index.html',
+                content: '/sybida/common/changepassword.html',
                 success: function () {}
 
             });
