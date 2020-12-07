@@ -33,19 +33,12 @@ $('#pageSizeSel').change(
 $("#selectButt").click(function (){
    location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy
 })
-var layer
-layui.use('layer', function(){
-    layer = layui.layer;
-});
 //学习方向下拉选框
 $.getJSON(url+"/teacher/selectStudy",function (data){
-
     var htm=`<option value="-1">全部</option>`
         for (var i=0;i<data.data.length;i++){
             htm+=`<option value="${data.data[i].studyId}">${data.data[i].studyAspect}</option>`
-
         }
-
     $("#teacherStudy").append(htm)
 
     var selectA1 = $("#teacherStudy").find("option"); //从A1下拉框中 搜索值
@@ -87,34 +80,13 @@ function pageshoe(){
         let html = ''
         var le=data.data.list
         for(let i = 0; i < le.length; i++){
-            if(!le[i].teachPhoto){
-                le[i].teachPhoto="#"
-            }
-            if(!le[i].teachName){
-                le[i].teachName=""
-            }
-            if(!le[i].teachName){
-                le[i].teachName=""
-            }if(!le[i].teachSex){
-                le[i].teachSex=""
-            }if(!le[i].teachTel){
-                le[i].teachTel=""
-            }
-            if(!le[i].teachWechat){
-                le[i].teachWechat="未完善"
-            }
-        if(!le[i].teachQq){
-            le[i].teachQq="未完善"
-        }
-            if(!le[i].teachNull2){
-                le[i].teachNull2=""
-            }
+            // if(!le[i].id){le[i].id=""}
             if (i%2==0){
-                html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].teachId}"></td>
-            <td> <img src="${le[i].teachPhoto}" style="height: 40px" class="img-rounded"></td>
+                html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
+            <td> <img src="${le[i].teachNull1}" style="height: 40px" class="img-circle"></td>
             <td>${le[i].teachName}</td>
             <td>${le[i].teachSex}</td>
-            <td>${le[i].teachNull2}</td>
+            <td>${le[i].teachNull1}</td>
             <td>${le[i].teachTel}</td>
             <td>${le[i].teachWechat}</td>
             <td>${le[i].teachQq}</td>
@@ -123,25 +95,25 @@ function pageshoe(){
             
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
               
-               data-id="${le[i].teachId}" data-name="${le[i].teachName}" data-target="#exampleModal" >离职</a></td>
+               data-id="${le[i].teachId}" data-name="${le[i].teachName}" data-target="#exampleModal" >删除</a></td>
         </tr>`
             }else{
-                html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].teachId}"></td>
+                html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll"></td>
             <td><img src="http://t.cn/RCzsdCq" class="img-rounded" style="height: 40px"></td>
             <td>${le[i].teachName}</td>
             <td>${le[i].teachSex}</td>
-           <td>${le[i].teachNull2}</td>
+            <td>${le[i].teachNull1}</td>
             <td>${le[i].teachTel}</td>
             <td>${le[i].teachWechat}</td>
             <td>${le[i].teachQq}</td>
             <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a></td>
             <td> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
               
-               data-id="${le[i].teachId}" data-name="${le[i].teachName}" data-target="#exampleModal" >离职</a></td>
+               data-id="${le[i].teachId}" data-name="${le[i].teachName}" data-target="#exampleModal" >删除</a></td>
        </td></tr>`
             }
            }
-        html+=`<tr><td colspan="10"><button type="button" id="deleteBySelect" class="btn btn-danger">离职所选</button></td></tr>`
+        html+=`<tr><td colspan="10"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所有</button></td></tr>`
         $("table").append(html)
 
         var deleteAll={}
@@ -196,11 +168,7 @@ function pageSelect(data){
         var pa=parseInt(pageNum)+1
         html+=`<li><a href="/sybida/teacher/allTeacher.html?pageNum=${pa}&pageSize=${pageSize}&teacherStudy=${teacherStudy}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
     }
-    html+=`<li><button class="btn btn-primary" type="button">
-        总页数： <span class="badge">${data.pages}</span>
-        </button></li>`
-
-
+    html+=`<span style="font-family: '微软雅黑';font-size: 15px;margin-left:200px;padding-top: 10px;line-height: 40px">共&nbsp;${data.pages}&nbsp;页</span>`
     $("#pagination").append(html)
 
 }
@@ -212,17 +180,10 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     var modal = $(this)
-    modal.find('#messagetext').text('确认将教师-' +name+'-离职吗？')
+    modal.find('#messagetext').text('确认删除教师-' +name+'-的记录信息吗？')
 })
 $("#deleteOneSure").click(function (){
     console.log(idtea)
-    $.post(url+"/teacher/deleteteacher","deleteTeacherId="+idtea,function (data) {
-          if(data.code==1){
-              location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy
-          }else{
-              layer.alert("删除失败");
-          }
-    },"json")
-
+    location.href="www.baidu.com"
    //删除写这里
 })
