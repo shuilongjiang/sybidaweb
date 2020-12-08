@@ -13,6 +13,9 @@ if(arr.length >1){
     currPage = arr[1]
 }
 
+    // location.href="/sybida/publicTool/classInfo.html?currPage=1&pageSize="+pageSize
+
+console.log(arr)
 
 $.getJSON(url+"/classInfo/selectPage","currPage="+currPage+"&pageSize="+pageSize,function (data){
      let html=''
