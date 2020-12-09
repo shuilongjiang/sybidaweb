@@ -541,12 +541,6 @@
             }
                 draw(show_num);
                 return false;
-
-
-
-        //
-        //             $.post(url+"/login/logincheck","phone="+account+"&psw="+password,function (data) {
-        //
         });
         //找回密码
         $('#find-pass-btn').click(showFetch);
@@ -605,7 +599,9 @@
                     })
                     $("#btnSendCode1").click(function () {
                         let phone2=$('#account').val()
-                        //向手机发送验证码
+                        //向手机发送验证码 验证码获取写这里
+
+
                         $("#btnSendCode1").attr("disabled", "disabled")
                         reloadSendBtn(60);
                     })
