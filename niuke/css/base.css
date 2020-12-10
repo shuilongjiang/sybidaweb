@@ -14128,14 +14128,11 @@ a.selected .pop-interview-ico4, a:hover .pop-interview-ico4 {
 }
 
 .ft-wrap {
-    /*position: absolute;*/
-    /*top:755px;*/
-    /*bottom: -100px;*/
-    /*left: 0;*/
+
     margin-top: 10px;
-    height:15%;
+
     width: 100%;
-    /*z-index: 10;*/
+
     background: #2a2f35
 }
 
@@ -14296,8 +14293,8 @@ a.selected .pop-interview-ico4, a:hover .pop-interview-ico4 {
     background: #5b646d;
     padding: 8px;
     border-radius: 5px;
-    width: 110px;
-    height: 110px;
+    width: 80px;
+    height: 80px;
     margin: 0 auto 10px
 }
 
