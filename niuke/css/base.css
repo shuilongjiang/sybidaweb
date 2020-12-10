@@ -27,7 +27,7 @@
 .module-box {
     border: 1px solid #e0e0e0;
     border-radius: 3px;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     background: #fff
 }
 
@@ -10830,11 +10830,11 @@ a.selected .pop-interview-ico4, a:hover .pop-interview-ico4 {
 
 .topic-banner-box {
     padding-top: 54px;
-    position: relative
+    /*position: relative*/
 }
 
 .topic-banner {
-    height: 200px;
+    height: 100px;
     width: 1000px;
     margin: 0 auto 20px;
     position: relative;
@@ -14128,12 +14128,14 @@ a.selected .pop-interview-ico4, a:hover .pop-interview-ico4 {
 }
 
 .ft-wrap {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 220px;
+    /*position: absolute;*/
+    /*top:755px;*/
+    /*bottom: -100px;*/
+    /*left: 0;*/
+    margin-top: 10px;
+    height:15%;
     width: 100%;
-    z-index: 10;
+    /*z-index: 10;*/
     background: #2a2f35
 }
 
@@ -14714,11 +14716,8 @@ ul.contains-task-list li.task-list-item {
     right: 80px
 }
 
-.aa{
-    display:block;
-    content:'';
-    clear:both;
-    height:0;
-    overflow:hidden
-
-}
+/*.aa{*/
+    /*display:block;*/
+    /*content:'';*/
+    /*clear:both;*/
+/*}*/
