@@ -79,6 +79,7 @@ function pageshoe(){
     $.getJSON(url+"/teacher/selectpage","pageSize="+pageSize+"&pageNum="+pageNum+"&teacherStudy="+teacherStudy,function (data){
         let html = ''
         var le=data.data.list
+        console.log(data)
         for(let i = 0; i < le.length; i++){
             // if(!le[i].id){le[i].id=""}
             if (i%2==0){
