@@ -49,7 +49,7 @@
             <li class="layui-nav-item">
             </li>
             <li class="layui-nav-item"  >
-                 <a href="javascript:;" style="display: inline-block;">未读通知</a><span class="layui-badge " >129</span>
+                 <a href="javascript:;" style="display: inline-block;">未读通知</a><span class="layui-badge " id="advicenum">129</span>
                 <dl class="layui-nav-child"
                 style="position: absolute;left: 0;top: 63px;min-width: 30%;line-height: 30px;
     padding:3px 0;box-shadow: 0 4px 6px rgba(0, 0, 0, .12);border: 1px solid #d2d2d2;background-color: #fff;
@@ -71,8 +71,8 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    超级管理员
+                    <img id="userphotoA" src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    <span id="username">超级管理员</span>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a id="changePswNav" href="javascript:;">修改密码</a></dd>
@@ -157,6 +157,55 @@
 <script src="/sybida/layui/layui.js" charset="utf-8"></script>
 
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script>
+    var userid=getCookie("userid")
+    layui.use('layer', function(){
+        var layer = layui.layer;
+    });
+    $.ajax({
+        url: url+"user/userinfoteach",
+        type: 'POST',
+        //   timeout: '30000',
+        data: "userid="+userid ,
+        // contentType: 'application/json;charset=utf-8',
+        dataType: 'json',
+
+        success: function (data) {
+            if(data.code==1){
+
+                if(data.data.messageNum==0) {
+                    $("#advicenum").html("")
+                }else{
+                    $("#advicenum").html(data.data.messageNum)
+                }
+                if(data.data.teachName){
+                    $("#username").html(data.data.teachName+"--管理员")
+                }else{
+
+                }
+                // if(data.data.messageNum==0) {
+                //
+                // }else{
+                //   layer.alert("sdsdsds")
+                // }
+                if(data.data.teachPhoto){
+                    $("#userphotoA").attr("src",data.data.teachPhoto)
+                }else{
+
+                }
+
+
+
+
+            }else{
+                alert("请检查网络是否连接" + data);
+            }
+        },
+        error: function (data) {
+            alert("请检查网络是否连接" + data);
+        }
+    });
+</script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){
