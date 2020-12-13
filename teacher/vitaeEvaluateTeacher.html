@@ -45,6 +45,7 @@
         .nav_guide:active {
             text-decoration: none;
         }
+
     </style>
 </head>
 <body>
@@ -78,7 +79,8 @@
             <th style="width: 80px;"><input type="checkbox" name="checkAll">&nbsp;&nbsp;全选</th>
             <th>简历ID</th>
             <th>学生ID</th>
-            <th>学习方向ID</th>
+            <th>学生姓名</th>
+            <th>学习方向</th>
             <th>简历级别</th>
             <th>全新简历</th>
             <th>简历地址</th>
@@ -98,103 +100,42 @@
         </ul>
     </nav>
 </div>
-<!--单个删除模态框-->
-<div class="modal fade" style="margin-top:100px;padding-top:100px;" id="exampleModal" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
 
-            <div class="modal-body" style="margin-top: 20px;">
-                <form>
-                    <div class="form-group">
-                        <label id="messagetext" class="control-label">Message:</label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" id="deleteOneSure" class="btn btn-primary">确定</button>
-            </div>
+<div class="updateLevel container" style="display: none">
+    <form style="width:60%;">
+        <div class="form-group">
+            <label for="vitaeEvaluateUserId">学生ID</label>
+            <input type="text" class="form-control" id="vitaeEvaluateUserId" value="" readonly>
         </div>
-    </div>
-</div>
-<!--多个删除模态框-->
-<div class="modal fade" id="exampleModalAll" style="margin-top:100px;padding-top:100px;" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true"></span></button>
-                <h4 class="modal-title" id="exampleModalLabel">离职</h4>
-            </div>
-            <div class="modal-body" style="margin-top: 20px;">
-                <form>
-                    <div class="form-group">
-                        <label id="mm" class="control-label">确认将所选的全部教师离职</label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="canle" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" id="deleteAllSure" class="btn btn-primary">确认离职</button>
-            </div>
+
+        <div class="form-group">
+            <label for="vitaeEvaluateUserName">学生姓名</label>
+            <input type="text" class="form-control" id="vitaeEvaluateUserName" value="" readonly>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="vitaeID">学生简历ID</label>
+            <input type="text" class="form-control" id="vitaeID"value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="vitaeEvaluateComment">简历评价</label>
+            <input type="text" class="form-control" id="vitaeEvaluateComment"value="">
+            <p class="tips" style="color: red"></p>
+        </div>
+        <div class="form-group">
+            <label for="vitaeEvaluatePicture">简历评价图片</label>
+            <input type="text" class="form-control" id="vitaeEvaluatePicture"value="">
+            <p class="tips" style="color: red"></p>
+        </div>
+
+        <input type="button" class="btn btn-primary" id="addVitaeLevel" value="增加简历评价"></input>
+    </form>
 </div>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/allVitae.js"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
 <script src="/sybida/layui/layui.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-<script>
-    var layer
-    layui.use('layer', function () {
-        layer = layui.layer;
-    });
-    $("#canle").click(function () {
-        $("#exampleModalAll").attr("class", "modal fade")
-        $("#exampleModalAll").css("display", "none")
-    })
-    $("#deleteAllSure").click(function () {
 
-        var checkbox = $("input[name='optionAll']");
-        var s = new Array();
-        var j = 0
-        for (var i = 0; i < checkbox.length; i++) {
-            if (checkbox[i].checked == true) {
-                console.log(checkbox[i].value)
-                s[j++] = (checkbox[i].value)
-            }
-        }
-        if (s.length > 0) {
-            $.post({
-                url: url + "/teacher/deleteallvitae",
-                // 告知传递参数类型为json，不可缺少
-                contentType: "application/json",
-                data: JSON.stringify(s),
-                success: function (data) {
-                    if (data.code === 1) {
-                        location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
-
-                    } else {
-                        layer.alert("删除失败请重试！");
-                        $("#exampleModalAll").attr("class", "modal fade")
-                        $("#exampleModalAll").css("display", "none")
-                    }
-
-                }
-            })
-        } else {
-
-            layer.alert("所选数据为空！");
-            $("#exampleModalAll").attr("class", "modal fade")
-            $("#exampleModalAll").css("display", "none")
-        }
-
-
-    })
-</script>
 
 
 </body>
