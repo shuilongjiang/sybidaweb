@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <style>
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+        .middle ul li{
+            width: 25%;
+            float: left;
+            list-style: none;
+            text-align: center;
+        }
+        .nowcoder-navbar .newnav-search.onfocus, .nowcoder-navbar .newnav-search:hover {
+            background: #363c43
+        }
+        .nowcoder-navbar .nav-search-wrapper:hover {
+            background: 0 0
+        }
+
+        .nowcoder-navbar .nav-search-wrapper:after {
+            display: none
+        }
+
+        .nowcoder-navbar .nav-search-wrapper .search-input-wrap {
+            margin-top: 10px;
+            background: #31363e;
+            height: 34px;
+            line-height: 34px;
+            overflow: hidden;
+            border: none;
+            border-radius: 3px
+        }
+
+        .nowcoder-navbar .nav-search-wrapper .search-input-wrap input {
+            color: #fff;
+            background: #31363e;
+            padding: 5px
+        }
+
+        .nowcoder-navbar .nav-search-wrapper .search-input-wrap .icon-search-btn {
+            border-radius: 0 3px 3px 0;
+            height: 34px;
+            line-height: 34px;
+            width: auto;
+            padding: 0 5px 0 8px
+        }
+
+        .nowcoder-navbar .nav-search-wrapper .search-input-wrap .icon-search-btn:before {
+            display: none
+        }
+
+        .search-input-wrap.focus .icon-search-btn {
+            background: #25bb9b;
+            color: #fff
+        }
+
+        .nowcoder-navbar .sub-nav-wrapper {
+            padding: 5px 0 20px
+        }
+
+        .nowcoder-navbar .sub-nav-wrapper li {
+            padding: 0 15px
+        }
+
+        .nowcoder-navbar .sub-nav-wrapper .sub-nav-btn {
+            text-align: center
+        }
+        .nowcoder-navbar {
+            float: left
+        }
+        .nowcoder-navbar li {
+            float: left;
+            text-align: center;
+            height: 54px;
+            position: relative
+        }
+
+        .nowcoder-navbar a {
+            color: #ccc;
+            font-size: 16px;
+            display: block;
+            line-height: 53px;
+            padding: 0 10px
+        }
+
+        .nowcoder-navbar .active a, .nowcoder-navbar a:hover {
+            color: #fff;
+            text-decoration: none
+        }
+
+        .nowcoder-navbar li.active, .nowcoder-navbar li:hover {
+            background-color: #31363d
+        }
+
+        .nowcoder-navbar .nav-profile {
+            position: relative;
+            z-index: 2
+        }
+
+        .nowcoder-navbar .nav-profile .img-box {
+            display: inline-block;
+            *display: inline;
+            zoom: 1;
+            width: 36px;
+            height: 36px;
+            overflow: hidden;
+            vertical-align: middle;
+            border-radius: 22px
+        }
+
+        .nowcoder-navbar .nav-profile img {
+            width: 36px;
+            display: block
+        }
+        .nowcoder-navbar li:hover .sub-nav {
+            display: block
+        }
+
+        .nowcoder-navbar .sub-nav {
+            display: none;
+            position: absolute;
+            top: 54px;
+            left: 0;
+            padding: 5px;
+            background: #30363e
+        }
+
+        .nowcoder-navbar .sub-nav li {
+            height: auto;
+            border: none;
+            padding: 0 20px;
+            float: none;
+            margin-bottom: 5px
+        }
+
+        .nowcoder-navbar .sub-nav li:hover {
+            background: #3d444c
+        }
+
+        .nowcoder-navbar .sub-nav a {
+            line-height: 26px;
+            color: #bfbfbf;
+            padding: 0;
+            text-align: left;
+            white-space: nowrap;
+            font-size: 14px
+        }
+
+        .nowcoder-navbar .sub-nav a:hover {
+            color: #fff
+        }
+
+        .nowcoder-navbar .profile-item .nav-coins, .nowcoder-navbar .profile-item .nav-out, .nowcoder-navbar .profile-item .nav-profile-page, .nowcoder-navbar .profile-item .nav-set, .profile-item .icon-resume {
+            background: url(//static.nowcoder.com/images/img/icons/ico-nav3.png) 15px -98px no-repeat;
+            padding-left: 35px
+        }
+
+        .nowcoder-navbar .profile-item .nav-set {
+            background-position: 15px -99px
+        }
+
+        .nowcoder-navbar .profile-item a:hover.nav-set {
+            background-position: 15px 10px
+        }
+
+        .nowcoder-navbar .profile-item .nav-out {
+            background-position: 15px -135px
+        }
+
+        .nowcoder-navbar .profile-item a:hover.nav-out {
+            background-position: 15px -27px
+        }
+
+        .nowcoder-navbar .profile-item .nav-coins {
+            background-position: 18px -205px
+        }
+
+        .nowcoder-navbar .profile-item a:hover.nav-coins {
+            background-position: 18px -240px
+        }
+
+        .nowcoder-navbar .profile-item .nav-profile-page {
+            background-position: 18px -273px
+        }
+
+        .nowcoder-navbar .profile-item a:hover.nav-profile-page {
+            background-position: 18px -306px
+        }
+
+        .nowcoder-navbar .profile-item .icon-resume {
+            background-position: 18px -341px
+        }
+
+        .nowcoder-navbar .profile-item a:hover.icon-resume {
+            background-position: 18px -375px
+        }
+
+        .nowcoder-other-nav a {
+            font-size: 14px
+        }
+
+        .nowcoder-navbar .nav-search {
+            height: auto;
+            margin-right: 5px;
+            position: relative
+        }
+       #firstlist{
+           color: #ccc;
+           font-size: 20px;
+           display: block;
+           line-height: 53px;
+           font-weight: 400;
+       }
+        .sub-nav-wrapper {
+            position: absolute;
+            top: 54px;
+            left: 0;
+            padding: 5px 0 20px;
+            background: #30363e;
+            z-index: 200;
+            font-size: 0;
+            white-space: nowrap
+        }
+
+        .sub-nav-wrapper .sub-nav-item {
+            display: inline-block;
+            vertical-align: top;
+            font-size: 14px
+        }
+
+        .sub-nav-wrapper .sub-nav-item ul {
+            padding: 5px
+        }
+
+        .sub-nav-wrapper .sub-nav-item + .sub-nav-item ul {
+            border-left: 1px solid #3d444c;
+            border-right: 1px solid #3d444c;
+            margin-left: -1px
+        }
+
+        .sub-nav-wrapper .sub-nav-item + .sub-nav-item ul:last-child {
+            border-right: none
+        }
+
+        .sub-nav-wrapper .sub-nav-item .sub-nav-title {
+            text-align: left;
+            padding-left: 20px;
+            color: #6f7c8d;
+            font-size: 14px;
+            line-height: 26px;
+            margin-bottom: 10px
+        }
+
+        .sub-nav-wrapper li {
+            height: auto;
+            border: none;
+            padding: 0 15px;
+            float: none;
+            margin-bottom: 5px
+        }
+
+        .sub-nav-wrapper li:hover {
+            background: #3d444c
+        }
+
+        .sub-nav-wrapper a {
+            line-height: 26px;
+            color: #bfbfbf;
+            padding: 0;
+            text-align: left;
+            white-space: nowrap;
+            font-size: 14px
+        }
+
+        .sub-nav-wrapper a.selected {
+            color: #25bb9b
+        }
+
+        .sub-nav-wrapper a:hover {
+            color: #fff
+        }
+
+        .sub-nav-wrapper .sub-nav-btn {
+            display: block;
+            width: 75%;
+            margin: 15px auto 0;
+            border: 1px solid #25bb9b;
+            border-radius: 4px;
+            color: #25bb9b;
+            text-align: center
+        }
+
+        .sub-nav-wrapper .sub-nav-btn .selected, .sub-nav-wrapper .sub-nav-btn:hover {
+            color: #fff;
+            background: #25bb9b
+        }
+
+    </style>
+</head>
+<body>
+<div class="mock-exercise-rank">
+    <div class="hd">
+<span class="cont">
+<i class="icon-nc-clock-1-"></i>
+<img src="//static.nowcoder.com//images-nk/res/interview/mock/rank/title.png" alt="">
+<span class="time-tag">24小时</span>
+</span>
+        <span class="rank-hd-tips">*每整点更新</span>
+    </div>
+    <div class="bd">
+        <a class="mork-rank-item" href="/interview/ai/cover?companyTagId=149">
+<span class="num">
+<img src="//static.nowcoder.com//images-nk/res/interview/mock/rank/top1-new.png" alt="">
+</span>
+            <span class="txt">
+网易
+</span>
+            <span class="info">
+<i class="icon-nc-fire2"></i>
+136828
+</span>
+        </a>
+        <a class="mork-rank-item" href="/interview/ai/cover?companyTagId=665">
+<span class="num">
+<img src="//static.nowcoder.com//images-nk/res/interview/mock/rank/top2-new.png" alt="">
+</span>
+            <span class="txt">
+字节跳动
+</span>
+            <span class="info">
+<i class="icon-nc-fire2"></i>
+105706
+</span>
+        </a>
+        <a class="mork-rank-item" href="/interview/ai/cover?companyTagId=179">
+<span class="num">
+<img src="//static.nowcoder.com//images-nk/res/interview/mock/rank/top3-new.png" alt="">
+</span>
+            <span class="txt">
+美团
+</span>
+            <span class="info">
+<i class="icon-nc-fire2"></i>
+65286
+</span>
+        </a>
+        <a class="mork-rank-item" href="/interview/ai/cover?companyTagId=138">
+<span class="num">
+<img src="//static.nowcoder.com//images-nk/res/interview/mock/rank/top4-new.png" alt="">
+</span>
+            <span class="txt">
+腾讯
+</span>
+            <span class="info">
+<i class="icon-nc-fire2"></i>
+42491
+</span>
+        </a>
+        <a class="mork-rank-item" href="/interview/ai/cover?companyTagId=134">
+<span class="num">
+<img src="//static.nowcoder.com//images-nk/res/interview/mock/rank/top5-new.png" alt="">
+</span>
+            <span class="txt">
+阿里巴巴
+</span>
+            <span class="info">
+<i class="icon-nc-fire2"></i>
+15271
+</span>
+        </a>
+    </div>
+</div>
+<div id="head" style="padding-left: 0px;padding-right: 0px;background-color: #3D444C;" class="container-fluid" >
+    <ul class="nowcoder-navbar" >
+        <li class="active" id="btntest" ><a href="/" id="firstlist">首页</a></li>
+
+        <li >
+            <a href="https://www.nowcoder.com/contestRoom"  id="firstlist">题库</a>
+            <ul class="sub-nav" >
+                <li><a href="#">公司真题</a></li>
+                <li><a href="https://www.nowcoder.com/intelligentTest">专项练习</a></li>
+                <li><a href="https://www.nowcoder.com/activity/oj">在线编程</a></li>
+                <li><a href="https://www.nowcoder.com/mockexam/MockExam">模拟笔试</a></li>
+                <li><a href="https://www.nowcoder.com/schoolbooks">教材全解</a></li>
+                <li><a href="https://www.nowcoder.com/kaoyan">考研真题</a></li>
+                <li><a href="https://www.nowcoder.com/finalexam">期末考题</a></li>
+                <li><a href="https://www.nowcoder.com/activity/topics">精华专题</a></li>
+                <li><a href="https://www.nowcoder.com/questionCenter">试题广场</a></li>
+            </ul>
+        </li>
+
+
+
+
+    </ul>
+</div>
+</body>
+<script src="/sybida/layui/layui.js" charset="utf-8"></script>
+<script src="/sybida/bs/bootstrap.min.js" charset="utf-8"></script>
+<script>
+
+</script>
+
+</html>

@@ -76,7 +76,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a id="changePswNav" href="javascript:;">修改密码</a></dd>
-                    <dd><a href="../login.html">退出登录</a></dd>
+                    <dd><a onclick="exittologin()">退出登录</a></dd>
 
                 </dl>
             </li>
@@ -207,6 +207,27 @@
     });
 </script>
 <script>
+
+   function exittologin(){
+       var userid=getCookie("userid")
+       layui.use('layer', function(){
+           var layer = layui.layer;
+       });
+       console.log("+++"+userid)
+       $.ajax({
+           url: url+"login/exitlogin",
+           type: 'POST',
+           //   timeout: '30000',
+           data: "userid="+userid ,
+           // contentType: 'application/json;charset=utf-8',
+           dataType: 'json',
+
+           success: function () {
+
+           }
+       });
+       location.href="../login.html"
+   }
     //JavaScript代码区域
     layui.use('element', function(){
         var element = layui.element;
