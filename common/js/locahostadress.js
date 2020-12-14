@@ -1,6 +1,6 @@
+//访问服务器地址
 var url="http://localhost:8080/"
-
-var url="http://localhost:8080/"
+//根据名字获取cookie
 function getCookie(name) {
     var prefix = name + "="  // name=
     // name=  第一次出现的位置
