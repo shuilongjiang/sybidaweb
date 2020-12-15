@@ -140,7 +140,6 @@ function show() {
 function pageSelect(data) {
     var html = ``
     if (pageNum == 1) {
-
         html += `<li class="disabled"><a href="#" aria-label="Previous">&laquo;</a></li>`
     } else {
         html += `<li><a href="/sybida/teacher/studentJobTeacher.html?pageNum=${pageNum - 1}&pageSize=${pageSize}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
