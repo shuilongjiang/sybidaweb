@@ -509,16 +509,18 @@
                                 if(data.message==1){
                                     showFetch1()
                                 }else{
+                                    console.log(data.data.userAuthority+"===========")
+                                    console.log(data.data[0].userAuthority+"===========")
 
                                     if(data.data[0].userAuthority==9){
                                         //转到管理员页面
                                         window.location.href = "/sybida/manager/managerIndex.html";
-                                    }else if(data.data.userAuthority==0){
+                                    }else if(data.data[0].userAuthority==0){
                                         //转到班主任页面
-                                        window.location.href = "/sybida/teacher/managerIndex.html";
-                                    }else if(data.data.userAuthority==2){
+                                        window.location.href = "/sybida/managerteacherIndex/index.html";
+                                    }else if(data.data[0].userAuthority==2){
                                         //转到学生页面
-                                        window.location.href = "/sybida/student/managerIndex.html";
+                                        window.location.href = "/sybida/student/studentIndex.html";
                                     }else{
                                         //转到任课教师页面
                                         window.location.href = "/sybida/teacher/managerIndex.html";
