@@ -71,7 +71,7 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img id="userphotoA" src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    <img id="userphotoA" src="http://t.cn/RCzsdCq" class="layui-nav-img" style="filter: none;">
                     <span id="username">超级管理员</span>
                 </a>
                 <dl class="layui-nav-child">
@@ -139,7 +139,7 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
 
-       <iframe src="/sybida/teacher/allTeacher.html" style="overflow: hidden;color: #2b542c" width="100%" height="98.7%"    id="ifream1" ></iframe>
+       <iframe src="/sybida/teacher/allTeacher.html" style=" overflow: hidden;color: #2b542c" width="100%" height="98.7%"    id="ifream1" ></iframe>
 
     </div>
 
@@ -189,7 +189,9 @@
                 //   layer.alert("sdsdsds")
                 // }
                 if(data.data.teachPhoto){
-                    $("#userphotoA").attr("src",data.data.teachPhoto)
+
+                    $("#userphotoA").attr("src",Qnyurl+data.data.teachPhoto)
+                    $("#userphotoA").attr("filter","none")
                 }else{
 
                 }
