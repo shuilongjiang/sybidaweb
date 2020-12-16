@@ -3,9 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script>
+        /**
+         * 获取 blob
+         * url 目标文件地址
+         */
+        function getBlob(url) {
+            return new Promise(resolve => {
+                const xhr = new XMLHttpRequest();
+
+                xhr.open('GET', url, true);
+                xhr.responseType = 'blob';
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        resolve(xhr.response);
+                    }
+                };
+
+                xhr.send();
+            });
+        }
+        /**
+         * 保存 blob
+         * filename 想要保存的文件名称
+         */
+        function saveAs(blob, filename) {
+            if (window.navigator.msSaveOrOpenBlob) {
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                const link = document.createElement('a');
+                const body = document.querySelector('body');
+
+                link.href = window.URL.createObjectURL(blob);
+                link.download = filename;
+
+                // fix Firefox
+                link.style.display = 'none';
+                body.appendChild(link);
+
+                link.click();
+                body.removeChild(link);
+
+                window.URL.revokeObjectURL(link.href);
+            }
+        }
+
+        /**
+         * 下载
+         * @param {String} url 目标文件地址
+         * @param {String} filename 想要保存的文件名称
+         */
+        function download() {
+            getBlob("http://qldlxgj0k.hn-bkt.clouddn.com/7a6b7d65e69f4a588ea597667f946083.jpg").then(blob => {
+                saveAs(blob,"啊传.jpg");
+            });
+        }
+    </script>
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+
 </head>
 <body>
-<a href="/upload/aa.jpg" download="/upload/aa.jpg">点击下载</a>
-<a href="/upload/aa.jpg" >网页直接打开</a>
+<a href="http://qldlxgj0k.hn-bkt.clouddn.com/7a6b7d65e69f4a588ea597667f946083.jpg" download="http://qldlxgj0k.hn-bkt.clouddn.com/7a6b7d65e69f4a588ea597667f1946083.jpg">点击下载</a>
+<!--<a href="http://qldlxgj0k.hn-bkt.clouddn.com/7a6b7d65e69f4a588ea597667f946083.jpg" >网页直接打开</a>-->
+<!--<a href="http://qldlxgj0k.hn-bkt.clouddn.com/7a6b7d65e69f4a588ea597667f946083.jpg" rel="external nofollow" download="文件名称">1212323132</a>-->
+<!--<button onclick="download()">下载</button>-->
+<!--<button onclick="download1()">下载</button>-->
+<button id="download">下载1111</button>
+
 </body>
+<script>
+    // function isIE () {
+    //     if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+    //         return true
+    //     } else {
+    //         return false
+    //     }
+    // }
+    // function download1() {
+    // let files = ['http://qldlxgj0k.hn-bkt.clouddn.com/aa.jpg', 'http://qldlxgj0k.hn-bkt.clouddn.com/aa.jpg'] // 所有文件
+    // files.forEach(url => {
+    //     if (this.isIE()) { // IE
+    //         window.open(url, '_blank')
+    //     } else {
+    //         let a = document.createElement('a') // 创建a标签
+    //         let e = document.createEvent('MouseEvents') // 创建鼠标事件对象
+    //         e.initEvent('click', false, false) // 初始化事件对象
+    //         a.href = url // 设置下载地址
+    //         a.download = 'aa.zip' // 设置下载文件名
+    //         a.dispatchEvent(e)
+    //     }
+    // })}
+    var btn = document.getElementById('download-btn');
+
+    //将要进行多文件下载的mp3文件地址，以组数的形式存起来（这里只例了3个地址）
+    var mp3arr = ["http://qldlxgj0k.hn-bkt.clouddn.com/7a6b7d65e69f4a588ea597667f946083.jpg", "http://qldlxgj0k.hn-bkt.clouddn.com/aa.jpg", "http://qldlxgj0k.hn-bkt.clouddn.com/7a6b7d65e69f4a588ea597667f946083.jpg"];
+
+    function download(name, href) {
+        console.log("s====555==")
+        var a = document.createElement("a"), //创建a标签
+            e = document.createEvent("MouseEvents"); //创建鼠标事件对象
+        e.initEvent("click", false, false); //初始化事件对象
+        a.href = href; //设置下载地址
+        a.download = 21; //设置下载文件名
+        a.dispatchEvent(e); //给指定的元素，执行事件click事件
+    }
+
+    //给多文件下载按钮添加点击事件
+    $("#download").click(function name(params) {
+        console.log("s======")
+        for (let index = 0; index < mp3arr.length; index++) {
+            console.log("1+++23===")
+            download('第' + index + '个文件', mp3arr[index]);
+        }
+    })
+</script>
 </html>

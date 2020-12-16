@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+</head>
+<body>
+        <form action="" method="post" enctype="multipart/form-data" id="ff">
+            <input type="file" name="file" id="nfile"/>
+            <input type="button" id="btn" value="上传">
+        </form>
+<span id="spinfo"></span>
+</body>
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/layui/layui.js" charset="utf-8"></script>
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    $("#btn").click(function () {
+
+
+        var formData = new FormData(document.getElementById('ff'));
+        formData.append("file", $("#nfile")[0].files[0]);
+        $.ajax({
+            type: "post",
+            url: url+"qny/testUpload",
+            data: formData,
+            cache: false,   // 不缓存
+            processData: false,   // jQuery不要去处理发送的数据
+            contentType: false,   // jQuery不要去设置Content-Type请求头
+            success: function (data) {
+               $("#spinfo").html(data.message)
+            },
+            error:function () {
+                alert("上传出错");
+            }
+        });
+    })
+
+
+</script>
+
+</html>

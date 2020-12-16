@@ -1,5 +1,6 @@
 //访问服务器地址
 var url="http://localhost:8080/"
+var Qnyurl= "http://qldlxgj0k.hn-bkt.clouddn.com/"
 //根据名字获取cookie
 function getCookie(name) {
     var prefix = name + "="  // name=
