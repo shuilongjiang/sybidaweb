@@ -1,0 +1,545 @@
+@media screen and (max-width: 1220px) {
+    .top, .header .head, .i_m, .fn_m, .foot, .pst, .scd {
+        width: 960px;
+    }
+
+    .head .nav_m {
+        width: 720px;
+    }
+
+    .head .nav li a {
+        width: 94px;
+    }
+
+    .head .nav li {
+        margin-left: 0;
+    }
+
+    .head .nav li .er {
+        width: 130px;
+        left: -18px;
+    }
+
+    .head .nav li .er .er_m i {
+        left: 52px;
+    }
+
+    .i_ma li {
+        width: 310px;
+        margin-right: 15px;
+    }
+
+    .i_ma li .tu, .i_ma li .tu img {
+        width: 310px;
+        height: 127px;
+    }
+
+    .i_ml, .i_mr {
+        width: 460px;
+    }
+
+    .i_mb dl dd {
+        width: 300px;
+    }
+
+    .i_mc dt img, .i_mc dt {
+        width: 176px;
+        height: 180px;
+    }
+
+    .i_mc dd {
+        width: 260px;
+    }
+
+    .i_mc dd ul li {
+        margin-bottom: 2px;
+    }
+
+    .i_md dt, .i_md dt img {
+        width: 192px;
+        height: 138px;
+    }
+
+    .i_md dd {
+        width: 260px;
+        height: 240px;
+    }
+
+    .fn_m .code li {
+        width: 120px;
+    }
+
+    .fn_m .code li img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .fn_m .code li b, .f_nav li b {
+        font-size: 16px;
+    }
+
+    .fn_m .code {
+        width: 270px;
+    }
+
+    .f_nav li {
+        margin-left: 20px;
+    }
+
+    .fn_m .f_nav {
+        width: 375px;
+    }
+
+    .fn_m .f_ct {
+        width: 295px;
+    }
+
+    .fn_m .f_ct ul li span {
+        width: 275px;
+    }
+
+    .scd .scd_r {
+        width: 725px;
+    }
+
+    .pro dl {
+        width: 355px;
+        margin-right: 15px;
+        margin-bottom: 20px;
+    }
+
+    .pro dl dd {
+        width: 180px;
+    }
+
+    .pro dl dd .title a {
+        font-size: 14px;
+    }
+
+    .pro dl dd .des {
+        font-size: 12px;
+    }
+
+    .friend ul li, .friend ul li img {
+        width: 169px;
+        height: 79px;
+    }
+
+    .friend ul li {
+        margin-right: 10px;
+        border: 2px solid #eee;
+    }
+
+    .news dl dd {
+        width: 470px;
+    }
+
+    .cotnact dl dd {
+        width: 365px;
+    }
+
+    .cotnact ul li {
+        margin-right: 15px;
+    }
+
+}
+
+@media screen and (max-width: 990px) {
+    .top, .header .head, .i_m, .fn_m, .foot, .pst, .scd {
+        width: 740px;
+    }
+
+    .head .logo img, .head .logo {
+        width: 199px;
+        height: 51px;
+    }
+
+    .head .logo {
+        margin-top: 0px;
+        text-align: center;
+    }
+
+    .top .lang a {
+        font-size: 12px;
+    }
+
+    .head .nav_m {
+        width: 530px;
+    }
+
+    .head .nav li a {
+        font-size: 16px;
+    }
+
+    .nav_m .n_icon {
+        display: block;
+    }
+
+    .nav_m .nav {
+        width: 740px;
+        position: absolute;
+        right: 0;
+        top: 90px;
+        background: #EEEEEE;
+        display: none;
+    }
+
+    .head .nav li a {
+        width: 100px;
+    }
+
+    .i_ma li {
+        width: 240px;
+        margin-right: 10px;
+    }
+
+    .i_ma li .tu, .i_ma li .tu img {
+        width: 240px;
+        height: 98px;
+    }
+
+    .i_ma li .des {
+        height: 40px;
+        line-height: 150%;
+    }
+
+    .i_ml, .i_mr {
+        width: 100%;
+    }
+
+    .i_mb dl dd {
+        width: 570px;
+    }
+
+    .i_mc dd, .i_md dd {
+        width: 540px;
+    }
+
+    .i_md dd {
+        height: 140px;
+    }
+
+    .fn_m .code {
+        width: 45%;
+    }
+
+    .fn_m .f_nav {
+        width: 52%;
+        border: 0;
+    }
+
+    .fn_m .f_ct {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .fn_m .f_ct ul li span {
+        width: 295px;
+    }
+
+    .fn_m .f_ct ul {
+        width: 48%;
+        float: left;
+    }
+
+    .scd .scd_r {
+        width: 505px;
+    }
+
+    .pro dl {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .pro dl dd {
+        width: 325px;
+    }
+
+    .friend ul li, .friend ul li img {
+        width: 154px;
+        height: 71px;
+    }
+
+    .friend ul li {
+        margin: 8px 5px !important;
+    }
+
+    .news dl dd {
+        width: 255px;
+    }
+
+    .news dl dd .title p {
+        font-size: 15px;
+    }
+
+    .news dl dd .title em {
+        font-size: 12px;
+    }
+
+    .cotnact dl dt, .cotnact dl dt img, .cotnact dl dd, .cotnact ul li {
+        width: 100%;
+        height: auto;
+        margin-right: 0;
+    }
+
+    .cotnact dl dd {
+        margin-top: 20px;
+    }
+
+    .book_m ul li .name {
+        width: 95px;
+    }
+
+    .book_m ul li input {
+        width: 300px;
+    }
+
+    .book_m ul li textarea {
+        width: 380px;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .top, .header .head, .i_m, .fn_m, .foot, .pst, .scd {
+        width: 480px;
+    }
+
+    .head .logo {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .head .nav_m, .nav_m .nav {
+        width: 100%;
+    }
+
+    .head .nav li .er {
+        display: none !important;
+    }
+
+    .head .nav li {
+        height: auto;
+    }
+
+    .head .nav li a {
+        margin: 10px 0;
+    }
+
+    .i_ma li {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .i_ma li .tu, .i_ma li .tu img {
+        width: 480px;
+        height: 196px;
+    }
+
+    .i_mb dl dd {
+        width: 320px;
+    }
+
+    .i_mc dd, .i_md dd {
+        width: 280px;
+    }
+
+    .fn_m .code, .fn_m .f_nav, .fn_m .f_ct ul {
+        width: 100%;
+        border: 0;
+    }
+
+    .fn_m .f_nav li {
+        margin-left: 0;
+        margin-right: 50px;
+    }
+
+    .scd .scd_r, .scd .scd_l {
+        width: 100%;
+    }
+
+    .scd_l .s_name i {
+        display: none;
+    }
+
+    .scd .scd_l {
+        margin-top: 25px;
+    }
+
+    .scd_l .s_name {
+        width: 100%;
+        background-size: 100% 100%;
+        text-align: left;
+    }
+
+    .scd_l .s_name img {
+        margin-left: 30px;
+    }
+
+    .scd_l .s_nav {
+        width: 470px;
+    }
+
+    .scd_l .s_nav li a {
+        width: 440px;
+    }
+
+    .pro dl dd {
+        width: 300px;
+    }
+
+    .friend ul li {
+        margin: 8px 4px !important;
+    }
+
+    .friend ul li, .friend ul li img {
+        width: 148px;
+        height: 68px;
+    }
+
+    .news dl dd {
+        width: 230px;
+    }
+
+    .pst {
+        text-align: left;
+    }
+
+    .cotnact h1 {
+        font-size: 22px;
+    }
+
+    .book_m ul li textarea {
+        width: 310px;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .top, .header .head, .i_m, .fn_m, .foot, .pst, .scd {
+        width: 320px;
+    }
+
+    .top .lang, .top .search {
+        margin-left: 10px;
+    }
+
+    .top .search {
+        width: 195px;
+    }
+
+    .head .nav li a {
+        width: 74px;
+        font-size: 15px;
+    }
+
+    .i_ma li .tu, .i_ma li .tu img {
+        width: 320px;
+        height: 130px;
+    }
+
+    .i_mb dl dd {
+        width: 100%;
+    }
+
+    .i_mb dl dt, .i_mb dl dt img {
+        width: 320px;
+        height: 224px;
+    }
+
+    .i_mc dd ul li.on i {
+        display: none;
+    }
+
+    .i_mc dd, .i_md dd {
+        width: 100%;
+    }
+
+    .i_mc dt {
+        width: 314px;
+    }
+
+    .i_mc dt img, .i_mc dt {
+        width: 314px;
+        height: 320px;
+    }
+
+    .i_md dt, .i_md dt img {
+        width: 320px;
+        height: 230px;
+    }
+
+    .fn_m .f_nav li {
+        margin-right: 10px;
+    }
+
+    .scd_l .s_nav {
+        width: 310px;
+    }
+
+    .scd_l .s_nav li a {
+        width: 280px;
+    }
+
+    .fn_m .code li b, .f_nav li b {
+        font-size: 15px;
+    }
+
+    .f_nav li p, .fn_m .code li p {
+        font-size: 12px;
+    }
+
+    .pst {
+        font-size: 14px;
+    }
+
+    .fn_m .code li {
+        margin-right: 70px;
+    }
+
+    .pro dl {
+        height: 146px;
+    }
+
+    .pro dl dt img, .pro dl dt {
+        width: 140px;
+        height: 140px;
+    }
+
+    .pro dl dd {
+        width: 160px;
+    }
+
+    .pro dl dd .more {
+        margin-top: 5px;
+    }
+
+    .join .j_c {
+        display: none;
+    }
+
+    .join .j_d {
+        display: block;
+    }
+
+    .news dl dd {
+        width: 100%;
+    }
+
+    .news dl dt, .news dl dt img {
+        width: 314px;
+        height: 180px;
+    }
+
+    .book_m ul li .name {
+        width: 75px;
+    }
+
+    .book_m ul li input {
+        width: 225px;
+    }
+
+    .book_m ul li textarea {
+        width: 235px;
+        height: 100px;
+    }
+}
