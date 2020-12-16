@@ -158,7 +158,31 @@
                     data:"userId="+userId+"&oldpsd="+oldpsd,
                     success:function(data){
                         if(data.code===1){
+                            if(psd==psd1 && psd && psd1){
+                                if(userId){
+                                    $.post({
+                                        url:url+"/login/changepsd",
+                                        data:"userId="+userId+"&psd="+psd,
+                                        success:function(data){
+                                            if(data.code===1){
+                                                // window.parent.location.reload(); //刷新父页面
+                                                // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                                                // parent.layer.close(index);
 
+                                                top.location.replace("/sybida/login.html?check=1");
+                                                //  window.location.href="http:/sybida/login.html?check=1/";
+
+                                            }else{
+                                                layer.alert("密码修改失败请重试！");
+
+                                            }
+
+                                        }
+                                    })
+                                } else {
+                                    alert("修改密码失败，请重新登录！！！")
+                                }
+                            }
                         }else {
                             alert("原密码错误！！！")
                             // window.parent.location.reload();
@@ -172,35 +196,6 @@
             return
         }
 
-        if(psd==psd1 && psd && psd1){
-
-
-            if(userId){
-                $.post({
-                    url:url+"/login/changepsd",
-                    data:"userId="+userId+"&psd="+psd,
-                    success:function(data){
-                        if(data.code===1){
-                            // window.parent.location.reload(); //刷新父页面
-                            // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                            // parent.layer.close(index);
-
-                          top.location.replace("/sybida/login.html?check=1");
-                           //  window.location.href="http:/sybida/login.html?check=1/";
-
-                        }else{
-                            layer.alert("密码修改失败请重试！");
-
-                        }
-
-                    }
-                })
-            } else {
-                alert("修改密码失败，请重新登录！！！")
-            }
-
-
-        }
     })
     function findStr(str,n){
         var temp=0;

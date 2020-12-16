@@ -83,11 +83,11 @@ function pageshoe(){
         for(let i = 0; i < le.length; i++){
             // if(!le[i].id){le[i].id=""}
             if (i%2==0){
-                html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
-            <td> <img src="${le[i].teachNull1}" style="height: 40px" class="img-circle"></td>
+                html +=`<tr class="warning"><td ><input type="checkbox" name="optionAll" ></td>
+            <td> <img src="${Qnyurl}${le[i].teachPhoto}" class="img-rounded" style="height:50px;width: 40px;"></td>
             <td>${le[i].teachName}</td>
             <td>${le[i].teachSex}</td>
-            <td>${le[i].teachNull1}</td>
+            <td>${le[i].teachNull2}</td>
             <td>${le[i].teachTel}</td>
             <td>${le[i].teachWechat}</td>
             <td>${le[i].teachQq}</td>
@@ -99,11 +99,11 @@ function pageshoe(){
                data-id="${le[i].teachId}" data-name="${le[i].teachName}" data-target="#exampleModal" >删除</a></td>
         </tr>`
             }else{
-                html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll"></td>
-            <td><img src="http://t.cn/RCzsdCq" class="img-rounded" style="height: 40px"></td>
+                html +=` <tr class="info"><td ><input type="checkbox" name="optionAll"></td>
+            <td><img src="${Qnyurl}${le[i].teachPhoto}" class="img-rounded" style="height:50px;width: 40px;"></td>
             <td>${le[i].teachName}</td>
             <td>${le[i].teachSex}</td>
-            <td>${le[i].teachNull1}</td>
+            <td>${le[i].teachNull2}</td>
             <td>${le[i].teachTel}</td>
             <td>${le[i].teachWechat}</td>
             <td>${le[i].teachQq}</td>
