@@ -49,14 +49,14 @@ $("#selectButt1").click(function () {
 function showDetail(id) {
     $("#detailCon").css('display', '')
 
-    $.getJSON(url + "/classInfo/selectstudentbyid", "id=" + id, function (data) {
+    $.getJSON(url + "/teacher/selectstudentbyid", "id=" + id, function (data) {
         let html=''
         console.log(data)
         var list = data.data
         console.log(list)
 
         html += `<tr class="warning">
-           <td>${list.studentId}</td>
+            <td>${list.studentId}</td>
             <td>${list.studentName}</td>
             <td>${list.studentSex}</td>
             <td>${list.studentIdentity}</td>
@@ -103,7 +103,7 @@ $('input[name="checkAll"]').click(function () {
 show();
 
 function show() {
-    $.getJSON(url + "/classInfo/selectallstudent", "pageSize=" + pageSize + "&pageNum=" + pageNum, function (data) {
+    $.getJSON(url + "/teacher/selectallstudent", "pageSize=" + pageSize + "&pageNum=" + pageNum, function (data) {
 
         let html = ''
         console.log(data)
@@ -112,7 +112,7 @@ function show() {
 
         for (let i = 0; i < list.length; i++) {
             html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
-           <td>${list[i].studentId}</td>
+            <td>${list[i].studentId}</td>
             <td>${list[i].studentName}</td>
             <td>${list[i].studentSex}</td>
             <td>${list[i].studentIdentity}</td>
