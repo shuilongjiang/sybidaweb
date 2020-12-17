@@ -92,7 +92,8 @@ $("[type='button']").click(function () {
                alert("插入成功！");
                location.reload()
             } else if(data.code == 0){
-                alert("修改失败")
+               alert("插入失败,学生已存在，或者其他问题");
+                location.reload()
             }
         }
     })
