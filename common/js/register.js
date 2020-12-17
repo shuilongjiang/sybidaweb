@@ -1,12 +1,10 @@
 var selectClass=-1
 var selectStudy=-1
 var selectTeacher=-1
-//  <td>${list[i].classNum}</td>
-//web06/teacher/selectStudy.do
+
 $.getJSON(url+"/register/selectClass",function (data) {
     let html = ''
     for (let i = 0; i < data.length; i++) {
-        console.log("+++++++++++++++++"+data[i].classId);
         html += `<option value="${data[i].classId}">${data[i].classNum}</option>`
     }
     $('select[name="selectClass"]').append(html);
@@ -30,8 +28,7 @@ $.getJSON(url+"/register/selectClass",function (data) {
 
 $.getJSON(url+"/register/selectStudy",function (data) {
     let html = ''
-    for (let i = 0; i < data.length; i++) {
-        console.log("+++++++++++++++++"+data[i].studyAspect);
+    for (let i = 3; i < data.length; i++) {
         html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
     }
     $('select[name="selectStudy"]').append(html)
@@ -56,7 +53,6 @@ $.getJSON(url+"/register/selectStudy",function (data) {
 $.getJSON(url+"/register/selectTeacher",function (data) {
     let html = ''
     for (let i = 0; i < data.length; i++) {
-        console.log("+++++++++++++++++"+data[i].teachName);
         html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
     }
     $('select[name="selectTeacher"]').append(html)
@@ -77,32 +73,31 @@ $.getJSON(url+"/register/selectTeacher",function (data) {
     )
 });
 
-// $("[type='button']").click(function () {
-//     let formData = new FormData();
-//     formData.append("excel", $('[type="file"]')[0].files[0]);
-//     formData.append('selectClass',selectClass);
-//     formData.append('selectStudy',selectStudy);
-//     formData.append('selectTeacher',selectTeacher);
-//     $.ajax({
-//         url:url+"/register/insertTable",
-//         type : 'post',
-//         data : formData,
-//         cache: false,   //上传文件无需缓存
-//         processData: false,   // 用于对参数进行序列化处理，这里必须设为false
-//         contentType:false,
-//         dataType:"json",
-//         success:function (data) {
-//             if(data.code == 1) {
-//                 location.reload()
-//             } else if(data.code == 2){
-//                 alert("修改失败")
-//             }
-//         },
-//         error:function (xhr, textStatus, errorThrown) {
-//             console.log('error',textStatus)
-//         }
-//     })
-// });
+$("[type='button']").click(function () {
+    let formData = new FormData();
+    formData.append("file", $('[type="file"]')[0].files[0]);
+    formData.append('selectClass',selectClass);
+    formData.append('selectStudy',selectStudy);
+    formData.append('selectTeacher',selectTeacher);
+    $.ajax({
+        url:url+"/register/registerstudent",
+        type : 'post',
+        data : formData,
+        cache: false,   //上传文件无需缓存
+        processData: false,   // 用于对参数进行序列化处理，这里必须设为false
+        contentType:false,
+        dataType:"json",
+        success:function (data) {
+            if(data.code == 1) {
+               alert("插入成功！");
+               location.reload()
+            } else if(data.code == 0){
+               alert("插入失败,学生已存在，或者其他问题");
+                location.reload()
+            }
+        }
+    })
+});
 
 
 
