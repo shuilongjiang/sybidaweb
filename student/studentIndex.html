@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/night-mode.css">
     <link rel="stylesheet" href="assets/css/framework.css">
-
     <!-- icons
     ================================================== -->
     <link rel="stylesheet" href="assets/css/icons.css">
@@ -93,11 +92,14 @@
                 <a href="#" class="btn-upload uk-visible@s"> <i class="uil-cloud-upload"></i> 上传简历</a>
                 <!-- upload dropdown box -->
                 <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
-                     class="dropdown-notifications">
+                     class="dropdown-notifications"  id="dropdown-notifications">
                     <!-- notivication header -->
+                    <form action="" method="post" enctype="multipart/form-data" id="ff">
                     <div class="dropdown-notifications-headline">
-                        <h4>上传简历      <select class="form-control" id="teacherStudy" style="width: 200px; display: inline-block" >
-                        </select></h4>
+                        <h4 style="height: 30px;line-height: 30px;font-size:16px;">上传简历方向
+                            <select class="form-control" id="teachStudy" style="width: 150px;height: 20px;margin-left:20px;" >
+                             </select>
+                        </h4>
                     </div>
                     <!-- notification contents -->
                     <div class="dropdown-notifications-content uk-flex uk-flex-middle uk-flex-center text-center">
@@ -107,7 +109,9 @@
                                 如果你已经上传过简历，本次上传将会覆盖之前的简历..
                             </p>
                             <div uk-form-custom>
+
                                 <input type="file" id="filej" accept="application/pdf">
+
                                 <a href="#" class="button soft-warning small" id="chosefile">选择文件</a>
                                 <span id="showname"></span>
                             </div>
@@ -124,14 +128,44 @@
 
                         </script>
                     </div>
-                    <hr class="m-0">
+                    </form>
+                        <hr class="m-0">
                     <a onclick="uploadfile1()"><div  id="uploadd" class="text-center   " style="display: inline-block;background-color: #FF9C05;width: 100%;color:white;font-weight: 800;height: 40px;line-height: 40px;" > 确定上传
                     </div></a>
                 </div>
                 <script>
+                    $.getJSON(url+"/register/selectStudy",function (data) {
+                        var html1=``
+                        for(var i=4;i<data.length;i++){
+                            html1+=`<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
+                        }
+                        $("#teachStudy").append(html1)
+                    })
+
                     function uploadfile1() {
-                        console.log("===")
-                        $("#uploadd").attr("background-color", "black")
+                        var userid=getCookie("userid")
+                        var formData = new FormData(document.getElementById('ff'));
+                        formData.append("file", $("#filej")[0].files[0]);
+                        formData.append("studyid", $("#teachStudy").val() );
+                        formData.append("userid", userid);
+                        formData.append("aaaaaa", "54355");
+                        $.ajax({
+                            type: "post",
+                            url: url+"vitae/uploadvitae",
+                            data: formData,
+                            cache: false,   // 不缓存
+                            processData: false,   // jQuery不要去处理发送的数据
+                            contentType: false,   // jQuery不要去设置Content-Type请求头
+                            success: function (data) {
+
+                               alert("上传成功")
+                                $("#dropdown-notifications").attr("style","display:none;");
+
+                            },
+                            error:function () {
+                                alert("上传出错,请重试！！！");
+                            }
+                        });
                     }
                 </script>
                 <!-- videos feed  -->
@@ -373,7 +407,6 @@
 <!--用户头像-->
 <script>
     var userid=getCookie("userid")
-    console.log(userid+"========")
     $.getJSON(url+"/user/userinfostu","userid="+userid,function (data) {
         var html=`<img src="${data.data.studentPhoto}" alt="">`
         var html2=`<div class="dropdown-user-name">${data.data.studentName}
