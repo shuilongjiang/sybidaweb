@@ -211,7 +211,7 @@
                 </script>
                 <!-- videos feed  -->
                 <!-- Message  notificiation dropdown -->
-                <a href="#" class="opts_icon"> <i class="uil-envelope-alt"></i> <span>4</span> </a>
+                <a href="#" class="opts_icon"> <i class="uil-envelope-alt"></i> <span id="userinfonum">4</span> </a>
                 <!-- Message  notificiation dropdown -->
                 <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
                      class="dropdown-notifications">
@@ -321,7 +321,7 @@
                         <div class="menu-divider">
                             <li><a href="#"> <i class="icon-feather-help-circle"></i> 帮助</a>
                             </li>
-                            <li><a href="/sybida/login.html" onclick="exittologin()"> <i class="icon-feather-log-out"></i> 退出登录</a>
+                            <li><a href="#" onclick="exittologin()"> <i class="icon-feather-log-out"></i> 退出登录</a>
                         </div>
                             </li>
                     </ul>
@@ -329,9 +329,7 @@
                 <script>
                     function exittologin(){
                         var userid=getCookie("userid")
-                        layui.use('layer', function(){
-                            var layer = layui.layer;
-                        });
+
                         console.log("+++"+userid)
                         $.ajax({
                             url: url+"login/exitlogin",
@@ -477,6 +475,8 @@
         $("#studentPhoto1").append(html)
         $("#studentPhoto2").append(html)
         $("#studentName").append(html2)
+        $("#userinfonum").html(data.data.messageNum)
+
     })
 </script>
 
