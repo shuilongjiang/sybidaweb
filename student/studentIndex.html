@@ -33,7 +33,8 @@
         <header>
             <!-- Logo-->
             <div id="logo">
-                <a href="#"> <img src="assets/images/sybida.png" alt=""></a>
+                <a href="#" > <img src="assets/images/sybida.png" alt=""></a>
+
                 <a href="#"> <img src="assets/images/sybida.png" class="logo-inverse" alt=""></a>
             </div>
             <div>
@@ -88,7 +89,10 @@
             </div>
             <!-- user icons -->
             <div class="head_user">
-                <a href="#" class="btn-upgrade uk-visible@s"> <i class="uil-bolt-alt"></i> 下载简历</a>
+                <a href="#" class="btn-upgrade uk-visible@s" id="downfile"> <i class="uil-bolt-alt"></i> 预览已经上传简历</a>
+                <script>
+
+                </script>
                 <a href="#" class="btn-upload uk-visible@s"> <i class="uil-cloud-upload"></i> 上传简历</a>
                 <!-- upload dropdown box -->
                 <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
@@ -117,6 +121,7 @@
                             </div>
                         </div>
                         <script>
+
                             $("#filej").change(function(){
                                 var name1= document.getElementById('filej').files[0].name
                                 var new_value=name1
@@ -134,6 +139,20 @@
                     </div></a>
                 </div>
                 <script>
+
+                    function uploadfilepath(){
+                        var userid=getCookie("userid")
+                        $.post(url+"vitae/personalvitae", "userid="+userid+"&isDelete=1",function (data) {
+                            if(data.message){
+                                $("#downfile").attr("href",Qnyurl+data.message)
+                                $("#downfile").attr("download","aa")
+                                $("#downfile").text(" 预览已经上传简历")
+                            }else{
+                                $("#downfile").text("从未上传过简历")
+                            }
+                        });
+                    }
+                    uploadfilepath();
                     $.getJSON(url+"/register/selectStudy",function (data) {
                         var html1=``
                         for(var i=4;i<data.length;i++){
@@ -143,12 +162,12 @@
                     })
 
                     function uploadfile1() {
+                        $("#dropdown-notifications").attr("style","display:none;");
                         var userid=getCookie("userid")
                         var formData = new FormData(document.getElementById('ff'));
                         formData.append("file", $("#filej")[0].files[0]);
                         formData.append("studyid", $("#teachStudy").val() );
                         formData.append("userid", userid);
-                        formData.append("aaaaaa", "54355");
                         $.ajax({
                             type: "post",
                             url: url+"vitae/uploadvitae",
@@ -157,10 +176,14 @@
                             processData: false,   // jQuery不要去处理发送的数据
                             contentType: false,   // jQuery不要去设置Content-Type请求头
                             success: function (data) {
-
-                               alert("上传成功")
-                                $("#dropdown-notifications").attr("style","display:none;");
-
+                                if(data.message){
+                                    $("#downfile").attr("href",Qnyurl+data.message)
+                                    $("#downfile").attr("download","aa")
+                                    $("#downfile").text(" 预览已经上传简历")
+                                }else{
+                                    $("#downfile").text("从未上传过简历")
+                                }
+                                 alert("上传成功")
                             },
                             error:function () {
                                 alert("上传出错,请重试！！！");
