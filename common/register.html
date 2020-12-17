@@ -5,7 +5,7 @@
     <title>Title</title>
     <style>
         form{
-            width: 30%;
+            width: 50%;
             margin: 0 auto;
         }
         .form-group .tip{
@@ -15,9 +15,9 @@
             margin-top: 10px;
         }
         
-        body {
-            background:url("../publicTool/img/timg.jpg")
-        }
+        /*body {*/
+            /*background-color: red;*/
+        /*}*/
     </style>
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
     <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
@@ -27,10 +27,15 @@
 <div class="container" style="margin-top: 10%">
     <form enctype="multipart/form-data">
     <div class="form-group">
-        <select class="form-control" name="selectClass">
-            <option>请选择班级</option>
-        </select>
+        <label for="classCreate">创建新班</label>
+        <input type="text" name="classCreate" class="form-control" id="classCreate" >
+        <p class="tip"></p>
     </div>
+        <div class="form-group">
+            <label for="insetManagerId">班主任</label>
+            <input type="text" name="insetManager" class="form-control" id="insetManagerId" >
+            <p class="tip"></p>
+        </div>
         <div class="form-group">
             <select class="form-control" name="selectStudy">
                 <option>请选择学习方向</option>
@@ -41,16 +46,25 @@
                 <option>请选择任课老师</option>
             </select>
         </div>
+        <div class="form-group" style="background-color: white;border: solid 1px green;height: 35px;text-align: center">
+            <a href="http://qldlxgj0k.hn-bkt.clouddn.com/muban.xlsx" style="font-size: larger" >点击下载模板</a>
+        </div>
+
     <div class="form-group">
             <input type="file" name="file">
     </div>
-    <div class="form-group"><input type="button" class="btn btn-success" value="确定"></div>
+    <div class="form-group"><input type="button" class="btn btn-success" value="确定" style="width: 100%"></div>
     </form>
 </div>
 
     <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
     <script src="/sybida/common/js/register.js"></script>
 
-
+<script>
+    var userid=getCookie("userid")
+    $.getJSON(url+"/register/getCookValue?userid="+userid,function (data) {
+        $("#insetManagerId"). attr("value",data.data)
+    })
+</script>
 </body>
 </html>

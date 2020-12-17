@@ -74,9 +74,11 @@ $.getJSON(url+"/register/selectTeacher",function (data) {
 });
 
 $("[type='button']").click(function () {
+    // $("#btnSendCode1").value();
     let formData = new FormData();
     formData.append("file", $('[type="file"]')[0].files[0]);
-    formData.append('selectClass',selectClass);
+    formData.append('classCreate',$("#classCreate").val());
+    formData.append('insetManager',$("#insetManagerId").val());
     formData.append('selectStudy',selectStudy);
     formData.append('selectTeacher',selectTeacher);
     $.ajax({
@@ -93,7 +95,7 @@ $("[type='button']").click(function () {
                location.reload()
             } else if(data.code == 0){
                alert("插入失败,学生已存在，或者其他问题");
-                location.reload()
+
             }
         }
     })

@@ -11,30 +11,34 @@
 <script type="text/javascript" src="Assets/js/banner.js"></script>
 <link rel="stylesheet" type="text/css" href="Assets/css/thems.css">
 <link rel="stylesheet" type="text/css" href="Assets/css/responsive.css">
-<script language="javascript">
-$(function(){
-	$('#owl-demo').owlCarousel({
-		items: 1,
-		navigation: true,
-		navigationText: ["上一个","下一个"],
-		autoPlay: true,
-		stopOnHover: true
-	}).hover(function(){
-		$('.owl-buttons').show();
-	}, function(){
-		$('.owl-buttons').hide();
-	});
-});
-</script>
+ <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <link rel="stylesheet"  href="/sybida/layui/css/layui.css">
+<!--<script language="javascript">-->
+<!--$(function(){-->
+	<!--$('#owl-demo').owlCarousel({-->
+		<!--items: 1,-->
+		<!--navigation: true,-->
+		<!--navigationText: ["上一个","下一个"],-->
+		<!--autoPlay: true,-->
+		<!--stopOnHover: true-->
+	<!--}).hover(function(){-->
+		<!--$('.owl-buttons').show();-->
+	<!--}, function(){-->
+		<!--$('.owl-buttons').hide();-->
+	<!--});-->
+<!--});-->
+<!--</script>-->
 </head>
 
 <body>
 <!--头部-->
-<div class="header" >
-
+<div class="header" style="position: relative">
+    <div style="width: 100px;height: 20px;position: absolute;top: 85px;left: 300px" >
+        <span id="username">你好</span>
+    </div>
     <div class="head clearfix">
-        <div class="logo" ><a href=""><img style=" margin-bottom: 5px; border-radius:100%; border: #ADC016 2px solid; margin-top: 0"  src="http://qldlxgj0k.hn-bkt.clouddn.com/defaultpicture3.jpg" alt="思必达"/></a>
-             <br><button id="login" class="btn" style="border: none" >退出登录</button>
+        <div class="logo" ><a href=""><img id="userphotoA" style=" margin-bottom: 5px; border-radius:100%; border: #ADC016 2px solid; margin-top: 0"  src="" alt="思必达"/></a>
+             <br><button id="login" class="btn" style="border: none" onclick="exittologin()" >退出登录</button>
         </div>
 
         <div class="nav_m">
@@ -81,7 +85,7 @@ $(function(){
                     </div>
                 </li>
                 <li>
-                	<a href="javascript:void(0);">消息</a>
+                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" >5</span></a>
                     <div class="er">
                     	<div class="er_m">
                             <i>&nbsp;</i>
@@ -128,8 +132,8 @@ $(function(){
 
 
 
-<div>
-    <iframe src="/sybida/managerteacherIndex/body.html"  style="width: 100%;height:750px;overflow: hidden;color: #2b542c"； scrolling="no" id="ifream1" name="ifream1" onload="autoHeight1()" frameborder="0" ></iframe>
+<div style="width: 80%; margin: 0 auto;">
+    <iframe src="/sybida/managerteacherIndex/body.html"  style="width: 100%;height:750px;overflow: hidden;color: #2b542c"； scrolling="no" id="ifream1" name="ifream1"  frameborder="0" ></iframe>
 </div>
 
 <div class="fn_bg">
@@ -211,16 +215,12 @@ $(function(){
     	<span>版权所有©XXX电子股份有限公司</span><span>粤ICP备xxxxxxx号</span><span>地址：XXX</span><span>咨询电话：XXX</span>
     </div>
 </div>
-
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/layui/layui.js"></script>
 <script>
     $("#register").click(function () {
 
-        $("#ifream1").attr("src","/sybida/teacher/allTeacher.html")
-
-    })
-    $("#register").click(function () {
-
-        $("#ifream1").attr("src","/sybida/register/register.html")
+        $("#ifream1").attr("src","/sybida/common/register.html")
 
     })
     $("#classInfo").click(function () {
@@ -312,6 +312,71 @@ $(function(){
         }
     )
 
+</script>
+<script>
+    var userid=getCookie("userid")
+    layui.use('layer', function(){
+        var layer = layui.layer;
+    });
+    $.ajax({
+        url: url+"user/userinfoteach",
+        type: 'POST',
+        //   timeout: '30000',
+        data: "userid="+userid ,
+        // contentType: 'application/json;charset=utf-8',
+        dataType: 'json',
+        success: function (data) {
+            if(data.code==1){
+
+                if(data.data.messageNum==0) {
+                    $("#advicenum").html("")
+                }else{
+                    $("#advicenum").html(data.data.messageNum)
+                }
+                if(data.data.teachName){
+                    $("#username").html(data.data.teachName+"--班主任")
+                }else{
+
+                }
+                if(data.data.teachPhoto){
+                    $("#userphotoA").attr("src",Qnyurl+data.data.teachPhoto)
+                    $("#userphotoA").attr("filter","none")
+                }else{
+
+                }
+            }else{
+                alert("请检查网络是否连接" + data);
+            }
+        },
+        error: function (data) {
+            alert("请检查网络是否连接" + data);
+        }
+    });
+
+    function exittologin(){
+        var userid=getCookie("userid")
+        layui.use('layer', function(){
+            var layer = layui.layer;
+        });
+        console.log("+++"+userid)
+        $.ajax({
+            url: url+"login/exitlogin",
+            type: 'POST',
+            //   timeout: '30000',
+            data: "userid="+userid ,
+            // contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+
+            success: function () {
+
+            }
+        });
+        location.href="../login.html"
+    }
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
 </script>
 </body>
 </html>
