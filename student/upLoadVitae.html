@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-<div class="dialog-container" style="">
+      <div class="container" style="">
     <div class="dialog-header"><!---->
         <h3 class="title"></h3>
         <span ka="dialog_close" class="close">
@@ -14,20 +18,27 @@
     <div class="dialog-body">
         <dl data-v-86e33fa6="" class="upload-resume__new">
             <dd data-v-86e33fa6="" class="sec-upload">
-                <div data-v-86e33fa6="" class="upload-wrap">
-                    <p data-v-86e33fa6="" class="tip-guide">拖拽文件到这里</p>
-                    <p data-v-86e33fa6="" class="tip-filetype">简历建议使用 PDF 文件，也支持DOC、DOCX、JPG、PNG 格式,文件大小不超过8M</p>
-                </div>
-                <a data-v-86e33fa6="" href="javascript:;" ka="resume_attach_upload" class="btn btn-primary btn-file">上传附件简历
-                    <input data-v-86e33fa6="" type="file" ka="user-resume-upload-file"
-                           accept="image/jpg, image/jpeg, image/png, application/vnd.ms-powerpoint, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.presentationml.presentation"></a>
+
+                <a data-v-86e33fa6="" href="javascript:;" ka="resume_attach_upload" class="btn btn-primary btn-file">
+                   <div>
+                       <div style="float: left">
+                           <input class="btn btn-success" type="file" ka="user-resume-upload-file"accept="application/pdf">
+                       </div>
+                       <div style="float: left" class="dropdown">
+                           <select class="form-control" id="pageSizeSel" style="width: 100px; display: inline-block" ></select>
+                       </div>
+                   </div>
+
+                </a>
+
             </dd>
-            <dd data-v-86e33fa6="" class="sec-make"><img data-v-86e33fa6=""
-                                                         src="https://static.zhipin.com/zhipin-geek/v339/web/geek-vue/static/images/zhipin-resume.b0946791.png"
-                                                         alt="">
-                <a data-v-86e33fa6="" href="https://cv.zhipin.com/resume/html/my-resumes" target="_blank"
-                   ka="resume_attach_create" class="btn btn-primary">在线快速制作</a></dd>
+
+            <dd class="sec-make"><img src="https://static.zhipin.com/zhipin-geek/v339/web/geek-vue/static/images/zhipin-resume.b0946791.png">
+               </dd>
         </dl>
+
     </div><!----></div>
 </body>
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<script src="/sybida/layui/layui.js"    ></script>
 </html>
