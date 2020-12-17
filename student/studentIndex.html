@@ -1,23 +1,18 @@
 
 <!doctype html>
-<html lang="en">
+<html lang="ch">
 
 <head>
-
-    <!-- Basic Page Needs
-    ================================================== -->
-    <title></title>
+    <title>思必达——学生</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <link rel="icon" href="assets/images/favicon.png">
-
     <!-- CSS
     ================================================== -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/night-mode.css">
     <link rel="stylesheet" href="assets/css/framework.css">
-
     <!-- icons
     ================================================== -->
     <link rel="stylesheet" href="assets/css/icons.css">
@@ -25,42 +20,29 @@
     <!-- Google font
     ================================================== -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-
-
     <script src="assets/js/jquery-1.7.2.min.js"></script>
-
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
 </head>
 
 <body>
 
 <!-- Wrapper -->
 <div id="wrapper">
-
-
-
-
     <!-- header -->
     <div id="main_header">
         <header>
-
-
             <!-- Logo-->
             <div id="logo">
                 <a href="#"> <img src="assets/images/sybida.png" alt=""></a>
                 <a href="#"> <img src="assets/images/sybida.png" class="logo-inverse" alt=""></a>
             </div>
-
-
-
             <div>
                 <div class="mod-header">
                     <div class="layout-wrap">
-
                         <ul class="nav">
                             <li>
                                 <a href="/sybida/student/studentIndex.html" title=""  class="btn-upgrade uk-visible@s">首页</a>
                             </li>
-
                             <li>
                                 <a href="#" title="" class="nav_btn">简历查看</a>
                             </li>
@@ -92,10 +74,10 @@
                                 </a>
                                 <ul uk-dropdown="pos: top;mode:click ; animation: uk-animation-scale-up" class="sub-nav" style="top: 104px;  display: none;">
                                     <li>
-                                        <a id="studentInterviewTeacher"  class="s_btn">面试登记</a>
+                                        <a id="vitaeEvaluateStudent"  class="s_btn">面试登记</a>
                                     </li>
                                     <li>
-                                        <a href="#" class="s_btn">就业登记</a>
+                                        <a id="jobStudent" href="#" class="s_btn">就业登记</a>
                                     </li>
                                 </ul>
                             </li>
@@ -103,249 +85,97 @@
 
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
-
             <!-- user icons -->
             <div class="head_user">
-
-                <a href="#" class="btn-upgrade uk-visible@s"> <i class="uil-bolt-alt"></i> Pro</a>
+                <a href="#" class="btn-upgrade uk-visible@s"> <i class="uil-bolt-alt"></i> 下载简历</a>
                 <a href="#" class="btn-upload uk-visible@s"> <i class="uil-cloud-upload"></i> 上传简历</a>
-
                 <!-- upload dropdown box -->
                 <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
-                     class="dropdown-notifications">
-
+                     class="dropdown-notifications"  id="dropdown-notifications">
                     <!-- notivication header -->
+                    <form action="" method="post" enctype="multipart/form-data" id="ff">
                     <div class="dropdown-notifications-headline">
-                        <h4>上传简历</h4>
+                        <h4 style="height: 30px;line-height: 30px;font-size:16px;">上传简历方向
+                            <select class="form-control" id="teachStudy" style="width: 150px;height: 20px;margin-left:20px;" >
+                             </select>
+                        </h4>
                     </div>
-
                     <!-- notification contents -->
                     <div class="dropdown-notifications-content uk-flex uk-flex-middle uk-flex-center text-center">
-
-
                         <div class="uk-flex uk-flex-column choose-upload  text-center">
                             <img src="assets/images/upload.png" width="70" class="m-auto" alt="">
-                            <p class="my-3"> Do you have a video wants to share us <br> please upload her ..
+                            <p class="my-3">简历建议使用 PDF 文件,文件大小不超过8M<br>
+                                如果你已经上传过简历，本次上传将会覆盖之前的简历..
                             </p>
                             <div uk-form-custom>
-                                <input type="file">
-                                <a href="#" class="button soft-warning small"> Choose file</a>
+
+                                <input type="file" id="filej" accept="application/pdf">
+
+                                <a href="#" class="button soft-warning small" id="chosefile">选择文件</a>
+                                <span id="showname"></span>
                             </div>
-
-                            <a href="#" class="uk-text-muted mt-3 uk-link"
-                               uk-toggle="target: .choose-upload ;  animation: uk-animation-slide-right-small, uk-animation-slide-left-medium; queued: true">
-                                Or Import Video </a>
                         </div>
+                        <script>
+                            $("#filej").change(function(){
+                                var name1= document.getElementById('filej').files[0].name
+                                var new_value=name1
+                                if (name1.length > 20) {
+                                    new_value = name1.substring(0, 15) + '......' + name1.substring(name1.length - 15, name1.length);
+                                }
+                                $("#showname").html(new_value)
+                            })
 
-                        <div class="uk-flex uk-flex-column choose-upload" hidden>
-                            <i class="uil-import icon-large text-muted"></i>
-                            <p class="my-3"> Import videos from YouTube <br> Copy / Paste your video link here </p>
-                            <form class="uk-grid-small" uk-grid>
-                                <div class="uk-width-expand">
-                                    <input type="text" class="uk-input uk-form-small" placeholder="Paste link">
-                                </div>
-                                <div class="uk-width-auto"> <button type="submit" class="button soft-warning">
-                                    Import </button> </div>
-                            </form>
-                            <a href="#" class="uk-text-muted mt-3 uk-link"
-                               uk-toggle="target: .choose-upload ; animation: uk-animation-slide-left-small, uk-animation-slide-right-medium; queued: true">
-                                Or Upload Video </a>
-                        </div>
-
-
-
+                        </script>
                     </div>
-                    <hr class="m-0">
-                    <div class="text-center uk-text-small py-2 uk-text-muted"> Your Video size Must be Maxmium 999MB
-                    </div>
+                    </form>
+                        <hr class="m-0">
+                    <a onclick="uploadfile1()"><div  id="uploadd" class="text-center   " style="display: inline-block;background-color: #FF9C05;width: 100%;color:white;font-weight: 800;height: 40px;line-height: 40px;" > 确定上传
+                    </div></a>
                 </div>
+                <script>
+                    $.getJSON(url+"/register/selectStudy",function (data) {
+                        var html1=``
+                        for(var i=4;i<data.length;i++){
+                            html1+=`<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
+                        }
+                        $("#teachStudy").append(html1)
+                    })
 
+                    function uploadfile1() {
+                        var userid=getCookie("userid")
+                        var formData = new FormData(document.getElementById('ff'));
+                        formData.append("file", $("#filej")[0].files[0]);
+                        formData.append("studyid", $("#teachStudy").val() );
+                        formData.append("userid", userid);
+                        formData.append("aaaaaa", "54355");
+                        $.ajax({
+                            type: "post",
+                            url: url+"vitae/uploadvitae",
+                            data: formData,
+                            cache: false,   // 不缓存
+                            processData: false,   // jQuery不要去处理发送的数据
+                            contentType: false,   // jQuery不要去设置Content-Type请求头
+                            success: function (data) {
 
+                               alert("上传成功")
+                                $("#dropdown-notifications").attr("style","display:none;");
+
+                            },
+                            error:function () {
+                                alert("上传出错,请重试！！！");
+                            }
+                        });
+                    }
+                </script>
                 <!-- videos feed  -->
-                <a href="#video" class="opts_icon" uk-toggle> <i class="uil-youtube-alt"></i> <span>9+</span>  </a>
-
-                <!-- videos feed  offcanvas-->
-                <div id="video" uk-offcanvas="overlay: true ;flip: true">
-                    <div class="uk-offcanvas-bar uk-width-large">
-
-                        <h3> Your Subscription </h3>
-                        <hr class="mb-3" style="margin:0 -20px">
-                        <button class="uk-offcanvas-close" type="button" uk-close></button>
-
-                        <div class="video-list-small uk-child-width-1-1" uk-grid>
-
-                            <div>
-                                <a href="single-video.html" class="video-post video-post-list">
-                                    <!-- Blog Post Thumbnail -->
-                                    <div class="video-post-thumbnail">
-                                        <span class="video-post-count">1.4M</span>
-                                        <span class="video-post-time">23:00</span>
-                                        <span class="play-btn-trigger"></span>
-
-                                        <img src="assets/images/video-thumbal/2.png" alt="">
-
-                                    </div>
-
-                                    <!-- Blog Post Content -->
-                                    <div class="video-post-content">
-                                        <h3> How to create a basic Sticky HTML element..</h3>
-                                        <img src="assets/images/avatars/avatar-3.jpg" alt="">
-                                        <span class="video-post-user">Jonathan Madano</span>
-                                        <span class="video-post-views">531k views</span>
-                                        <span class="video-post-date"> 2 weeks ago </span>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div>
-                                <a href="single-video.html" class="video-post video-post-list">
-                                    <!-- Blog Post Thumbnail -->
-                                    <div class="video-post-thumbnail">
-                                        <span class="video-post-count">2.7k</span>
-                                        <span class="video-post-time">40:00</span>
-                                        <span class="play-btn-trigger"></span>
-                                        <img src="assets/images/video-thumbal/1.png" alt="">
-                                    </div>
-                                    <!-- Blog Post Content -->
-                                    <div class="video-post-content">
-                                        <h3> Learn how to create PHP singleton class </h3>
-                                        <img src="assets/images/avatars/avatar-2.jpg" alt="">
-                                        <span class="video-post-user">Stella Johnson</span>
-                                        <span class="video-post-views">938k views</span>
-                                        <span class="video-post-date"> 3 weeks ago </span>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div>
-                                <a href="single-video.html" class="video-post video-post-list">
-                                    <!-- Blog Post Thumbnail -->
-                                    <div class="video-post-thumbnail">
-                                        <span class="video-post-count">2.3M</span>
-                                        <span class="video-post-time">14:00</span>
-                                        <span class="play-btn-trigger"></span>
-                                        <img src="assets/images/video-thumbal/3.png" alt="">
-                                    </div>
-                                    <!-- Blog Post Content -->
-                                    <div class="video-post-content">
-                                        <h3> Learn Creating Laravel Package Initializing ... </h3>
-                                        <img src="assets/images/avatars/avatar-5.jpg" alt="">
-                                        <span class="video-post-user">Alex Dolgove</span>
-                                        <span class="video-post-views">531k views</span>
-                                        <span class="video-post-date"> 2 weeks ago </span>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div>
-                                <a href="single-video.html" class="video-post video-post-list">
-                                    <!-- Blog Post Thumbnail -->
-                                    <div class="video-post-thumbnail">
-                                        <span class="video-post-count">1.4M</span>
-                                        <span class="video-post-time">23:00</span>
-                                        <span class="play-btn-trigger"></span>
-                                        <img src="assets/images/video-thumbal/4.png" alt="">
-                                    </div>
-                                    <!-- Blog Post Content -->
-                                    <div class="video-post-content">
-                                        <h3> Learn how to upload files using Laravel .. </h3>
-                                        <img src="assets/images/avatars/avatar-4.jpg" alt="">
-                                        <span class="video-post-user">Adrian Mohani</span>
-                                        <span class="video-post-views">531k views</span>
-                                        <span class="video-post-date"> 2 weeks ago </span>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div>
-                                <a href="single-video.html" class="video-post video-post-list">
-                                    <!-- Blog Post Thumbnail -->
-                                    <div class="video-post-thumbnail">
-                                        <span class="video-post-count">1.4M</span>
-                                        <span class="video-post-time">23:00</span>
-                                        <span class="play-btn-trigger"></span>
-                                        <img src="assets/images/video-thumbal/2.png" alt="">
-                                    </div>
-
-                                    <!-- Blog Post Content -->
-                                    <div class="video-post-content">
-                                        <h3> How to create a basic Sticky HTML element ..</h3>
-                                        <img src="assets/images/avatars/avatar-3.jpg" alt="">
-                                        <span class="video-post-user">Jonathan Madano</span>
-                                        <span class="video-post-views">531k views</span>
-                                        <span class="video-post-date"> 2 weeks ago </span>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div>
-                                <a href="single-video.html" class="video-post video-post-list">
-                                    <!-- Blog Post Thumbnail -->
-                                    <div class="video-post-thumbnail">
-                                        <span class="video-post-count">2.7k</span>
-                                        <span class="video-post-time">40:00</span>
-                                        <span class="play-btn-trigger"></span>
-                                        <img src="assets/images/video-thumbal/1.png" alt="">
-                                    </div>
-                                    <!-- Blog Post Content -->
-                                    <div class="video-post-content">
-                                        <h3> Learn how to create PHP singleton class </h3>
-                                        <img src="assets/images/avatars/avatar-2.jpg" alt="">
-                                        <span class="video-post-user">Stella Johnson</span>
-                                        <span class="video-post-views">938k views</span>
-                                        <span class="video-post-date"> 3 weeks ago </span>
-                                    </div>
-                                </a>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <!-- browse apps  -->
-                <a href="#" class="opts_icon uk-visible@s"> <i class="uil-apps"></i> </a>
-
-                <!-- browse apps dropdown -->
-                <div uk-dropdown="pos: top;mode:click ; animation: uk-animation-scale-up" class="icon-browse">
-
-                    <a href="#" class="icon-menu-item"> <i class="uil-shop"></i> Dashboard </a>
-                    <a href="#" class="icon-menu-item"> <i class="uil-envelope-alt"></i> Messages </a>
-                    <a href="#" class="icon-menu-item"> <i class="uil-bookmark"></i> Bookmark </a>
-                    <a href="#" class="icon-menu-item"> <i class="uil-shopping-basket"></i> Cart </a>
-                    <a href="#" class="icon-menu-item"> <i class="uil-shield-check"></i> Privacy </a>
-                    <a href="#" class="icon-menu-item"> <i class="uil-bolt-alt"></i> Upgrade </a>
-                    <a href="#" class="more-app"> More Features</a>
-                </div>
-
-
                 <!-- Message  notificiation dropdown -->
                 <a href="#" class="opts_icon"> <i class="uil-envelope-alt"></i> <span>4</span> </a>
-
                 <!-- Message  notificiation dropdown -->
                 <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
                      class="dropdown-notifications">
 
-                    <!-- notivication header -->
+                    <!-- notivication header    信息-->
                     <div class="dropdown-notifications-headline">
                         <h4>信息</h4>
                         <a href="#">
@@ -353,9 +183,8 @@
                         </a>
                     </div>
 
-                    <!-- notification contents -->
+                    <!-- notification contents     信息下拉框-->
                     <div class="dropdown-notifications-content" data-simplebar>
-
                         <!-- notiviation list -->
                         <ul>
                             <li class="notifications-not-read">
@@ -412,112 +241,30 @@
 
                     </div>
                     <div class="dropdown-notifications-footer">
-                        <a href="/sybida/publicTool/noticeTool.html"> 进入讨论 <i class="icon-line-awesome-long-arrow-right"></i> </a>
+                        <a href="#"   id="noticeTool"> 进入讨论 <i class="icon-line-awesome-long-arrow-right"></i> </a>
                     </div>
-
-
                 </div>
-
-
-                <!-- notificiation icon  -->
-                <a href="#" class="opts_icon"> <i class="uil-bell"></i> <span>3</span> </a>
-
-                <!-- notificiation dropdown -->
-                <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
-                     class="dropdown-notifications">
-
-                    <!-- notivication header -->
-                    <div class="dropdown-notifications-headline">
-                        <h4>通知 </h4>
-                        <a href="#">
-                            <i class="icon-feather-settings"
-                               uk-tooltip="title: Notifications settings ; pos: left"></i>
-                        </a>
-                    </div>
-
-                    <!-- notification contents -->
-                    <div class="dropdown-notifications-content" data-simplebar>
-
-                        <!-- notiviation list -->
-                        <ul>
-                            <li class="notifications-not-read">
-                                <a href="#">
-                                        <span class="notification-icon">
-                                            <i class="icon-feather-thumbs-up"></i></span>
-                                    <span class="notification-text">
-                                            <strong>Adrian Mohani</strong> Like Your Comment On Video
-                                            <span class="text-primary">Learn Prototype Faster</span>
-                                            <br> <span class="time-ago"> 9 hours ago </span>
-                                        </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                        <span class="notification-icon">
-                                            <i class="icon-feather-star"></i></span>
-                                    <span class="notification-text">
-                                            <strong>Alex Dolgove</strong> Added New Review In Video
-                                            <span class="text-primary">Full Stack PHP Developer</span>
-                                            <br> <span class="time-ago"> 19 hours ago </span>
-                                        </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                        <span class="notification-icon">
-                                            <i class="icon-feather-message-circle"></i></span>
-                                    <span class="notification-text">
-                                            <strong>Stella Johnson</strong> Replay Your Comments in
-                                            <span class="text-primary">Adobe XD Tutorial</span>
-                                            <br> <span class="time-ago"> 12 hours ago </span>
-                                        </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                        <span class="notification-icon">
-                                            <i class="icon-feather-share-2"></i></span>
-                                    <span class="notification-text">
-                                            <strong>Adrian Mohani</strong> Like Your Comment On Video
-                                            <span class="text-primary">Learn Prototype Faster</span>
-                                            <br> <span class="time-ago"> Yesterday </span>
-                                        </span>
-                                </a>
-                            </li>
-                        </ul>
-
-                    </div>
-
-
-                </div>
-
-
-                <!-- profile -image -->
-                <a class="opts_account"> <img src="assets/images/avatars/avatar-1.jpg" alt=""></a>
-
-                <!-- profile dropdown-->
+                <!-- profile -image    学生用户头像-->
+                    <a class="opts_account" id="studentPhoto1"> </a>
+                <!-- profile dropdown  学生用户头像点击下拉框-->
                 <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
                      class="dropdown-notifications small">
-
                     <!-- User Name / Avatar -->
                     <a href="#">
-
                         <div class="dropdown-user-details">
-                            <div class="dropdown-user-avatar">
-                                <img src="assets/images/avatars/avatar-1.jpg" alt="">
+                            <div class="dropdown-user-avatar" id="studentPhoto2">
+                                <!--学生用户头像-->
+                                <!--<img src="assets/images/avatars/avatar-1.jpg" alt="">-->
                             </div>
-                            <div class="dropdown-user-name">
-                                高媛媛 <span> 已验证 <i class="uil-check"></i> </span>
+                            <!--学生姓名-->
+                            <div id="studentName">
                             </div>
                         </div>
-
                     </a>
-
                     <!-- User menu -->
-
                     <ul class="dropdown-user-menu">
                         <li><a href="#"> <i class="uil-user"></i> 个人中心 </a> </li>
-                        <li><a href="/sybida/publicTool/resetPsw.html"> <i class="uil-bolt"></i> 账号设置</a> </li>
+                        <li><a href="#" id="resetPsw"> <i class="uil-bolt"></i> 账号设置</a> </li>
                         <li><a href="#"> <i class="uil-thumbs-up"></i> </a></li>
                         <li><a href="#"> <i class="uil-history"></i> 求职助手 </a></li>
                         <li><a href="#"> <i class="uil-cog"></i>隐私设置 </a></li>
@@ -533,11 +280,10 @@
                         <div class="menu-divider">
                             <li><a href="#"> <i class="icon-feather-help-circle"></i> 帮助</a>
                             </li>
-                            <li><a href="#"> <i class="icon-feather-log-out"></i> 退出登录</a>
+                            <li><a href="/sybida/login.html"> <i class="icon-feather-log-out"></i> 退出登录</a>
+                        </div>
                             </li>
                     </ul>
-
-
                 </div>
 
             </div>
@@ -545,13 +291,6 @@
         </header>
 
     </div>
-
-
-
-
-
-
-
     <!-- contents -->
     <div class="main_content">
 
@@ -560,22 +299,7 @@
 
         <iframe src="/sybida/student/index.html" style="overflow: hidden;color: #2b542c" width="100%" height="800px"    id="ifream1" ></iframe>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- footer
-       ================================================== -->
+        <!-- footer================================================== -->
         <div class="footer">
             <div class="uk-grid-collapse" uk-grid>
                 <div class="uk-width-expand@s uk-first-column">
@@ -596,18 +320,8 @@
 
 
     </div>
-
-
 </div>
-
-
-
-
-
-
 <!--</div>-->
-
-
 <!-- 转为夜间模式 -->
 <script>
     (function (window, document, undefined) {
@@ -665,13 +379,47 @@
         }
     )
 
-    $("#studentInterviewTeacher").click(
+    $("#vitaeEvaluateStudent").click(
         function () {
             $("#ifream1").attr("src","../student/vitaeEvaluateStudent.html")
         }
     )
 
+    $("#jobStudent").click(
+        function () {
+            $("#ifream1").attr("src","../student/jobStudent.html")
+        }
+    )
+
+    $("#noticeTool").click(
+        function () {
+            $("#ifream1").attr("src","../publicTool/noticeTool.html")
+        }
+    )
+
+
+    $("#resetPsw").click(
+        function () {
+            $("#ifream1").attr("src","../publicTool/resetPsw.html")
+        }
+    )
 </script>
+<!--用户头像-->
+<script>
+    var userid=getCookie("userid")
+    $.getJSON(url+"/user/userinfostu","userid="+userid,function (data) {
+        var html=`<img src="${data.data.studentPhoto}" alt="">`
+        var html2=`<div class="dropdown-user-name">${data.data.studentName}
+                      <span> 已验证 <i class="uil-check"></i> </span>
+                   </div>`
+        $("#studentPhoto1").append(html)
+        $("#studentPhoto2").append(html)
+        $("#studentName").append(html2)
+    })
+</script>
+
+
+
 
 
 </body>
