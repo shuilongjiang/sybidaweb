@@ -110,7 +110,6 @@
             <div class="head_user">
                 <a href="#" class="btn-upgrade uk-visible@s" id="downfile"> <i class="uil-bolt-alt"></i> 预览已经上传简历</a>
                 <script>
-
                 </script>
                 <a href="#" class="btn-upload uk-visible@s"> <i class="uil-cloud-upload"></i> 上传简历</a>
                 <!-- upload dropdown box -->
@@ -212,7 +211,7 @@
                 </script>
                 <!-- videos feed  -->
                 <!-- Message  notificiation dropdown -->
-                <a href="#" class="opts_icon"> <i class="uil-envelope-alt"></i> <span>4</span> </a>
+                <a href="#" class="opts_icon"> <i class="uil-envelope-alt"></i> <span id="userinfonum">4</span> </a>
                 <!-- Message  notificiation dropdown -->
                 <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
                      class="dropdown-notifications">
@@ -322,12 +321,31 @@
                         <div class="menu-divider">
                             <li><a href="#"> <i class="icon-feather-help-circle"></i> 帮助</a>
                             </li>
-                            <li><a href="/sybida/login.html"> <i class="icon-feather-log-out"></i> 退出登录</a>
+                            <li><a href="#" onclick="exittologin()"> <i class="icon-feather-log-out"></i> 退出登录</a>
                         </div>
                             </li>
                     </ul>
                 </div>
+                <script>
+                    function exittologin(){
+                        var userid=getCookie("userid")
 
+                        console.log("+++"+userid)
+                        $.ajax({
+                            url: url+"login/exitlogin",
+                            type: 'POST',
+                            //   timeout: '30000',
+                            data: "userid="+userid ,
+                            // contentType: 'application/json;charset=utf-8',
+                            dataType: 'json',
+
+                            success: function () {
+
+                            }
+                        });
+                        location.href="../login.html"
+                    }
+                </script>
             </div>
 
         </header>
@@ -457,6 +475,8 @@
         $("#studentPhoto1").append(html)
         $("#studentPhoto2").append(html)
         $("#studentName").append(html2)
+        $("#userinfonum").html(data.data.messageNum)
+
     })
 </script>
 
