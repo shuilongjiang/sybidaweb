@@ -110,7 +110,6 @@
             <div class="head_user">
                 <a href="#" class="btn-upgrade uk-visible@s" id="downfile"> <i class="uil-bolt-alt"></i> 预览已经上传简历</a>
                 <script>
-
                 </script>
                 <a href="#" class="btn-upload uk-visible@s"> <i class="uil-cloud-upload"></i> 上传简历</a>
                 <!-- upload dropdown box -->
@@ -322,12 +321,33 @@
                         <div class="menu-divider">
                             <li><a href="#"> <i class="icon-feather-help-circle"></i> 帮助</a>
                             </li>
-                            <li><a href="/sybida/login.html"> <i class="icon-feather-log-out"></i> 退出登录</a>
+                            <li><a href="/sybida/login.html" onclick="exittologin()"> <i class="icon-feather-log-out"></i> 退出登录</a>
                         </div>
                             </li>
                     </ul>
                 </div>
+                <script>
+                    function exittologin(){
+                        var userid=getCookie("userid")
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                        });
+                        console.log("+++"+userid)
+                        $.ajax({
+                            url: url+"login/exitlogin",
+                            type: 'POST',
+                            //   timeout: '30000',
+                            data: "userid="+userid ,
+                            // contentType: 'application/json;charset=utf-8',
+                            dataType: 'json',
 
+                            success: function () {
+
+                            }
+                        });
+                        location.href="../login.html"
+                    }
+                </script>
             </div>
 
         </header>
