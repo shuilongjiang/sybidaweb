@@ -1,24 +1,64 @@
 // 获取从前一个页面传递过来的参数
 var search = window.location.search
 var arr = search.split("=")
-var id = arr[1]
-
+if(arr.length>1) {
+    var id = arr[1]
+}
 var classNum
 // 获取英雄信息并填充到页面输入框中
 
 // 获取员工的信息 ，已知什么条件
-$.getJSON("/web06/classInfo","action=selectempbyid&id=" + id,function (data) {
+$.getJSON(url+"/classInfo/showOneClass?classId="+id,function (data) {
+    if (!data.data.classNum) {
+        data.data.classNum="未完善"
+    }
+    if (!data.data.classTeachId) {
+        data.data.classTeachId="未完善"
+    }
+    if (!data.data.classManagerId) {
+        data.data.classManagerId="未完善"
+    }
+    if (!data.data.classStudyId) {
+        data.data.classStudyId="未完善"
+    }
+    if (!data.data.classTime) {
+        data.data.classTime="未完善"
+    }
+    if (!data.data.classIsGraduate) {
+        data.data.classIsGraduate="未完善"
+    }
+    if (!data.data.classAlterTime) {
+        data.data.classAlterTime="未完善"
+    }
     // 根据返回的数据在页面上进行展示
     if(data.code == 1) {
+        if (data.data.classIsGraduate==1) {
+            data.data.classIsGraduate ="否"
+        }
         $("#classId").val(data.data.classId)
         $("#className").val(data.data.classNum)
-        $("#teachName").val(data.data.classTeachId)
-        $("#managerName").val(data.data.classManagerId)
-        $("#classStudy").val(data.data.classStudyId)
-        $("#classTime").val(data.data.classTime)
+
+        var date = Date.parse(data.data.classTime)
+        date = new Date(date)
+        $("#classTime").val(date.pattern("yyyy-MM-dd"))
+
         $("#classIsGraduate").val(data.data.classIsGraduate)
-        $("#alterClass").val(data.data.classAlterTime)
+        var date = Date.parse(data.data.classAlterTime)
+        date = new Date(date)
+        $("#alterClass").val(date.pattern("yyyy-MM-dd"))
     }
+    var classTeachId=data.data.classTeachId
+    $.getJSON(url+"/classInfo/selectTeacherName?classTeachId="+classTeachId,function (data) {
+        $("#teachName").val(data.data.teachName)
+    });
+    var classManagerId=data.data.classManagerId
+    $.getJSON(url+"/classInfo/selectManagerName?classManagerId="+classManagerId,function (data) {
+        $("#managerName").val(data.data.teachName)
+    });
+    var classStudyId=data.data.classStudyId
+    $.getJSON(url+"/classInfo/selectStudyName?classStudyId="+classStudyId,function (data) {
+        $("#classStudy").val(data.data.studyAspect)
+    });
 })
 
 
@@ -28,7 +68,7 @@ $.getJSON("/web06/classInfo","action=selectempbyid&id=" + id,function (data) {
 // 默认名称存在
 var isExist = false;
 // $("#heroname")
-$("[name='classNum']").blur(function () {
+$("input[name='classNum']").blur(function () {
     // let 用于声明局部变量
     if(!judgeSpace($(this), 0)){
         return
