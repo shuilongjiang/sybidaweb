@@ -38,7 +38,7 @@ $("#selectButt").click(function (){
 
 //班级号下拉选框
 var userid=getCookie("userid")
-// console.log(userid+"========")
+console.log(userid+"========")
 $.getJSON(url+"/audition/selectClass","userid="+userid,function (data){
     // console.log(data)
     var htm=`<option value="-1">全部</option>`
