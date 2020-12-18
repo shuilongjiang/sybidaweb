@@ -131,7 +131,8 @@ $.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"
         console.log("========="+text)
         if(text.trim()=='修改'){
             var  id =$(this).attr("value")
-             location.href="/sybida/publicTool/updateClass.html?id="+id;
+             location.href="/sybida/publicTool/updateClass.html";
+            //?id="+id
         }
     })
 })
