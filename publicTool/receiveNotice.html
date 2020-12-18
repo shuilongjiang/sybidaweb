@@ -1,10 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <style>
+        html, body, div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, textarea, th, td, select {
+            margin: 0;
+            padding: 0;
+        }
+
+        #advicetitlebig{
+            border-top: none;
+            border-bottom: 2px solid #25bb9b;
+            width: 100%;
+        }
+        .advicetitleshow{
+            height: 42px;
+            line-height: 42px;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            background: #ffffff;
+            color: black;
+            width: 50%;
+            float: left;
+         }
+        .advicetitleshow1{
+            height: 42px;
+            line-height: 42px;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            background: #ffffff;
+            color: black;
+            width: 50%;
+            float: left;
+        }
+
+        .onadvicetitle{
+            background: #25bb9b;
+            color: #fff;
+        }
+        .infolist{
+            width: 95%;
+            border-bottom: 2px solid #ECECEC;
+        }
+        .onlinght{
+            transform: scale(1.01,1.01);
+            box-shadow: 0 0 1px #0000ff;
+            cursor: pointer;
+        }
+        .showmessage{
+            display: block;
+        }
+        .hiddenmessage{
+            display: none;
+        }
+    </style>
 </head>
 <body>
-接收通知
+<div class="container" style="margin-top: 20px;">
+    <div  style="border: 1px solid #ECECEC;width: 80%;margin: 0 auto;">
+
+        <div id="advicetitlebig" >
+            <a href="#">
+                <div class="advicetitleshow onadvicetitle"  id="receiveinfo">
+                收件箱
+                </div>
+            </a>
+            <a href="#" >
+                <div class="advicetitleshow1" id="sendedinfo" >
+                   已发送
+                </div>
+            </a>
+            <div style="clear: both"></div>
+        </div>
+        <div id="showmseeage" class="showmessage" >
+            <div class="infolist" >
+                查看信息
+            </div>
+        </div>
+        <div id="sendmessage" class="hiddenmessage">
+
+        </div>
+
+    </div>
+</div>
 </body>
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/layui/layui.js" charset="utf-8"></script>
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<script>
+    $(".advicetitleshow").mouseover(function () {
+        var class1=$(this).attr("class")
+
+        $(this).addClass("onlinght")
+    })
+    $(".advicetitleshow").mouseleave(function () {
+
+        $(this).removeClass("onlinght")
+    })
+    $(".advicetitleshow1").mouseover(function () {
+        var class1=$(this).attr("class")
+
+        $(this).addClass("onlinght")
+    })
+    $(".advicetitleshow1").mouseleave(function () {
+
+        $(this).removeClass("onlinght")
+    })
+    $(".advicetitleshow").click(function () {
+        var class1=$(this).attr("class")
+        if("advicetitleshow onlinght"==class1){
+            $(this).toggleClass("onadvicetitle")
+            $(".advicetitleshow1").removeClass("onadvicetitle")
+            $("#showmseeage").removeClass("hiddenmessage")
+            $("#showmseeage").toggleClass("showmessage")
+            $("#sendmessage").removeClass("showmessage")
+            $("#sendmessage").toggleClass("hiddenmessage")
+        }else{
+
+        }
+    })
+    $(".advicetitleshow1").click(function () {
+        var class1=$(this).attr("class")
+        if("advicetitleshow1 onlinght"==class1){
+            $(this).toggleClass("onadvicetitle")
+            $(".advicetitleshow").removeClass("onadvicetitle")
+            $("#sendmessage").removeClass("hiddenmessage")
+            $("#sendmessage").toggleClass("showmessage")
+            $("#showmseeage").removeClass("showmessage")
+            $("#showmseeage").toggleClass("hiddenmessage")
+            sendmessagea();
+        }else{
+            sendmessagea();
+        }
+    })
+</script>
+<!-- page lazyloading -->
+<script>
+    function sendmessagea(){
+        console.log("----------")
+        // 设置布尔值用于判断是否该DIV到达过可视区域
+        var scrollflaga = true;
+
+        // 监听滚轮事件
+
+            // 要加载的DIV的ID
+            // 距离可视区域顶部的距离
+            var a = document.getElementById("sendmessage").offsetTop;
+            console.log(a)
+            if (scrollflaga == true) {
+                // 判断
+                // $(window).scrollTop()为返回滚动条的垂直位置
+                // $(window).height()代表了当前可见区域的大小,即你看到的浏览器显示范围
+                // a >= $(window).scrollTop() &&
+                if (a >= $(window).scrollTop() && a < ($(window).scrollTop()+$(window).height())) {
+                    // 如果到达了可视区域，则设置其布尔值为false，防止一直调用下面函数，即只做一次ajax请求
+                    scrollflaga = false;
+                    console.log("====++++++++====")
+                    // 你的ajax请求函数
+                    loadingFunction();
+                }
+            }
+
+    }
+   function loadingFunction() {
+        var userid=getCookie("userid")
+       console.log(userid)
+       $.ajax({
+           type: "post",
+           url: url+"news/hadsendmessage",
+           data: "userid="+userid,
+           // cache: false,   // 不缓存
+           // processData: false,   // jQuery不要去处理发送的数据
+           // contentType: false,   // jQuery不要去设置Content-Type请求头
+           success: function (data) {
+               var html =``
+               for(var i = 0; i<data.data.length; i++){
+                   html+=`<div class="infolisted" style="">
+               ${data.data.toString()}
+            </div>`
+               }
+               $("#sendmessage").append(html)
+              console.log(data)
+           },
+           error:function () {
+               alert("网络异常请检查重试！！！");
+           }
+       });
+   }
+</script>
 </html>
