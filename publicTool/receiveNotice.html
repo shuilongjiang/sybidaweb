@@ -86,7 +86,7 @@
         <div id="sendmessage" class="hiddenmessage">
 
         </div>
-
+     <span id="nothingtodo"></span>
     </div>
 </div>
 </body>
@@ -142,56 +142,56 @@
 </script>
 <!-- page lazyloading -->
 <script>
-    function sendmessagea(){
-        console.log("----------")
-        // 设置布尔值用于判断是否该DIV到达过可视区域
-        var scrollflaga = true;
 
-        // 监听滚轮事件
 
-            // 要加载的DIV的ID
-            // 距离可视区域顶部的距离
-            var a = document.getElementById("sendmessage").offsetTop;
-            console.log(a)
-            if (scrollflaga == true) {
-                // 判断
-                // $(window).scrollTop()为返回滚动条的垂直位置
-                // $(window).height()代表了当前可见区域的大小,即你看到的浏览器显示范围
-                // a >= $(window).scrollTop() &&
-                if (a >= $(window).scrollTop() && a < ($(window).scrollTop()+$(window).height())) {
-                    // 如果到达了可视区域，则设置其布尔值为false，防止一直调用下面函数，即只做一次ajax请求
-                    scrollflaga = false;
-                    console.log("====++++++++====")
-                    // 你的ajax请求函数
-                    loadingFunction();
-                }
-            }
+</script>
+<script>
+    function sendmessagea() {
 
-    }
-   function loadingFunction() {
-        var userid=getCookie("userid")
-       console.log(userid)
-       $.ajax({
-           type: "post",
-           url: url+"news/hadsendmessage",
-           data: "userid="+userid,
-           // cache: false,   // 不缓存
-           // processData: false,   // jQuery不要去处理发送的数据
-           // contentType: false,   // jQuery不要去设置Content-Type请求头
-           success: function (data) {
-               var html =``
-               for(var i = 0; i<data.data.length; i++){
-                   html+=`<div class="infolisted" style="">
-               ${data.data.toString()}
-            </div>`
+
+      var userid=getCookie("userid")
+       var totalPages=3;
+       var pagenum=0;
+        doSomething(pagenum)
+       var C=10;
+
+           $(window).scroll(function() {
+               console.log("sss"+$("#sendmessage").height())
+               var scrollTop = $("#sendmessage").scrollTop(),scrollHeight = $(document).height(),windowHeight = $("#sendmessage").height();
+               var positionValue = (scrollTop + windowHeight) - scrollHeight;
+               console.log(positionValue)
+               if (positionValue >= -70) {
+                   //do something
+                   if (pagenum < totalPages - 1) {
+                       pagenum++;
+                       doSomething(pagenum);
+                   } else {
+                       $("#nothingtodo").html("没有更多了")
+                   }
                }
-               $("#sendmessage").append(html)
-              console.log(data)
-           },
-           error:function () {
-               alert("网络异常请检查重试！！！");
-           }
-       });
-   }
+           });
+
+
+
+    function doSomething(pagenum) {
+
+        var data1 = {
+            pagesize: 10,
+            pagenum: pagenum,
+            userid:userid,
+        };
+        $.post(url+"news/hadsendmessage", data1, function (data) {
+            var html =``
+            for(var i = 0; i<data.data.length; i++){
+                html+=`<div class="infolisted" style="">
+                        ${data.data}<br>
+                        ${data.data}<br>
+                        </div>`
+            }
+            $("#sendmessage").append(html)
+            console.log(data)
+        },"json");
+    }
+    }
 </script>
 </html>
