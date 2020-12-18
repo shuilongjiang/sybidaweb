@@ -33,7 +33,7 @@
     </div>
         <div class="form-group">
             <label for="insetManagerId">班主任</label>
-            <input type="text" name="insetManager" class="form-control" id="insetManagerId" >
+            <input type="text" name="insetManager" class="form-control" id="insetManagerId" readonly="readonly">
             <p class="tip"></p>
         </div>
         <div class="form-group">
@@ -66,5 +66,35 @@
         $("#insetManagerId"). attr("value",data.data)
     })
 </script>
+<script>
+    window.onload=function() {
+        var createClass = document.getElementById("classCreate")
+        var classLab = document.getElementsByClassName("tip")[0];
+        createClass.onfocus = function () {
+            classLab.style.display = "inline-block";
+            classLab.innerHTML = '<i class="warn"></i> 请输入1-6个字符';
+        }
+        createClass.onblur = function () {
+            if (this.value== "") {
+                classLab.innerHTML = '<i class="cuo"></i> 不能为空';
+            } else if (this.value.length < 1 || this.value.length > 6) {
+                classLab.innerHTML = '<i class="cuo"></i> 长度应为1-6个字符';
+            } else {
+                classLab.innerHTML = "";
+            }
+            var className=$("#classCreate").val()
+            $.getJSON(url+"/register/selectClassName?className="+className,function (data) {
+                if (data.code==1){
+
+                }else {
+                    classLab.innerHTML = '<i class="warn"></i> 班级名重复，换一个试试';
+                }
+            })
+        }
+        }
+
+</script>
+
+
 </body>
 </html>
