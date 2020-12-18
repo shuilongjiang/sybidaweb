@@ -134,64 +134,89 @@
             $("#sendmessage").toggleClass("showmessage")
             $("#showmseeage").removeClass("showmessage")
             $("#showmseeage").toggleClass("hiddenmessage")
-            sendmessagea();
+            toltalnum1();
+
         }else{
-            sendmessagea();
+            toltalnum1();
         }
     })
 </script>
 <!-- page lazyloading -->
 <script>
-
+function toltalnum1() {
+    var userid=getCookie("userid")
+    $.post(url+"news/hadSendmessagecount", "userid="+userid, function (data1) {
+        var toltalnum=data1.code;
+        console.log(toltalnum)
+        if(toltalnum==0){
+            console.log("你没有发送任何信息！")
+        }else{
+            console.log("总条数"+toltalnum)
+            sendmessagea(toltalnum);
+        }
+    },"json");
+}
 
 </script>
 <script>
-    function sendmessagea() {
+    var aa=true
+    function sendmessagea(toltalnum) {
 
+        var pagesize=7;
+        var totalPages=Math.ceil(toltalnum/pagesize);
+        console.log("总页数"+totalPages)
 
-      var userid=getCookie("userid")
-       var totalPages=3;
-       var pagenum=0;
+        var pagenum=totalPages;
+
+        doSomething(pagenum--)
         doSomething(pagenum)
-       var C=10;
+        $(window).scroll(function() {
+            // console.log("内容的搞"+$("#sendmessage").height())
+            // console.log("内容1的搞"+$(this).scrollTop())
+            // console.log("内容2的搞"+ $(document).height())
+            // console.log("内容3的搞"+ $(this).height())
+            var scrollTop = $(document).scrollTop(),scrollHeight = $(document).height(),windowHeight = $(this).height();
+            var positionValue = (scrollTop + windowHeight) - scrollHeight;
+             // console.log(positionValue)
+            if(aa){
+                if (pagenum>1) {
+                    if (positionValue >= -2) {
+                        if (pagenum > 1) {
+                            pagenum--;
+                            aa=false;
+                            console.log(aa)
+                            aa=doSomething(pagenum);
 
-           $(window).scroll(function() {
-               console.log("sss"+$("#sendmessage").height())
-               var scrollTop = $("#sendmessage").scrollTop(),scrollHeight = $(document).height(),windowHeight = $("#sendmessage").height();
-               var positionValue = (scrollTop + windowHeight) - scrollHeight;
-               console.log(positionValue)
-               if (positionValue >= -70) {
-                   //do something
-                   if (pagenum < totalPages - 1) {
-                       pagenum++;
-                       doSomething(pagenum);
-                   } else {
-                       $("#nothingtodo").html("没有更多了")
-                   }
-               }
-           });
+                        }
+                    }
+                }
+            }
 
-
-
+        });
     function doSomething(pagenum) {
+        var userid1=getCookie("userid")
+        // $(window).unbind("scroll");
+        console.log("----------")
+        $.post(url+"news/hadsendmessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
 
-        var data1 = {
-            pagesize: 10,
-            pagenum: pagenum,
-            userid:userid,
-        };
-        $.post(url+"news/hadsendmessage", data1, function (data) {
             var html =``
-            for(var i = 0; i<data.data.length; i++){
+            for(var i =data.data.length-1; i>=0; i--){
                 html+=`<div class="infolisted" style="">
-                        ${data.data}<br>
-                        ${data.data}<br>
+                        ${i}+${data.data}<br>
+                        ${data.data[i].newSendTime}<br>
+                        ${data.data[i].newsTest}<br>
                         </div>`
             }
             $("#sendmessage").append(html)
             console.log(data)
+            aa=true;
+            if(pagenum==1){
+
+                $("#nothingtodo").html("没有更多了")
+            }
         },"json");
     }
+
     }
 </script>
 </html>
