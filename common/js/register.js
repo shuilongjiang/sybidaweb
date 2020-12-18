@@ -90,12 +90,13 @@ $("[type='button']").click(function () {
         contentType:false,
         dataType:"json",
         success:function (data) {
-            if(data.code == 1) {
+            if(data.code == 666) {
                alert("插入成功！");
                location.reload()
-            } else if(data.code == 0){
-               alert("插入失败,学生已存在，或者其他问题");
-
+            }else if (data.code==10000){
+                alert(data.message)
+            }else {
+               alert("插入失败,第"+data.code+"条有重复，或者其他问题");
             }
         }
     })
