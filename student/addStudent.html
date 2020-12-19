@@ -3,8 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../bs/bootstrap.min.css">
 </head>
 <body>
-批量添12313213加学生
+<span >
+<hr/>
+</span>
+<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="#" class="nav_guide">学生批量添加</a>
+</div>
+<div class="container" style="margin-top: 10px">
+
+    <div>
+        <div class="form-group">
+            <label for="studentId">学生ID</label>
+            <input type="text" class="form-control" id="studentId" placeholder="请输入ID">
+        </div>
+        <div class="form-group">
+            <label for="studentName">学生姓名</label>
+            <input type="text" class="form-control" id="studentName" placeholder="请输入姓名">
+        </div>
+        <button class="btn btn-default">单个提交</button>
+        <button class="btn btn-default" id="submitList">批量提交</button>
+    </div>
+    <!--<table class="layui-table table-striped " style="margin-top: 60px" id="showAllAdd">-->
+        <!--<tr>-->
+            <!--<th>学生ID</th>-->
+            <!--<th>学生姓名</th>-->
+        <!--</tr>-->
+    <!--</table>-->
+</div>
+<script src="js/jquery-3.3.1.min.js"></script>
+
+<script>
+
+    var object={}
+    $("#submitList").click(function () {
+        console.log("123")
+        object={'studentId':id,'studentName':name,}
+        let html=``
+        console.log(object)
+        $("#showAllAdd").append(html)
+    })
+
+
+
+</script>
 </body>
 </html>

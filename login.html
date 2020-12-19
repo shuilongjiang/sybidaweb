@@ -599,8 +599,6 @@
                     $("#btnSendCode1").click(function () {
                         let phone2=$('#account').val()
                         //向手机发送验证码 验证码获取写这里
-
-
                         $("#btnSendCode1").attr("disabled", "disabled")
                         reloadSendBtn(60);
                     })
@@ -608,8 +606,6 @@
 
             });
         }
-
-
         // 控制发送短信的按钮
         function reloadSendBtn(second) {
             if (second <= 0) {
@@ -657,12 +653,9 @@
                     layer.alert("登录超时，请稍后重试！");
                 }
             });
-
             return false;
         });
     });
-
-
 </script>
 
 <!--//重置密码的HTML文档-->
