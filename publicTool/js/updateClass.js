@@ -57,12 +57,57 @@ $.getJSON(url+"/classInfo/showOneClass?classId="+id,function (data) {
     });
     var classStudyId=data.data.classStudyId
     $.getJSON(url+"/classInfo/selectStudyName?classStudyId="+classStudyId,function (data) {
-        $("#classStudy").val(data.data.studyAspect)
+        // $("#classStudy").val(data.data.studyAspect)
+        $('select[name="selectStudy"]').attr("selected",data.data.studyAspect)
     });
 })
+//这样合理吗///////////////////////////////////////////////////////////////////
 
+$.getJSON(url+"/register/selectStudy",function (data) {
+    let html = ''
+    for (let i = 4; i < data.length; i++) {
+        html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
+    }
+    $('select[name="selectStudy"]').append(html)
 
+    var selectA1 = $('select[name="selectStudy"]').find("option"); //从A1下拉框中 搜索值
+    for(var i=0;i<selectA1.length;i++){
+        var t=$(selectA1[i]).val()
 
+        if(t==selectStudy){
+            $(selectA1[i]).attr("selected","selected")
+        }
+    }
+    //change事件
+    $('select[name="selectStudy"]').change(
+        function (){
+            selectStudy=$('select[name="selectStudy"]').val()
+        }
+    )
+});
+
+$.getJSON(url+"/register/selectTeacher",function (data) {
+    let html = ''
+    for (let i = 4; i < data.length; i++) {
+        html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
+    }
+    $('select[name="managerName"]').append(html)
+
+    var selectA1 = $('select[name="managerName"]').find("option"); //从A1下拉框中 搜索值
+    for(var i=0;i<selectA1.length;i++){
+        var t=$(selectA1[i]).val()
+
+        if(t==selectStudy){
+            $(selectA1[i]).attr("selected","selected")
+        }
+    }
+    //change事件
+    $('select[name="selectStudy"]').change(
+        function (){
+            selectStudy=$('select[name="selectStudy"]').val()
+        }
+    )
+});
 
 
 // 默认名称存在

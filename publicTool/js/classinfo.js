@@ -32,18 +32,6 @@ $.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"
         if (!list[i].classNum) {
             list[i].classNum = "未完善"
         }
-        // console.log(list[i].classTeachId+"================")
-        // if (list[i].classTeachId) {
-        //     teachId=list[i].classTeachId
-        //         console.log( teachId+"sdfsdfsdfsdf")
-        //     $.post(url+"/classInfo/selectTeachId","teachId="+teachId,function (dataTeacher) {
-        //         console.log(dataTeacher+"-------------------------------")
-        //         if(data.code==1){
-        //             console.log(dataTeacher.data.teachName);
-        //             list[i].classTeachId =dataTeacher.data.teachName;
-        //         }
-        //     })
-        // }
         if (!list[i].classTeachId){
             list[i].classTeachId = "未完善"
         }
@@ -194,20 +182,20 @@ $.getJSON(url+"/classInfo/selectClass",function (data) {
 
 
     var selectA1 = $('#classNum').find("option"); //从A1下拉框中 搜索值
-    for(var i=0;i<selectA1.length;i++){
-        var t=$(selectA1[i]).val()
+for(var i=0;i<selectA1.length;i++){
+    var t=$(selectA1[i]).val()
 
-        if(t==selectClass){
-            $(selectA1[i]).attr("selected","selected")
-        }
-
+    if(t==selectClass){
+        $(selectA1[i]).attr("selected","selected")
     }
-    //change事件
-    $('#classNum').change(
-        function (){
-            selectClass=$('#classNum').val()
-        }
-    )
+
+}
+//change事件
+$('#classNum').change(
+    function (){
+        selectClass=$('#classNum').val()
+    }
+)
 });
 
 var selectA2 = $("#pageSizeSel").find("option"); //从A1下拉框中 搜索值

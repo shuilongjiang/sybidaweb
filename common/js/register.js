@@ -16,7 +16,6 @@ $.getJSON(url+"/register/selectClass",function (data) {
         if(t==selectClass){
             $(selectA1[i]).attr("selected","selected")
         }
-
     }
     //change事件
     $('select[name="selectClass"]').change(
@@ -28,7 +27,7 @@ $.getJSON(url+"/register/selectClass",function (data) {
 
 $.getJSON(url+"/register/selectStudy",function (data) {
     let html = ''
-    for (let i = 3; i < data.length; i++) {
+    for (let i = 4; i < data.length; i++) {
         html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
     }
     $('select[name="selectStudy"]').append(html)
@@ -91,12 +90,31 @@ $("[type='button']").click(function () {
         dataType:"json",
         success:function (data) {
             if(data.code == 666) {
-               alert("插入成功！");
-               location.reload()
+                layer.alert('插入成功！', {
+                        skin: 'layui-layer-molv' //样式类名
+                        ,closeBtn: 0
+                    }
+                );
             }else if (data.code==100000){
-                alert(data.message)
-            }else {
-               alert("插入失败,第"+data.code+"条有重复，或者其他问题");
+                layer.alert(data.message, {
+                        skin: 'layui-layer-molv' //样式类名
+                        ,closeBtn: 0
+                    }
+                );
+
+            }else if (data.code==-1){
+                layer.alert("插入失败,"+ data.message+"，或者其他问题", {
+                        skin: 'layui-layer-molv' //样式类名
+                        ,closeBtn: 0
+                    }
+                );
+            }
+                else {
+                layer.alert("插入失败,第"+data.code+"条班里已存在，或者其他问题", {
+                        skin: 'layui-layer-molv' //样式类名
+                        ,closeBtn: 0
+                    }
+                );
             }
         }
     })
