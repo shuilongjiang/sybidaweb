@@ -1,10 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <style>
+        html, body, div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, textarea, th, td, select {
+            margin: 0;
+            padding: 0;
+        }
+
+        #advicetitlebig{
+            border-top: none;
+            border-bottom: 2px solid #25bb9b;
+            width: 100%;
+        }
+        .advicetitleshow{
+            height: 42px;
+            line-height: 42px;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            background: #ffffff;
+            color: black;
+            width: 50%;
+            float: left;
+         }
+        .advicetitleshow1{
+            height: 42px;
+            line-height: 42px;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            background: #ffffff;
+            color: black;
+            width: 50%;
+            float: left;
+        }
+
+        .onadvicetitle{
+            background: #25bb9b;
+            color: #fff;
+        }
+        .infolist{
+            width: 95%;
+            margin:0 auto;
+            border-bottom: 2px solid #ECECEC;
+        }
+        .infolisted{
+            width: 95%;
+            margin:0 auto;
+            padding: 30px 15px 10px 15px;
+            font-size: 16px;
+            border-bottom: 2px solid #ECECEC;
+        }
+        .onlinght{
+            transform: scale(1.01,1.01);
+            box-shadow: 0 0 1px #0000ff;
+            cursor: pointer;
+        }
+        .showmessage{
+            display: block;
+        }
+        .hiddenmessage{
+            display: none;
+        }
+        .infolisted .infolistedtop{
+            height: 30px;
+            line-height:30px;
+            text-align: center;
+            vertical-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+       .infolisted .infolistedtop .infolistedtopleft{
+           float: left;margin-left: 15px;
+       }
+        .infolisted .infolistedtop  .infolistedtopright{
+            float: right;margin-right: 15px;
+       }
+    </style>
 </head>
 <body>
-接收通知
+<div class="container" style="margin-top: 20px;">
+    <div  style="border: 1px solid #ECECEC;width: 80%;margin: 0 auto;">
+
+        <div id="advicetitlebig" >
+            <a href="#">
+                <div class="advicetitleshow onadvicetitle"  id="receiveinfo">
+                收件箱
+                </div>
+            </a>
+            <a href="#" >
+                <div class="advicetitleshow1" id="sendedinfo" >
+                   已发送
+                </div>
+            </a>
+            <div style="clear: both"></div>
+        </div>
+        <div id="showmseeage" class="showmessage" >
+            <div class="infolist" >
+                查看信息
+            </div>
+        </div>
+        <div id="sendmessage" class="hiddenmessage">
+           <!--<-&#45;&#45;&#45;&#45;&#45;&#45;ddddddd-&#45;&#45;&ndash;&gt;-->
+
+        </div>
+        <hr>
+        <span id="nothingtodo"></span>
+
+        </div>
+</div>
 </body>
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/layui/layui.js" charset="utf-8"></script>
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<script>
+    $(".advicetitleshow").mouseover(function () {
+        var class1=$(this).attr("class")
+
+        $(this).addClass("onlinght")
+    })
+    $(".advicetitleshow").mouseleave(function () {
+
+        $(this).removeClass("onlinght")
+    })
+    $(".advicetitleshow1").mouseover(function () {
+        var class1=$(this).attr("class")
+
+        $(this).addClass("onlinght")
+    })
+    $(".advicetitleshow1").mouseleave(function () {
+
+        $(this).removeClass("onlinght")
+    })
+    $(".advicetitleshow").click(function () {
+        var class1=$(this).attr("class")
+        if("advicetitleshow onlinght"==class1){
+            $(this).toggleClass("onadvicetitle")
+            $(".advicetitleshow1").removeClass("onadvicetitle")
+            $("#showmseeage").removeClass("hiddenmessage")
+            $("#showmseeage").toggleClass("showmessage")
+            $("#sendmessage").removeClass("showmessage")
+            $("#sendmessage").toggleClass("hiddenmessage")
+        }else{
+
+        }
+    })
+    $(".advicetitleshow1").click(function () {
+        var class1=$(this).attr("class")
+        if("advicetitleshow1 onlinght"==class1){
+            $(this).toggleClass("onadvicetitle")
+            $(".advicetitleshow").removeClass("onadvicetitle")
+            $("#sendmessage").removeClass("hiddenmessage")
+            $("#sendmessage").toggleClass("showmessage")
+            $("#showmseeage").removeClass("showmessage")
+            $("#showmseeage").toggleClass("hiddenmessage")
+            toltalnum1();
+
+        }else{
+            toltalnum1();
+        }
+    })
+</script>
+<!-- page lazyloading -->
+<script>
+function toltalnum1() {
+    var userid=getCookie("userid")
+    $.post(url+"news/hadSendmessagecount", "userid="+userid, function (data1) {
+        var toltalnum=data1.code;
+        console.log(toltalnum)
+        if(toltalnum==0){
+            $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+        你还没有发送任何信息 </div>`)
+
+        }else{
+            console.log("总条数"+toltalnum)
+            $("#sendmessage").html("")
+            sendmessagea(toltalnum);
+        }
+    },"json");
+}
+
+</script>
+<script>
+    var layer
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+    var aa=true
+    function sendmessagea(toltalnum) {
+
+        var pagesize=7;
+        var totalPages=Math.ceil(toltalnum/pagesize);
+
+
+        var pagenum=totalPages;
+
+        doSomething(pagenum--)
+        doSomething(pagenum)
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop(),scrollHeight = $(document).height(),windowHeight = $(this).height();
+            var positionValue = (scrollTop + windowHeight) - scrollHeight;
+            if(aa){
+                if (pagenum>1) {
+                    if (positionValue >= -2) {
+                        if (pagenum > 1) {
+                            layer.msg("玩命加载中")
+                            pagenum--;
+                            aa=false;
+                            aa=doSomething(pagenum);
+                        }
+                    }
+                }
+            }
+
+        });
+    function doSomething(pagenum) {
+        var userid1=getCookie("userid")
+        $.post(url+"news/hadsendmessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
+            var html =``
+            for(var i =data.data.length-1; i>=0; i--){
+                var mytime =data.data[i].newsSendTime
+                var mytime1 =mytime.substring(0,mytime.indexOf(".")).replace("T","/")
+                html+=` <div class="infolisted">
+            <div class="bg-primary infolistedtop">
+                    <div class="infolistedtopleft" >
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="" value=""></div>
+                    <div class="infolistedtopright" ><span >${data.data[i].newsReadPeople}人已读</span></div>
+                    <div style="clear: both"></div>
+            </div>
+            <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
+            </p>
+            </div>
+            <div style="margin-top: 10px;">
+                <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
+                <div style="float: right;margin-right: 15px;"><span ><a><i>删除</i></a></span></div>
+                <div style="clear: both"></div>
+
+            </div>
+        </div>`
+            }
+            $("#sendmessage").append(html)
+
+            aa=true;
+            if(pagenum==1){
+                layer.msg("没有更多了---我是有底线的哦")
+                $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+        你还没有发送任何信息 </div>`)
+            }
+        },"json");
+    }
+    }
+</script>
 </html>
