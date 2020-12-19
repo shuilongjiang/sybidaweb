@@ -93,7 +93,7 @@ $("[type='button']").click(function () {
             if(data.code == 666) {
                alert("插入成功！");
                location.reload()
-            }else if (data.code==10000){
+            }else if (data.code==100000){
                 alert(data.message)
             }else {
                alert("插入失败,第"+data.code+"条有重复，或者其他问题");
