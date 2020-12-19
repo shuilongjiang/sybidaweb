@@ -46,6 +46,14 @@
         }
         .infolist{
             width: 95%;
+            margin:0 auto;
+            border-bottom: 2px solid #ECECEC;
+        }
+        .infolisted{
+            width: 95%;
+            margin:0 auto;
+            padding: 30px 15px 10px 15px;
+            font-size: 16px;
             border-bottom: 2px solid #ECECEC;
         }
         .onlinght{
@@ -59,6 +67,21 @@
         .hiddenmessage{
             display: none;
         }
+        .infolisted .infolistedtop{
+            height: 30px;
+            line-height:30px;
+            text-align: center;
+            vertical-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+       .infolisted .infolistedtop .infolistedtopleft{
+           float: left;margin-left: 15px;
+       }
+        .infolisted .infolistedtop  .infolistedtopright{
+            float: right;margin-right: 15px;
+       }
     </style>
 </head>
 <body>
@@ -84,10 +107,13 @@
             </div>
         </div>
         <div id="sendmessage" class="hiddenmessage">
+           <!--<-&#45;&#45;&#45;&#45;&#45;&#45;ddddddd-&#45;&#45;&ndash;&gt;-->
 
         </div>
-     <span id="nothingtodo"></span>
-    </div>
+        <hr>
+        <span id="nothingtodo"></span>
+
+        </div>
 </div>
 </body>
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
@@ -149,7 +175,9 @@ function toltalnum1() {
         var toltalnum=data1.code;
         console.log(toltalnum)
         if(toltalnum==0){
-            console.log("你没有发送任何信息！")
+            $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+        你还没有发送任何信息 </div>`)
+
         }else{
             console.log("总条数"+toltalnum)
             $("#sendmessage").html("")
@@ -160,34 +188,32 @@ function toltalnum1() {
 
 </script>
 <script>
+    var layer
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
     var aa=true
     function sendmessagea(toltalnum) {
 
         var pagesize=7;
         var totalPages=Math.ceil(toltalnum/pagesize);
-        console.log("总页数"+totalPages)
+
 
         var pagenum=totalPages;
 
         doSomething(pagenum--)
         doSomething(pagenum)
         $(window).scroll(function() {
-            // console.log("内容的搞"+$("#sendmessage").height())
-            // console.log("内容1的搞"+$(this).scrollTop())
-            // console.log("内容2的搞"+ $(document).height())
-            // console.log("内容3的搞"+ $(this).height())
             var scrollTop = $(document).scrollTop(),scrollHeight = $(document).height(),windowHeight = $(this).height();
             var positionValue = (scrollTop + windowHeight) - scrollHeight;
-             // console.log(positionValue)
             if(aa){
                 if (pagenum>1) {
                     if (positionValue >= -2) {
                         if (pagenum > 1) {
+                            layer.msg("玩命加载中")
                             pagenum--;
                             aa=false;
-                            console.log(aa)
                             aa=doSomething(pagenum);
-
                         }
                     }
                 }
@@ -196,28 +222,39 @@ function toltalnum1() {
         });
     function doSomething(pagenum) {
         var userid1=getCookie("userid")
-        // $(window).unbind("scroll");
-        console.log("----------")
         $.post(url+"news/hadsendmessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
-
             var html =``
             for(var i =data.data.length-1; i>=0; i--){
-                html+=`<div class="infolisted" style="">
-                        ${i}+${data.data}<br>
-                        ${data.data[i].newSendTime}<br>
-                        ${data.data[i].newsTest}<br>
-                        </div>`
+                var mytime =data.data[i].newsSendTime
+                var mytime1 =mytime.substring(0,mytime.indexOf(".")).replace("T","/")
+                html+=` <div class="infolisted">
+            <div class="bg-primary infolistedtop">
+                    <div class="infolistedtopleft" >
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="" value=""></div>
+                    <div class="infolistedtopright" ><span >${data.data[i].newsReadPeople}人已读</span></div>
+                    <div style="clear: both"></div>
+            </div>
+            <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
+            </p>
+            </div>
+            <div style="margin-top: 10px;">
+                <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
+                <div style="float: right;margin-right: 15px;"><span ><a><i>删除</i></a></span></div>
+                <div style="clear: both"></div>
+
+            </div>
+        </div>`
             }
             $("#sendmessage").append(html)
-            console.log(data)
+
             aa=true;
             if(pagenum==1){
-
-                $("#nothingtodo").html("没有更多了")
+                layer.msg("没有更多了---我是有底线的哦")
+                $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+        你还没有发送任何信息 </div>`)
             }
         },"json");
     }
-
     }
 </script>
 </html>
