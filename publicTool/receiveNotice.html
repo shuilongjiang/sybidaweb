@@ -120,6 +120,19 @@
 <script src="/sybida/layui/layui.js" charset="utf-8"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
 <script>
+var numi=1
+
+   // if(numi<=1){
+   //     $(this).toggleClass("onadvicetitle")
+   //     $(".advicetitleshow1").removeClass("onadvicetitle")
+   //     $("#showmseeage").removeClass("hiddenmessage")
+   //     $("#showmseeage").toggleClass("showmessage")
+   //     $("#sendmessage").removeClass("showmessage")
+   //     $("#sendmessage").toggleClass("hiddenmessage")
+   //     $("#nothingtodo").html("")
+   //     toltalnumdef()
+   // }
+
     $(".advicetitleshow").mouseover(function () {
         var class1=$(this).attr("class")
 
@@ -147,11 +160,16 @@
             $("#showmseeage").toggleClass("showmessage")
             $("#sendmessage").removeClass("showmessage")
             $("#sendmessage").toggleClass("hiddenmessage")
+            $("#nothingtodo").html("")
+            $("#showmseeage").html("")
+             toltalnumdef()
         }else{
-
+            $("#nothingtodo").html("")
+            $("#showmseeage").html("")
+            toltalnumdef()
         }
     })
-    $(".advicetitleshow1").click(function () {
+    $(".advicetitleshow1").click(function()  {
         var class1=$(this).attr("class")
         if("advicetitleshow1 onlinght"==class1){
             $(this).toggleClass("onadvicetitle")
@@ -161,27 +179,34 @@
             $("#showmseeage").removeClass("showmessage")
             $("#showmseeage").toggleClass("hiddenmessage")
             $("#nothingtodo").html("")
+            $("#sendmessage").html("")
             toltalnum1();
 
         }else{
             $("#nothingtodo").html("")
+            $("#sendmessage").html("")
             toltalnum1();
         }
     })
 </script>
-<!-- page lazyloading -->
 <script>
-function toltalnum1() {
-    var userid=getCookie("userid")
-    $.post(url+"news/hadSendmessagecount", "userid="+userid, function (data1) {
+var userid=getCookie("userid")
+var layer
+layui.use('layer', function(){
+layer = layui.layer;
+});
+var aflag=true
+var bflag=true
+<!-- page lazyloading -->
+function toltalnumdef() {
+    $.post(url+"news/receivemessagecount", "userid="+userid, function (data1) {
         var toltalnum=data1.code;
+        console.log(toltalnum+"=====")
         if(toltalnum==0){
             $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
         你还没有发送任何信息 </div>`)
-
         }else{
-            console.log("总条数"+toltalnum)
-            $("#sendmessage").html(`  <div class="infolisted" >
+            $("#showmseeage").html(`  <div class="infolisted" >
                 <div class="bg-primary infolistedtop" style="height:50px;">
                     <div class="infolistedtopleft" style="margin-top: 10px;">
                         <input style="height: 15px;width: 15px;" type="checkbox" name="" value="">
@@ -193,23 +218,96 @@ function toltalnum1() {
 
 
             </div>`)
+            sendmessagea1(toltalnum);
+        }
+    },"json");
+}
+function sendmessagea1(toltalnum) {
+    var pagesize=7;
+    var totalPages=Math.ceil(toltalnum/pagesize);
+    var pagenum=totalPages;
+    doSomething(pagenum--)
+    doSomething(pagenum)
+    $(window).scroll(function() {
+        var scrollTop = $(document).scrollTop(),scrollHeight = $(document).height(),windowHeight = $(this).height();
+        var positionValue = (scrollTop + windowHeight) - scrollHeight;
+        if(aflag){
+            if (pagenum>1) {
+                if (positionValue >= -2) {
+                    if (pagenum > 1) {
+                        layer.msg("玩命加载中")
+                        pagenum--;
+                        bflag=false;
+                        bflag=doSomething(pagenum);
+                    }
+                }
+            }
+        }
+
+    });
+    function doSomething(pagenum) {
+        var userid1=getCookie("userid")
+        $.post(url+"news/receivemessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
+            console.log(data+"===")
+            var html =``
+            for(var i =data.data.length-1; i>=0; i--){
+                var mytime =data.data[i].newsSendTime
+                var mytime1 =mytime.substring(0,mytime.indexOf(".")).replace("T","/")
+                html+=` <div class="infolisted">
+            <div class="bg-primary infolistedtop">
+                    <div class="infolistedtopleft" >
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="" value=""></div>
+                    <div class="infolistedtopright" ><span >${data.data[i].newsReadPeople}人已读</span></div>
+                    <div style="clear: both"></div>
+            </div>
+            <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
+            </p>
+            </div>
+            <div style="margin-top: 10px;">
+                <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
+                <div style="float: right;margin-right: 15px;"><span ><a><i>删除</i></a></span></div>
+                <div style="clear: both"></div>
+
+            </div>
+        </div>`
+            }
+            $("#showmseeage").append(html)
+
+            bflag=true;
+            if(pagenum==1){
+                layer.msg("没有更多了---我是有底线的哦")
+                $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+        已经到底了！！</div>`)
+            }
+        },"json");
+    }
+}
+//===================================================================
+function toltalnum1() {
+    $.post(url+"news/hadSendmessagecount", "userid="+userid, function (data1) {
+        var toltalnum=data1.code;
+        if(toltalnum==0){
+            $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+        你还没有发送任何信息 </div>`)
+        }else{
+            $("#sendmessage").html(`  <div class="infolisted" >
+                <div class="bg-primary infolistedtop" style="height:50px;">
+                    <div class="infolistedtopleft" style="margin-top: 10px;">
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="" value="">
+                        <button class="btn btn-danger">批量删除</button>
+                        </div>
+                    <div class="infolistedtopright" style="margin-top: 10px;" ><span >共${toltalnum}条</span></div>
+                    <div style="clear: both"></div>
+                </div>
+            </div>`)
             sendmessagea(toltalnum);
         }
     },"json");
 }
-    var layer
-    layui.use('layer', function(){
-        layer = layui.layer;
-    });
-    var aflag=true
-    function sendmessagea(toltalnum) {
-
+function sendmessagea(toltalnum) {
         var pagesize=7;
         var totalPages=Math.ceil(toltalnum/pagesize);
-
-
         var pagenum=totalPages;
-
         doSomething(pagenum--)
         doSomething(pagenum)
         $(window).scroll(function() {
@@ -229,9 +327,10 @@ function toltalnum1() {
             }
 
         });
-    function doSomething(pagenum) {
+function doSomething(pagenum) {
         var userid1=getCookie("userid")
         $.post(url+"news/hadsendmessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
+            console.log(data)
             var html =``
             for(var i =data.data.length-1; i>=0; i--){
                 var mytime =data.data[i].newsSendTime
