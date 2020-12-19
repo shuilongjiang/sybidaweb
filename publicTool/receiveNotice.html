@@ -160,9 +160,11 @@
             $("#sendmessage").toggleClass("showmessage")
             $("#showmseeage").removeClass("showmessage")
             $("#showmseeage").toggleClass("hiddenmessage")
+            $("#nothingtodo").html("")
             toltalnum1();
 
         }else{
+            $("#nothingtodo").html("")
             toltalnum1();
         }
     })
@@ -195,14 +197,11 @@ function toltalnum1() {
         }
     },"json");
 }
-
-</script>
-<script>
     var layer
     layui.use('layer', function(){
         layer = layui.layer;
     });
-    var aa=true
+    var aflag=true
     function sendmessagea(toltalnum) {
 
         var pagesize=7;
@@ -216,14 +215,14 @@ function toltalnum1() {
         $(window).scroll(function() {
             var scrollTop = $(document).scrollTop(),scrollHeight = $(document).height(),windowHeight = $(this).height();
             var positionValue = (scrollTop + windowHeight) - scrollHeight;
-            if(aa){
+            if(aflag){
                 if (pagenum>1) {
                     if (positionValue >= -2) {
                         if (pagenum > 1) {
                             layer.msg("玩命加载中")
                             pagenum--;
-                            aa=false;
-                            aa=doSomething(pagenum);
+                            aflag=false;
+                            aflag=doSomething(pagenum);
                         }
                     }
                 }
@@ -257,7 +256,7 @@ function toltalnum1() {
             }
             $("#sendmessage").append(html)
 
-            aa=true;
+            aflag=true;
             if(pagenum==1){
                 layer.msg("没有更多了---我是有底线的哦")
                 $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
