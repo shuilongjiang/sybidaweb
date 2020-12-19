@@ -173,14 +173,24 @@ function toltalnum1() {
     var userid=getCookie("userid")
     $.post(url+"news/hadSendmessagecount", "userid="+userid, function (data1) {
         var toltalnum=data1.code;
-        console.log(toltalnum)
         if(toltalnum==0){
             $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
         你还没有发送任何信息 </div>`)
 
         }else{
             console.log("总条数"+toltalnum)
-            $("#sendmessage").html("")
+            $("#sendmessage").html(`  <div class="infolisted" >
+                <div class="bg-primary infolistedtop" style="height:50px;">
+                    <div class="infolistedtopleft" style="margin-top: 10px;">
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="" value="">
+                        <button class="btn btn-danger">批量删除</button>
+                        </div>
+                    <div class="infolistedtopright" style="margin-top: 10px;" ><span >共${toltalnum}条</span></div>
+                    <div style="clear: both"></div>
+                </div>
+
+
+            </div>`)
             sendmessagea(toltalnum);
         }
     },"json");
@@ -251,7 +261,7 @@ function toltalnum1() {
             if(pagenum==1){
                 layer.msg("没有更多了---我是有底线的哦")
                 $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
-        你还没有发送任何信息 </div>`)
+        已经到底了！！</div>`)
             }
         },"json");
     }
