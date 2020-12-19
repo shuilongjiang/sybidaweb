@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+</head>
+<body>
+<div>
+    <table>
+    <tr>排行榜</tr>
+    </table>
+</div>
+
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script>
+    $.ajax({
+        url: url+"/hot/hotpan",
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data+"====================")
+
+            for (let i=0;i<data.length;i++){
+                html+=`<td>${data.get(i).getStudentName()}</td>
+                       <td>${data.get(i).getJobWeal()}</td>`
+            }
+            $("table").append(html)
+
+        }})
+</script>
+</body>
+</html>
