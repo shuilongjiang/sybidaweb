@@ -3,8 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../bs/bootstrap.min.css">
+
+
 </head>
 <body>
-学生个人信息完善
+<span>
+<hr/>
+</span>
+<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="#" class="nav_guide">学生个人信息完善</a>
+</div>
+<div class="container">
+    <div class="navbar" style="margin-top: 30px">
+        <span>请输入需要完善的学生的ID：</span><input type="text" placeholder="学生ID" id="searcheStuId">&nbsp;&nbsp;<button
+            class="btn btn-success" id="selectButt">查找
+    </button>
+    </div>
+    <form action="" method="post" enctype="multipart/form-data" id="studentform">
+    <table class="layui-table  " style="margin-top: 10px">
+        <tr>
+            <th colspan="4" style="text-align: center"><h2>完善学生信息</h2></th>
+        </tr>
+        <tr class="warning" id="detailedInfo">
+            <td>学生ID：</td>
+            <td><input type="text" class="studentId" readonly></td>
+            <td>学生姓名：</td>
+            <td><input type="text" class="studentName" readonly></td>
+        </tr>
+        <tr>
+            <td>性别：</td>
+            <td>
+                <input type="radio" name="sex" value="男" title="男" class="studentSex1">男
+                <input type="radio" name="sex" value="女" title="女" class="studentSex2">女
+            </td>
+            <td>是否毕业</td>
+            <td>
+                <input type="radio" class="IsGraduation1" name="graduation" value="1" title="是">是
+                <input type="radio" class="IsGraduation2" name="graduation" value="0" title="否">否
+            </td>
+        </tr>
+        <tr>
+            <td>毕业学校：</td>
+            <td><input type="text" class="studentSchool" placeholder="请输入毕业学校"></td>
+            <td>专业：</td>
+            <td><input type="text" class="studentSpecialty" pl  aceholder="请输入专业"></td>
+        </tr>
+        <tr>
+            <td>微信：</td>
+            <td><input type="text" class="studentWechat" placeholder="请输入微信"></td>
+            <td>邮箱：</td>
+            <td><input type="email" class="studentMailbox"></td>
+        </tr>
+        <tr>
+            <td>学习方向：</td>
+            <td><input type="text" class="studentStudyId" placeholder="请输入学习方向"></td>
+            <td>就业城市：</td>
+            <td><input type="text" class="studentCity" placeholder="请输入就业城市"></td>
+        </tr>
+        <tr>
+            <td>家庭住址：</td>
+            <td><input type="text" class="studentAddress" placeholder="请输入家庭住址"></td>
+            <td>点击修改头像</td>
+            <td><input type="file" accept="image/gif, image/x-ms-bmp, image/bmp,image/jpeg,image/x-png,audio/x-mpeg" class="addPic" value="addPic" id="addPic" name="file"></td>
+        </tr>
+        <tr>
+            <td>班级ID：</td>
+            <td><input type="text" class="studentClassId" placeholder="请输入班级ID"></td>
+            <td>紧急联系电话电话：</td>
+            <td><input type="text" class="studentUrgent" placeholder="请输入紧急联系电话"></td>
+        </tr>
+        <tr>
+            <td>学生电话：</td>
+            <td><input type="text" class="studentPhone" placeholder="请输入学生电话"></td>
+            <td>身份证号：</td>
+            <td><input type="text" class="studentIdentityNum" placeholder="请输入身份证号"></td>
+        </tr>
+        <tr>
+            <td>学生寝室：</td>
+            <td><input maxlength="6" type="text" class="studentRoom" placeholder="请输入学生寝室"></td>
+            <td>学生照片：</td>
+            <td><img src="" class="StudentPhoto" id="studentphotourl" style="height:50px;width: 40px;"></td>
+        </tr>
+        <tr>
+            <td>家长姓名：</td>
+            <td><input type="text"  class="studentParentName" placeholder="请输入家长姓名"></td>
+            <td>家长电话：</td>
+            <td><input type="text" class="studentParentPhone" placeholder="请输入家长电话"></td>
+        </tr>
+        <tr style="text-align: center">
+            <td colspan="4">
+
+                <input type="button" class="btn btn-success" id="submitList" value="确认"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button
+                    class="btn btn-danger">取消
+            </button>
+            </td>
+        </tr>
+    </table>
+    </form>
+</div>
+<script src="../jquery/jquery-3.3.1.min.js"></script>
+<script src="../common/js/locahostadress.js"></script>
+<script src="js/updateInfoStudent.js"></script>
 </body>
 </html>

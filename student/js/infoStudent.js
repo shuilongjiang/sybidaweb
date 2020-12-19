@@ -123,8 +123,8 @@ function show() {
             <td>${list[i].studentMailBox}</td>
             <td>${list[i].studentStudyId}</td>
             <td>${list[i].studentCity}</td>
-            <td>${list[i].studentAddress}</td>
             <td>${list[i].studentParentPhone}</td>
+            <td>${list[i].studentAddress}</td>
             <td>${list[i].studentParentName}</td>
             <td>${list[i].studentUrgent}</td>
             <td>${list[i].studentPhone}</td>
