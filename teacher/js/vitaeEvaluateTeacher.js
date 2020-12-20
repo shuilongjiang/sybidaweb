@@ -76,9 +76,18 @@ function show() {
                 list[i].vitaeIsNew = "否"
             }
             // console.log(new Date(list[i].vitaeAlterTime))
+            if (!list[i].vitaeUrl) {
+                list[i].vitaeUrl = "暂无"
+            }
+            if (!list[i].vitaeLevel) {
+                list[i].vitaeLevel = "暂无"
+            } if (!list[i].vitaeDownloadFrequency) {
+                list[i].vitaeDownloadFrequency = "暂无"
+            } if (!list[i].vitaeHistoryFrequency) {
+                list[i].vitaeHistoryFrequency = "暂无"
+            }
 
-
-            html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
+            html += `<tr class="warning">
             <td>${list[i].vitaeId}</td>
             <td>${list[i].vitaeStudentId}</td>
             <td>${list[i].studentName}</td>
@@ -90,7 +99,8 @@ function show() {
             <td>${list[i].vitaeDownloadFrequency}</td>
             <td>${list[i].vitaeHistoryFrequency}</td>
             <td>${list[i].vitaeAlterTime}</td>
-           <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs"onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}')">评价简历</button></td>
+           <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs"onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}')">评价</button>
+           <button class="layui-btn layui-btn-xs">下载</button></td>
         </tr>`
         }
         $("table").append(html)

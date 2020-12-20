@@ -47,15 +47,35 @@ $("#selectButt1").click(function () {
 })
 
 function showDetail(id) {
-    $("#detailCon").css('display', '')
+
+
 
     $.getJSON(url + "/teacher/selectjobbyid", "id=" + id, function (data) {
-        let html=''
-        console.log(data)
-        var list = data.data
-        console.log(list)
+        if (data.code == 0) {
+            alert("id不存在")
+        }else {
+            $("#detailCon").css('display', '')
+            let html=''
+            console.log(data)
+            var list = data.data
+            console.log(list)
+            if (!list.studyAspect) {
+                list.studyAspect = "暂无"
+            }
+            if (!list.jobFirm) {
+                list.jobFirm = "暂无"
+            }
+            if (!list.jobContact) {
+                list.jobContact = "暂无"
+            }
+            if (!list.jobWeal) {
+                list.jobWeal = "暂无"
+            }
+            if (!list.studentCity) {
+                list.studentCity = "暂无"
+            }
 
-        html += `<tr class="warning">
+            html += `<tr class="warning">
             <td>${list.jobStudentId}</td>
             <td>${list.studentName}</td>
             <td>${list.studyAspect}</td>
@@ -65,7 +85,9 @@ function showDetail(id) {
             <td>${list.studentCity}</td>
         </tr>`
 
-        $("#detailedInfo").append(html)
+            $("#detailedInfo").append(html)}
+
+
     })
 }
 
@@ -97,8 +119,40 @@ function show() {
         var list = data.data.list
         console.log(list)
 
+        // if (list.studyAspect = null) {
+        //     list.studyAspect = "暂无"
+        // }
+        // if (list.jobFirm = null) {
+        //     list.jobFirm = "暂无"
+        // }
+        // if (list.jobContact = null) {
+        //     list.jobContact = "暂无"
+        // }
+        // if (list.jobWeal = null) {
+        //     list.jobWeal = "暂无"
+        // }
+        // if (list.studentCity = null) {
+        //     list.studentCity = "暂无"
+        // }
         for (let i = 0; i < list.length; i++) {
+            if (!list[i].studyAspect) {
+                list[i].studyAspect = "暂无"
+            }
+            if (!list[i].jobFirm) {
+                list[i].jobFirm = "暂无"
+            }
+            if (!list[i].jobContact) {
+                list[i].jobContact = "暂无"
+            }
+            if (!list[i].jobWeal) {
+                list[i].jobWeal = "暂无"
+            }
+            if (!list[i].studentCity) {
+                list[i].studentCity = "暂无"
+            }
+
             html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
+ 
             <td>${list[i].jobStudentId}</td>
             <td>${list[i].studentName}</td>
             <td>${list[i].studyAspect}</td>

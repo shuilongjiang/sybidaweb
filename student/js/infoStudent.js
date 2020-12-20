@@ -35,8 +35,6 @@ $("#selectButt").click(function () {
 })
 
 
-
-
 $("#selectButt1").click(function () {
     let stuId = $("#searcheStuId").val()
     if (!stuId || !(stuId.trim())) {
@@ -47,15 +45,51 @@ $("#selectButt1").click(function () {
 })
 
 function showDetail(id) {
-    $("#detailCon").css('display', '')
 
     $.getJSON(url + "/teacher/selectstudentbyid", "id=" + id, function (data) {
-        let html=''
-        console.log(data)
-        var list = data.data
-        console.log(list)
+        if (data.code == 0){
+            alert("id不存在！")
+        }else {
+            $("#detailCon").css('display', '')
+            let html = ''
+            console.log(data)
+            var list = data.data
+            console.log(list)
+            if (!list.studentSex) {
+                list.studentSex = "暂无"
+            }
+            if (!list.studentIdentity) {
+                list.studentIdentity = "暂无"
+            }
+            if (!list.studentIsGraduation) {
+                list.studentIsGraduation = "暂无"
+            }
+            if (!list.studentSchool) {
+                list.studentSchool = "暂无"
+            }
+            if (!list.studentSpecialty) {
+                list.studentSpecialty = "暂无"
+            }
+            if (!list.studentWechat) {
+                list.studentWechat = "暂无"
+            }
+            if (!list.studentParentPhone) {
+                list.studentParentPhone = "暂无"
+            }
+            if (!list.studentParentName) {
+                list.studentParentName = "暂无"
+            }
+            if (!list.studentClassId) {
+                list.studentClassId = "暂无"
+            }
+            if (!list.studentPhone) {
+                list.studentPhone = "暂无"
+            }
+            if (!list.studentCity) {
+                list.studentCity = "暂无"
+            }
 
-        html += `<tr class="warning">
+            html += `<tr class="warning">
             <td>${list.studentId}</td>
             <td>${list.studentName}</td>
             <td>${list.studentSex}</td>
@@ -64,21 +98,20 @@ function showDetail(id) {
             <td>${list.studentSchool}</td>
             <td>${list.studentSpecialty}</td>
             <td>${list.studentWechat}</td>
-            <td>${list.studentMailBox}</td>
-            <td>${list.studentStudyId}</td>
+           
+     
             <td>${list.studentCity}</td>
-            <td>${list.studentAddress}</td>
+      
             <td>${list.studentParentPhone}</td>
             <td>${list.studentParentName}</td>
-            <td>${list.studentUrgent}</td>
             <td>${list.studentPhone}</td>
             <td>${list.studentClassId}</td>
-            <td>${list.studentRoom}</td>
-            <td>${list.studentPhoto}</td>
-            <td>${list.studentAlterTime}</td>
+     
         </tr>`
+            $("#detailedInfo").append(html)
+        }
 
-        $("#detailedInfo").append(html)
+
     })
 }
 
@@ -111,7 +144,42 @@ function show() {
         console.log(list)
 
         for (let i = 0; i < list.length; i++) {
+            if (!list[i].studentSex) {
+                list[i].studentSex = "暂无"
+            }
+            if (!list[i].studentIdentity) {
+                list[i].studentIdentity = "暂无"
+            }
+            if (!list[i].studentIsGraduation) {
+                list[i].studentIsGraduation = "暂无"
+            }
+            if (!list[i].studentSchool) {
+                list[i].studentSchool = "暂无"
+            }
+            if (!list[i].studentSpecialty) {
+                list[i].studentSpecialty = "暂无"
+            }
+            if (!list[i].studentWechat) {
+                list[i].studentWechat = "暂无"
+            }
+            if (!list[i].studentParentPhone) {
+                list[i].studentParentPhone = "暂无"
+            }
+            if (!list[i].studentParentName) {
+                list[i].studentParentName = "暂无"
+            }
+            if (!list[i].studentClassId) {
+                list[i].studentClassId = "暂无"
+            }
+            if (!list[i].studentPhone) {
+                list[i].studentPhone = "暂无"
+            }
+            if (!list[i].studentCity) {
+                list[i].studentCity = "暂无"
+            }
+
             html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
+            
             <td>${list[i].studentId}</td>
             <td>${list[i].studentName}</td>
             <td>${list[i].studentSex}</td>
@@ -120,18 +188,14 @@ function show() {
             <td>${list[i].studentSchool}</td>
             <td>${list[i].studentSpecialty}</td>
             <td>${list[i].studentWechat}</td>
-            <td>${list[i].studentMailBox}</td>
-            <td>${list[i].studentStudyId}</td>
+           
             <td>${list[i].studentCity}</td>
             <td>${list[i].studentParentPhone}</td>
-            <td>${list[i].studentAddress}</td>
+           
             <td>${list[i].studentParentName}</td>
-            <td>${list[i].studentUrgent}</td>
             <td>${list[i].studentPhone}</td>
             <td>${list[i].studentClassId}</td>
-            <td>${list[i].studentRoom}</td>
-            <td>${list[i].studentPhoto}</td>
-            <td>${list[i].studentAlterTime}</td>
+           
         </tr>`
         }
         $("#showAllInfo").append(html)
