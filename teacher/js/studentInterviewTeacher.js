@@ -212,7 +212,7 @@ function changeinterview(){
         if(text.trim()=='查看详情'){
             let id = $(this).attr("date-auditionId")
             console.log(id)
-            location.href="/sybida/teacher/vitaeEvaluateStudent.html?id=" + id;
+            location.href="/sybida/teacher/studentAudition.html?id=" + id;
 
         }
     })
