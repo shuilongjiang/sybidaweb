@@ -50,6 +50,9 @@
     <!-- header -->
     <div id="main_header">
         <header>
+
+
+            <!--导航栏-->
             <!-- Logo-->
             <div id="logo">
                 <a href="#" > <img src="assets/images/sybida.png" alt=""></a>
@@ -96,34 +99,19 @@
                                 </ul>
                             </li>
 
-
                             <li class="new">
-                                <a href="#" title="" class="nav_btn" >招聘中心</a>
+                                <a href="#" title="" class="nav_btn" >最新公告</a>
                             </li>
-                            <!--<li class="has-sub more">-->
-                                <!--<a href="javascript:;" title="">-->
-                                    <!--公告&amp;资讯 <span class="trigger ui-arb"></span>-->
-                                <!--</a>-->
-                                <!--<ul uk-dropdown="pos: top;mode:click ; animation: uk-animation-scale-up" class="sub-nav" style="display: none; top: 104px; ">-->
-                                    <!--<li>-->
-                                        <!--<a href="#" class="s_btn">最新公告</a>-->
-                                    <!--</li>-->
-                                    <!--<li>-->
-                                        <!--<a href="#" class="s_btn">待开发</a>-->
-                                    <!--</li>-->
-                                    <!--<li>-->
-                                        <!--<a href="#" class="s_btn">待开发</a>-->
-                                    <!--</li>-->
-                                    <!--<li>-->
-                                        <!--<a href="#" class="s_btn">待开发</a>-->
-                                    <!--</li>-->
-                                <!--</ul>-->
-                            <!--</li>-->
+
                         </ul>
 
                     </div>
                 </div>
             </div>
+
+
+
+            <!--简历-->
             <!-- user icons -->
             <div class="head_user">
                 <a href="#" class="btn-upgrade uk-visible@s" id="downfile"> <i class="uil-bolt-alt"></i> 预览已经上传简历</a>
@@ -227,6 +215,10 @@
                         });
                     }
                 </script>
+
+
+
+                <!--信息-->
                 <!-- videos feed  -->
                 <!-- Message  notificiation dropdown -->
                 <a href="#" class="opts_icon"> <i class="uil-envelope-alt"></i> <span id="userinfonum">4</span> </a>
@@ -284,25 +276,17 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
-                                        <span class="notification-avatar">
-                                            <img src="assets/images/avatars/avatar-4.jpg" alt="">
-                                        </span>
-                                    <div class="notification-text notification-msg-text">
-                                        <strong>Adrian Mohani</strong>
-                                        <p> Okay.. Thanks for The Answer I will be waiting for your... </p>
-                                        <span class="time-ago"> Yesterday </span>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
 
                     </div>
                     <div class="dropdown-notifications-footer">
-                        <a href="#"   id="noticeTool"> 进入讨论 <i class="icon-line-awesome-long-arrow-right"></i> </a>
+                        <a href="#"   id="noticeTool"> 进入信息平台 <i class="icon-line-awesome-long-arrow-right"></i> </a>
                     </div>
                 </div>
+
+
+
+
                 <!-- profile -image    学生用户头像-->
                     <a class="opts_account" id="studentPhoto1"> </a>
                 <!-- profile dropdown  学生用户头像点击下拉框-->
@@ -451,11 +435,6 @@
 
 
 <script>
-    $("#allteacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/allTeacher.html")
-        }
-    )
 
     $("#vitaeEvaluateStudent").click(
         function () {
@@ -471,7 +450,7 @@
 
     $("#noticeTool").click(
         function () {
-            $("#ifream1").attr("src","../publicTool/noticeTool.html")
+            $("#ifream1").attr("src","../publicTool/receiveNotice.html")
         }
     )
 
@@ -481,6 +460,7 @@
             $("#ifream1").attr("src","../publicTool/changePsw.html")
         }
     )
+
 </script>
 <!--用户头像-->
 <script>
