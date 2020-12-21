@@ -45,70 +45,83 @@
         <tbody>
         <tr>
             <td>
-                <form class="layui-form layui-form-pane" action="">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">姓名</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="title" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" >
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">性别</label>
-                        <div class="layui-input-block">
-                            <input type="radio" name="sex" value="男" title="男">
-                            <input type="radio" name="sex" value="女" title="女" checked>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">学习方向</label>
-                        <div class="layui-input-block">
-                            <select name="city" lay-verify="required">
-                                <option value=""></option>
-                                <option value="0">大数据</option>
-                                <option value="1">前端</option>
-                                <option value="2">平面设计</option>
-                                <option value="3">影视剪辑</option>
-                                <option value="4">java</option>
-                                <option value="3">python</option>
-                                <option value="4">全栈</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">面试公司</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" required  lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input" >
-                        </div>
-                    </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">面试地点</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" required  lay-verify="required" placeholder="请输入面试地点" autocomplete="off" class="layui-input" >
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">面试时间</label>
-                        <div class="layui-input-block"> <!-- 注意：这一层元素并不是必须的 -->
-                            <input type="text" class="layui-input" id="test1" placeholder="请选择面试时间">
-                        </div>
-                        <!--<div class="layui-input-block">-->
-                        <!--<input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" >-->
-                        <!--</div>-->
-                    </div>
+                <!--面试时间-->
+                <!--<div class="layui-inline"> &lt;!&ndash; 注意：这一层元素并不是必须的 &ndash;&gt;-->
+                    <!--<input type="text" class="layui-input" id="test1" placeholder="请选择面试时间">-->
+                <!--</div>-->
 
 
 
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">面试情况描述</label>
-                        <div class="layui-input-block">
-                            <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+
+
+                <form action="">
+                    <div class="form-group">
+                        <label for="studentName">姓名</label>
+                        <input type="text" class="form-control" id="studentName"  readonly>
+                    </div>
+
+                    <!-- 隐藏域 -->
+                    <input type="hidden" id="auditionStudentId">
+
+                    <div class="form-group">
+                        <label for="sex">性别</label>
+                        <div style="height: 30px">
+
+                        <label class="form-group" id="sex" style="padding-top: 6px;padding-left: 10px">
+
+                            <input type="radio" name="sex" value="男" id="male" >男
+                            <input type="radio" name="sex" value="女" id="female">女
+                        </label>
+
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="classNum">班级</label>
+                        <input type="text" class="form-control" id="classNum"  readonly>
+                    </div>
+
+                </form>
+                <form action=""  method="post"  class="layui-form" id="auditionform" >
+                    <div class="form-group">
+                        <label for="auditionFirm">面试公司</label>
+                        <input type="text" class="form-control" id="auditionFirm" placeholder="请输入面试公司">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="auditionSite">面试地点</label>
+                        <input type="text" class="form-control" id="auditionSite" placeholder="请输入面试地点">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="test1">面试时间</label>
+                        <input type="text" class="form-control" id="test1" placeholder="请选择面试时间">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="auditionFinish">面试结果</label>
+                        <input type="text" class="form-control" id="auditionFinish" placeholder="请输入面试结果">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label for="auditionSituation">面试情况描述</label>
+                        <textarea name="desc" placeholder="请描述面试情况" class="form-control layui-textarea" id="auditionSituation"></textarea>
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                            <!--<button class="layui-btn" lay-submit lay-filter="formDemo" type="submit">立即提交</button>-->
+                            <input type="button" class="layui-btn" id="submitList" value="立即提交" lay-submit lay-filter="formDemo"></input>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
@@ -126,20 +139,21 @@
 <script src="/sybida/bs/bootstrap.min.js"></script>
 <!--<script src="/sybida/layui/layui.js"    ></script>-->
 <script src="/sybida/layui/layui.all.js"    ></script>
+<script src="/sybida/student/js/vitaeEvaluateStudent.js"></script>
 
 
-<script>
-    //Demo
-    layui.use('form', function(){
-        var form = layui.form;
+<!--<script>-->
+    <!--//Demo-->
+    <!--layui.use('form', function(){-->
+        <!--var form = layui.form;-->
 
-        //监听提交
-        form.on('submit(formDemo)', function(data){
-            layer.msg(JSON.stringify(data.field));
-            return false;
-        });
-    });
-</script>
+        <!--//监听提交-->
+        <!--form.on('submit(formDemo)', function(data){-->
+            <!--layer.msg(JSON.stringify(data.field));-->
+            <!--return false;-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
 
 <script>
     layui.use('laydate', function(){

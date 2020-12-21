@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教师用户修改</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../bs/bootstrap.min.css">
+
+
+</head>
+<body>
+<span>
+<hr/>
+</span>
+<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="#" class="nav_guide">教室用户信息修改</a>
+</div>
+<div class="container">
+    <div class="navbar" style="margin-top: 30px">
+        <span>请输入需要修改信息的教师的ID：</span><input type="text" placeholder="教师ID" id="searcheStuId">&nbsp;&nbsp;<button
+            class="btn btn-success" id="selectButt">查找
+    </button>
+    </div>
+    <form action="" method="post" enctype="multipart/form-data" id="teacherform">
+        <table class="layui-table  " style="margin-top: 10px">
+            <tr>
+                <th colspan="4" style="text-align: center"><h2>修改教师信息</h2></th>
+            </tr>
+            <tr class="warning" id="detailedInfo">
+                <td>教师ID：</td>
+                <td><input type="text" class="teachId" readonly></td>
+                <td>教师姓名：</td>
+                <td><input type="text" class="teachName" readonly></td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td>
+                    <input type="radio" name="sex" value="男" title="男" class="teachsex1">男
+                    <input type="radio" name="sex" value="女" title="女" class="teachsex2">女
+                </td>
+                <td>教师头像：</td>
+                <td><img src="" class="teachPhoto" id="teachphotourl" style="height:50px;width: 40px;"></td>
+            </tr>
+            <tr>
+                <td>点击修改头像</td>
+                <td><input type="file" accept="image/gif, image/x-ms-bmp, image/bmp,image/jpeg,image/x-png,audio/x-mpeg" class="addPic" value="addPic" id="addPic" name="file"></td>
+                <td>学习方向ID：</td>
+                <td><input type="text" class="teachStudyId" placeholder="请输入学习方向ID"></td>
+            </tr>
+            </tr>
+            <tr>
+                <td>联系电话：</td>
+                <td><input type="text" class="teachTel" placeholder="请输入联系电话"></td>
+                <td>微信：</td>
+                <td><input type="text" class="teachWechat" placeholder="请输入微信"></td>
+
+            </tr>
+            <tr>
+                <td>QQ群：</td>
+                <td><input type="text" class="teachQq" placeholder="请输入QQ群号"></td>
+            </tr>
+            <!--<tr>-->
+            <!--<td>是否离职（预留）</td>-->
+            <!--<td>-->
+            <!--<input type="radio" class="IsGraduation1" name="graduation" value="1" title="是">是-->
+            <!--<input type="radio" class="IsGraduation2" name="graduation" value="0" title="否">否-->
+            <!--</td>-->
+            <!--</tr>-->
+            <tr style="text-align: center">
+                <td colspan="4">
+                    <input type="button" class="btn btn-success" id="submitList" value="确认"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button
+                        class="btn btn-danger">取消
+                </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script src="../jquery/jquery-3.3.1.min.js"></script>
+<script src="../common/js/locahostadress.js"></script>
+<script src="js/updateTeacher.js"></script>
+</body>
+</html>
