@@ -11,7 +11,18 @@
             margin: 0;
             padding: 0;
         }
+        #badge {
+            width: 40px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            background-color: #FF9812;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 50%;
 
+        }
         #advicetitlebig{
             border-top: none;
             border-bottom: 2px solid #25bb9b;
@@ -103,7 +114,7 @@
         </div>
         <div id="showmseeage" class="showmessage" >
             <div class="infolist" >
-                查看信息
+                谨言慎行，好好做人！
             </div>
         </div>
         <div id="sendmessage" class="hiddenmessage">
@@ -281,6 +292,9 @@ layer = layui.layer;
 var aflag=true
 var bflag=true
 <!-- page lazyloading -->
+$("#nothingtodo").html("")
+$("#showmseeage").html("")
+toltalnumdef()
 function toltalnumdef() {
     $.post(url+"news/receivemessagecount", "userid="+userid, function (data1) {
         var toltalnum=data1.code;
@@ -293,7 +307,7 @@ function toltalnumdef() {
                 <div class="bg-primary infolistedtop" style="height:50px;">
                     <div class="infolistedtopleft" style="margin-top: 10px;">
                         <input style="height: 15px;width: 15px;" type="checkbox" id="chk" onclick="showmseeage()" >
-                        <button id="deleteBySelect2" class="btn btn-danger">批量删除</button>
+                        <button id="deleteBySelect2" class="btn btn-danger" style="margin-bottom: 8px;height: 30px;">批量删除</button>
                         </div>
                     <div class="infolistedtopright" style="margin-top: 10px;" ><span >共${toltalnum}条</span></div>
                     <div style="clear: both"></div>
@@ -368,18 +382,25 @@ function sendmessagea1(toltalnum) {
     function doSomething(pagenum) {
         var userid1=getCookie("userid")
         $.post(url+"news/receivemessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
-            console.log(data+"===")
+            console.log(data)
             var html =``
             for(var i =data.data.length-1; i>=0; i--){
                 var mytime =data.data[i].newsSendTime
-                var testId=data.data[i].receiveId;
-                console.log(testId+"=======================+++++++++++++=")
+                var isread=data.data[i].receiveIsRead
                 var mytime1 =mytime.substring(0,mytime.indexOf(".")).replace("T","/")
+                if(isread==0){
+
                 html+=` <div class="infolisted">
             <div class="bg-primary infolistedtop">
                     <div class="infolistedtopleft" >
-                        <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}"></div>
-                    <div class="infolistedtopright" ><span >${data.data[i].newsReadPeople}人已读</span></div>
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                 data-id="${data.data[i].receiveId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal" >删除</a>
+                        </div>
+
+                    <div class="infolistedtopright" ><span >
+
+                    </span></div>
                     <div style="clear: both"></div>
             </div>
             <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
@@ -387,14 +408,37 @@ function sendmessagea1(toltalnum) {
             </div>
             <div style="margin-top: 10px;">
                 <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
-                <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-                 data-id="${data.data[i].receiveId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal" >删除</a></span>
+                <div style="float: right;margin-right: 15px;"><span ></span>
                  <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="receiveRead(${data.data[i].receiveId})" >标为已读</a>
                  </div>
                 <div style="clear: both"></div>
 
             </div>
+        </div>`}else{
+                    html+=` <div class="infolisted">
+            <div class="bg-primary infolistedtop">
+                    <div class="infolistedtopleft" >
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                 data-id="${data.data[i].receiveId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal" >删除</a>
+                        </div>
+                    <div class="infolistedtopright" ><span >
+                   </span></div>
+                    <div style="clear: both"></div>
+            </div>
+            <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
+            </p>
+            </div>
+            <div style="margin-top: 10px;">
+                <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
+                <div style="float: right;margin-right: 15px;"><span ></span>
+                 已读
+                 </div>
+                <div style="clear: both"></div>
+
+            </div>
         </div>`
+                }
             }
             $("#showmseeage").append(html)
 
@@ -410,7 +454,6 @@ function sendmessagea1(toltalnum) {
                     // 如果当前框被选中，则判断是否需要勾选全选框
                     var checkbox = $("input[name='optionAll']");
                     var length = $(checkbox).length;
-                    console.log(length+"=========================")
                     if (length > 0) {
                         for (var i = 0; i < length; i++) {
                             if ($(checkbox[i]).is(":checked") != true) {
@@ -448,7 +491,7 @@ function toltalnum1() {
                 <div class="bg-primary infolistedtop" style="height:50px;">
                     <div class="infolistedtopleft" style="margin-top: 10px;">
                         <input style="height: 15px;width: 15px;" type="checkbox" name=""  onclick="sendmessage()" id="chk2" value="">
-                        <button id="deleteBySelect" class="btn btn-danger">批量删除</button>
+                        <button id="deleteBySelect" class="btn btn-danger" style="margin-bottom: 8px;height: 30px;">批量删除</button>
                         </div>
                     <div class="infolistedtopright" style="margin-top: 10px;" ><span >共${toltalnum}条</span></div>
                     <div style="clear: both"></div>
@@ -570,9 +613,9 @@ function doSomething(pagenum) {
         // var pagenum=totalPages;
         $.post(url+"/news/delectonereceive","receiveId="+idtea,function (data) {
             if(data.code==1){
-                console.log(data.code+"======================")
-                var flag = confirm("成功删除？"+idtea)
-                location.reload();
+                $("#nothingtodo").html("")
+                $("#sendmessage").html("")
+                toltalnum1();
                 }else{
                 layer.alert("删除失败");
             }
@@ -600,9 +643,9 @@ function doSomething(pagenum) {
         // var pagenum=totalPages;
         $.post(url+"/news/delectonesend","newsId="+idtea,function (data) {
             if(data.code==1){
-                console.log(data.code+"======================")
-                var flag = confirm("成功删除？"+idtea)
-                location.reload();
+                $("#nothingtodo").html("")
+                $("#sendmessage").html("")
+                toltalnum1();
             }else{
                 layer.alert("删除失败");
             }
@@ -633,7 +676,6 @@ function doSomething(pagenum) {
                 s[j++]=(checkbox[i].value)
             }
         }
-        console.log(s+"=====0000000000000000========")
         if(s.length>0){ $.post({
             url:url+"/news/deleteallnews",
             // 告知传递参数类型为json，不可缺少
@@ -641,7 +683,9 @@ function doSomething(pagenum) {
             data:JSON.stringify(s),
             success:function(data){
                 if(data.code===1){
-                    // location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy
+                    $("#nothingtodo").html("")
+                    $("#sendmessage").html("")
+                    toltalnum1();
                     alert("删除所选成功");
                 }else{
                     layer.alert("删除失败请重试！");
@@ -679,7 +723,7 @@ function doSomething(pagenum) {
                 s[j++]=(checkbox[i].value)
             }
         }
-        console.log(s+"=====0000000000000000========")
+
         if(s.length>0){ $.post({
             url:url+"/news/deleteallreceive",
             // 告知传递参数类型为json，不可缺少
@@ -687,8 +731,11 @@ function doSomething(pagenum) {
             data:JSON.stringify(s),
             success:function(data){
                 if(data.code===1){
-                    // location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy
+
                     alert("删除所选成功");
+                    $("#nothingtodo").html("")
+                    $("#showmseeage").html("")
+                    toltalnumdef()
                 }else{
                     layer.alert("删除失败请重试！");
                     $("#exampleModalAll2").attr("class","modal fade")
@@ -708,24 +755,23 @@ function doSomething(pagenum) {
 <script>
 
     function receiveRead(id) {
-        var flag = confirm("你确定标为已读吗？"+id)
-        if (flag) {
-            alert(id);
-            $.ajax({
+                    $.ajax({
                 url: url+"/news/isread",
                 type: "post",
                 data: "receiveId="+id ,
                 dataType: "json",
                 success: function (data) {
                     if (data.code == 1) {
-                        alert("标记成功");
-                        location.reload();
+                        console.log("==========")
+                        $("#nothingtodo").html("")
+                        $("#showmseeage").html("")
+                        toltalnumdef()
                     } else {
                         alert("标记失败！")
                     }
                 }
             })
-        }}
+        }
 </script>
 
 </html>
