@@ -48,66 +48,75 @@ $.getJSON(url+"/classInfo/showOneClass?classId="+id,function (data) {
         $("#alterClass").val(date.pattern("yyyy-MM-dd"))
     }
     var classTeachId=data.data.classTeachId
-    $.getJSON(url+"/classInfo/selectTeacherName?classTeachId="+classTeachId,function (data) {
-        $("#teachName").val(data.data.teachName)
+
+    $.getJSON(url+"/register/selectTeacher",function (data) {
+        let html = ''
+        for (let i = 0; i < data.length; i++) {
+            html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
+        }
+        $('select[name="teachName"]').append(html)
+
+        var selectA1 = $('select[name="teachName"]').find("option"); //从A1下拉框中 搜索值
+        for(var i=0;i<selectA1.length;i++){
+            var t=$(selectA1[i]).val()
+
+            if(t==classTeachId){
+                $(selectA1[i]).attr("selected","selected")
+            }
+        }
+        //change事件
+        $('select[name="selectStudy"]').change(
+            function (){
+                selectStudy=$('select[name="selectStudy"]').val()
+            }
+        )
     });
+
     var classManagerId=data.data.classManagerId
-    $.getJSON(url+"/classInfo/selectManagerName?classManagerId="+classManagerId,function (data) {
-        $("#managerName").val(data.data.teachName)
+    $.getJSON(url+"/register/selectTeacher",function (data) {
+        let html = ''
+        for (let i = 0; i < data.length; i++) {
+            html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
+        }
+        $('select[name="managerName"]').append(html)
+
+        var selectA1 = $('select[name="managerName"]').find("option"); //从A1下拉框中 搜索值
+        for(var i=0;i<selectA1.length;i++){
+            var t=$(selectA1[i]).val()
+            if(t==classManagerId){
+                $(selectA1[i]).attr("selected","selected")
+            }
+        }
+        //change事件
+        $('select[name="selectStudy"]').change(
+            function (){
+                selectStudy=$('select[name="selectStudy"]').val()
+            }
+        )
     });
+
+
+
+
+
     var classStudyId=data.data.classStudyId
-    $.getJSON(url+"/classInfo/selectStudyName?classStudyId="+classStudyId,function (data) {
-        // $("#classStudy").val(data.data.studyAspect)
-        $('select[name="selectStudy"]').attr("selected",data.data.studyAspect)
-    });
-})
-//这样合理吗///////////////////////////////////////////////////////////////////
-
-$.getJSON(url+"/register/selectStudy",function (data) {
-    let html = ''
-    for (let i = 4; i < data.length; i++) {
-        html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
-    }
-    $('select[name="selectStudy"]').append(html)
-
-    var selectA1 = $('select[name="selectStudy"]').find("option"); //从A1下拉框中 搜索值
-    for(var i=0;i<selectA1.length;i++){
-        var t=$(selectA1[i]).val()
-
-        if(t==selectStudy){
-            $(selectA1[i]).attr("selected","selected")
+    $.getJSON(url+"/register/selectStudy",function (data) {
+        let html = ''
+        for (let i = 4; i < data.length; i++) {
+            html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
         }
-    }
-    //change事件
-    $('select[name="selectStudy"]').change(
-        function (){
-            selectStudy=$('select[name="selectStudy"]').val()
+        $('select[name="selectStudy"]').append(html)
+
+        var selectA1 = $('select[name="selectStudy"]').find("option"); //从A1下拉框中 搜索值
+        for(var i=0;i<selectA1.length;i++){
+            var t=$(selectA1[i]).val()
+            if(t==classStudyId){
+                $(selectA1[i]).attr("selected","selected")
+            }
         }
-    )
+ })
 });
 
-$.getJSON(url+"/register/selectTeacher",function (data) {
-    let html = ''
-    for (let i = 4; i < data.length; i++) {
-        html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
-    }
-    $('select[name="managerName"]').append(html)
-
-    var selectA1 = $('select[name="managerName"]').find("option"); //从A1下拉框中 搜索值
-    for(var i=0;i<selectA1.length;i++){
-        var t=$(selectA1[i]).val()
-
-        if(t==selectStudy){
-            $(selectA1[i]).attr("selected","selected")
-        }
-    }
-    //change事件
-    $('select[name="selectStudy"]').change(
-        function (){
-            selectStudy=$('select[name="selectStudy"]').val()
-        }
-    )
-});
 
 
 // 默认名称存在

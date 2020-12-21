@@ -84,7 +84,7 @@ $.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"
     html+=`<tr><td colspan="10"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
     $("table").append(html)
 
-    var deleteAll={}
+    // var deleteAll={}
     $("#deleteBySelect").click(function (){
         $("#exampleModalAll").attr("class","modal fade in")
         $("#exampleModalAll").css("display","inline-block")
