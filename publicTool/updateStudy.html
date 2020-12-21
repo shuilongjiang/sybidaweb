@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改学习方向</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <style>
+        form{
+            width: 100%;
+
+        }
+        .form-group .tip{
+            text-align: right;
+            color: red;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+        .formbody{
+            width: 50%;
+            margin: 0 auto;
+            margin-top: 5%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="formbody">
+        <form class="layui-form" method="post" enctype="multipart/form-data" id="updateform">
+            <div class="form-group">
+                <label for="studyId">学习方向编号</label>
+                <input type="text" class="form-control" name="studyId" id="studyId" readonly>
+                <p style="text-align: right;color: red"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="studyAspect">学习方向</label>
+                <input type="text"   name="studyAspect"  class="form-control" id="studyAspect">
+                <p class="tip"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="studyIntroduce">详细介绍</label>
+                <!--<input type="text"   name="studyIntroduce"  class="form-control" id="studyIntroduce">-->
+                <textarea class="form-control"  name="studyIntroduce" id="studyIntroduce" rows="3"></textarea>
+                <p class="tip"></p>
+            </div>
+            <!-- select -->
+            <div class="form-group">
+                <label for="userAuthority">权限</label>
+                <select class="form-control" id="userAuthority" name="userAuthority" style=" display: inline-block" >
+                    <option value="0">班主任</option>
+                    <option value="1">教师</option>
+                    <option value="2">学生</option>
+                </select>
+                <p class="tip"></p>
+            </div>
+
+
+            <input type="hidden" name="action" value="updateClass">
+            <!-- 相当于以前的input-submit按钮 -->
+            <div> <button type="button" id="btnsave" class="btn btn-primary form-control" style="width: 40%">保存</button>
+                <button   class="btn btn-primary form-control" style="width: 40%;float:right;margin-right: 0" onclick="returned()">返回</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/sybida/layui/layui.js"></script>
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/publicTool/js/updateStudy.js"></script>
+<script src="/sybida/publicTool/js/dateutil.js"></script>
+</body>
+</html>

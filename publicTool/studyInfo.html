@@ -3,8 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
 </head>
 <body>
-学习方向信息管理
+<br>
+<span >
+
+</span>
+<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="/" class="nav_guide">所有学习方向信息</a>
+</div>
+<div class="container">
+    <div class="header">
+        <br>
+        <div class="layui-form-item">
+            <label class="bg-success" style="line-height: 35px; font-size: 16px;">每页大小:&nbsp;</label>
+            <select class="form-control" id="pageSizeSel" style="width: 100px; display: inline-block" >
+                <option name="pageSize" value="5">5条</option>
+                <option name="pageSize" value="10">10条</option>
+                <option name="pageSize" value="15">15条</option>
+                <option name="pageSize" value="20">20条</option>
+                <option name="pageSize" value="30">30条</option>
+                <option name="pageSize" value="40">40条</option>
+                <option name="pageSize" value="50">50条</option>
+                <option name="pageSize" value="80">80条</option>
+                <option name="pageSize" value="100">100条</option>
+            </select>
+
+                 <label class="bg-success" style="line-height: 35px; font-size: 16px;">学习方向</label>
+                <select class="form-control" id="selectStudy" name="selectStudy"  style="width: 200px; display: inline-block">
+
+                </select>
+
+            <button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
+        </div>
+    </div>
+        <div class="view">
+            <table class="table table-striped table-hover table-bordered">
+                <tr class="active">
+                    <th scope="col"><input type="checkbox" id="chk">&nbsp;&nbsp;全选</th>
+                    <th scope="col">学习方向</th>
+                    <th scope="col">详情介绍</th>
+                    <th scope="col">权限</th>
+                    <th scope="col">修改时间</th>
+                    <th scope="col">修改</th>
+                    <th scope="col">删除</th>
+                </tr>
+                <hr/>
+            </table>
+            <div id="nav">
+                <nav style="text-align: center">
+                    <ul id="pagination" class="pagination" style="margin: 0 auto;">
+
+                    </ul>
+                </nav>
+            </div>
+            <div class="modal fade" style="margin-top:100px;padding-top:100px;" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-body" style="margin-top: 20px;">
+                            <form>
+                                <div class="form-group" >
+                                    <label id="messagetext" class="control-label">Message:</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"  class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" id="deleteOneSure" class="btn btn-primary">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!--多个模态框-->
+    <div class="modal fade" id="exampleModalAll" style="margin-top:100px;padding-top:100px;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">删除</h4>
+                </div>
+                <div class="modal-body" style="margin-top: 20px;">
+                    <form>
+                        <div class="form-group">
+                            <label id="mm" class="control-label">确认将所选的学习方向删除</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  id="canle" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" id="deleteAllSure" class="btn btn-primary">确认删除</button>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/publicTool/js/studyinfo.js"></script>
+<script src="/sybida/layui/layui.js"></script>
+<script src="/sybida/bs/bootstrap.min.js"></script>
+
+<script>
+
+    var layer
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+    $("#canle").click(function (){
+        $("#exampleModalAll").attr("class","modal fade")
+        $("#exampleModalAll").css("display","none")
+    })
+    $("#deleteAllSure").click(function (){
+
+        var checkbox = $("input[name='optionAll']");
+        var s=new Array();
+        var j=0
+        for(var i = 0;i<checkbox.length;i++)
+        {
+            if(checkbox[i].checked==true)
+            {console.log(checkbox[i].value)
+                s[j++]=(checkbox[i].value)
+            }
+        }
+        if(s.length>0){ $.post({
+            url:url+"/studyInfo/deleteallstudy",
+            // 告知传递参数类型为json，不可缺少
+            contentType:"application/json",
+            data:JSON.stringify(s),
+            success:function(data){
+                if(data.code===1){
+                    location.href="/sybida/publicTool/studyInfo.html?pageNum=1&pageSize="+pageSize+"&selectStudy="+selectStudy
+
+                }else{
+                    layer.alert("删除失败请重试！");
+                    $("#exampleModalAll").attr("class","modal fade")
+                    $("#exampleModalAll").css("display","none")
+                }
+            }
+        })}else{
+
+            layer.alert("所选数据为空！");
+            $("#exampleModalAll").attr("class","modal fade")
+            $("#exampleModalAll").css("display","none")
+        }
+    })
+</script>
 </body>
 </html>

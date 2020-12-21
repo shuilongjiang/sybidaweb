@@ -25,13 +25,6 @@ $.getJSON(url+"/classInfo/showOneClass?classId="+id,function (data) {
         data.data.classTime="未完善"
     }
     if (!data.data.classIsGraduate) {
-            // var selectA1 = $('select[name="classIsGraduate"]').find("option"); //从A1下拉框中 搜索值
-            // for(var i=0;i<selectA1.length;i++){
-            //     t=$(selectA1[i]).val()
-            //     if(t==2){
-            //         $(selectA1[i]).attr("selected","selected")
-            //     }
-            // }
     }
     if (!data.data.classAlterTime) {
         data.data.classAlterTime="未完善"
@@ -153,15 +146,6 @@ $("#btnsave").click(function () {
     formData.append('classStudyId',$("#classStudy").val());
     formData.append('classTime',$("#classTime").val());
     formData.append('classIsGraduate',classIsGraduate);
-    // formData.append('classAlterTime',$("#alterClass").val());
-    console.log($("#classId").val()+"=1")
-    console.log($("#className").val()+"=2")
-    console.log($("#teachName").val()+"=3")
-    console.log($("#managerName").val()+"=4")
-    console.log($("#classStudy").val()+"=5")
-    console.log($("#classTime").val()+"=6")
-    console.log(classIsGraduate+"=7")
-    // console.log($("#alterClass").val()+"=8")
     $.ajax({
         url:url+"/classInfo/updateclassinfo",
         type : 'post',
