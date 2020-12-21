@@ -468,7 +468,7 @@
 <script>
     var userid=getCookie("userid")
     $.getJSON(url+"/user/userinfostu","userid="+userid,function (data) {
-        var html=`<img src="${data.data.studentPhoto}" alt="">`
+        var html=`<img src="${Qnyurl+data.data.studentPhoto}" alt="">`
         var html2=`<div class="dropdown-user-name">${data.data.studentName}
                       <span> 已验证 <i class="uil-check"></i> </span>
                    </div>`
