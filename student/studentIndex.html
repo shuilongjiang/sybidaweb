@@ -63,44 +63,62 @@
                             <li>
                                 <a href="/sybida/student/studentIndex.html" title=""  class="btn-upgrade uk-visible@s">首页</a>
                             </li>
-                            <li>
-                                <a href="#" title="" class="nav_btn">简历查看</a>
-                            </li>
-                            <li class="new">
-                                <a href="#" title="" class="nav_btn" >公司介绍</a>
-                            </li>
-                            <li class="has-sub more">
-                                <a href="javascript:;" title="">
-                                    公告&amp;资讯 <span class="trigger ui-arb"></span>
-                                </a>
-                                <ul uk-dropdown="pos: top;mode:click ; animation: uk-animation-scale-up" class="sub-nav" style="display: none; top: 104px; ">
-                                    <li>
-                                        <a href="#" class="s_btn">最新公告</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="s_btn">待开发</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="s_btn">待开发</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="s_btn">待开发</a>
-                                    </li>
-                                </ul>
-                            </li>
                             <li class="has-sub">
                                 <a href="javascript:;">
-                                    就业平台<span class="trigger ui-arb"></span>
+                                    登记中心<span class="trigger ui-arb"></span>
                                 </a>
                                 <ul uk-dropdown="pos: top;mode:click ; animation: uk-animation-scale-up" class="sub-nav" style="top: 104px;  display: none;">
                                     <li>
                                         <a id="vitaeEvaluateStudent"  class="s_btn">面试登记</a>
                                     </li>
                                     <li>
+                                        <a id="offerStudent" href="#" class="s_btn">offer登记</a>
+                                    </li>
+                                    <li>
                                         <a id="jobStudent" href="#" class="s_btn">就业登记</a>
                                     </li>
                                 </ul>
                             </li>
+                            <li class="has-sub">
+                                <a href="javascript:;">
+                                    记录平台<span class="trigger ui-arb"></span>
+                                </a>
+                                <ul uk-dropdown="pos: top;mode:click ; animation: uk-animation-scale-up" class="sub-nav" style="top: 104px;  display: none;">
+                                    <li>
+                                        <a id="vitaeEvaluateStudent2"  class="s_btn">面试记录</a>
+                                    </li>
+                                    <li>
+                                        <a id="offerStudent2" href="#" class="s_btn">offer记录</a>
+                                    </li>
+                                    <li>
+                                        <a id="jobStudent2" href="#" class="s_btn">就业记录</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="new">
+                                <a href="#" title="" class="nav_btn" >招聘中心</a>
+                            </li>
+                            <!--<li class="has-sub more">-->
+                                <!--<a href="javascript:;" title="">-->
+                                    <!--公告&amp;资讯 <span class="trigger ui-arb"></span>-->
+                                <!--</a>-->
+                                <!--<ul uk-dropdown="pos: top;mode:click ; animation: uk-animation-scale-up" class="sub-nav" style="display: none; top: 104px; ">-->
+                                    <!--<li>-->
+                                        <!--<a href="#" class="s_btn">最新公告</a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<a href="#" class="s_btn">待开发</a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<a href="#" class="s_btn">待开发</a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<a href="#" class="s_btn">待开发</a>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
                         </ul>
 
                     </div>
@@ -305,7 +323,7 @@
                     <!-- User menu -->
                     <ul class="dropdown-user-menu">
                         <li><a href="#"> <i class="uil-user"></i> 个人中心 </a> </li>
-                        <li><a href="#" id="resetPsw"> <i class="uil-bolt"></i> 账号设置</a> </li>
+                        <li><a href="#" id="changePsw"> <i class="uil-bolt"></i> 账号管理</a> </li>
                         <li><a href="#"> <i class="uil-thumbs-up"></i> </a></li>
                         <li><a href="#"> <i class="uil-history"></i> 求职助手 </a></li>
                         <li><a href="#"> <i class="uil-cog"></i>隐私设置 </a></li>
@@ -458,9 +476,9 @@
     )
 
 
-    $("#resetPsw").click(
+    $("#changePsw").click(
         function () {
-            $("#ifream1").attr("src","../publicTool/resetPsw.html")
+            $("#ifream1").attr("src","../publicTool/changePsw.html")
         }
     )
 </script>
