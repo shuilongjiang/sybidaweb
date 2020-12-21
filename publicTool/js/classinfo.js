@@ -45,6 +45,8 @@ $.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"
             list[i].classTime = "未完善"
         }
         if (list[i].classIsGraduate==1) {
+            list[i].classIsGraduate ="是"
+        }else if (list[i].classIsGraduate==0) {
             list[i].classIsGraduate ="否"
         }
         if (!list[i].classIsGraduate) {
