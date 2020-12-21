@@ -17,13 +17,14 @@
         }
 
     </style>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
     <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
 
 </head>
 <body>
 <div class="container">
-    <form action="/web06/classInfo" method="post" onsubmit="return judgeAll()">
+    <form class="layui-form" method="post" onsubmit="return judgeAll()">
         <div class="form-group">
             <label for="classId">班级编号</label>
             <input type="text" class="form-control" name="classId" id="classId" readonly>
@@ -81,10 +82,19 @@
         </div>
     </form>
     </div>
-
+<script src="/sybida/layui/layui.js"></script>
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/publicTool/js/updateClass.js"></script>
 <script src="/sybida/publicTool/js/dateutil.js"></script>
-
+<script>
+    layui.use('laydate',function () {
+        var laydate=layui.laydate;
+        laydate.render({
+            elem:'#classTime'
+            ,type:'datetime'
+        })
+        }
+    );
+</script>
 </body>
 </html>
