@@ -3,7 +3,7 @@ var object = {}
 $("#selectButt").click(function () {
     let teachId = $("#searcheStuId").val()
     if (!teachId || !(teachId.trim())) {
-        location.href = "/sybida/teacher/addTeacher.html"
+        location.href = "../updateTeacher.html"
     } else {
         showDetail(teachId)
     }
