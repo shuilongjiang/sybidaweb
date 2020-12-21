@@ -128,7 +128,6 @@
     <div class="modal fade" style="margin-top:100px;padding-top:100px;" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-
                 <div class="modal-body" style="margin-top: 20px;">
                     <form>
                         <div class="form-group" >
@@ -216,16 +215,6 @@
 <script>
 var numi=1
 
-   // if(numi<=1){
-   //     $(this).toggleClass("onadvicetitle")
-   //     $(".advicetitleshow1").removeClass("onadvicetitle")
-   //     $("#showmseeage").removeClass("hiddenmessage")
-   //     $("#showmseeage").toggleClass("showmessage")
-   //     $("#sendmessage").removeClass("showmessage")
-   //     $("#sendmessage").toggleClass("hiddenmessage")
-   //     $("#nothingtodo").html("")
-   //     toltalnumdef()
-   // }
 
     $(".advicetitleshow").mouseover(function () {
         var class1=$(this).attr("class")
@@ -301,20 +290,9 @@ function toltalnumdef() {
         console.log(toltalnum+"=====")
         if(toltalnum==0){
             $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
-        你还没有发送任何信息 </div>`)
+        没有信息  </div>`)
         }else{
-            $("#showmseeage").html(`  <div class="infolisted" >
-                <div class="bg-primary infolistedtop" style="height:50px;">
-                    <div class="infolistedtopleft" style="margin-top: 10px;">
-                        <input style="height: 15px;width: 15px;" type="checkbox" id="chk" onclick="showmseeage()" >
-                        <button id="deleteBySelect2" class="btn btn-danger" style="margin-bottom: 8px;height: 30px;">批量删除</button>
-                        </div>
-                    <div class="infolistedtopright" style="margin-top: 10px;" ><span >共${toltalnum}条</span></div>
-                    <div style="clear: both"></div>
-                </div>
-
-
-            </div>`)
+            $("#showmseeage").html(`  `)
             sendmessagea1(toltalnum);
         }
     },"json");
@@ -336,8 +314,6 @@ function showmseeage(){
     }
 }
 
-
-
 function sendmessage(){
     if($("#chk2").get(0).checked){
         //循环下面所有checkbox
@@ -353,14 +329,11 @@ function sendmessage(){
     }
 }
 
-
-
-
 function sendmessagea1(toltalnum) {
     var pagesize=7;
     var totalPages=Math.ceil(toltalnum/pagesize);
     var pagenum=totalPages;
-    doSomething(pagenum--)
+    doSomething1(pagenum--)
     doSomething(pagenum)
     $(window).scroll(function() {
         var scrollTop = $(document).scrollTop(),scrollHeight = $(document).height(),windowHeight = $(this).height();
@@ -408,8 +381,9 @@ function sendmessagea1(toltalnum) {
             </div>
             <div style="margin-top: 10px;">
                 <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
-                <div style="float: right;margin-right: 15px;"><span ></span>
-                 <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="receiveRead(${data.data[i].receiveId})" >标为已读</a>
+                <div style="float: right;margin-right: 15px;"><span >
+                 <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="receiveRead(${data.data[i].receiveId},this)" >标为已读</a>
+                </span>
                  </div>
                 <div style="clear: both"></div>
 
@@ -431,8 +405,9 @@ function sendmessagea1(toltalnum) {
             </div>
             <div style="margin-top: 10px;">
                 <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
-                <div style="float: right;margin-right: 15px;"><span ></span>
+                <div style="float: right;margin-right: 15px;"><span >
                  已读
+                 </span>
                  </div>
                 <div style="clear: both"></div>
 
@@ -441,6 +416,118 @@ function sendmessagea1(toltalnum) {
                 }
             }
             $("#showmseeage").append(html)
+
+            bflag=true;
+            if(pagenum==1){
+                layer.msg("没有更多了---我是有底线的哦")
+                $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+        已经到底了！！</div>`)
+            }
+//自己试试看=========================================================================
+            $("input[name='optionAll']").click(function (){
+                if ($(this).is(':checked')) {
+                    // 如果当前框被选中，则判断是否需要勾选全选框
+                    var checkbox = $("input[name='optionAll']");
+                    var length = $(checkbox).length;
+                    if (length > 0) {
+                        for (var i = 0; i < length; i++) {
+                            if ($(checkbox[i]).is(":checked") != true) {
+                                break;// 如果有未勾选的选择框，不需要勾选全选，跳出循环
+                            }
+                            if (i == length - 1) {
+                                // 如果到最后一个选择框仍然是勾选状态，即所有选择框都被勾选，则勾选全选框
+                                $("#chk").prop("checked", true);
+                            }
+                        }
+                    }
+                } else {
+                    // 如果当前选择框未勾选，则取消全选框勾选状态
+                    $("#chk").prop("checked", false);
+                }
+            });
+
+            $("#deleteBySelect2").click(function (){
+                $("#exampleModalAll2").attr("class","modal fade in")
+                $("#exampleModalAll2").css("display","inline-block")
+            })
+
+        },"json");
+    }
+    function doSomething1(pagenum) {
+        var userid1=getCookie("userid")
+        $.post(url+"news/receivemessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
+            console.log(data)
+            var html =`<div class="infolisted" >
+                <div class="bg-primary infolistedtop" style="height:50px;">
+                    <div class="infolistedtopleft" style="margin-top: 10px;">
+                        <input style="height: 15px;width: 15px;" type="checkbox" id="chk" onclick="showmseeage()" >
+                        <button id="deleteBySelect2" class="btn btn-danger" style="margin-bottom: 8px;height: 30px;">批量删除</button>
+                        </div>
+                    <div class="infolistedtopright" style="margin-top: 10px;" ><span >共${toltalnum}条</span></div>
+                    <div style="clear: both"></div>
+                </div>
+
+
+            </div>`
+            for(var i =data.data.length-1; i>=0; i--){
+                var mytime =data.data[i].newsSendTime
+                var isread=data.data[i].receiveIsRead
+                var mytime1 =mytime.substring(0,mytime.indexOf(".")).replace("T","/")
+                if(isread==0){
+
+                    html+=` <div class="infolisted">
+            <div class="bg-primary infolistedtop">
+                    <div class="infolistedtopleft" >
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                 data-id="${data.data[i].receiveId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal" >删除</a>
+                        </div>
+
+                    <div class="infolistedtopright" ><span >
+
+                    </span></div>
+                    <div style="clear: both"></div>
+            </div>
+            <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
+            </p>
+            </div>
+            <div style="margin-top: 10px;">
+                <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
+                <div style="float: right;margin-right: 15px;"><span >
+                 <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="receiveRead(${data.data[i].receiveId},this)" >标为已读</a>
+                </span>
+                 </div>
+                <div style="clear: both"></div>
+
+            </div>
+        </div>`}else{
+                    html+=` <div class="infolisted">
+            <div class="bg-primary infolistedtop">
+                    <div class="infolistedtopleft" >
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                 data-id="${data.data[i].receiveId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal" >删除</a>
+                        </div>
+                    <div class="infolistedtopright" ><span >
+                   </span></div>
+                    <div style="clear: both"></div>
+            </div>
+            <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
+            </p>
+            </div>
+            <div style="margin-top: 10px;">
+                <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
+                <div style="float: right;margin-right: 15px;"><span >
+                 已读
+                 </span>
+                 </div>
+                <div style="clear: both"></div>
+
+            </div>
+        </div>`
+                }
+            }
+            $("#showmseeage").prepend(html)
 
             bflag=true;
             if(pagenum==1){
@@ -487,16 +574,7 @@ function toltalnum1() {
             $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
         你还没有发送任何信息 </div>`)
         }else{
-            $("#sendmessage").html(`  <div class="infolisted" >
-                <div class="bg-primary infolistedtop" style="height:50px;">
-                    <div class="infolistedtopleft" style="margin-top: 10px;">
-                        <input style="height: 15px;width: 15px;" type="checkbox" name=""  onclick="sendmessage()" id="chk2" value="">
-                        <button id="deleteBySelect" class="btn btn-danger" style="margin-bottom: 8px;height: 30px;">批量删除</button>
-                        </div>
-                    <div class="infolistedtopright" style="margin-top: 10px;" ><span >共${toltalnum}条</span></div>
-                    <div style="clear: both"></div>
-                </div>
-            </div>`)
+
             sendmessagea(toltalnum);
         }
     },"json");
@@ -508,7 +586,7 @@ function sendmessagea(toltalnum) {
         var pagesize=7;
         var totalPages=Math.ceil(toltalnum/pagesize);
         var pagenum=totalPages;
-        doSomething(pagenum--)
+        doSomething1(pagenum--)
         doSomething(pagenum)
         $(window).scroll(function() {
             var scrollTop = $(document).scrollTop(),scrollHeight = $(document).height(),windowHeight = $(this).height();
@@ -592,6 +670,80 @@ function doSomething(pagenum) {
             })
         },"json");
     }
+    function doSomething1(pagenum) {
+        var userid1=getCookie("userid")
+        $.post(url+"news/hadsendmessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
+            console.log(data)
+            var html =`<div class="infolisted" >
+                <div class="bg-primary infolistedtop" style="height:50px;">
+                    <div class="infolistedtopleft" style="margin-top: 10px;">
+                        <input style="height: 15px;width: 15px;" type="checkbox" name=""  onclick="sendmessage()" id="chk2" value="">
+                        <button id="deleteBySelect" class="btn btn-danger" style="margin-bottom: 8px;height: 30px;">批量删除</button>
+                        </div>
+                    <div class="infolistedtopright" style="margin-top: 10px;" ><span >共${toltalnum}条</span></div>
+                    <div style="clear: both"></div>
+                </div>
+            </div>`
+            for(var i =data.data.length-1; i>=0; i--){
+                var mytime =data.data[i].newsSendTime
+                var mytime1 =mytime.substring(0,mytime.indexOf(".")).replace("T","/")
+                html+=` <div class="infolisted">
+            <div class="bg-primary infolistedtop">
+                    <div class="infolistedtopleft" >
+                        <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].newsId}"></div>
+                    <div class="infolistedtopright" ><span >${data.data[i].newsReadPeople}人已读</span></div>
+                    <div style="clear: both"></div>
+            </div>
+            <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
+            </p>
+            </div>
+            <div style="margin-top: 10px;">
+                <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
+                <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                 data-id="${data.data[i].newsId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal2" >删除</a></span></div>
+                <div style="clear: both"></div>
+
+            </div>
+        </div>`
+            }
+            $("#sendmessage").prepend(html)
+
+            aflag=true;
+            if(pagenum==1){
+                layer.msg("没有更多了---我是有底线的哦")
+                $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+        已经到底了！！</div>`)
+            }
+
+
+            $("input[name='optionAll']").click(function (){
+                if ($(this).is(':checked')) {
+                    // 如果当前框被选中，则判断是否需要勾选全选框
+                    var checkbox = $("input[name='optionAll']");
+                    var length = $(checkbox).length;
+                    console.log(length+"=========================")
+                    if (length > 0) {
+                        for (var i = 0; i < length; i++) {
+                            if ($(checkbox[i]).is(":checked") != true) {
+                                break;// 如果有未勾选的选择框，不需要勾选全选，跳出循环
+                            }
+                            if (i == length - 1) {
+                                // 如果到最后一个选择框仍然是勾选状态，即所有选择框都被勾选，则勾选全选框
+                                $("#chk2").prop("checked", true);
+                            }
+                        }
+                    }
+                } else {
+                    // 如果当前选择框未勾选，则取消全选框勾选状态
+                    $("#chk2").prop("checked", false);
+                }
+            });
+            $("#deleteBySelect").click(function (){
+                $("#exampleModalAll").attr("class","modal fade in")
+                $("#exampleModalAll").css("display","inline-block")
+            })
+        },"json");
+    }
     }
 </script>
 <!--收件箱模态框删除-->
@@ -607,12 +759,13 @@ function doSomething(pagenum) {
         modal.find('#messagetext').text('确认将消息记录-' +name+'-删除吗？')
     })
     $("#deleteOneSure").click(function (){
-        // var userid1=getCookie("userid")
-        // var pagesize=7;
-        // var totalPages=Math.ceil(toltalnum/pagesize);
-        // var pagenum=totalPages;
+
+
         $.post(url+"/news/delectonereceive","receiveId="+idtea,function (data) {
             if(data.code==1){
+                console.log("12153+=========")
+                 $("#exampleModal").attr("class","modal fade")
+                 $("#exampleModal").css("display","none")
                 $("#nothingtodo").html("")
                 $("#sendmessage").html("")
                 toltalnum1();
@@ -631,18 +784,17 @@ function doSomething(pagenum) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         idtea = button.data('id') // Extract info from data-* attributes
         var name = button.data('name') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
         modal.find('#messagetext2').text('确认将消息记录-' +name+'-删除吗？')
     })
     $("#deleteOneSure2").click(function (){
-        // var userid1=getCookie("userid")
-        // var pagesize=7;
-        // var totalPages=Math.ceil(toltalnum/pagesize);
-        // var pagenum=totalPages;
+
+        $("#exampleModal2").attr("class","modal fade")
+        $("#exampleModal2").css("display","none")
+        console.log("======")
         $.post(url+"/news/delectonesend","newsId="+idtea,function (data) {
             if(data.code==1){
+
                 $("#nothingtodo").html("")
                 $("#sendmessage").html("")
                 toltalnum1();
@@ -753,19 +905,16 @@ function doSomething(pagenum) {
 
 <!--标为已读===========================-->
 <script>
-
-    function receiveRead(id) {
-                    $.ajax({
+    function receiveRead(id,elaa) {
+        $.ajax({
                 url: url+"/news/isread",
                 type: "post",
                 data: "receiveId="+id ,
                 dataType: "json",
                 success: function (data) {
                     if (data.code == 1) {
-                        console.log("==========")
-                        $("#nothingtodo").html("")
-                        $("#showmseeage").html("")
-                        toltalnumdef()
+
+                        elaa.parentNode.parentNode.innerHTML="已读"
                     } else {
                         alert("标记失败！")
                     }
