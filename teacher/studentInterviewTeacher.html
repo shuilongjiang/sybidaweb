@@ -102,18 +102,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-                <h4 class="modal-title" id="exampleModalLabel">离职</h4>
+                <h4 class="modal-title" id="exampleModalLabel">删除</h4>
             </div>
             <div class="modal-body" style="margin-top: 20px;">
                 <form>
                     <div class="form-group">
-                        <label id="mm" class="control-label">确认将所选的全部教师离职</label>
+                        <label id="mm" class="control-label">确认将所选的全部学生面试经历删除？</label>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button"  id="canle" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" id="deleteAllSure" class="btn btn-primary">确认离职</button>
+                <button type="button" id="deleteAllSure" class="btn btn-primary">确认删除</button>
             </div>
         </div>
     </div>
@@ -123,58 +123,57 @@
 <script src="/sybida/bs/bootstrap.min.js"></script>
 <script src="/sybida/layui/layui.js"    ></script>
 <script src="/sybida/teacher/js/studentInterviewTeacher.js"></script>
+
+
+
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-<!--<script>-->
-<!--var layer-->
-<!--layui.use('layer', function(){-->
-<!--layer = layui.layer;-->
-<!--});-->
-<!--$("#canle").click(function (){-->
-<!--$("#exampleModalAll").attr("class","modal fade")-->
-<!--$("#exampleModalAll").css("display","none")-->
-<!--})-->
-<!--$("#deleteAllSure").click(function (){-->
+<script>
+    var layer
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+    $("#canle").click(function (){
+        $("#exampleModalAll").attr("class","modal fade")
+        $("#exampleModalAll").css("display","none")
+    })
+    $("#deleteAllSure").click(function (){
 
-<!--var checkbox = $("input[name='optionAll']");-->
-<!--var s=new Array();-->
-<!--var j=0-->
-<!--for(var i = 0;i<checkbox.length;i++)-->
-<!--{-->
-<!--if(checkbox[i].checked==true)-->
-<!--{console.log(checkbox[i].value)-->
-<!--s[j++]=(checkbox[i].value)-->
-<!--}-->
-<!--}-->
-<!--if(s.length>0){ $.post({-->
-<!--url:url+"/teacher/deleteallteacher",-->
-<!--// 告知传递参数类型为json，不可缺少-->
-<!--contentType:"application/json",-->
-<!--data:JSON.stringify(s),-->
-<!--success:function(data){-->
-<!--if(data.code===1){-->
-<!--location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy-->
+        var checkbox = $("input[name='optionAll']");
+        var s=new Array();
+        var j=0
+        for(var i = 0;i<checkbox.length;i++)
+        {
+            if(checkbox[i].checked==true)
+            {
+                console.log(checkbox[i].value)
+                s[j++]=(checkbox[i].value)
+            }
+        }
+        if(s.length>0){
+            $.post({
+            url:url+"/audition/deleteAllStudentAudition",
+            // 告知传递参数类型为json，不可缺少
+            contentType:"application/json",
+            data:JSON.stringify(s),
+            success:function(data){
+                if(data.code===1){
+                    location.href="/sybida/teacher/studentInterviewTeacher.html?pageNum=1&pageSize="+pageSize+"&classNum="+classNum
 
-<!--}else{-->
-<!--layer.alert("删除失败请重试！");-->
-<!--$("#exampleModalAll").attr("class","modal fade")-->
-<!--$("#exampleModalAll").css("display","none")-->
-<!--}-->
+                }else{
+                    layer.alert("删除失败请重试！");
+                    $("#exampleModalAll").attr("class","modal fade")
+                    $("#exampleModalAll").css("display","none")
+                }
 
-<!--}-->
-<!--})}else{-->
+            }
+        })}else{
+            layer.alert("所选数据为空！");
+            $("#exampleModalAll").attr("class","modal fade")
+            $("#exampleModalAll").css("display","none")
+        }
+    })
+</script>
 
-<!--layer.alert("所选数据为空！");-->
-<!--$("#exampleModalAll").attr("class","modal fade")-->
-<!--$("#exampleModalAll").css("display","none")-->
-<!--}-->
-
-
-
-
-
-
-<!--})-->
-<!--</script>-->
 
 
 </body>

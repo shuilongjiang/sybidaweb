@@ -67,10 +67,6 @@ $.getJSON(url+"/audition/selectClass","userid="+userid,function (data){
 
 
 
-
-
-
-
 //全选全不选
 $('input[name="checkAll"]').click(function(){
     //当全选按钮是选中状态
@@ -97,7 +93,7 @@ function pageshoe(){
         for(let i = 0; i < le.length; i++){
             // if(!le[i].id){le[i].id=""}
             if (i%2==0){
-                html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
+                html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
 
             
             
@@ -116,10 +112,10 @@ function pageshoe(){
 
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
 
-               data-id="${le[i].teachId}" data-name="${le[i].teachName}" data-target="#exampleModal" >删除</a></td>
+               data-id="${le[i].auditionId}" data-name="${le[i].studentName}" data-target="#exampleModal" >删除</a></td>
         </tr>`
             }else{
-                html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll"></td>
+                html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
 
             <td>${le[i].studentName}</td>
             <td>${le[i].studentSex}</td>
@@ -134,7 +130,7 @@ function pageshoe(){
                <!--changeinterview()-->
             <td> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
 
-               data-id="${le[i].teachId}" data-name="${le[i].teachName}" data-target="#exampleModal" >删除</a></td>
+               data-id="${le[i].auditionId}" data-name="${le[i].studentName}" data-target="#exampleModal" >删除</a></td>
        </td></tr>`
             }
         }
@@ -174,6 +170,10 @@ function pageshoe(){
 
     })
 }
+
+
+
+//分页
 function pageSelect(data){
     var  html=``
     if(pageNum==1){
@@ -195,26 +195,16 @@ function pageSelect(data){
         var pa=parseInt(pageNum)+1
         html+=`<li><a href="/sybida/teacher/studentInterviewTeacher.html?pageNum=${pa}&pageSize=${pageSize}&classNum=${classNum}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
     }
-    html+=`<span style="font-family: '微软雅黑';font-size: 15px;margin-left:200px;padding-top: 10px;line-height: 40px">共&nbsp;${data.pages}&nbsp;页</span>`
+    html+=`<li><button class="btn btn-primary" type="button">
+        总页数： <span class="badge">${data.pages}</span>
+        </button></li>`
+
     $("#pagination").append(html)
-
 }
-var idtea
-$('#exampleModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    idtea = button.data('id') // Extract info from data-* attributes
-    var name = button.data('name') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    var modal = $(this)
-    modal.find('#messagetext').text('确认删除教师-' +name+'-的记录信息吗？')
-})
-$("#deleteOneSure").click(function (){
-    console.log(idtea)
-    location.href="www.baidu.com"
-    //删除写这里
-})
 
+
+
+//查看详情
 function changeinterview(){
     $("button").click(function (){
         var text = $(this).text() // 获取按钮之间的文本内容
@@ -227,4 +217,62 @@ function changeinterview(){
         }
     })
 }
+
+
+
+
+
+
+
+//删除
+var idtea
+$('#exampleModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    idtea = button.data('id') // Extract info from data-* attributes
+    var name = button.data('name') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    modal.find('#messagetext').text('确认删除学生-' +name+'-的面试记录吗？')
+})
+$("#deleteOneSure").click(function (){
+
+    console.log(idtea +"++++++++++++++++++++++....********************************")
+
+    $.post(url+"/audition/deleteStudentAudition","deleteAuditionId="+idtea,function (data) {
+        if(data.code==1){
+            location.href="/sybida/teacher/studentInterviewTeacher.html?pageNum=1&pageSize="+pageSize+"&classNum="+classNum
+        }else{
+            layer.alert("删除失败");
+        }
+    },"json")
+
+    //删除写这里
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
