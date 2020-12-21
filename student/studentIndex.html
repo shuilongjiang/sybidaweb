@@ -306,7 +306,7 @@
                     </a>
                     <!-- User menu -->
                     <ul class="dropdown-user-menu">
-                        <li><a href="#"> <i class="uil-user"></i> 个人中心 </a> </li>
+                        <li><a href="#" id="studentPersonalInformation"> <i class="uil-user"></i> 个人中心 </a> </li>
                         <li><a href="#" id="changePsw"> <i class="uil-bolt"></i> 账号管理</a> </li>
                         <li><a href="#"> <i class="uil-thumbs-up"></i> </a></li>
                         <li><a href="#"> <i class="uil-history"></i> 求职助手 </a></li>
@@ -460,6 +460,14 @@
             $("#ifream1").attr("src","../publicTool/changePsw.html")
         }
     )
+
+
+    $("#studentPersonalInformation").click(
+        function () {
+            $("#ifream1").attr("src","../student/studentPersonalInformation.html")
+        }
+    )
+
 
 </script>
 <!--用户头像-->
