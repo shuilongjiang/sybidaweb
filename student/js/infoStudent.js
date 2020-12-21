@@ -178,7 +178,9 @@ function show() {
                 list[i].studentCity = "暂无"
             }
 
-            html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
+            html += `<tr class="warning">]
+<!--<td style="width: 80px;">-->
+<!--<input type="checkbox" name="optionAll" ></td>-->
             
             <td>${list[i].studentId}</td>
             <td>${list[i].studentName}</td>

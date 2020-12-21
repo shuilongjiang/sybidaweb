@@ -2,9 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>就业状态信息完善</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+
+    <style>
+        form{
+            width: 65%;
+            margin: 0 auto;
+        }
+
+    </style>
 </head>
-<body>
-就业状态信息完善
+
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<body id="body" style="height: 800px;">
+
+<br>
+
+
+<div >
+    <ol class="breadcrumb"style="border-bottom: #009688 1px solid;">
+        <li><a href="#">首页</a></li>
+
+        <li class="active">就业状态信息完善</li>
+    </ol>
+</div>
+
+<div class="container">
+
+    <table class="layui-table" lay-skin="line" style="width: 90%;margin: 0 auto">
+        <thead>
+        <tr>
+            <th style="text-align: center"><h3>就业登记</h3></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+
+                <!--面试时间-->
+                <!--<div class="layui-inline"> &lt;!&ndash; 注意：这一层元素并不是必须的 &ndash;&gt;-->
+                <!--<input type="text" class="layui-input" id="test1" placeholder="请选择面试时间">-->
+                <!--</div>-->
+
+
+
+
+
+                <form action="">
+                    <div class="form-group">
+                        <label for="studentName">姓名</label>
+                        <input type="text" class="form-control" id="studentName"  readonly>
+                    </div>
+
+                    <!-- 隐藏域 -->
+                    <input type="hidden" id="jobStudentId">
+
+                    <div class="form-group">
+                        <label for="sex">性别</label>
+                        <div style="height: 30px">
+
+                            <label class="form-group" id="sex" style="padding-top: 6px;padding-left: 10px">
+
+                                <input type="radio" name="sex" value="男" id="male" >男
+                                <input type="radio" name="sex" value="女" id="female">女
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="classNum">班级</label>
+                        <input type="text" class="form-control" id="classNum"  readonly>
+                    </div>
+
+                </form>
+
+
+                <!--需要完善填写的表格信息-->
+                <form action=""  method="post"  class="layui-form" id="jobform" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="jobFirm">就业企业</label>
+                        <input type="text" class="form-control" id="jobFirm" placeholder="请输入就业企业">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobContact">企业联系方式</label>
+                        <input maxlength="11" type="text" class="form-control" id="jobContact" placeholder="请输入企业联系方式">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobWeal">企业福利</label>
+                        <input maxlength="6" type="text" class="form-control" id="jobWeal" placeholder="请输入企业福利">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobEndTime">实习到期日期</label>
+                        <input type="text" class="form-control" id="jobEndTime" placeholder="实习到期日期">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobPicture">相关就业信息上传</label>
+                        <!--<input type="text" class="form-control" id="test1" placeholder="相关就业文件上传">-->
+                        <input type="file" accept="image/gif, image/x-ms-bmp, image/bmp,image/jpeg,image/x-png,audio/x-mpeg" class="jobPicture" value="jobPicture" id="jobPicture" name="file">
+                    </div>
+
+
+
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <!--<button class="layui-btn" lay-submit lay-filter="formDemo" type="submit">立即提交</button>-->
+                            <input type="button" class="layui-btn" id="submitList" value="立即提交" lay-submit lay-filter="formDemo"></input>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<!--<script src="/sybida/layui/layui.js"    ></script>-->
+<script src="/sybida/layui/layui.all.js"    ></script>
+<script src="/sybida/student/js/jobStudent.js"></script>
+
+
+<!--<script>-->
+<!--//Demo-->
+<!--layui.use('form', function(){-->
+<!--var form = layui.form;-->
+
+<!--//监听提交-->
+<!--form.on('submit(formDemo)', function(data){-->
+<!--layer.msg(JSON.stringify(data.field));-->
+<!--return false;-->
+<!--});-->
+<!--});-->
+<!--</script>-->
+
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#jobEndTime' //指定元素
+            ,type: 'datetime'  //日期时间选择器
+        });
+    });
+</script>
 </body>
 </html>
