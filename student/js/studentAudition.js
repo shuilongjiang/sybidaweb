@@ -63,20 +63,23 @@ function pageshoe(){
         var le=data.data.list
         // console.log(data)
         // console.log(data.data.list)
+
         for(let i = 0; i < le.length; i++){
             // if(!le[i].id){le[i].id=""}
+
+            var date1 = Date.parse(le[i].auditionTime)
+            date1 = new Date(date1)
+            var date2 = Date.parse(le[i].auditionAlterTime)
+            date2 = new Date(date2)
             if (i%2==0){
                 html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
-
-            
-            
             <td>${le[i].studentName}</td>
             <td>${le[i].studentSex}</td>
             <td>${le[i].classNum}</td>
             <td>${le[i].auditionFirm}</td>
             <td>${le[i].auditionSite}</td>
-            <td>${le[i].auditionTime}</td>
-            <td>${le[i].auditionAlterTime}</td>
+            <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+            <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
             <td><button class="layui-btn layui-btn-xs" lay-event="edit" 
                date-auditionId ="${le[i].auditionId}" >查看详情</button></td>
@@ -95,8 +98,8 @@ function pageshoe(){
             <td>${le[i].classNum}</td>
             <td>${le[i].auditionFirm}</td>
             <td>${le[i].auditionSite}</td>
-            <td>${le[i].auditionTime}</td>
-            <td>${le[i].auditionAlterTime}</td>
+            <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+            <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
             <td><button class="layui-btn layui-btn-xs" lay-event="edit" 
                date-auditionId ="${le[i].auditionId}">查看详情</button></td>
@@ -184,7 +187,6 @@ function changeinterview(){
         // console.log("========")
         if(text.trim()=='查看详情'){
             let id = $(this).attr("date-auditionId")
-            console.log(id)
             location.href="/sybida/student/studentAuditionDetails.html?id=" + id;
 
         }
