@@ -106,17 +106,17 @@
     f_onCreateQrcode();
     //生成二维码图像
     function f_onCreateQrcode() {
+        console.log("=======")
         var userId = getCookie("userid")
         var txtContent=""
         if(userId){
 
             $.post({
-                async: false,
                 url:url+"/company/ecode",
-                data:"userId="+userId,
+                data:"userid="+userId,
                 success:function(data){
-                    console.log(data.message)
-                    txtContent="121"?id="+data.message+"&userId="+userId
+                    // txtContent="http://localhost:63343/sybida/manager/managerIndex.html?markcompany="+data.message
+                    txtContent="12345"
                     // txtContent="http://localhost:63342/sybida/login.html"
                 }
             })
@@ -133,7 +133,7 @@
     //清除二维码内容
     function f_onClearQrcode() {
         if (txtContent) {
-            txtContent.value = "sc.chinaz.com";
+            txtContent.value ="https://www.baidu.com/";
             // 使用 API
             qrcode.clear();
             qrcode.makeCode('请输入二维码内容再生成图像');
