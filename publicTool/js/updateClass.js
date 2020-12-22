@@ -58,12 +58,12 @@ $.getJSON(url+"/classInfo/showOneClass?classId="+id,function (data) {
 
         var date = Date.parse(data.data.classTime)
         date = new Date(date)
-        $("#classTime").val(date.pattern("yyyy-MM-dd"))
+        $("#classTime").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
 
         $("#classIsGraduate").val(data.data.classIsGraduate)
-        var date = Date.parse(data.data.classAlterTime)
-        date = new Date(date)
-        $("#alterClass").val(date.pattern("yyyy-MM-dd"))
+        // var date = Date.parse(data.data.classAlterTime)
+        // date = new Date(date)
+        // $("#alterClass").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
 
     var classTeachId=data.data.classTeachId
 

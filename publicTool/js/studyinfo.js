@@ -13,8 +13,8 @@ if(arr.length>1){
     pageSize1=arr[1]
     pageSize=pageSize1.split("=")[1]
 
-    selectClass1=arr[2]
-    selectClass=selectClass1.split("=")[1]
+    selectStudy1=arr[2]
+    selectStudy=selectStudy1.split("=")[1]
 }
 
 // location.href="/sybida/publicTool/classInfo.html?currPage=1&pageSize="+pageSize
@@ -22,18 +22,36 @@ if(arr.length>1){
 $("#selectButt").click(function (){
     location.href="/sybida/publicTool/studyInfo.html?pageNum=1&pageSize="+pageSize+"&selectStudy="+selectStudy
 })
-
 $.getJSON(url+"studyInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"&selectStudy="+selectStudy,function (data){
     let html=''
     var list= data.data.list
-
     for (let i=0;i<list.length;i++) {
+
+        if (!list[i].studyAspect) {
+            list[i].studyAspect = "未完善"
+        }
+        if (!list[i].studyIntroduce){
+            list[i].studyIntroduce = "未完善"
+        }
+        if (!list[i].userAuthority) {
+            list[i].userAuthority = "未完善"
+        }
+        if (!list[i].classStudyId) {
+            list[i].classStudyId = "未完善"
+        }
+        if (!list[i].studyAlterTime) {
+            list[i].studyAlterTime = "未完善"
+        }
+
+        var date = Date.parse(list[i].studyAlterTime)
+        date = new Date(date)
+
         if (i % 2 == 0) {
             html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studyId}"></td>
         <td>${list[i].studyAspect}</td>
         <td>${list[i].studyIntroduce}</td>
         <td>${list[i].userAuthority}</td>
-        <td>${list[i].studyAlterTime}</td>
+        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studyId}">修改</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
         data-id="${list[i].studyId}" data-name="${list[i].studyAspect}" data-target="#exampleModal" >删除</a></td></tr>`
@@ -42,7 +60,7 @@ $.getJSON(url+"studyInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"&
     <td>${list[i].studyAspect}</td>
         <td>${list[i].studyIntroduce}</td>
         <td>${list[i].userAuthority}</td>
-        <td>${list[i].studyAlterTime}</td>
+        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studyId}">修改</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
         data-id="${list[i].studyId}" data-name="${list[i].studyAspect}" data-target="#exampleModal" >删除</a></td></tr>`
@@ -145,23 +163,22 @@ function pageSelect(data){
 $.getJSON(url+"/register/selectStudy",function (data){
     var html=`<option value="-1">全部</option>`
     for (let i = 0; i < data.length; i++) {
-        html += `<option value="${data[i].classNum}">${data[i].classNum}</option>`
+        html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
     }
-    $('#classNum').append(html);
+    $('#selectStudy').append(html);
 
-
-    var selectA1 = $('#classNum').find("option"); //从A1下拉框中 搜索值
+    var selectA1 = $('#selectStudy').find("option"); //从A1下拉框中 搜索值
     for(var i=0;i<selectA1.length;i++){
         var t=$(selectA1[i]).val()
 
-        if(t==selectClass){
+        if(t==selectStudy){
             $(selectA1[i]).attr("selected","selected")
         }
     }
 //change事件
-    $('#classNum').change(
+    $('#selectStudy').change(
         function (){
-            selectClass=$('#classNum').val()
+            selectStudy=$('#selectStudy').val()
         }
     )
 });

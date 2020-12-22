@@ -56,6 +56,11 @@ $.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"
             list[i].classAlterTime = "未完善"
         }
 
+        var date = Date.parse(list[i].classAlterTime)
+        date = new Date(date)
+
+        var date2=Date.parse(list[i].classTime)
+        date2=new Date(date2);
 
         if (i % 2 == 0) {
             html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].classId}"></td>
@@ -63,9 +68,9 @@ $.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"
         <td>${list[i].classTeachId}</td>
         <td>${list[i].classManagerId}</td>
         <td>${list[i].classStudyId}</td>
-        <td>${list[i].classTime}</td>
+        <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${list[i].classIsGraduate}</td>
-        <td>${list[i].classAlterTime}</td>
+        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].classId}">修改</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
         data-id="${list[i].classId}" data-name="${list[i].classNum}" data-target="#exampleModal" >删除</a></td></tr>`
@@ -75,9 +80,9 @@ $.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"
         <td>${list[i].classTeachId}</td>
         <td>${list[i].classManagerId}</td>
         <td>${list[i].classStudyId}</td>
-        <td>${list[i].classTime}</td>
+        <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${list[i].classIsGraduate}</td>
-        <td>${list[i].classAlterTime}</td>
+        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].classId}">修改</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
         data-id="${list[i].classId}" data-name="${list[i].classNum}" data-target="#exampleModal" >删除</a></td></tr>`
