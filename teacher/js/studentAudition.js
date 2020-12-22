@@ -26,10 +26,10 @@ $.getJSON(url+"/audition/selectstudentInterviewbyauditionId", "auditionId=" + id
 })
 
 
-
-$("button").click(function (){
-    var text = $(this).text() // 获取按钮之间的文本内容
-    if(text.trim()=='返回'){
-        location.href="/sybida/teacher/studentInterviewTeacher.html";
-    }
-})
+//
+// $("button").click(function (){
+//     var text = $(this).text() // 获取按钮之间的文本内容
+//     if(text.trim()=='返回'){
+//         location.href="/sybida/teacher/studentInterviewTeacher.html";
+//     }
+// })

@@ -1,7 +1,12 @@
+// 学生个人面试记录
+
+//学生用户id
+var userid=getCookie("userid")
+
+
 var pageNum=1
 var pageSize=$("#pageSizeSel").val()
 
-var classNum=-1
 var search=location.search
 var arr=search.split("&")
 if(arr.length>1){
@@ -11,8 +16,6 @@ if(arr.length>1){
     pageSize1=arr[1]
     pageSize=pageSize1.split("=")[1]
 
-    classNum1=arr[2]
-    classNum=classNum1.split("=")[1]
 
 }
 var selectA2 = $("#pageSizeSel").find("option"); //从A1下拉框中 搜索值
@@ -31,39 +34,9 @@ $('#pageSizeSel').change(
     }
 )
 $("#selectButt").click(function (){
-    location.href="/sybida/teacher/studentInterviewTeacher.html?pageNum=1&pageSize="+pageSize+"&classNum="+classNum
+    location.href="/sybida/student/studentAudition.html?pageNum=1&pageSize="+pageSize
 })
 
-
-
-//班级号下拉选框
-var userid=getCookie("userid")
-console.log(userid+"========")
-$.getJSON(url+"/audition/selectClass","userid="+userid,function (data){
-    // console.log(data)
-    var htm=`<option value="-1">全部</option>`
-    for (var i=0;i<data.data.length;i++){
-        htm+=`<option value="${data.data[i].classId}">${data.data[i].classNum}</option>`
-    }
-    $("#classNum").append(htm)
-
-    var selectA1 = $("#classNum").find("option"); //从A1下拉框中 搜索值
-    for(var i=0;i<selectA1.length;i++){
-        var t=$(selectA1[i]).val()
-
-        if(t==classNum){
-            $(selectA1[i]).attr("selected","selected")
-        }
-
-    }
-    //change事件
-    $('#classNum').change(
-        function (){
-           classNum=$("#classNum").val()
-
-        }
-    )
-})
 
 
 
@@ -85,7 +58,7 @@ $('input[name="checkAll"]').click(function(){
 });
 pageshoe();
 function pageshoe(){
-    $.getJSON(url+"/audition/selectpage","pageSize="+pageSize+"&pageNum="+pageNum+"&classNum="+classNum+"&userid="+userid,function (data){
+    $.getJSON(url+"/audition/selectpageStudentAudition","pageSize="+pageSize+"&pageNum="+pageNum+"&userid="+userid,function (data){
         let html = ''
         var le=data.data.list
         // console.log(data)
@@ -180,20 +153,20 @@ function pageSelect(data){
 
         html+=`<li class="disabled"><a href="#" aria-label="Previous">&laquo;</a></li>`
     }else{
-        html+=`<li><a href="/sybida/teacher/studentInterviewTeacher.html?pageNum=${pageNum-1}&pageSize=${pageSize}&classNum=${classNum}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
+        html+=`<li><a href="/sybida/student/studentAudition.html?pageNum=${pageNum-1}&pageSize=${pageSize}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
     }
     for(var i=data.navigateFirstPage;i<=data.navigateLastPage;i++){
         if(pageNum==i){
             html+=`<li class="active"><a href="#">${i}</a></li>`
         }else{
-            html+=`<li><a href="/sybida/teacher/studentInterviewTeacher.html?pageNum=${i}&pageSize=${pageSize}&classNum=${classNum}">${i}</a></li>`
+            html+=`<li><a href="/sybida/student/studentAudition.html?pageNum=${i}&pageSize=${pageSize}">${i}</a></li>`
         }
     }
     if((data.pages)<=pageNum){
         html+=`<li class="disabled"><a href="#">&raquo;</a></li>`
     }else{
         var pa=parseInt(pageNum)+1
-        html+=`<li><a href="/sybida/teacher/studentInterviewTeacher.html?pageNum=${pa}&pageSize=${pageSize}&classNum=${classNum}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
+        html+=`<li><a href="/sybida/student/studentAudition.html?pageNum=${pa}&pageSize=${pageSize}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
     }
     html+=`<li><button class="btn btn-primary" type="button">
         总页数： <span class="badge">${data.pages}</span>
@@ -212,7 +185,7 @@ function changeinterview(){
         if(text.trim()=='查看详情'){
             let id = $(this).attr("date-auditionId")
             console.log(id)
-            location.href="/sybida/teacher/studentAudition.html?id=" + id;
+            location.href="/sybida/student/studentAuditionDetails.html?id=" + id;
 
         }
     })
@@ -241,7 +214,7 @@ $("#deleteOneSure").click(function (){
 
     $.post(url+"/audition/deleteStudentAudition","deleteAuditionId="+idtea,function (data) {
         if(data.code==1){
-            location.href="/sybida/teacher/studentInterviewTeacher.html?pageNum=1&pageSize="+pageSize+"&classNum="+classNum
+            location.href="/sybida/student/studentAudition.html?pageNum=1&pageSize="+pageSize
         }else{
             layer.alert("删除失败");
         }
