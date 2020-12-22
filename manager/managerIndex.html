@@ -164,7 +164,10 @@
     function wOnload() {
         var storage = window.sessionStorage;
          var iframeSrc= storage.getItem("ifreammanager");
-        $("#ifream1").attr("src",iframeSrc)
+         if(iframeSrc){
+             $("#ifream1").attr("src",iframeSrc)
+         }
+
 
     }
    var userid=getCookie("userid")
@@ -192,11 +195,6 @@
                 }else{
 
                 }
-                // if(data.data.messageNum==0) {
-                //
-                // }else{
-                //   layer.alert("sdsdsds")
-                // }
                 if(data.data.teachPhoto){
 
                     $("#userphotoA").attr("src",Qnyurl+data.data.teachPhoto)
@@ -224,7 +222,6 @@
        layui.use('layer', function(){
            var layer = layui.layer;
        });
-       console.log("+++"+userid)
        $.ajax({
            url: url+"login/exitlogin",
            type: 'POST',
@@ -486,8 +483,6 @@
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
-
-
 </script>
 </body>
 </html>
