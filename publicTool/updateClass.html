@@ -5,9 +5,8 @@
     <title>Title</title>
     <style>
         form{
-            width: 50%;
-            margin: 0 auto;
-            margin-top:60px;
+            width: 100%;
+
         }
         .form-group .tip{
             text-align: right;
@@ -15,15 +14,21 @@
             margin-right: 20px;
             margin-top: 10px;
         }
-
+        .formbody{
+            width: 50%;
+            margin: 0 auto;
+            margin-top: 5%;
+        }
     </style>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
     <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
 
 </head>
 <body>
 <div class="container">
-    <form action="/web06/classInfo" method="post" onsubmit="return judgeAll()">
+    <div class="formbody">
+    <form class="layui-form" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="classId">班级编号</label>
             <input type="text" class="form-control" name="classId" id="classId" readonly>
@@ -38,14 +43,14 @@
 
         <div class="form-group">
             <label for="teachName">老师姓名</label>
-            <select class="form-control" id="teachName" name="teachName" style="width: 200px; display: inline-block" >
+            <select class="form-control" id="teachName" name="teachName" style=" display: inline-block" >
             </select>
             <p class="tip"></p>
         </div>
         <!-- select -->
         <div class="form-group">
-            <label for="managerName">班主任姓名</label><br>
-            <select class="form-control" id="managerName" name="managerName" style="width: 200px; display: inline-block" >
+            <label for="managerName">班主任姓名</label>
+            <select class="form-control" id="managerName" name="managerName" style=" display: inline-block" >
             </select>
             <p class="tip"></p>
         </div>
@@ -55,7 +60,7 @@
         可以再网络上查找一些js日期控件使用，可以保证不同的浏览器都可显示一样的-->
         <div class="form-group">
             <label for="classStudy">学习方向</label>
-            <select class="form-control" id="classStudy" name="selectStudy" style="width: 200px; display: inline-block" >
+            <select class="form-control" id="classStudy" name="selectStudy" style=" display: inline-block" >
             </select>
             <p class="tip"></p>
         </div>
@@ -66,25 +71,39 @@
         </div>
         <div class="form-group">
             <label for="classIsGraduate">是否毕业</label>
-            <input type="text" name="classIsGraduate" class="form-control" id="classIsGraduate" >
+            <!--<input type="text" name="classIsGraduate" class="form-control" id="classIsGraduate" >-->
+            <select class="form-control" id="classIsGraduate" name="classIsGraduate" style=" display: inline-block" >
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
             <p class="tip"></p>
         </div>
-        <div class="form-group">
-            <label for="alterClass">修改时间</label>
-            <input type="test" name="alterClass" class="form-control" id="alterClass" >
-            <p class="tip"></p>
-        </div>
+        <!--<div class="form-group">-->
+            <!--<label for="alterClass">修改时间</label>-->
+            <!--<input type="test" name="alterClass" class="form-control" id="alterClass" >-->
+            <!--<p class="tip"></p>-->
+        <!--</div>-->
     <input type="hidden" name="action" value="updateClass">
     <!-- 相当于以前的input-submit按钮 -->
-        <div> <button type="submit" class="btn btn-primary form-control" style="width: 40%">保存</button>
-               <button   class="btn btn-primary form-control" style="width: 40%;float:right;margin-right: 0">返回</button>
+        <div> <button type="button" id="btnsave" class="btn btn-primary form-control" style="width: 40%">保存</button>
+               <button   class="btn btn-primary form-control" style="width: 40%;float:right;margin-right: 0" onclick="returned()">返回</button>
         </div>
     </form>
     </div>
-
+    </div>
+<script src="/sybida/layui/layui.js"></script>
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/publicTool/js/updateClass.js"></script>
 <script src="/sybida/publicTool/js/dateutil.js"></script>
-
+<script>
+    layui.use('laydate',function () {
+        var laydate=layui.laydate;
+        laydate.render({
+            elem:'#classTime'
+            ,type:'datetime'
+        })
+        }
+    );
+</script>
 </body>
 </html>

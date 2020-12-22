@@ -1,10 +1,9 @@
-var selectClass=-1
+
 var selectStudy=-1
 
 var pageNum =1
 // 每页默认5条数据
 var pageSize=$("#pageSizeSel").val()
-// 获取传递的参数  /showhero.html?currPage=2--?currPage=2
 var search=location.search
 var arr=search.split("&")
 if(arr.length>1){
@@ -14,82 +13,64 @@ if(arr.length>1){
     pageSize1=arr[1]
     pageSize=pageSize1.split("=")[1]
 
-    selectClass1=arr[2]
-    selectClass=selectClass1.split("=")[1]
+    selectStudy1=arr[2]
+    selectStudy=selectStudy1.split("=")[1]
 }
 
-    // location.href="/sybida/publicTool/classInfo.html?currPage=1&pageSize="+pageSize
+// location.href="/sybida/publicTool/classInfo.html?currPage=1&pageSize="+pageSize
 
 $("#selectButt").click(function (){
-    location.href="/sybida/publicTool/classInfo.html?pageNum=1&pageSize="+pageSize+"&selectClass="+selectClass
+    location.href="/sybida/publicTool/studyInfo.html?pageNum=1&pageSize="+pageSize+"&selectStudy="+selectStudy
 })
-
-$.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"&selectClass="+selectClass,function (data){
-     let html=''
+$.getJSON(url+"studyInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"&selectStudy="+selectStudy,function (data){
+    let html=''
     var list= data.data.list
     for (let i=0;i<list.length;i++) {
 
-        if (!list[i].classNum) {
-            list[i].classNum = "未完善"
+        if (!list[i].studyAspect) {
+            list[i].studyAspect = "未完善"
         }
-        if (!list[i].classTeachId){
-            list[i].classTeachId = "未完善"
+        if (!list[i].studyIntroduce){
+            list[i].studyIntroduce = "未完善"
         }
-        if (!list[i].classManagerId) {
-            list[i].classManagerId = "未完善"
+        if (!list[i].userAuthority) {
+            list[i].userAuthority = "未完善"
         }
         if (!list[i].classStudyId) {
             list[i].classStudyId = "未完善"
         }
-        if (!list[i].classTime) {
-            list[i].classTime = "未完善"
-        }
-        if (list[i].classIsGraduate==1) {
-            list[i].classIsGraduate ="是"
-        }else if (list[i].classIsGraduate==0) {
-            list[i].classIsGraduate ="否"
-        }
-        if (!list[i].classIsGraduate) {
-            list[i].classIsGraduate = "未完善"
-        }
-        if (!list[i].classAlterTime) {
-            list[i].classAlterTime = "未完善"
+        if (!list[i].studyAlterTime) {
+            list[i].studyAlterTime = "未完善"
         }
 
-        var date = Date.parse(list[i].classAlterTime)
+        var date = Date.parse(list[i].studyAlterTime)
         date = new Date(date)
 
-        var date2=Date.parse(list[i].classTime)
-        date2=new Date(date2);
-
         if (i % 2 == 0) {
-            html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].classId}"></td>
-        <td>${list[i].classNum}</td>
-        <td>${list[i].classTeachId}</td>
-        <td>${list[i].classManagerId}</td>
-        <td>${list[i].classStudyId}</td>
-        <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-        <td>${list[i].classIsGraduate}</td>
+            html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studyId}"></td>
+        <td>${list[i].studyAspect}</td>
+        <td>${list[i].studyIntroduce}</td>
+        <td>${list[i].userAuthority}</td>
         <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-        <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].classId}">修改</a></td>
+        <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studyId}">修改</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-        data-id="${list[i].classId}" data-name="${list[i].classNum}" data-target="#exampleModal" >删除</a></td></tr>`
-        }else{
-            html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].classId}""></td>
-        <td>${list[i].classNum}</td>
-        <td>${list[i].classTeachId}</td>
-        <td>${list[i].classManagerId}</td>
-        <td>${list[i].classStudyId}</td>
-        <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-        <td>${list[i].classIsGraduate}</td>
+        data-id="${list[i].studyId}" data-name="${list[i].studyAspect}" data-target="#exampleModal" >删除</a></td></tr>`
+        } else {
+            html += ` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studyId}""></td>
+    <td>${list[i].studyAspect}</td>
+        <td>${list[i].studyIntroduce}</td>
+        <td>${list[i].userAuthority}</td>
         <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-        <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].classId}">修改</a></td>
+        <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studyId}">修改</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-        data-id="${list[i].classId}" data-name="${list[i].classNum}" data-target="#exampleModal" >删除</a></td></tr>`
+        data-id="${list[i].studyId}" data-name="${list[i].studyAspect}" data-target="#exampleModal" >删除</a></td></tr>`
         }
+
     }
     html+=`<tr><td colspan="10"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
     $("table").append(html)
+
+
 
     // var deleteAll={}
     $("#deleteBySelect").click(function (){
@@ -127,7 +108,7 @@ $.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"
         if(text.trim()=='修改'){
             var  id =$(this).attr("value")
             console.log(id+"====++++++++++++++++")
-             location.href="/sybida/publicTool/updateClass.html?classId="+id;
+            location.href="/sybida/publicTool/updateStudy.html?studyId="+id;
 
         }
     })
@@ -159,49 +140,47 @@ function pageSelect(data){
 
         html+=`<li class="disabled"><a href="#" aria-label="Previous">&laquo;</a></li>`
     }else{
-        html+=`<li><a href="/sybida/publicTool/classInfo.html?pageNum=${pageNum-1}&pageSize=${pageSize}&selectClass=${selectClass}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
+        html+=`<li><a href="/sybida/publicTool/studyInfo.html?pageNum=${pageNum-1}&pageSize=${pageSize}&selectStudy=${selectStudy}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
     }
     for(var i=data.navigateFirstPage;i<=data.navigateLastPage;i++){
         if(pageNum==i){
             html+=`<li class="active"><a href="#">${i}</a></li>`
         }else{
-            html+=`<li><a href="/sybida/publicTool/classInfo.html?pageNum=${i}&pageSize=${pageSize}&selectClass=${selectClass}">${i}</a></li>`
+            html+=`<li><a href="/sybida/publicTool/studyInfo.html?pageNum=${i}&pageSize=${pageSize}&selectStudy=${selectStudy}">${i}</a></li>`
         }
     }
     if((data.pages)<=pageNum){
         html+=`<li class="disabled"><a href="#">&raquo;</a></li>`
     }else{
         var pa=parseInt(pageNum)+1
-        html+=`<li><a href="/sybida/publicTool/classInfo.html?pageNum=${pa}&pageSize=${pageSize}&selectClass=${selectClass}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
+        html+=`<li><a href="/sybida/publicTool/studyInfo.html?pageNum=${pa}&pageSize=${pageSize}&selectStudy=${selectStudy}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
     }
     html+=`<span style="font-family: '微软雅黑';font-size: 15px;margin-left:200px;padding-top: 10px;line-height: 40px">共&nbsp;${data.pages}&nbsp;页</span>`
     $("#pagination").append(html)
-
 }
 
 
-$.getJSON(url+"/classInfo/selectClass",function (data) {
+$.getJSON(url+"/register/selectStudy",function (data){
     var html=`<option value="-1">全部</option>`
     for (let i = 0; i < data.length; i++) {
-        html += `<option value="${data[i].classNum}">${data[i].classNum}</option>`
+        html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
     }
-    $('#classNum').append(html);
+    $('#selectStudy').append(html);
 
+    var selectA1 = $('#selectStudy').find("option"); //从A1下拉框中 搜索值
+    for(var i=0;i<selectA1.length;i++){
+        var t=$(selectA1[i]).val()
 
-    var selectA1 = $('#classNum').find("option"); //从A1下拉框中 搜索值
-for(var i=0;i<selectA1.length;i++){
-    var t=$(selectA1[i]).val()
-
-    if(t==selectClass){
-        $(selectA1[i]).attr("selected","selected")
+        if(t==selectStudy){
+            $(selectA1[i]).attr("selected","selected")
+        }
     }
-}
 //change事件
-$('#classNum').change(
-    function (){
-        selectClass=$('#classNum').val()
-    }
-)
+    $('#selectStudy').change(
+        function (){
+            selectStudy=$('#selectStudy').val()
+        }
+    )
 });
 
 var selectA2 = $("#pageSizeSel").find("option"); //从A1下拉框中 搜索值
@@ -219,10 +198,11 @@ $('#pageSizeSel').change(
     }
 )
 
-var idtea
+
+var studyId
 $('#exampleModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
-    idtea = button.data('id') // Extract info from data-* attributes
+    studyId = button.data('id') // Extract info from data-* attributes
     var name = button.data('name') // Extract info from data-* attributes
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -230,11 +210,10 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     modal.find('#messagetext').text('确认将班级-' +name+'-离职吗？')
 })
 $("#deleteOneSure").click(function (){
-    console.log(idtea+"======================")
-    $.post(url+"/classInfo/deleteClass","classId="+idtea,function (data) {
+    $.post(url+"/studyInfo/deleteStudyId","studyId="+studyId,function (data) {
         if(data.code==1){
             console.log(data.code+"======================")
-            location.href="/sybida/publicTool/classInfo.html?pageNum=1&pageSize="+pageSize+"&selectClass="+selectClass
+            location.href="/sybida/publicTool/studyInfo.html?pageNum=1&pageSize="+pageSize+"&selectClass="+selectClass
         }else{
             layer.alert("删除失败");
         }
@@ -242,4 +221,5 @@ $("#deleteOneSure").click(function (){
 
     //删除写这里
 })
+
 

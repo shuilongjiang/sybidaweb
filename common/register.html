@@ -9,9 +9,12 @@
             margin: 0;
         }
         form{
+            width: 100%;
+
+        }
+        .formbody{
+            margin: 0 auto;
             width: 50%;
-            margin-left: 100px;
-            float: left;
         }
         .form-group .tip{
             text-align: right;
@@ -31,6 +34,7 @@
 <body>
 
 <div class="container" style="margin-top: 10%;">
+    <div class="formbody">
     <form enctype="multipart/form-data">
     <div class="form-group">
         <label for="classCreate">创建新班</label>
@@ -61,6 +65,7 @@
     </div>
     <div class="form-group"><input type="button" class="btn btn-success" value="确定" style="width: 100%"></div>
     </form>
+    </div>
 </div>
 
     <script src="/sybida/layui/layui.js"></script>
