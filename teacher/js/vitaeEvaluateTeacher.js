@@ -100,7 +100,7 @@ function show() {
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td>${list[i].vitaeLevel}</td>
             <td>${list[i].vitaeIsNew}</td>
-            <td id="vitaeUrl1">${list[i].vitaeUrl}</td>
+            <!-- <td id="vitaeUrl1">${list[i].vitaeUrl}</td>-->
             <td>${list[i].vitaeIsRead}</td> 
             <td>${list[i].vitaeDownloadFrequency}</td>
             <td>${list[i].vitaeHistoryFrequency}</td>
@@ -249,8 +249,6 @@ function Map() {
         s += "}";
         return s;
     };
-
-
 }
 
 function downloadVitae(url, name, aspect) {

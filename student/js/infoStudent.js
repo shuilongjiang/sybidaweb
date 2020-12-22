@@ -181,7 +181,6 @@ function show() {
             html += `<tr class="warning">]
 <!--<td style="width: 80px;">-->
 <!--<input type="checkbox" name="optionAll" ></td>-->
-            
             <td>${list[i].studentId}</td>
             <td>${list[i].studentName}</td>
             <td>${list[i].studentSex}</td>
@@ -189,15 +188,12 @@ function show() {
             <td>${list[i].studentIsGraduation}</td>
             <td>${list[i].studentSchool}</td>
             <td>${list[i].studentSpecialty}</td>
-            <td>${list[i].studentWechat}</td>
-           
+            <td>${list[i].studentWechat}</td>          
             <td>${list[i].studentCity}</td>
-            <td>${list[i].studentParentPhone}</td>
-           
+            <td>${list[i].studentParentPhone}</td>        
             <td>${list[i].studentParentName}</td>
             <td>${list[i].studentPhone}</td>
-            <td>${list[i].studentClassId}</td>
-           
+            <td>${list[i].studentClassId}</td>          
         </tr>`
         }
         $("#showAllInfo").append(html)
@@ -243,6 +239,7 @@ function pageSelect(data) {
             html += `<li><a href="/sybida/student/infoStudent.html?pageNum=${i}&pageSize=${pageSize}">${i}</a></li>`
         }
     }
+
     if ((data.pages) <= pageNum) {
         html += `<li class="disabled"><a href="#">&raquo;</a></li>`
     } else {
