@@ -158,7 +158,16 @@
 
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script>
-    var userid=getCookie("userid")
+
+    window.onload = wOnload();
+    //这是刷新浏览器执行的事件
+    function wOnload() {
+        var storage = window.sessionStorage;
+         var iframeSrc= storage.getItem("ifreammanager");
+        $("#ifream1").attr("src",iframeSrc)
+
+    }
+   var userid=getCookie("userid")
     layui.use('layer', function(){
         var layer = layui.layer;
     });
@@ -240,155 +249,241 @@
             it.style.display = 'none'
         }document.getElementById(n).style.display = 'block ! important' //显示
     }
-    $.post("","",function () {
-        
-    })
+
 
     $("#infoNav").click(
         function () {
             $("#ifream1").attr("src","../publicTool/noticeTool.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#changePswNav").click(
         function () {
             $("#ifream1").attr("src","../publicTool/changePsw.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#makeNotice").click(
         function () {
             $("#ifream1").attr("src","../publicTool/makeNotice.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#fileExchange").click(
         function () {
             $("#ifream1").attr("src","../publicTool/fileExchange.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#studyInfo").click(
         function () {
             $("#ifream1").attr("src","../publicTool/studyInfo.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
 
     $("#classInfo").click(function () {
 
             $("#ifream1").attr("src","../publicTool/classInfo.html")
+        iframeSrc = $("#ifream1").attr("src")
+        var storage = window.sessionStorage;
+        storage.setItem("ifreammanager",iframeSrc);
 
     })
     $("#codeCompany").click(
         function () {
             $("#ifream1").attr("src","../publicTool/codeCompany.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#receiveNotice").click(
         function () {
             $("#ifream1").attr("src","../publicTool/receiveNotice.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#noticeTool").click(
         function () {
             $("#ifream1").attr("src","../publicTool/noticeTool.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#resetPsw").click(
         function () {
             $("#ifream1").attr("src","../publicTool/resetPsw.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#changePsw").click(
         function () {
             $("#ifream1").attr("src","../publicTool/changePsw.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#vitaeEvaluateStudent").click(
         function () {
             $("#ifream1").attr("src","../student/vitaeEvaluateStudent.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#jobStudent").click(
         function () {
             $("#ifream1").attr("src","../student/jobStudent.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#careerQuizStudent").click(
         function () {
             $("#ifream1").attr("src","../student/careerQuizStudent.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#updateInfoStudent").click(
         function () {
             $("#ifream1").attr("src","../student/updateInfoStudent.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#upLoadVitae").click(
         function () {
             $("#ifream1").attr("src","../student/upLoadVitae.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#changeInfoStudent").click(
         function () {
             $("#ifream1").attr("src","../student/changeInfoStudent.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#infoStudent").click(
         function () {
             $("#ifream1").attr("src","../student/infoStudent.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#addStudent").click(
         function () {
             $("#ifream1").attr("src","../student/addStudent.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#companyInfoTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/companyInfoTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
+
         }
     )
     $("#companyManagerTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/companyManagerTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#vitaeEvaluateTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/vitaeEvaluateTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#allTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/allTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#updateTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/updateTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#addTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/addTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
 
     $("#infoTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/infoTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#studentInterviewTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/studentInterviewTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#studentJobTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/studentJobTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
     $("#downloadVitaeTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/downloadVitaeTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
         }
     )
 
