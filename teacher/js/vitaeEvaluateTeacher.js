@@ -81,26 +81,32 @@ function show() {
             }
             if (!list[i].vitaeLevel) {
                 list[i].vitaeLevel = "暂无"
-            } if (!list[i].vitaeDownloadFrequency) {
+            }
+            if (!list[i].vitaeDownloadFrequency) {
                 list[i].vitaeDownloadFrequency = "暂无"
-            } if (!list[i].vitaeHistoryFrequency) {
+            }
+            if (!list[i].vitaeHistoryFrequency) {
                 list[i].vitaeHistoryFrequency = "暂无"
             }
+            // if (!list[i].vitaeUrl) {
+            //     $("#fileupload").prop(disabled)
+            // }
+            // <input type="checkbox" name="optionAll" ></td>
 
-            html += `<tr class="warning">
+            html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
             <td>${list[i].vitaeId}</td>
             <td>${list[i].vitaeStudentId}</td>
-            <td>${list[i].studentName}</td>
-            <td>${list[i].studyAspect}</td>
+            <td id="studentName1">${list[i].studentName}</td>
+            <td id="studyAspect1">${list[i].studyAspect}</td>
             <td>${list[i].vitaeLevel}</td>
             <td>${list[i].vitaeIsNew}</td>
-            <td>${list[i].vitaeUrl}</td>
-            <td>${list[i].vitaeIsRead}</td>
+            <td id="vitaeUrl1">${list[i].vitaeUrl}</td>
+            <td>${list[i].vitaeIsRead}</td> 
             <td>${list[i].vitaeDownloadFrequency}</td>
             <td>${list[i].vitaeHistoryFrequency}</td>
             <td>${list[i].vitaeAlterTime}</td>
            <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs"onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}')">评价</button>
-           <button class="layui-btn layui-btn-xs">下载</button></td>
+           <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}','${list[i].studyAspect}')">下载</button></td>
         </tr>`
         }
         $("table").append(html)
@@ -159,13 +165,6 @@ function pageSelect(data) {
 }
 
 
-// <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a></td>
-// <td>
-//
-// <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-//wair me
-// data-id="${list[i].teachId}" data-name="${list[i].teachName}" data-target="#exampleModal" >删除</a></td>
-
 function updateVitaeLevel(vitaeId, userid, name) {
     // alert("123")
     $(".updateLevel").css('display', '')
@@ -195,19 +194,135 @@ $("#addVitaeLevel").click(function () {
             }
         })
     }
-
 })
 
-// $("#vitaeEvaluateComment").blur(function () {
-//     let inputValue = $(this).val()
-//     if (!inputValue || !(inputValue.trim())) {
-//         $(".tips").eq(0).html("请填写信息")
-//         return false
-//     } else {
-//         $(".tips").eq(0).html("")
-//         return true
+function Map() {
+    this.keys = new Array();
+    this.data = new Object();
+
+    this.put = function (key, value) {
+        if (this.data[key] == null) {
+            this.keys.push(key);
+        }
+        this.data[key] = value;
+    };
+    this.get = function (key) {
+        return this.data[key];
+    };
+    this.remove = function (key) {
+        this.keys.remove(key);
+        this.data[key] = null;
+    };
+    this.each = function (fn) {
+        if (typeof fn != 'function') {
+            return;
+        }
+        var len = this.keys.length;
+        for (var i = 0; i < len; i++) {
+            var k = this.keys[i];
+            fn(k, this.data[k], i);
+        }
+    };
+    this.entrys = function () {
+        var len = this.keys.length;
+        var entrys = new Array(len);
+        for (var i = 0; i < len; i++) {
+            entrys[i] = {
+                key: this.keys[i],
+                value: this.data[i]
+            };
+        }
+        return entrys;
+    };
+    this.isEmpty = function () {
+        return this.keys.length == 0;
+    };
+    this.size = function () {
+        return this.keys.length;
+    };
+    this.toString = function () {
+        var s = "{";
+        for (var i = 0; i < this.keys.length; i++, s += ',') {
+            var k = this.keys[i];
+            s += k + "=" + this.data[k];
+        }
+        s += "}";
+        return s;
+    };
+
+
+}
+
+function downloadVitae(url, name, aspect) {
+
+
+    console.log(name)
+    console.log(aspect)
+    console.log(url)
+
+    var res = name.concat("+", aspect)
+    var maps = new Map();
+
+    console.log(res)
+    maps.put(url, String(res));
+
+    console.log("123")
+    console.log(maps.toString())
+    var formData = new FormData(document.getElementById("vitaeform"));
+    formData.append("Maps", maps);
+
+
+    $.ajax({
+        type: "post",
+        url: url + "/teacher/",
+        data: formData,
+        cache: false,   // 不缓存
+        processData: false,   // jQuery不要去处理发送的数据
+        contentType: false,   // jQuery不要去设置Content-Type请求头
+        success: function (data) {
+            alert("ok");
+        },
+        error: function () {
+            alert("下载出错");
+        }
+    })
+
+}
+
+// $("#fileDownload").click(function () {
+//     alert("123")
+//     var url = $("#vitaeUrl").val()
+//     // var picture = $("#vitaeEvaluatePicture").val()
+//     var name = $("#vitaeEvaluateUserName").val()
+//     var studyAspect = $("#studyAspect").val()
+//
+//     var maps = new Map();
+//     maps.put(url, name + studyAspect);
+//     console.log("123")
+//     console.log(maps.each())
+//     var formData = new FormData(document.getElementById("vitaeform"));
+//     formData.append("Maps", maps);
+//
+//
+//     $.ajax({
+//         type: "post",
+//         url: url + "/teacher/",
+//         data: formData,
+//         cache: false,   // 不缓存
+//         processData: false,   // jQuery不要去处理发送的数据
+//         contentType: false,   // jQuery不要去设置Content-Type请求头
+//         success: function (data) {
+//             alert("ok");
+//         },
+//         error: function () {
+//             alert("下载出错");
+//         }
+//     })
+//
+//
 //     }
-// })
+// )
+
 
 $("#vitaeEvaluateComment").blur(function () {
     judgeSpace($(this), 0)
@@ -216,17 +331,6 @@ $("#vitaeEvaluateComment").blur(function () {
 $("#vitaeEvaluatePicture").blur(function () {
     judgeSpace($(this), 1)
 })
-
-
-// let inputValue = $(this).val()
-// if (!inputValue || !(inputValue.trim())) {
-//     $(".tips").eq(1).html("请填写信息")
-//     return false
-// } else {
-//     $(".tips").eq(1).html("")
-//     return true
-// }
-
 
 function judgeSpace(obj, index) {
     let inputValue = obj.val()
