@@ -3,11 +3,12 @@
  * @param  {String} url 目标文件地址
  * @return {Promise}
  */
-function getBlob(url) {
+////文件下载重命名
+function getBlob(downloadUrl) {
     return new Promise(resolve => {
         const xhr = new XMLHttpRequest();
 
-        xhr.open('GET', url, true);
+        xhr.open('GET', downloadUrl, true);
         xhr.responseType = 'blob';
         xhr.onload = () => {
             if (xhr.status === 200) {
@@ -50,8 +51,8 @@ function saveAs(blob, filename) {
  * @param  {String} url 目标文件地址
  * @param  {String} filename 想要保存的文件名称
  */
-function download(url, filename) {
-    getBlob(url).then(blob => {
+function downloadfile(downloadUrl, filename) {
+    getBlob(downloadUrl).then(blob => {
         saveAs(blob, filename);
     });
 }
