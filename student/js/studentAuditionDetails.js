@@ -3,6 +3,8 @@ var search = window.location.search
 var arr = search.split("=")
 var auditionId = arr[1]
 
+
+
 $.getJSON(url+"/audition/selectstudentInterviewbyauditionId", "auditionId=" + auditionId, function (data) {
 
     let html=''

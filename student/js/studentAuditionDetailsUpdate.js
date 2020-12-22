@@ -127,8 +127,28 @@ $("#submitList").click(function () {
             processData: false,   // jQuery不要去处理发送的数据
             contentType: false,   // jQuery不要去设置Content-Type请求头
             success: function (data) {
-                alert("提交成功");
+                // alert("提交成功");
+                // layer.alert('提交成功！', {
+                //         skin: 'layui-layer-molv' //样式类名
+                //         ,closeBtn: 0
+                //     }
+
+
+
+                layer.open({
+                    content: "提交成功"
+                    , btn: ['确定','取消'],
+                    style: 'width:80%',
+                    yes: function(index, layero){
+                        location.href="/sybida/student/studentAuditionDetails.html?id=" + auditionId; //跳到指定页面
+                    },
+                    cancel: function(index,layero){ //按右上角“X”按钮
+                    },
+
+                })
             },
+
+
             error:function () {
                 alert("提交出错");
             }
@@ -136,16 +156,15 @@ $("#submitList").click(function () {
 
     }
 
-
 })
 
 
 
-$("#return").click(function (){
-    console.log(auditionId  +"跳转页面传id")
-    location.href="/sybida/student/studentAuditionDetails.html?id=" + auditionId;
-
-})
+// $("#return").click(function (){
+//     console.log(auditionId  +"跳转页面传id")
+//     location.href="/sybida/student/studentAuditionDetails.html?id=" + auditionId;
+//
+// })
 
 
 
