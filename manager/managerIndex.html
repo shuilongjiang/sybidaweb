@@ -112,8 +112,8 @@
                         <dd><a  id="upLoadVitae" href="javascript:;">上传简历</a></dd>
                         <dd><a  id="updateInfoStudent" href="javascript:;">学生个人信息完善</a></dd>
                         <dd><a  id="careerQuizStudent" href="javascript:;">职业测评</a></dd>
-                        <dd><a  id="jobStudent" href="javascript:;">就业状态信息完善</a></dd>
-                        <dd><a  id="vitaeEvaluateStudent" href="javascript:;">面试经历完善</a></dd>
+                        <dd><a  id="jobStudent" href="javascript:;">就业状态信息登记</a></dd>
+                        <dd><a  id="studentAuditionRegister" href="javascript:;">面试经历登记</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -164,7 +164,10 @@
     function wOnload() {
         var storage = window.sessionStorage;
          var iframeSrc= storage.getItem("ifreammanager");
-        $("#ifream1").attr("src",iframeSrc)
+         if(iframeSrc){
+             $("#ifream1").attr("src",iframeSrc)
+         }
+
 
     }
    var userid=getCookie("userid")
@@ -192,11 +195,6 @@
                 }else{
 
                 }
-                // if(data.data.messageNum==0) {
-                //
-                // }else{
-                //   layer.alert("sdsdsds")
-                // }
                 if(data.data.teachPhoto){
 
                     $("#userphotoA").attr("src",Qnyurl+data.data.teachPhoto)
@@ -224,7 +222,6 @@
        layui.use('layer', function(){
            var layer = layui.layer;
        });
-       console.log("+++"+userid)
        $.ajax({
            url: url+"login/exitlogin",
            type: 'POST',
@@ -340,9 +337,9 @@
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
-    $("#vitaeEvaluateStudent").click(
+    $("#studentAuditionRegister").click(
         function () {
-            $("#ifream1").attr("src","../student/vitaeEvaluateStudent.html")
+            $("#ifream1").attr("src","../student/studentAuditionRegister.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanager",iframeSrc);
@@ -486,8 +483,6 @@
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
-
-
 </script>
 </body>
 </html>
