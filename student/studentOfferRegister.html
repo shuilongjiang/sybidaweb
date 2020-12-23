@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Offer登记</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+
+    <style>
+        form{
+            width: 65%;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<body id="body" style="height: 800px;">
+
+<br>
+
+
+<div >
+    <ol class="breadcrumb"style="border-bottom: #009688 1px solid;">
+        <li><a href="#">首页</a></li>
+
+        <li class="active">Offer登记</li>
+    </ol>
+</div>
+
+<div class="container">
+
+    <table class="layui-table" lay-skin="line" style="width: 90%;margin: 0 auto">
+        <thead>
+        <tr>
+            <th style="text-align: center"><h3>Offer登记</h3></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+
+                <form action="">
+                    <div class="form-group">
+                        <label for="studentName">姓名</label>
+                        <input type="text" class="form-control" id="studentName"  readonly>
+                    </div>
+
+                    <!-- 隐藏域 -->
+                    <input type="hidden" id="offerStudentId">
+
+                    <div class="form-group">
+                        <label for="sex">性别</label>
+                        <div style="height: 30px">
+
+                            <label class="form-group" id="sex" style="padding-top: 6px;padding-left: 10px">
+
+                                <input type="radio" name="sex" value="男" id="male" >男
+                                <input type="radio" name="sex" value="女" id="female">女
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="classNum">班级</label>
+                        <input type="text" class="form-control" id="classNum"  readonly>
+                    </div>
+
+                </form>
+                <form action=""  method="post"  class="layui-form" id="offerRegister" >
+                    <div class="form-group">
+                        <label for="offerCompany">录用所在公司</label>
+                        <input type="text" class="form-control" id="offerCompany" placeholder="请输入录用所在公司">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="offerContact">公司联系方式</label>
+                        <input type="text" class="form-control" id="offerContact" placeholder="请输入公司联系方式">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="offerAddress">公司具体地址</label>
+                        <input type="text" class="form-control" id="offerAddress" placeholder="请输入公司具体地址">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="offerDatetime">Offer需要答复时间</label>
+                        <input type="text" class="form-control" id="offerDatetime" placeholder="请输入Offer需要答复时间">
+                        <!--<p class="tip" style="color: red"></p>-->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="offerPracticeSalary">实习工资</label>
+                        <input type="text" class="form-control" id="offerPracticeSalary" placeholder="请输入实习工资">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="offerReallySalary">转正工资</label>
+                        <input type="text" class="form-control" id="offerReallySalary" placeholder="请输入转正工资">
+                        <p class="tip" style="color: red"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="offerHiredate">须入职日期</label>
+                        <input type="text" class="form-control" id="offerHiredate" placeholder="请选择须入职日期">
+                        <!--<p class="tip" style="color: red"></p>-->
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <!--<button class="layui-btn" lay-submit lay-filter="formDemo" type="submit">立即提交</button>-->
+                            <input type="button" class="layui-btn" id="submitList" value="立即提交"></input>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<!--<script src="/sybida/layui/layui.js"    ></script>-->
+<script src="/sybida/layui/layui.all.js"    ></script>
+<script src="/sybida/student/js/studentOfferRegister.js"></script>
+
+
+<!--<script>-->
+<!--//Demo-->
+<!--layui.use('form', function(){-->
+<!--var form = layui.form;-->
+
+<!--//监听提交-->
+<!--form.on('submit(formDemo)', function(data){-->
+<!--layer.msg(JSON.stringify(data.field));-->
+<!--return false;-->
+<!--});-->
+<!--});-->
+<!--</script>-->
+
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#offerDatetime' //指定元素
+            ,type: 'datetime'  //日期时间选择器
+        });
+    });
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#offerHiredate' //指定元素
+            ,type: 'datetime'  //日期时间选择器
+        });
+    });
+
+
+</script>
+</body>
+</html>

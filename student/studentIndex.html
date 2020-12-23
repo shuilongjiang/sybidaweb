@@ -526,6 +526,24 @@
 
 
 
+    $("#offerStudent").click(
+        function () {
+            $("#ifream1").attr("src","../student/studentOfferRegister.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreamstudent",iframeSrc);
+        }
+    )
+
+    $("#offerStudent2").click(
+        function () {
+            $("#ifream1").attr("src","../student/studentOffer.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreamstudent",iframeSrc);
+        }
+    )
+
 
 </script>
 <!--用户头像-->
