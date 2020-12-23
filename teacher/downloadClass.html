@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下载班级</title>
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+</head>
+<body>
+<div class="container">
+    <div class="select" style="text-align: center;margin: 0 auto;" >
+    <label class="classNum" style="line-height: 35px; font-size: 16px; ">选择班级</label><br/>
+    <select class="form-control" id="classNum" style="width: 200px; display: inline-block;" >
+    </select>
+    <br/>
+    <!--<button type="button" id="downloadbtn" class="btn btn-success" style="width: 200px;">下载</button>-->
+        <a href="#" id="abtn" style="display:inline-block;width: 200px; margin-top: 2%"class="btn btn-success">下载文件</a>
+    </div>
+</div>
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/layui/layui.js"></script>
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<script>
+    var selectClass=1
+    $.getJSON(url+"/classInfo/selectClass",function (data) {
+        var html=`<option value="-1">请选择班级</option>`
+        for (let i = 0; i < data.length; i++) {
+            html += `<option value="${data[i].classId}">${data[i].classNum}</option>`
+        }
+        $('#classNum').append(html);
+
+
+        var selectA1 = $('#classNum').find("option"); //从A1下拉框中 搜索值
+        for(var i=0;i<selectA1.length;i++){
+            var t=$(selectA1[i]).val()
+
+            if(t==selectClass){
+                $(selectA1[i]).attr("selected","selected")
+            }
+        }
+//change事件
+        $('#classNum').change(
+            function (){
+                selectClass=$('#classNum').val()
+                console.log(selectClass+"=========================")
+                $("#abtn").attr("href","http://localhost:8080/teacher/selectstudentclassid?classId="+selectClass);
+            }
+        )
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看班级学生</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+</head>
+<body>
+<!--<br>-->
+<!--<div class="layui-form-item">-->
+
+    <!--<label class="bg-success" style="line-height: 35px; font-size: 16px;">&nbsp;班级号:&nbsp;</label>-->
+
+    <!--<select class="form-control" id="classNum" style="width: 200px; display: inline-block" >-->
+
+
+    <!--</select>-->
+
+    <!--<label class="bg-success" style="line-height: 35px; font-size: 16px;">每页大小:&nbsp;</label>-->
+    <!--<select class="form-control" id="pageSizeSel" style="width: 100px; display: inline-block" >-->
+        <!--<option name="pageSize" value="5">5条</option>-->
+        <!--<option name="pageSize" value="10">10条</option>-->
+        <!--<option name="pageSize" value="15">15条</option>-->
+        <!--<option name="pageSize" value="20">20条</option>-->
+        <!--<option name="pageSize" value="30">30条</option>-->
+        <!--<option name="pageSize" value="40">40条</option>-->
+        <!--<option name="pageSize" value="50">50条</option>-->
+        <!--<option name="pageSize" value="80">80条</option>-->
+        <!--<option name="pageSize" value="100">100条</option>-->
+
+    <!--</select>-->
+    <!--<button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>-->
+<!--</div>-->
+
+<!--<table class="table table-striped table-hover table-bordered">-->
+    <!--<tr class="active">-->
+        <!--<th style="width: 80px;"><input type="checkbox" name="checkAll">&nbsp;&nbsp;全选</th>-->
+        <!--<th>姓名</th>-->
+        <!--<th>性别</th>-->
+        <!--<th>班级</th>-->
+        <!--<th>面试公司</th>-->
+        <!--<th>面试地点</th>-->
+        <!--<th>面试时间</th>-->
+        <!--<th>修改时间</th>-->
+        <!--<th>操作</th>-->
+        <!--<th>删除</th>-->
+    <!--</tr>-->
+    <!--<hr/>-->
+<!--</table>-->
+
+<!--</div>-->
+<!--<div class="container" style="text-align: center">-->
+    <!--<nav aria-label="..." >-->
+        <!--<ul class="pagination" id="pagination">-->
+        <!--</ul>-->
+    <!--</nav>-->
+<!--</div>-->
+
+<div style="background-color: red; width: 200px;height: 100px;" id="test1">
+<button onclick="btn1()">出现</button>
+    <button onclick="btn2()">消失</button>
+</div>
+
+<div style="background-color: blue;width: 200px;height: 100px;margin-top: 100px;display: none" id="test2">
+    <button onclick="btn2()">出现</button>
+    <button onclick="btn2()">消失</button>
+</div>
+
+
+<script>
+    function btn1(){
+        document.getElementById("test2").style.display = "block"
+    }
+
+    function btn2() {
+        document.getElementById("test2").style.display = "none"
+    }
+</script>
+</body>
+</html>
