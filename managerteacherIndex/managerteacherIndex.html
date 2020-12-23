@@ -62,9 +62,9 @@
                     	<div class="er_m">
                             <i>&nbsp;</i>
                             <ul>
-                                <li><a id="infoStudent" href="javascript:;">查看学生</a></li>
+                                <li><a id="infoStudent" href="javascript:;">查看班级学生</a></li>
                                 <li><a id="classInfo" href="javascript:;">查看班级</a></li>
-                                <li><a id="addclassInfo" href="javascript:;">添加班级</a></li>
+                                <li><a id="addclassInfo" href="javascript:;">查看全校学生</a></li>
                                 <li><a id="studyInfo" href="javascript:;">学习方向管理</a></li>
                                 <li><a id="studentInterviewTeacher" href="javascript:;">查看学生面试经历</a></li>
                                 <li><a id="studentJobTeacher" href="javascript:;">查看学生就业情况</a></li>
@@ -218,71 +218,123 @@
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/layui/layui.js"></script>
 <script>
+    window.onload = wOnload();
+    //这是刷新浏览器执行的事件
+    function wOnload() {
+        var storage = window.sessionStorage;
+        var iframeSrc= storage.getItem("ifreammanagerteacher");
+        if(iframeSrc){
+            $("#ifream1").attr("src",iframeSrc);
+        }
+
+    }
+
+
+
     $("#register").click(function () {
 
         $("#ifream1").attr("src","/sybida/common/register.html")
+        iframeSrc = $("#ifream1").attr("src")
+        var storage = window.sessionStorage;
+        storage.setItem("ifreammanagerteacher",iframeSrc);
 
     })
     $("#classInfo").click(function () {
 
         $("#ifream1").attr("src","/sybida/publicTool/classInfo.html")
+        iframeSrc = $("#ifream1").attr("src")
+        var storage = window.sessionStorage;
+        storage.setItem("ifreammanagerteacher",iframeSrc);
 
     })
     $("#infoStudent").click(
         function () {
             $("#ifream1").attr("src","../student/infoStudent.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#addclassInfo").click(
         function () {
-            $("#ifream1").attr("src","../publicTool/addclassInfo.html")
+            $("#ifream1").attr("src","../student/infoStudent.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#studyInfo").click(
         function () {
             $("#ifream1").attr("src","../publicTool/studyInfo.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#studentJobTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/studentJobTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#studyInfo").click(
         function () {
             $("#ifream1").attr("src","../publicTool/studyInfo.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
 
     $("#downloadVitaeTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/downloadVitaeTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#vitaeEvaluateTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/vitaeEvaluateTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#changeTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/updateTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#resetPsw").click(
         function () {
             $("#ifream1").attr("src","../publicTool/resetPsw.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#changePsw").click(
         function () {
             $("#ifream1").attr("src","../publicTool/changePsw.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
 
     $("#studentInterviewTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/studentInterviewTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
 
@@ -294,21 +346,33 @@
     $("#first").click(
         function () {
             $("#ifream1").attr("src","/sybida/managerteacherIndex/body.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#makeNotice").click(
         function () {
             $("#ifream1").attr("src","/sybida/publicTool/makeNotice.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#noticeTool").click(
         function () {
             $("#ifream1").attr("src","/sybida/publicTool/noticeTool.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
     $("#receiveNotice").click(
         function () {
             $("#ifream1").attr("src","/sybida/publicTool/receiveNotice.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
 
