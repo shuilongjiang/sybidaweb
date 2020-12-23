@@ -160,11 +160,11 @@ $("#submitList").click(function () {
 
 
 
-// $("#return").click(function (){
-//     console.log(auditionId  +"跳转页面传id")
-//     location.href="/sybida/student/studentAuditionDetails.html?id=" + auditionId;
-//
-// })
+$("#return").click(function (){
+    console.log(auditionId  +"跳转页面传id")
+    location.href="/sybida/student/studentAuditionDetails.html?id=" + auditionId;
+
+})
 
 
 

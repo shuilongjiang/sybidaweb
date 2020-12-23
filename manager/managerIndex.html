@@ -112,8 +112,8 @@
                         <dd><a  id="upLoadVitae" href="javascript:;">上传简历</a></dd>
                         <dd><a  id="updateInfoStudent" href="javascript:;">学生个人信息完善</a></dd>
                         <dd><a  id="careerQuizStudent" href="javascript:;">职业测评</a></dd>
-                        <dd><a  id="jobStudent" href="javascript:;">就业状态信息完善</a></dd>
-                        <dd><a  id="vitaeEvaluateStudent" href="javascript:;">面试经历完善</a></dd>
+                        <dd><a  id="jobStudent" href="javascript:;">就业状态信息登记</a></dd>
+                        <dd><a  id="studentAuditionRegister" href="javascript:;">面试经历登记</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -337,9 +337,9 @@
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
-    $("#vitaeEvaluateStudent").click(
+    $("#studentAuditionRegister").click(
         function () {
-            $("#ifream1").attr("src","../student/vitaeEvaluateStudent.html")
+            $("#ifream1").attr("src","../student/studentAuditionRegister.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanager",iframeSrc);
