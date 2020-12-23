@@ -153,8 +153,7 @@ function sendmessagea1(toltalnum) {
             <div class="bg-primary infolistedtop">
                     <div class="infolistedtopleft" >
                         <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-                 data-id="${data.data[i].receiveId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal" >删除</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" >删除</a>
                         </div>
 
                     <div class="infolistedtopright" ><span >
@@ -179,8 +178,7 @@ function sendmessagea1(toltalnum) {
             <div class="bg-primary infolistedtop">
                     <div class="infolistedtopleft" >
                         <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-                 data-id="${data.data[i].receiveId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal" >删除</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs">删除</a>
                         </div>
                     <div class="infolistedtopright" ><span >
                    </span></div>
@@ -265,8 +263,7 @@ function sendmessagea1(toltalnum) {
             <div class="bg-primary infolistedtop">
                     <div class="infolistedtopleft" >
                         <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-                 data-id="${data.data[i].receiveId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal" >删除</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" >删除</a>
                         </div>
 
                     <div class="infolistedtopright" ><span >
@@ -291,8 +288,7 @@ function sendmessagea1(toltalnum) {
             <div class="bg-primary infolistedtop">
                     <div class="infolistedtopleft" >
                         <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-                 data-id="${data.data[i].receiveId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal" >删除</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs">删除</a>
                         </div>
                     <div class="infolistedtopright" ><span >
                    </span></div>
@@ -414,8 +410,7 @@ function sendmessagea(toltalnum) {
             </div>
             <div style="margin-top: 10px;">
                 <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
-                <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-                 data-id="${data.data[i].newsId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal2" >删除</a></span></div>
+                <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs">删除</a></span></div>
                 <div style="clear: both"></div>
 
             </div>
@@ -488,8 +483,7 @@ function sendmessagea(toltalnum) {
             </div>
             <div style="margin-top: 10px;">
                 <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
-                <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-                 data-id="${data.data[i].newsId}" data-name="${data.data[i].newsTest}" data-target="#exampleModal2" >删除</a></span></div>
+                <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs">删除</a></span></div>
                 <div style="clear: both"></div>
 
             </div>
@@ -549,11 +543,8 @@ $("#deleteOneSure").click(function (){
 
     $.post(url+"/news/delectonereceive","receiveId="+idtea,function (data) {
         if(data.code==1){
-
-
             $("#exampleModal").attr("class","modal fade")
             $("#exampleModal").css("class","")
-
             // $("#exampleModal").toggle()
             $("#nothingtodo").html("")
             $("#showmseeage").html("")
