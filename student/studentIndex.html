@@ -40,6 +40,7 @@
             height: 40px;
             line-height: 40px;
         }
+
     </style>
 </head>
 
@@ -64,12 +65,14 @@
                     <div class="layout-wrap">
                         <ul class="nav">
                             <li>
-                                <a id="home" title=""  class="btn-upgrade uk-visible@s">首页</a>
+                                <a id="home" title=""class="btn-upgrade uk-visible@s">首页</a>
                             </li>
                             <li class="has-sub">
-                                <a href="javascript:;">
-                                    登记中心<span class="trigger ui-arb"></span>
+
+                                <a style=" pointer-events: none; "  >
+                                    登记中心 <span class=" trigger ui-arb"></span>
                                 </a>
+
                                 <ul uk-dropdown="pos: top;mode:click ; animation: uk-animation-scale-up" class="sub-nav" style="top: 104px;  display: none;">
                                     <li>
                                         <a id="studentAuditionRegister"  class="s_btn">面试登记</a>
@@ -83,7 +86,7 @@
                                 </ul>
                             </li>
                             <li class="has-sub">
-                                <a href="javascript:;">
+                                <a href="javascript:;" style=" pointer-events: none; "  >
                                     记录平台<span class="trigger ui-arb"></span>
                                 </a>
                                 <ul uk-dropdown="pos: top;mode:click ; animation: uk-animation-scale-up" class="sub-nav" style="top: 104px;  display: none;">
