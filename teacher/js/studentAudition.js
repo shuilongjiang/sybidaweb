@@ -20,8 +20,12 @@ $.getJSON(url+"/audition/selectstudentInterviewbyauditionId", "auditionId=" + id
         $("#classNum").val(data.data.classNum)
         $("#auditionFirm").val(data.data.auditionFirm)
         $("#auditionSite").val(data.data.auditionSite)
-        $("#auditionTime").val(data.data.auditionTime)
+        var date = Date.parse(data.data.auditionTime)
+        date = new Date(date)
+        $("#auditionTime").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
         $("#auditionFinish").val(data.data.auditionFinish)
+        $("#auditionSituation").val(data.data.auditionSituation)
+
     }
 })
 

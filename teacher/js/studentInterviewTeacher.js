@@ -91,6 +91,13 @@ function pageshoe(){
         // console.log(data)
         // console.log(data.data.list)
         for(let i = 0; i < le.length; i++){
+
+            var date1 = Date.parse(le[i].auditionTime)
+            date1 = new Date(date1)
+            var date2 = Date.parse(le[i].auditionAlterTime)
+            date2 = new Date(date2)
+
+
             // if(!le[i].id){le[i].id=""}
             if (i%2==0){
                 html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
@@ -102,8 +109,8 @@ function pageshoe(){
             <td>${le[i].classNum}</td>
             <td>${le[i].auditionFirm}</td>
             <td>${le[i].auditionSite}</td>
-            <td>${le[i].auditionTime}</td>
-            <td>${le[i].auditionAlterTime}</td>
+            <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+            <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
             <td><button class="layui-btn layui-btn-xs" lay-event="edit" 
                date-auditionId ="${le[i].auditionId}" >查看详情</button></td>
@@ -122,8 +129,8 @@ function pageshoe(){
             <td>${le[i].classNum}</td>
             <td>${le[i].auditionFirm}</td>
             <td>${le[i].auditionSite}</td>
-            <td>${le[i].auditionTime}</td>
-            <td>${le[i].auditionAlterTime}</td>
+            <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+            <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
             <td><button class="layui-btn layui-btn-xs" lay-event="edit" 
                date-auditionId ="${le[i].auditionId}">查看详情</button></td>

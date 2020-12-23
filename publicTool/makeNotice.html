@@ -1,10 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({selector:'textarea'});</script>
+    <style>
+
+    </style>
 </head>
 <body>
+<div class="container" style="width: 70%">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>基本演示</legend>
+    </fieldset>
+    <div style="float: left;width: 20%">
+        <p >请选择发送信息的对象</p>
+        <div class="layui-btn-container">
 
+            <!--<button type="button" class="layui-btn layui-btn-sm" lay-demo="getChecked">获取选中节点数据</button>-->
+            <button type="button" class="layui-btn layui-btn-sm" lay-demo="reload">重选</button>
+        </div>
+
+        <div id="test12" class="demo-tree-more">
+
+        </div>
+    </div>
+    <div style="float: left;width: 80%; text-align: center">
+        <textarea  name="myinfo" style="height: 500px;">在这里输入您想要发送的信息</textarea>
+        <button type="button" class="layui-btn" lay-demo="getChecked" style="margin-top: 20px">发送信息</button>
+
+    </div>
+</div>
 </body>
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/layui/layui.js" charset="utf-8"></script>
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<script>
+    console.log(typeof  window.getSelection());
+</script>
+<script>
+    var userid=getCookie("userid")
+    $.ajax({
+        url: url+"/news/selectallstudentbyclass",
+        type: "post",
+        data: {
+            userid: userid,
+        },
+        dataType: "json",
+        success: function (result) {
+            layui.use(['tree', 'util'], function(){
+                var tree = layui.tree
+                    ,layer = layui.layer
+                    ,util = layui.util
+                    ,data = result.data
+                        tree.render({
+                     elem: '#test12'
+                    ,data: data
+                    ,showCheckbox: true  //是否显示复选框
+                    ,id: 'demoId1'
+                    ,isJump: true //是否允许点击节点时弹出新窗口跳转
+                    ,click: function(obj){
+                        var data = obj.data;  //获取当前点击的节点数据
+                        // layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(data));
+                    }
+                });
+
+                //按钮事件
+                util.event('lay-demo', {
+                    getChecked: function(othis){
+                        var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
+
+                        // layer.alert(JSON.stringify(checkedData), {shade:0});
+
+                        var list=new Array()
+                        var k=0
+                        for (let i = 0; i <checkedData.length ; i++) {
+                            for (let j = 0; j <checkedData[i].children.length ; j++) {
+                                list[k++]=checkedData[i].children[j].id
+                            }
+                        }
+                        var messageInfo={
+                            "list":list,
+                            "userId":userid,
+                            "messageInfo":tinyMCE.activeEditor.getContent(),
+                        }
+                        $.post({
+                            url:url+"/news/sendmessagetomanypeople",
+                            // 告知传递参数类型为json，不可缺少
+                            contentType:"application/json",
+                            data:JSON.stringify(messageInfo),
+                            success:function(result){
+                                layer.confirm('信息已经发送成功', {
+                                    btn: ['老子知道了'] //按钮
+                                }, function(){
+                                    location.reload();
+                                });
+                            }
+                        })
+
+                    }
+                    ,setChecked: function(){
+                        tree.setChecked('demoId1', [12, 16]); //勾选指定节点
+                    }
+                    ,reload: function(){
+                        //重载实例
+                        tree.reload('demoId1', {
+
+                        });
+
+                    }
+                });
+
+            });
+
+        },
+        error: function () {
+            layer.alert("登录超时，请稍后重试！");
+        }
+    });
+</script>
 </html>
