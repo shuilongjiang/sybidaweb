@@ -91,7 +91,6 @@
                             <i>&nbsp;</i>
                             <ul>
                                 <li><a id="makeNotice" href="javascript:void(0);">发布通知</a></li>
-                                <li><a  id="noticeTool" href="javascript:void(0);">查看信息</a></li>
                                 <li><a  id="receiveNotice" href="javascript:void(0);">接收通知</a></li>
                             </ul>
                         </div>
@@ -249,7 +248,7 @@
     })
     $("#infoStudent").click(
         function () {
-            $("#ifream1").attr("src","../student/infoStudent.html")
+            $("#ifream1").attr("src","../student/classStudent.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanagerteacher",iframeSrc);

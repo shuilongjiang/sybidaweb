@@ -30,9 +30,9 @@
             <option name="pageSize" value="100">100条</option>
         </select>
         <button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
-        <input type="text" value="" placeholder="请输入您要查找的学生ID" id="searcheStuId" style="width: 200px;height: 32px;border-radius: 0em;border-color: #e6e6e6">
+        <input type="text" value="" placeholder="请输入您要查找的学生姓名" id="searcheStuId" style="width: 200px;height: 32px;border-radius: 0em;border-color: #e6e6e6">
         <button type="button" id="selectButt1" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
-        <button type="button" id="downloadfilevitae" class="btn btn-success">班级导出表格</button>
+        <a href="#" id="abtn" style="display:inline-block; "class="btn btn-success">班级导出</a>
     </div>
 
     <table class="table table-striped table-hover table-bordered" id="showAllInfo">
@@ -64,31 +64,122 @@
         </ul>
     </nav>
 </div>
-<!--<div class="container" style="width: 70%;margin: 0 auto;display: none;" id="detailCon">-->
-    <!--<table class="table table-striped table-hover table-bordered" id="detailedInfo">-->
-        <!--<tr class="active">-->
-            <!--<th>学生ID</th>-->
-            <!--<th>学生姓名</th>-->
-            <!--<th>学生性别</th>-->
-            <!--<th>身份证号</th>-->
-            <!--<th>是否毕业</th>-->
-            <!--<th>毕业学校</th>-->
-            <!--<th>专业</th>-->
-            <!--<th>微信</th>-->
-            <!--<th>就业城市</th>-->
-            <!--<th>家长电话</th>-->
-            <!--<th>家长姓名</th>-->
-            <!--<th>手机号</th>-->
-            <!--<th>班级ID</th>-->
-        <!--</tr>-->
-        <!--<hr/>-->
-    <!--</table>-->
-<!--</div>-->
+<div>
+    <!--单个模态框-->
+    <div class="modal fade" style="margin-top:100px;padding-top:100px;" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body" style="margin-top: 20px;">
+                    <form>
+                        <div class="form-group" >
+                            <label id="messagetext" class="control-label">Message:</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" id="deleteOneSure" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--多个删除模态框-->
+    <div class="modal fade" id="exampleModalAll" style="margin-top:100px;padding-top:100px;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">删除</h4>
+                </div>
+                <div class="modal-body" style="margin-top: 20px;">
+                    <form>
+                        <div class="form-group">
+                            <label id="mm" class="control-label">确认将所选的学生删除</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  id="canle" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" id="deleteAllSure" class="btn btn-primary">确认删除</button>
+                </div>
+            </div>
+        </div>
+</div>
+
+</div>
+<div class="container" style="width: 70%;margin: 0 auto;display: none;" id="detailCon">
+    <table class="table table-striped table-hover table-bordered" id="detailedInfo">
+        <tr class="active">
+            <th>学生ID</th>
+            <th>学生姓名</th>
+            <th>学生性别</th>
+            <th>身份证号</th>
+            <th>是否毕业</th>
+            <th>毕业学校</th>
+            <th>专业</th>
+            <th>微信</th>
+            <th>就业城市</th>
+            <th>家长电话</th>
+            <th>家长姓名</th>
+            <th>手机号</th>
+            <th>班级ID</th>
+            <th><button type="button" id="closebtn" class="btn btn-danger" style="border-radius:121%;">关</button></th>
+        </tr>
+        <hr/>
+    </table>
+
+</div>
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
 <script src="/sybida/layui/layui.js"></script>
 <script src="/sybida/student/js/classStudent.js"></script>
 <script src="/sybida/publicTool/js/dateutil.js"></script>
-<script src=""></script>
+<script></script>
+<script>
+    var layer
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+    $("#canle").click(function (){
+        $("#exampleModalAll").attr("class","modal fade")
+        $("#exampleModalAll").css("display","none")
+    })
+    $("#deleteAllSure").click(function (){
+
+        var checkbox = $("input[name='optionAll']");
+        var s=new Array();
+        var j=0
+        for(var i = 0;i<checkbox.length;i++)
+        {
+            if(checkbox[i].checked==true)
+            {console.log(checkbox[i].value)
+                s[j++]=(checkbox[i].value)
+            }
+        }
+        if(s.length>0){ $.post({
+            url:url+"/student/deleteallstudent",
+            // 告知传递参数类型为json，不可缺少
+            contentType:"application/json",
+            data:JSON.stringify(s),
+            success:function(data){
+                if(data.code===1){
+                    location.href="/sybida/student/classStudent.html?pageNum=1&pageSize="+pageSize+"&userId="+userid
+
+                }else{
+                    layer.alert("删除失败请重试！");
+                    $("#exampleModalAll").attr("class","modal fade")
+                    $("#exampleModalAll").css("display","none")
+                }
+            }
+        })}else{
+
+            layer.alert("所选数据为空！");
+            $("#exampleModalAll").attr("class","modal fade")
+            $("#exampleModalAll").css("display","none")
+        }
+    })
+</script>
 </body>
 </html>

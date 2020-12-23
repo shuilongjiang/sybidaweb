@@ -1,6 +1,6 @@
 var pageNum = 1
 var pageSize = $("#pageSizeSel").val()
-
+var classId
 // var teacherStudy=-1
 var search = location.search
 var arr = search.split("&")
@@ -35,13 +35,85 @@ $("#selectButt").click(function () {
     location.href = "/sybida/student/classStudent.html?pageNum=1&pageSize="+pageSize+"&userId="+userid
 })
 
+
+$("#selectButt1").click(function () {
+    let stuName = $("#searcheStuId").val()
+    if (!stuName || !(stuName.trim())) {
+        location.href = "/sybida/student/classStudent.html?pageNum=1&pageSize="+pageSize+"&userId="+userid
+    } else {
+        showDetail(stuName)
+    }
+})
+
+function showDetail(stuName) {
+    $.getJSON(url + "/student/selectstudentbyname", "stuName=" + stuName+"&classId="+classId, function (data2) {
+        if (data2.code == 0){
+            alert("id不存在！")
+        }else {
+            $("#detailCon").css('display', '')
+            let html = ''
+            console.log(data2)
+            let list = data2.data[0]
+            if (!list.studentSex) {
+                list.studentSex = "暂无"
+            }
+            if (!list.studentIdentity) {
+                list.studentIdentity = "暂无"
+            }
+            if (!list.studentIsGraduation) {
+                list.studentIsGraduation = "暂无"
+            }
+            if (!list.studentSchool) {
+                list.studentSchool = "暂无"
+            }
+            if (!list.studentSpecialty) {
+                list.studentSpecialty = "暂无"
+            }
+            if (!list.studentWechat) {
+                list.studentWechat = "暂无"
+            }
+            if (!list.studentParentPhone) {
+                list.studentParentPhone = "暂无"
+            }
+            if (!list.studentParentName) {
+                list.studentParentName = "暂无"
+            }
+            if (!list.studentClassId) {
+                list.studentClassId = "暂无"
+            }
+            if (!list.studentPhone) {
+                list.studentPhone = "暂无"
+            }
+            if (!list.studentCity) {
+                list.studentCity = "暂无"
+            }
+
+            html += `<tr class="warning">
+            <td>${list.studentId}</td>
+            <td>${list.studentName}</td>
+            <td>${list.studentSex}</td>
+            <td>${list.studentIdentity}</td>
+            <td>${list.studentIsGraduation}</td>
+            <td>${list.studentSchool}</td>
+            <td>${list.studentSpecialty}</td>
+            <td>${list.studentWechat}</td>
+            <td>${list.studentCity}</td>
+            <td>${list.studentParentPhone}</td>
+            <td>${list.studentParentName}</td>
+            <td>${list.studentPhone}</td>
+            <td>${list.studentClassId}</td><td></td></tr>`
+            $("#detailedInfo").append(html)
+        }
+    })
+}
+
+
+
+
+
 var userid=getCookie("userid")
 console.log(userid+"==========================")
 show();
-
-
-
-            // $.post(url + "/classInfo/teacheridfindclass", "pageSize=" + pageSize + "&pageNum=" + pageNum+"&userid="+userid, function (data) {
 
 
 function show() {
@@ -95,8 +167,7 @@ function show() {
                     if (!list[i].studentCity) {
                         list[i].studentCity = "暂无"
                     }
-
-                    html += `<tr class="warning"><tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>
+                    html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>
             <td>${list[i].studentId}</td>
             <td>${list[i].studentName}</td>
             <td>${list[i].studentSex}</td>
@@ -110,11 +181,20 @@ function show() {
             <td>${list[i].studentParentName}</td>
             <td>${list[i].studentPhone}</td>
             <td>${list[i].studentClassId}</td>
-            <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].classId}">修改</a></td>
+            <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">修改</a></td>
             <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-        data-id="${list[i].classId}" data-name="${list[i].classNum}" data-target="#exampleModal" >删除</a></td></tr>`
+        data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>`
                 }
+                // $("#showAllInfo").append(html)
+
+                html+=`<tr><td colspan="16"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
                 $("#showAllInfo").append(html)
+
+                // var deleteAll={}
+                $("#deleteBySelect").click(function (){
+                    $("#exampleModalAll").attr("class","modal fade in")
+                    $("#exampleModalAll").css("display","inline-block")
+                })
 
 
                 $("input[name='optionAll']").click(function (){
@@ -140,6 +220,18 @@ function show() {
                     }
                 });
                 pageSelect(data.data)
+
+                $("a[name='update']").click(function (){
+                    var text=$(this).text()
+                    console.log("========="+text)
+                    if(text.trim()=='修改'){
+                        var  id =$(this).attr("value")
+                        console.log(id+"====++++++++++++++++")
+                        location.href="/sybida/student/updateInfoStudent.html?id="+id;
+                    }
+                })
+                  classId=data.message
+                $("#abtn").attr("href","http://localhost:8080/teacher/selectstudentclassid?classId="+classId);
             }
         }
     })
@@ -186,5 +278,37 @@ function pageSelect(data){
     }
     html+=`<span style="font-family: '微软雅黑';font-size: 15px;margin-left:200px;padding-top: 10px;line-height: 40px">共&nbsp;${data.pages}&nbsp;页</span>`
     $("#pagination").append(html)
-
 }
+
+var idtea
+$('#exampleModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    idtea = button.data('id') // Extract info from data-* attributes
+    var name = button.data('name') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    modal.find('#messagetext').text('确认将学生-' +name+'-离职吗？')
+})
+
+var layer
+layui.use('layer', function(){
+    layer = layui.layer;
+});
+$("#deleteOneSure").click(function (){
+    console.log(idtea+"======================")
+    $.post(url+"/student/deleteonestudent","studentId="+idtea,function (data) {
+        if(data.code==1){
+            console.log(data.code+"======================")
+            location.href = "/sybida/student/classStudent.html?pageNum=1&pageSize="+pageSize+"&userId="+userid
+        }else{
+            layer.alert("删除失败");
+        }
+    },"json")
+
+    //删除写这里
+})
+
+$("#closebtn").click(function () {
+    $("#detailCon").css('display', 'none')
+})
