@@ -11,7 +11,7 @@ $.getJSON(url+"/audition/selectStudentById","userid="+userid,function (data){
         // console.log(data.data.studentName+"!!!!!!!!!!!!!!!!!!!")
         $("#studentName").val(data.data.studentName)
 
-        $("#auditionStudentId").val(data.data.studentId)
+        $("#offerStudentId").val(data.data.studentId)
         if("男" == data.data.studentSex){
             $("#male").attr("checked","checked")
             $("#female").attr("disabled","disabled")
@@ -42,55 +42,66 @@ function judgeSpace(obj, index){
 }
 
 
-$("#auditionFirm").blur(function (){
+$("#offerCompany").blur(function (){
     judgeSpace($(this),0)
 })
 
-$("#auditionSite").blur(function (){
+$("#offerContact").blur(function (){
     judgeSpace($(this),1)
 })
 
-$("#test1").blur(function (){
+$("#offerAddress").blur(function (){
     judgeSpace($(this),2)
 })
 
-$("#auditionFinish").blur(function (){
+$("#offerPracticeSalary").blur(function (){
     judgeSpace($(this),3)
 })
 
-$("#auditionSituation").blur(function (){
+$("#offerReallySalary").blur(function (){
     judgeSpace($(this),4)
+})
+
+$("#offerHiredate").blur(function (){
+    judgeSpace($(this),5)
 })
 
 
 $("#submitList").click(function () {
-    if(judgeSpace($("#auditionFirm"),0) && judgeSpace($("#auditionSite"),1) &&
-        judgeSpace($("#test1"),2) && judgeSpace($("#auditionFinish"),3) && judgeSpace($("#auditionSituation"),4)){
+    if(judgeSpace($("#offerCompany"),0) && judgeSpace($("#offerContact"),1) &&
+        judgeSpace($("#offerAddress"),2) && judgeSpace($("#offerPracticeSalary"),3) &&
+        judgeSpace($("#offerReallySalary"),4)&& judgeSpace($("#offerHiredate"),5)){
 
-        var auditionFirm = $("#auditionFirm").val()
-        var auditionSite = $("#auditionSite").val()
-        var auditionTime = $("#test1").val()
-        var auditionFinish = $("#auditionFinish").val()
-        var auditionSituation = $("#auditionSituation").val()
-        var auditionStudentId = $("#auditionStudentId").val()
+        var offerCompany = $("#offerCompany").val()
+        var offerContact = $("#offerContact").val()
+        var offerAddress = $("#offerAddress").val()
+        var offerDatetime = $("#offerDatetime").val()
+        var offerPracticeSalary = $("#offerPracticeSalary").val()
+        var offerReallySalary = $("#offerReallySalary").val()
+        var offerHiredate = $("#offerHiredate").val()
+        var offerStudentId = $("#offerStudentId").val()
 
 
-        console.log(auditionStudentId+"**********************************")
+        console.log(offerStudentId+"**********************************")
 
-        var formData = new FormData(document.getElementById("auditionform"));
-        formData.append("auditionFirm", auditionFirm);
-        formData.append("auditionSite",auditionSite);
-        formData.append("auditionTime",auditionTime);
-        formData.append("auditionFinish",auditionFinish);
-        formData.append("auditionSituation",auditionSituation);
-        formData.append("auditionStudentId",auditionStudentId);
+        console.log(offerHiredate+"**********************************")
+
+        var formData = new FormData(document.getElementById("offerRegister"));
+        formData.append("offerCompany", offerCompany);
+        formData.append("offerContact",offerContact);
+        formData.append("offerAddress",offerAddress);
+        formData.append("offerDatetime",offerDatetime);
+        formData.append("offerPracticeSalary",offerPracticeSalary);
+        formData.append("offerReallySalary",offerReallySalary);
+        formData.append("offerHiredate",offerHiredate);
+        formData.append("offerStudentId",offerStudentId);
 
         // console.log(formData+"**********************************")
 
 
         $.ajax({
             type: "post",
-            url: url + "/audition/addSybidaAudition",
+            url: url + "/offer/addSybidaOffer",
             data: formData,
             cache: false,   // 不缓存
             processData: false,   // jQuery不要去处理发送的数据
@@ -102,7 +113,7 @@ $("#submitList").click(function () {
                     , btn: ['确定','取消'],
                     style: 'width:80%',
                     yes: function(index, layero){
-                        location.href="/sybida/student/studentAudition.html"; //跳到指定页面
+                        location.href="/sybida/student/studentOffer.html"; //跳到指定页面
                     },
                     cancel: function(index,layero){ //按右上角“X”按钮
                     },
@@ -111,6 +122,7 @@ $("#submitList").click(function () {
             },
             error:function () {
                 alert("提交出错");
+
             }
         });
 
