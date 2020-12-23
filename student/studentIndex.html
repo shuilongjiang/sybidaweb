@@ -142,7 +142,6 @@
                             <div uk-form-custom>
 
                                 <input type="file" id="filej" accept="application/pdf">
-
                                 <a href="#" class="button soft-warning small" id="chosefile">选择文件</a>
                                 <span id="showname"></span>
                             </div>
@@ -525,6 +524,24 @@
     )
 
 
+
+    $("#offerStudent").click(
+        function () {
+            $("#ifream1").attr("src","../student/studentOfferRegister.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreamstudent",iframeSrc);
+        }
+    )
+
+    $("#offerStudent2").click(
+        function () {
+            $("#ifream1").attr("src","../student/studentOffer.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreamstudent",iframeSrc);
+        }
+    )
 
 
 </script>

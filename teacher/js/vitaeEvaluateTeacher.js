@@ -58,12 +58,8 @@ function show() {
     $.getJSON(url + "/teacher/selectallvitae", "pageSize=" + pageSize + "&pageNum=" + pageNum, function (data) {
 
         let html = ''
-        console.log(data)
         var list = data.data.list
-        console.log(list)
-
         for (let i = 0; i < list.length; i++) {
-
             if (list[i].vitaeIsRead == 1) {
                 list[i].vitaeIsRead = "是"
             } else {
@@ -75,10 +71,6 @@ function show() {
             } else {
                 list[i].vitaeIsNew = "否"
             }
-            // console.log(new Date(list[i].vitaeAlterTime))
-            if (!list[i].vitaeUrl) {
-                list[i].vitaeUrl = "暂无"
-            }
             if (!list[i].vitaeLevel) {
                 list[i].vitaeLevel = "暂无"
             }
@@ -88,29 +80,74 @@ function show() {
             if (!list[i].vitaeHistoryFrequency) {
                 list[i].vitaeHistoryFrequency = "暂无"
             }
-            // if (!list[i].vitaeUrl) {
-            //     $("#fileupload").prop(disabled)
-            // }
-            // <input type="checkbox" name="optionAll" ></td>
 
-            html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" ></td>
+            if(list[i].vitaeUrl){
+                html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
             <td>${list[i].vitaeId}</td>
             <td>${list[i].vitaeStudentId}</td>
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td>${list[i].vitaeLevel}</td>
             <td>${list[i].vitaeIsNew}</td>
-            <!-- <td id="vitaeUrl1">${list[i].vitaeUrl}</td>-->
+     
             <td>${list[i].vitaeIsRead}</td> 
             <td>${list[i].vitaeDownloadFrequency}</td>
             <td>${list[i].vitaeHistoryFrequency}</td>
             <td>${list[i].vitaeAlterTime}</td>
-           <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs"onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}')">评价</button>
+           <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs"onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
            <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}','${list[i].studyAspect}')">下载</button></td>
         </tr>`
+            }else{
+                html += `<tr class="warning">]<td style="width: 80px;"></td>
+            <td>${list[i].vitaeId}</td>
+            <td>${list[i].vitaeStudentId}</td>
+            <td id="studentName1">${list[i].studentName}</td>
+            <td id="studyAspect1">${list[i].studyAspect}</td>
+            <td>${list[i].vitaeLevel}</td>
+            <td>${list[i].vitaeIsNew}</td>
+         
+            <td>${list[i].vitaeIsRead}</td> 
+            <td>${list[i].vitaeDownloadFrequency}</td>
+            <td>${list[i].vitaeHistoryFrequency}</td>
+            <td>${list[i].vitaeAlterTime}</td>
+           <td>从未上传简历</td>
+        </tr>`
+
+            }
         }
         $("table").append(html)
-
+        var layer
+        layui.use('layer', function(){
+            layer = layui.layer;
+        });
+        $("#downzip").click(function () {
+            var checkbox = $("input[name='optionAll']");
+            var s=new Array();
+            var j=0
+            for(var i = 0;i<checkbox.length;i++)
+            {
+                if(checkbox[i].checked==true)
+                {
+                    s[j++]=(checkbox[i].value)
+                }
+            }
+            if(s.length>0){
+                var index = layer.load(1, {
+                    shade: [0.1,'#fff'] //0.1透明度的白色背景
+                });
+                $.post({
+                url:url+"/teacherdownload/downloadvitaezip",
+                // 告知传递参数类型为json，不可缺少
+                contentType:"application/json",
+                data:JSON.stringify(s),
+                success:function(data){
+                    layer.close(index);
+                    downloadfile(Qnyurl+data,"学生简历")
+                }
+            })}else{
+                layer.alert("所选数据为空！");
+            }
+        })
         pageSelect(data.data)
         $("input[name='optionAll']").click(function () {
             if ($(this).is(':checked')) {
@@ -165,12 +202,12 @@ function pageSelect(data) {
 }
 
 
-function updateVitaeLevel(vitaeId, userid, name) {
-    // alert("123")
+function updateVitaeLevel(vitaeId, userid, name,vitaeurl) {
     $(".updateLevel").css('display', '')
     $("#vitaeID").val(vitaeId)
     $("#vitaeEvaluateUserId").val(userid)
     $("#vitaeEvaluateUserName").val(name)
+    $("#iframe3").attr("src",Qnyurl+vitaeurl)
 }
 
 
@@ -179,7 +216,8 @@ $("#addVitaeLevel").click(function () {
     var vitaeId = $("#vitaeID").val()
     var vitaeStudentId = $("#vitaeEvaluateUserId").val()
     var vitaeComment = $("#vitaeEvaluateComment").val()
-    var picture = $("#vitaeEvaluatePicture").val()
+
+     var picture ="11"
 
     if (judgeAll()) {
         $.getJSON(url + "/teacher/insertvitaeevaluatelevel", "comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&studentId=" + vitaeStudentId, function (data) {
@@ -249,80 +287,15 @@ function Map() {
         s += "}";
         return s;
     };
+
+
 }
 
 function downloadVitae(downloadUrl, name, aspect) {
-
-
-    // console.log(name)
-    // console.log(aspect)
-    // console.log(url)
-
     var res = name.concat("+", aspect)
-
     downloadfile(Qnyurl+downloadUrl,res)
-    // var maps = new Map();
-
-
-    // maps.put(url, String(res));
-
-
-    // console.log(maps.toString())
-    // var formData = new FormData(document.getElementById("vitaeform"));
-    // formData.append("Maps", maps);
-    //
-    //
-    // $.ajax({
-    //     type: "post",
-    //     url: url + "/teacherdownload/downloadvitaezip",
-    //     data: formData,
-    //     cache: false,   // 不缓存
-    //     processData: false,   // jQuery不要去处理发送的数据
-    //     contentType: false,   // jQuery不要去设置Content-Type请求头
-    //     success: function (data) {
-    //         alert("ok");
-    //     },
-    //     error: function () {
-    //         alert("下载出错");
-    //     }
-    // })
 
 }
-
-// $("#fileDownload").click(function () {
-//     alert("123")
-//     var url = $("#vitaeUrl").val()
-//     // var picture = $("#vitaeEvaluatePicture").val()
-//     var name = $("#vitaeEvaluateUserName").val()
-//     var studyAspect = $("#studyAspect").val()
-//
-//     var maps = new Map();
-//     maps.put(url, name + studyAspect);
-//     console.log("123")
-//     console.log(maps.each())
-//     var formData = new FormData(document.getElementById("vitaeform"));
-//     formData.append("Maps", maps);
-//
-//
-//     $.ajax({
-//         type: "post",
-//         url: url + "/teacher/",
-//         data: formData,
-//         cache: false,   // 不缓存
-//         processData: false,   // jQuery不要去处理发送的数据
-//         contentType: false,   // jQuery不要去设置Content-Type请求头
-//         success: function (data) {
-//             alert("ok");
-//         },
-//         error: function () {
-//             alert("下载出错");
-//         }
-//     })
-//
-//
-//     }
-// )
-
 
 $("#vitaeEvaluateComment").blur(function () {
     judgeSpace($(this), 0)
@@ -344,7 +317,7 @@ function judgeSpace(obj, index) {
 }
 
 function judgeAll() {
-    if (judgeSpace($("#vitaeEvaluateComment"), 0) && judgeSpace($("#vitaeEvaluatePicture"), 1)) {
+    if (judgeSpace($("#vitaeEvaluateComment"), 0) ) {
         return true
     }
 }

@@ -1,4 +1,4 @@
-// 学生个人面试记录
+// 学生个人Offer记录
 
 //学生用户id
 var userid=getCookie("userid")
@@ -34,7 +34,7 @@ $('#pageSizeSel').change(
     }
 )
 $("#selectButt").click(function (){
-    location.href="/sybida/student/studentAudition.html?pageNum=1&pageSize="+pageSize
+    location.href="/sybida/student/studentOffer.html?pageNum=1&pageSize="+pageSize
 })
 
 
@@ -58,7 +58,7 @@ $('input[name="checkAll"]').click(function(){
 });
 pageshoe();
 function pageshoe(){
-    $.getJSON(url+"/audition/selectpageStudentAudition","pageSize="+pageSize+"&pageNum="+pageNum+"&userid="+userid,function (data){
+    $.getJSON(url+"/offer/selectpageStudentOffer","pageSize="+pageSize+"&pageNum="+pageNum+"&userid="+userid,function (data){
         let html = ''
         var le=data.data.list
         // console.log(data)
@@ -67,46 +67,45 @@ function pageshoe(){
         for(let i = 0; i < le.length; i++){
             // if(!le[i].id){le[i].id=""}
 
-            var date1 = Date.parse(le[i].auditionTime)
+            var date1 = Date.parse(le[i].offerDatetime)
             date1 = new Date(date1)
-            var date2 = Date.parse(le[i].auditionAlterTime)
+            var date2 = Date.parse(le[i].offerAlterTime)
             date2 = new Date(date2)
             if (i%2==0){
-                html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
+                html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
             <td>${le[i].studentName}</td>
-            <td>${le[i].studentSex}</td>
-            <td>${le[i].classNum}</td>
-            <td>${le[i].auditionFirm}</td>
-            <td>${le[i].auditionSite}</td>
+            <td>${le[i].offerCompany}</td>
+            <td>${le[i].offerContact}</td>
             <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+            <td>${le[i].offerPracticeSalary}</td>
+            <td>${le[i].offerReallySalary}</td>
             <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
             <td><button class="layui-btn layui-btn-xs" lay-event="edit" 
-               date-auditionId ="${le[i].auditionId}" >查看详情</button></td>
+               date-offerId ="${le[i].offerId}" >查看详情</button></td>
                <!--changeinterview()-->
             <td>
 
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
 
-               data-id="${le[i].auditionId}" data-name="${le[i].auditionFirm}" data-target="#exampleModal" >删除</a></td>
+               data-id="${le[i].offerId}" data-name="${le[i].offerCompany}" data-target="#exampleModal" >删除</a></td>
         </tr>`
             }else{
-                html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
-
+                html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
             <td>${le[i].studentName}</td>
-            <td>${le[i].studentSex}</td>
-            <td>${le[i].classNum}</td>
-            <td>${le[i].auditionFirm}</td>
-            <td>${le[i].auditionSite}</td>
+            <td>${le[i].offerCompany}</td>
+            <td>${le[i].offerContact}</td>
             <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+            <td>${le[i].offerPracticeSalary}</td>
+            <td>${le[i].offerReallySalary}</td>
             <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
             <td><button class="layui-btn layui-btn-xs" lay-event="edit" 
-               date-auditionId ="${le[i].auditionId}">查看详情</button></td>
+               date-offerId ="${le[i].offerId}">查看详情</button></td>
                <!--changeinterview()-->
             <td> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
 
-               data-id="${le[i].auditionId}" data-name="${le[i].auditionFirm}" data-target="#exampleModal" >删除</a></td>
+               data-id="${le[i].offerId}" data-name="${le[i].offerCompany}" data-target="#exampleModal" >删除</a></td>
        </td></tr>`
             }
         }
@@ -156,20 +155,20 @@ function pageSelect(data){
 
         html+=`<li class="disabled"><a href="#" aria-label="Previous">&laquo;</a></li>`
     }else{
-        html+=`<li><a href="/sybida/student/studentAudition.html?pageNum=${pageNum-1}&pageSize=${pageSize}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
+        html+=`<li><a href="/sybida/student/studentOffer.html?pageNum=${pageNum-1}&pageSize=${pageSize}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
     }
     for(var i=data.navigateFirstPage;i<=data.navigateLastPage;i++){
         if(pageNum==i){
             html+=`<li class="active"><a href="#">${i}</a></li>`
         }else{
-            html+=`<li><a href="/sybida/student/studentAudition.html?pageNum=${i}&pageSize=${pageSize}">${i}</a></li>`
+            html+=`<li><a href="/sybida/student/studentOffer.html?pageNum=${i}&pageSize=${pageSize}">${i}</a></li>`
         }
     }
     if((data.pages)<=pageNum){
         html+=`<li class="disabled"><a href="#">&raquo;</a></li>`
     }else{
         var pa=parseInt(pageNum)+1
-        html+=`<li><a href="/sybida/student/studentAudition.html?pageNum=${pa}&pageSize=${pageSize}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
+        html+=`<li><a href="/sybida/student/studentOffer.html?pageNum=${pa}&pageSize=${pageSize}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
     }
     html+=`<li><button class="btn btn-primary" type="button">
         总页数： <span class="badge">${data.pages}</span>
@@ -186,8 +185,8 @@ function changeinterview(){
         var text = $(this).text() // 获取按钮之间的文本内容
         // console.log("========")
         if(text.trim()=='查看详情'){
-            let id = $(this).attr("date-auditionId")
-            location.href="/sybida/student/studentAuditionDetails.html?id=" + id;
+            let id = $(this).attr("date-offerId")
+            location.href="/sybida/student/studentOfferDetails.html?id=" + id;
 
         }
     })
@@ -208,15 +207,26 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     var modal = $(this)
-    modal.find('#messagetext').text('确认删除-' +name+'公司-的面试记录吗？')
+    modal.find('#messagetext').text('确认删除-' +name+'公司-的Offer记录吗？')
 })
 $("#deleteOneSure").click(function (){
 
     console.log(idtea +"++++++++++++++++++++++....********************************")
 
-    $.post(url+"/audition/deleteStudentAudition","deleteAuditionId="+idtea,function (data) {
+    $.post(url+"/offer/deleteStudentOffer","deleteOfferId="+idtea,function (data) {
         if(data.code==1){
-            location.href="/sybida/student/studentAudition.html?pageNum=1&pageSize="+pageSize
+            // layer.open({
+            //     content: "删除成功"
+            //     , btn: ['确定','取消'],
+            //     style: 'width:80%',
+            //     yes: function(index, layero){
+            //         location.href="/sybida/student/studentOffer.html?pageNum=1&pageSize="+pageSize //跳到指定页面
+            //     },
+            //     cancel: function(index,layero){ //按右上角“X”按钮
+            //     },
+            //
+            // })
+            location.href="/sybida/student/studentOffer.html?pageNum=1&pageSize="+pageSize
         }else{
             layer.alert("删除失败");
         }

@@ -39,10 +39,27 @@
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/layui/layui.js" charset="utf-8"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
+
 <script>
-    console.log(typeof  window.getSelection());
-</script>
-<script>
+    /**
+     * 判断editor富文本域是否为空
+     * str返回的值为"" 代表输入框里面有值 成功
+     * str返回！="" 代表里面有空格 回车 失败
+     * */
+    function checkVal(str)
+    {
+        let num = 0,
+            reg = /<p>(&nbsp;|&nbsp;\s+)+<\/p>|<p>(<br>)+<\/p>/g;
+        while (num < str.length && str != "")
+        {
+            num++;
+            let k = str.match(reg);
+            if (k) {
+                str = str.replace(k[0], "");
+            }
+        }
+        return str;
+    }
     var userid=getCookie("userid")
     $.ajax({
         url: url+"/news/selectallstudentbyclass",
@@ -74,33 +91,50 @@
                     getChecked: function(othis){
                         var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
 
-                        // layer.alert(JSON.stringify(checkedData), {shade:0});
+                        var text = tinyMCE.activeEditor.getContent();
 
-                        var list=new Array()
-                        var k=0
-                        for (let i = 0; i <checkedData.length ; i++) {
-                            for (let j = 0; j <checkedData[i].children.length ; j++) {
-                                list[k++]=checkedData[i].children[j].id
+                        console.log(checkVal(text)+"======")
+                        if(checkedData.length==0){
+                            layer.open({
+                                type: 1,
+                                skin: 'layui-layer-demo', //样式类名
+                                closeBtn: 0, //不显示关闭按钮
+                                anim: 2,
+                                shadeClose: true, //开启遮罩关闭
+                                content: '<br><br><div style="width: 200px;height: 5 0px;text-align: center">发件人不能为空</div><br><br>'
+                            });
+                        }else{
+                            var list=new Array()
+                            var k=0
+                            for (let i = 0; i <checkedData.length ; i++) {
+                                for (let j = 0; j <checkedData[i].children.length ; j++) {
+                                    list[k++]=checkedData[i].children[j].id
+                                }
                             }
-                        }
-                        var messageInfo={
-                            "list":list,
-                            "userId":userid,
-                            "messageInfo":tinyMCE.activeEditor.getContent(),
-                        }
-                        $.post({
-                            url:url+"/news/sendmessagetomanypeople",
-                            // 告知传递参数类型为json，不可缺少
-                            contentType:"application/json",
-                            data:JSON.stringify(messageInfo),
-                            success:function(result){
-                                layer.confirm('信息已经发送成功', {
-                                    btn: ['老子知道了'] //按钮
-                                }, function(){
-                                    location.reload();
-                                });
+                            var messageInfo={
+                                "list":list,
+                                "userId":userid,
+                                "messageInfo":tinyMCE.activeEditor.getContent(),
                             }
-                        })
+                            $.post({
+                                url:url+"/news/sendmessagetomanypeople",
+                                // 告知传递参数类型为json，不可缺少
+                                contentType:"application/json",
+                                data:JSON.stringify(messageInfo),
+                                success:function(result){
+                                    layer.confirm('信息已经发送成功', {
+                                        btn: ['老子知道了'] //按钮
+                                    }, function(){
+                                        location.reload();
+                                    });
+                                }
+                            })
+                        }
+
+
+
+
+
 
                     }
                     ,setChecked: function(){

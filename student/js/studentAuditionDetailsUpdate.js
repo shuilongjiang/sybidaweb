@@ -13,9 +13,9 @@ $.getJSON(url+"/audition/selectstudentInterviewbyauditionId", "auditionId=" + au
 
     if (data.code == 1) {
 
-        $("#studentName").val(data.data.studentName)
-        $("#studentSex").val(data.data.studentSex)
-        $("#classNum").val(data.data.classNum)
+        // $("#studentName").val(data.data.studentName)
+        // $("#studentSex").val(data.data.studentSex)
+        // $("#classNum").val(data.data.classNum)
         $("#auditionFirm").val(data.data.auditionFirm)
         $("#auditionSite").val(data.data.auditionSite)
         $("#auditionFinish").val(data.data.auditionFinish)
