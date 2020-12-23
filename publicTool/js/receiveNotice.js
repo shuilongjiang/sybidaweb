@@ -21,16 +21,16 @@ $(".advicetitleshow").click(function () {
     if("advicetitleshow onlinght"==class1){
         $(this).toggleClass("onadvicetitle")
         $(".advicetitleshow1").removeClass("onadvicetitle")
-        $("#showmseeage").removeClass("hiddenmessage")
-        $("#showmseeage").toggleClass("showmessage")
+        $("#receivemessage").removeClass("hiddenmessage")
+        $("#receivemessage").toggleClass("showmessage")
         $("#sendmessage").removeClass("showmessage")
         $("#sendmessage").toggleClass("hiddenmessage")
         $("#nothingtodo").html("")
-        $("#showmseeage").html("")
+        $("#receivemessage").html("")
         toltalnumdef()
     }else{
         $("#nothingtodo").html("")
-        $("#showmseeage").html("")
+        $("#receivemessage").html("")
         toltalnumdef()
     }
 })
@@ -42,8 +42,8 @@ $(".advicetitleshow1").click(function()  {
         $(".advicetitleshow").removeClass("onadvicetitle")
         $("#sendmessage").removeClass("hiddenmessage")
         $("#sendmessage").toggleClass("showmessage")
-        $("#showmseeage").removeClass("showmessage")
-        $("#showmseeage").toggleClass("hiddenmessage")
+        $("#receivemessage").removeClass("showmessage")
+        $("#receivemessage").toggleClass("hiddenmessage")
         $("#nothingtodo").html("")
         $("#sendmessage").html("")
         toltalnum1();
@@ -62,9 +62,9 @@ layui.use('layer', function(){
 });
 var aflag=true//发件箱标志
 var bflag=true//收件箱标志
-    <!-- page lazyloading -->
+<!-- page lazyloading -->
 $("#nothingtodo").html("")
-$("#showmseeage").html("")
+$("#receivemessage").html("")
 toltalnumdef()
 // <!--收件箱加载-->
 function toltalnumdef() {
@@ -75,7 +75,7 @@ function toltalnumdef() {
             $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
         没有信息  </div>`)
         }else{
-            $("#showmseeage").html(`  `)
+            $("#receivemessage").html(`  `)
             sendmessagea1(toltalnum);
         }
     },"json");
@@ -199,7 +199,7 @@ function sendmessagea1(toltalnum) {
         </div>`
                 }
             }
-            $("#showmseeage").append(html)
+            $("#receivemessage").append(html)
 
             bflag=true;
             if(pagenum==1){
@@ -241,6 +241,7 @@ function sendmessagea1(toltalnum) {
         var userid1=getCookie("userid")
         $.post(url+"news/receivemessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
             console.log(data)
+
             var html =`<div class="infolisted" >
                 <div class="bg-primary infolistedtop" style="height:50px;">
                     <div class="infolistedtopleft" style="margin-top: 10px;">
@@ -309,7 +310,7 @@ function sendmessagea1(toltalnum) {
         </div>`
                 }
             }
-            $("#showmseeage").prepend(html)
+            $("#receivemessage").prepend(html)
 
             bflag=true;
             if(pagenum==1){
@@ -410,14 +411,26 @@ function sendmessagea(toltalnum) {
             </div>
             <div style="margin-top: 10px;">
                 <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
-                <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs">删除</a></span></div>
+                <div style="float: right;margin-right: 15px;"><span ><a class="btn" onclick="deletesendmessage("1")">删除</a></span></div>
                 <div style="clear: both"></div>
 
             </div>
         </div>`
             }
             $("#sendmessage").append(html)
-
+            function deletesendmessage(messageid){
+                console.log("121212+++++")
+                layer.alert('墨绿风格，点击确认看深蓝', {
+                    skin: 'layui-layer-molv' //样式类名
+                    ,closeBtn: 0
+                }, function(){
+                    layer.alert('偶吧深蓝style', {
+                        skin: 'layui-layer-lan'
+                        ,closeBtn: 0
+                        ,anim: 4 //动画类型
+                    });
+                });
+            }
             aflag=true;
             if(pagenum==1){
                 layer.msg("没有更多了---我是有底线的哦")
@@ -547,7 +560,7 @@ $("#deleteOneSure").click(function (){
             $("#exampleModal").css("class","")
             // $("#exampleModal").toggle()
             $("#nothingtodo").html("")
-            $("#showmseeage").html("")
+            $("#receivemessage").html("")
 
             toltalnumdef()
             $(".modal-backdrop").remove()
@@ -610,7 +623,8 @@ $("#deleteAllSure").click(function (){
             s[j++]=(checkbox[i].value)
         }
     }
-    if(s.length>0){ $.post({
+    if(s.length>0){
+        $.post({
         url:url+"/news/deleteallnews",
         // 告知传递参数类型为json，不可缺少
         contentType:"application/json",
@@ -671,7 +685,7 @@ $("#deleteAllSure2").click(function (){
                     // $("#exampleModalAll2").attr("class","modal fade")
                     // $("#exampleModalAll2").css("display","none")
                     $("#nothingtodo").html("")
-                    $("#showmseeage").html("")
+                    $("#receivemessage").html("")
                     toltalnumdef()
                 }else{
                     layer.msg("删除失败请重试！");
