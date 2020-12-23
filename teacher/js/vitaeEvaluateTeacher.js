@@ -112,7 +112,6 @@ function show() {
             <td>${list[i].vitaeAlterTime}</td>
            <td>从未上传简历</td>
         </tr>`
-
             }
         }
         $("table").append(html)
