@@ -249,9 +249,9 @@
         var pagesize=7;
         var totalPages=Math.ceil(toltalnum/pagesize);
         var pagenum=totalPages;
-        doSomething1(pagenum--)
+        doSomethingsendmessagea1(pagenum--)
         if(pagenum > 0){
-            doSomething(pagenum)
+            doSomethingsendmessagea(pagenum)
         }
 
         $(window).scroll(function() {
@@ -269,12 +269,10 @@
                     }
                 }
             }
-
         });
-        function doSomething(pagenum) {
+        function doSomethingsendmessagea(pagenum) {
             var userid1=getCookie("userid")
             $.post(url+"news/receivemessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
-                console.log("++++++++")
                 var html =``
                 for(var i =data.data.length-1; i>=0; i--){
                     var mytime =data.data[i].newsSendTime
@@ -368,10 +366,9 @@
 
             },"json");
         }
-        function doSomething1(pagenum) {
+        function doSomethingsendmessagea1(pagenum) {
             var userid1=getCookie("userid")
             $.post(url+"news/receivemessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
-                console.log(data)
 
                 var html =`<div class="infolisted" >
                 <div class="bg-primary infolistedtop" style="height:50px;">
@@ -471,7 +468,7 @@
                         $("#chk").prop("checked", false);
                     }
                 });
-
+               //批量删除收件箱
                 $("#deleteBySelect2").click(function (){
 
                     var checkbox = $("input[name='optionAll']");
@@ -484,7 +481,6 @@
                             s[j++]=(checkbox[i].value)
                         }
                     }
-                    console.log(s)
                     if(s.length>0){
                         var index=layer.confirm('确定删除吗？', {
                             btn: ['确定','取消'] //按钮
@@ -519,7 +515,6 @@
             },"json");
         }
     }
-    // ===================================================================
     // <!--发件箱加载-->
     function toltalnum1() {
         $.post(url+"news/hadSendmessagecount", "userid="+userid, function (data1) {
@@ -533,8 +528,6 @@
             }
         },"json");
     }
-
-
     // <!--发件箱加载-->
     function sendmessagea(toltalnum) {
         var pagesize=7;
@@ -564,28 +557,27 @@
         function doSomething(pagenum) {
             var userid1=getCookie("userid")
             $.post(url+"news/hadsendmessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
-                console.log(data)
                 var html =``
                 for(var i =data.data.length-1; i>=0; i--){
                     var mytime =data.data[i].newsSendTime
                     var mytime1 =mytime.substring(0,mytime.indexOf(".")).replace("T","/")
                     html+=` <div class="infolisted">
-            <div class="bg-primary infolistedtop">
-                    <div class="infolistedtopleft" >
-                        <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].newsId}"></div>
-                    <div class="infolistedtopright" ><span >${data.data[i].newsReadPeople}人已读</span></div>
-                    <div style="clear: both"></div>
-            </div>
-            <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
-            </p>
-            </div>
-            <div style="margin-top: 10px;">
-                <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
-                <div style="float: right;margin-right: 15px;"><span ><a class=""onclick="deletesendMessage(${data.data[i].newsId},this)">删除</a></span></div>
-                <div style="clear: both"></div>
+                            <div class="bg-primary infolistedtop">
+                             <div class="infolistedtopleft" >
+                               <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].newsId}"></div>
+                              <div class="infolistedtopright" ><span >${data.data[i].newsReadPeople}人已读</span></div>
+                             <div style="clear: both"></div>
+                                 </div>
+                                 <div style="width: 98%;margin: 0 auto"><p >${data.data[i].newsTest}
+                                                 </p>
+                                             </div>
+                                <div style="margin-top: 10px;">
+                                    <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
+                                    <div style="float: right;margin-right: 15px;"><span ><a class=""onclick="deletesendMessage(${data.data[i].newsId},this)">删除</a></span></div>
+                                    <div style="clear: both"></div>
 
-            </div>
-        </div>`
+                                </div>
+                            </div>`
                 }
                 $("#sendmessage").append(html)
 
@@ -602,7 +594,7 @@
                         // 如果当前框被选中，则判断是否需要勾选全选框
                         var checkbox = $("input[name='optionAll']");
                         var length = $(checkbox).length;
-                        console.log(length+"=========================")
+
                         if (length > 0) {
                             for (var i = 0; i < length; i++) {
                                 if ($(checkbox[i]).is(":checked") != true) {
@@ -619,15 +611,12 @@
                         $("#chk2").prop("checked", false);
                     }
                 });
-                $("#deleteBySelect").click(function (){
-                    //////////////////////////////
-                })
+
             },"json");
         }
         function doSomething1(pagenum) {
             var userid1=getCookie("userid")
             $.post(url+"news/hadsendmessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
-                console.log(data)
                 var html =`<div class="infolisted" >
                 <div class="bg-primary infolistedtop" style="height:50px;">
                     <div class="infolistedtopleft" style="margin-top: 10px;">
@@ -653,7 +642,7 @@
             </div>
             <div style="margin-top: 10px;">
                 <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
-                <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs">删除</a></span></div>
+                <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs" onclick="deletesendMessage(${data.data[i].newsId},this)">删除</a></span></div>
                 <div style="clear: both"></div>
 
             </div>
@@ -674,7 +663,7 @@
                         // 如果当前框被选中，则判断是否需要勾选全选框
                         var checkbox = $("input[name='optionAll']");
                         var length = $(checkbox).length;
-                        console.log(length+"=========================")
+
                         if (length > 0) {
                             for (var i = 0; i < length; i++) {
                                 if ($(checkbox[i]).is(":checked") != true) {
@@ -691,183 +680,71 @@
                         $("#chk2").prop("checked", false);
                     }
                 });
+                //批量删除发件箱
                 $("#deleteBySelect").click(function (){
-                    $("#exampleModalAll").attr("class","modal fade in")
-                    $("#exampleModalAll").css("display","inline-block")
+
+                    var checkbox = $("input[name='optionAll']");
+                    var s=new Array();
+                    var j=0
+                    for(var i = 0;i<checkbox.length;i++)
+                    {
+                        if(checkbox[i].checked==true)
+                        {
+                            s[j++]=(checkbox[i].value)
+                        }
+                    }
+                    if(s.length>0){
+                        var index=layer.confirm('确定删除吗？', {
+                            btn: ['确定','取消'] //按钮
+                        }, function(){
+                            $.post({
+                                url:url+"/news/deleteallnews",
+                                contentType:"application/json",
+                                data:JSON.stringify(s),
+                                success:function(data){
+                                    if(data.code===1){
+                                        layer.close(index)
+                                        $("#nothingtodo").html("")
+                                        $("#sendmessage").html("")
+                                        toltalnum1();
+                                    }else{
+                                        layer.close(index)
+                                        layer.msg("删除失败请重试！");
+                                    }
+                                }
+                            })
+                        }, function(){
+                            layer.close(index)
+                        });
+                        }else{
+                        layer.alert("所选数据为空！");
+                    }
                 })
             },"json");
         }
     }
 
-    // <!--收件箱模态框删除-->
 
-    // var idtea
-    // $('#exampleModal').on('show.bs.modal', function (event) {
-    //     var button = $(event.relatedTarget)
-    //     idtea = button.data('id')
-    //     var name = button.data('name')
-    //     var modal = $(this)
-    //     modal.find('#messagetext').text('确认将消息记录-' +name+'-删除吗？')
-    // })
-    // $("#deleteOneSure").click(function (){
-    //
-    //     $.post(url+"/news/delectonereceive","receiveId="+idtea,function (data) {
-    //         if(data.code==1){
-    //             $("#exampleModal").attr("class","modal fade")
-    //             $("#exampleModal").css("class","")
-    //             // $("#exampleModal").toggle()
-    //             $("#nothingtodo").html("")
-    //             $("#receivemessage").html("")
-    //
-    //             toltalnumdef()
-    //             $(".modal-backdrop").remove()
-    //         }else{
-    //             layer.alert("删除失败");
-    //         }
-    //     },"json")
-    // })
-
-    // <!--发件人模态框删除-->
-
-    // var idtea1
-    // $('#exampleModal2').on('show.bs.modal', function (event) {
-    //     var button = $(event.relatedTarget) // Button that triggered the modal
-    //     idtea1 = button.data('id') // Extract info from data-* attributes
-    //     var name = button.data('name') // Extract info from data-* attributes
-    //     var modal = $(this)
-    //     modal.find('#messagetext2').text('确认将消息记录-' +name+'-删除吗？')
-    // })
-    // $("#deleteOneSure2").click(function (){
-    //
-    //     $("#exampleModal2").attr("class","modal fade")
-    //     $("#exampleModal2").css("display","none")
-    //     $.post(url+"/news/delectonesend","newsId="+idtea1,function (data) {
-    //
-    //         if(data.code==1){
-    //
-    //
-    //             $("#nothingtodo").html("")
-    //             $("#sendmessage").html("")
-    //             toltalnum1();
-    //             $(".modal-backdrop").remove()
-    //         }else{
-    //             layer.alert("删除失败");
-    //         }
-    //     },"json")
-    //
-    //     //删除写这里
-    // })
-
-    // <!--//发送，多选模态框-->
-
-    // var layer
-    // layui.use('layer', function(){
-    //     layer = layui.layer;
-    // });
-    // $("#canle").click(function (){
-    //     $("#exampleModalAll").attr("class","modal fade")
-    //     $("#exampleModalAll").css("display","none")
-    // })
-    // $("#deleteAllSure").click(function (){
-    //
-    //     var checkbox = $("input[name='optionAll']");
-    //     var s=new Array();
-    //     var j=0
-    //     for(var i = 0;i<checkbox.length;i++)
-    //     {
-    //         if(checkbox[i].checked==true)
-    //         {console.log(checkbox[i].value)
-    //             s[j++]=(checkbox[i].value)
-    //         }
-    //     }
-    //     if(s.length>0){
-    //         $.post({
-    //             url:url+"/news/deleteallnews",
-    //             // 告知传递参数类型为json，不可缺少
-    //             contentType:"application/json",
-    //             data:JSON.stringify(s),
-    //             success:function(data){
-    //                 if(data.code===1){
-    //                     $("#exampleModalAll").attr("class","modal fade")
-    //                     $("#exampleModalAll").css("display","none")
-    //                     $("#nothingtodo").html("")
-    //                     $("#sendmessage").html("")
-    //                     toltalnum1();
-    //
-    //                 }else{
-    //                     layer.alert("删除失败请重试！");
-    //                     $("#exampleModalAll").attr("class","modal fade")
-    //                     $("#exampleModalAll").css("display","none")
-    //                 }
-    //
-    //             }
-    //         })}else{
-    //         layer.alert("所选数据为空！");
-    //         $("#exampleModalAll").attr("class","modal fade")
-    //         $("#exampleModalAll").css("display","none")
-    //     }
-    // })
-
-    // <!--收件，多模态框-->
-    //
-    // var layer
-    // layui.use('layer', function(){
-    //     layer = layui.layer;
-    // });
-    // $("#canle2").click(function (){
-    //     $("#exampleModalAll2").attr("class","modal fade")
-    //     $("#exampleModalAll2").css("display","none")
-    // // })
-    // $("#deleteAllSure2").click(function (){
-
-    //     var checkbox = $("input[name='optionAll']");
-    //     var s=new Array();
-    //     var j=0
-    //     for(var i = 0;i<checkbox.length;i++)
-    //     {
-    //         if(checkbox[i].checked==true)
-    //         {
-    //             s[j++]=(checkbox[i].value)
-    //         }
-    //     }
-    //
-    //     if(s.length>0){
-    //         $.post({
-    //             url:url+"/news/deleteallreceive",
-    //             contentType:"application/json",
-    //             data:JSON.stringify(s),
-    //             success:function(data){
-    //                 if(data.code===1){
-    //                     document.getElementById("test1").onclick();
-    //                     // $("#exampleModalAll2").attr("class","modal fade")
-    //                     // $("#exampleModalAll2").css("display","none")
-    //                     $("#nothingtodo").html("")
-    //                     $("#receivemessage").html("")
-    //                     toltalnumdef()
-    //                 }else{
-    //                     layer.msg("删除失败请重试！");
-    //                     $("#exampleModalAll2").attr("class","modal fade")
-    //                     $("#exampleModalAll2").css("display","none")
-    //                 }
-    //             }
-    //         })}else{
-    //         layer.msg("所选数据为空！");
-    //         $("#exampleModalAll2").attr("class","modal fade")
-    //         $("#exampleModalAll2").css("display","none")
-    //     }
-    // })
-
-    //单个删除收件箱
-   function deletesendMessage(id,elaa){
-        console.log("+++++")
+    //单个删除发件箱
+    function deletesendMessage(id,elaa){
+       var index=layer.confirm('确定删除这条已经发送成功的信息吗？', {
+           btn: ['确定','取消'] //按钮
+       }, function(){
+           $(elaa).parent().parent().parent().parent().remove()
+           $.post(url+"/news/delectonesend","newsId="+id,function (data) {
+           },"json")
+           layer.close(index)
+       }, function(){
+           layer.close(index)
+       });
     }
+    //单个删除收件箱
     function deleteReceiveMessage(id,elaa) {
-        var index=layer.confirm('确定删除吗？', {
+        var index=layer.confirm('确定删除这条接收到的信息吗？', {
             btn: ['确定','取消'] //按钮
         }, function(){
             $(elaa).parent().parent().parent().remove()
             $.post(url+"/news/delectonereceive","receiveId="+id,function (data) {
-
             },"json")
             layer.close(index)
         }, function(){
