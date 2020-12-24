@@ -447,7 +447,7 @@
         if(iframeSrc){
             $("#ifream1").attr("src",iframeSrc)
         }
-        console.log(iframeSrc)
+        // console.log(iframeSrc)
 
     }
 </script>
@@ -473,6 +473,16 @@
             storage.setItem("ifreamstudent",iframeSrc);
         }
     )
+
+    $("#jobStudent2").click(
+        function () {
+            $("#ifream1").attr("src","../student/studentJobDetails.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreamstudent",iframeSrc);
+        }
+    )
+
 
 
     $("#studentAuditionRegister").click(
