@@ -90,6 +90,7 @@ function showDetail(id) {
 
             html += `<tr class="warning">
             <td>${list.studentId}</td>
+            <td>${list.studentClassId}</td>
             <td>${list.studentName}</td>
             <td>${list.studentSex}</td>
             <td>${list.studentIdentity}</td>
@@ -104,7 +105,7 @@ function showDetail(id) {
             <td>${list.studentParentPhone}</td>
             <td>${list.studentParentName}</td>
             <td>${list.studentPhone}</td>
-            <td>${list.studentClassId}</td>
+            
      
         </tr>`
             $("#detailedInfo").append(html)
@@ -181,6 +182,7 @@ function show() {
 <!--<td style="width: 80px;">-->
 <!--<input type="checkbox" name="optionAll" ></td>-->
             <td>${list[i].studentId}</td>
+             <td>${list[i].studentClassId}</td>         
             <td>${list[i].studentName}</td>
             <td>${list[i].studentSex}</td>
             <td>${list[i].studentIdentity}</td>
@@ -192,7 +194,7 @@ function show() {
             <td>${list[i].studentParentPhone}</td>        
             <td>${list[i].studentParentName}</td>
             <td>${list[i].studentPhone}</td>
-            <td>${list[i].studentClassId}</td>          
+            
         </tr>`
         }
         $("#showAllInfo").append(html)
