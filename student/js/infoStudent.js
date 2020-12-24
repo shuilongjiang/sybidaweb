@@ -13,7 +13,6 @@ if (arr.length > 1) {
     //
     // teacherStudy1=arr[2]
     // teacherStudy=teacherStudy1.split("=")[1]
-
 }
 var selectA2 = $("#pageSizeSel").find("option"); //从A1下拉框中 搜索值
 for (var i = 0; i < selectA2.length; i++) {
@@ -91,6 +90,7 @@ function showDetail(id) {
 
             html += `<tr class="warning">
             <td>${list.studentId}</td>
+            <td>${list.studentClassId}</td>
             <td>${list.studentName}</td>
             <td>${list.studentSex}</td>
             <td>${list.studentIdentity}</td>
@@ -105,7 +105,7 @@ function showDetail(id) {
             <td>${list.studentParentPhone}</td>
             <td>${list.studentParentName}</td>
             <td>${list.studentPhone}</td>
-            <td>${list.studentClassId}</td>
+            
      
         </tr>`
             $("#detailedInfo").append(html)
@@ -181,23 +181,20 @@ function show() {
             html += `<tr class="warning">]
 <!--<td style="width: 80px;">-->
 <!--<input type="checkbox" name="optionAll" ></td>-->
-            
             <td>${list[i].studentId}</td>
+             <td>${list[i].studentClassId}</td>         
             <td>${list[i].studentName}</td>
             <td>${list[i].studentSex}</td>
             <td>${list[i].studentIdentity}</td>
             <td>${list[i].studentIsGraduation}</td>
             <td>${list[i].studentSchool}</td>
             <td>${list[i].studentSpecialty}</td>
-            <td>${list[i].studentWechat}</td>
-           
+            <td>${list[i].studentWechat}</td>          
             <td>${list[i].studentCity}</td>
-            <td>${list[i].studentParentPhone}</td>
-           
+            <td>${list[i].studentParentPhone}</td>        
             <td>${list[i].studentParentName}</td>
             <td>${list[i].studentPhone}</td>
-            <td>${list[i].studentClassId}</td>
-           
+            
         </tr>`
         }
         $("#showAllInfo").append(html)
@@ -243,6 +240,7 @@ function pageSelect(data) {
             html += `<li><a href="/sybida/student/infoStudent.html?pageNum=${i}&pageSize=${pageSize}">${i}</a></li>`
         }
     }
+
     if ((data.pages) <= pageNum) {
         html += `<li class="disabled"><a href="#">&raquo;</a></li>`
     } else {

@@ -1,41 +1,43 @@
 var object = {}
 
-$("#selectButt").click(function () {
-    let teachId = $("#searcheStuId").val()
-    if (!teachId || !(teachId.trim())) {
-        location.href = "../updateTeacher.html"
-    } else {
-        showDetail(teachId)
-    }
-})
+// $("#selectButt").click(function () {
+//     let teachId = $("#searcheStuId").val()
+//
+//     if (!teachId || !(teachId.trim())) {
+//         location.href = "/sybida/teacher/updateTeacher.html"
+//     } else {
+//
+//         showDetail(teachId)
+//     }
+//     // showDetail(teachId)
+// })
+var userid = getCookie("userid")
+console.log(userid)
+show()
 
-
-function showDetail(id) {
-
-    $.getJSON(url + "/teacher/selectteacherbyid", "id=" + id, function (data) {
-        if (data.code == 0) {
-            alert("id不存在")
-        }else{
-            var teacherInfo = data.data
-            $(".teachId").val(teacherInfo.teachId)
-            $(".teachName").val(teacherInfo.teachName)
-            $(".teachWechat").val(teacherInfo.teachWechat)
-            $(".teachStudyId").val(teacherInfo.teachStudyId)
-            $(".teachTel").val(teacherInfo.teachTel)
-            $(".teachQq").val(teacherInfo.teachQq)
-            $(".teachPhoto").attr('src', Qnyurl+teacherInfo.teachPhoto)
-            if (teacherInfo.studentSex == "男") {
-                $("input[name=sex][value='男']").attr("checked", true);
-            } else {
-                $("input[name=sex][value='女']").attr("checked", true);
-            }
+function show() {
+    $.getJSON(url + "/teacher/selectteacherbyid", "userid=" + userid, function (data) {
+        console.log(data)
+        var teacherInfo = data.data
+        $(".teachId").val(teacherInfo.teachId)
+        $(".teachName").val(teacherInfo.teachName)
+        $(".teachWechat").val(teacherInfo.teachWechat)
+        $(".teachStudyId").val(teacherInfo.teachStudyId)
+        $(".teachTel").val(teacherInfo.teachTel)
+        $(".teachQq").val(teacherInfo.teachQq)
+        $(".teachPhoto").attr('src', Qnyurl + teacherInfo.teachPhoto)
+        if (teacherInfo.teachSex == "男") {
+            $("input[name=sex][value='男']").attr("checked", true);
+        } else {
+            $("input[name=sex][value='女']").attr("checked", true);
         }
 
-        // let html= ''
-        // console.log(data)
+        console.log("======================")
+        console.log(data)
 
     })
 }
+
 
 $("#submitList").click(function () {
     // console.log("123")
@@ -57,22 +59,21 @@ $("#submitList").click(function () {
     var wechat = $(".teachWechat").val()
     var studyId = $(".teachStudyId").val()
     var tel = $(".teachTel").val()
-    var qq    =  $(".teachQq").val()
+    var qq = $(".teachQq").val()
     var photourl = $("#teachphotourl").attr("src")
-    var lenstr=photourl.lastIndexOf("/")
-    photourl= photourl.substring(lenstr+1)
+    var lenstr = photourl.lastIndexOf("/")
+    photourl = photourl.substring(lenstr + 1)
 
     var formData = new FormData(document.getElementById("teacherform"));
     formData.append("file", $("#addPic")[0].files[0]);
     formData.append("teachPhoto", photourl);
-    formData.append("teachId",id);
-    formData.append("teachName",name);
-    formData.append("teachSex",gender);
-    formData.append("teachWechat",wechat);
-    formData.append("teachStudyId",studyId);
-    formData.append("teachTel",tel);
-    formData.append("teachQq",qq);
-
+    formData.append("teachId", id);
+    formData.append("teachName", name);
+    formData.append("teachSex", gender);
+    formData.append("teachWechat", wechat);
+    formData.append("teachStudyId", studyId);
+    formData.append("teachTel", tel);
+    formData.append("teachQq", qq);
 
 
     $.ajax({
@@ -85,12 +86,9 @@ $("#submitList").click(function () {
         success: function (data) {
             alert("ok");
         },
-        error:function () {
+        error: function () {
             alert("上传出错");
         }
     });
 
 })
-
-
-console.log(formData)
