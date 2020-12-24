@@ -153,7 +153,8 @@ function sendmessagea1(toltalnum) {
             <div class="bg-primary infolistedtop">
                     <div class="infolistedtopleft" >
                         <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" >删除</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+        data-id="${list[i].classId}" data-name="${list[i].newsTest}" data-target="#exampleModal">删除</a>
                         </div>
 
                     <div class="infolistedtopright" ><span >

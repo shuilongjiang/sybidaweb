@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>企业填写信息</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+
+
+    <style>
+        form{
+            width: 65%;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<body id="body" style="height: 800px;">
+
+<br>
+
+
+<div >
+    <ol class="breadcrumb"style="border-bottom: #009688 1px solid;">
+        <li><a href="#">首页</a></li>
+
+        <li class="active">公司填写信息</li>
+    </ol>
+</div>
+
+<div class="container">
+
+    <table class="layui-table" lay-skin="line" style="width: 90%;margin: 0 auto">
+        <thead>
+        <tr>
+            <th style="text-align: center"><h3>公司信息填写</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <form class="layui-form layui-form-pane" enctype="multipart/form-data" id="formId">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">推荐老师</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyUserId" readonly>
+                        </div>
+
+                        <label class="layui-form-label">扫码进入</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyMarkId" readonly>
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">公司名字</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyName" >
+                        </div>
+
+                        <label class="layui-form-label">招聘截至</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyEndTime" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">招聘开始</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyStartTime" >
+                        </div>
+
+                        <label class="layui-form-label">招聘方向</label>
+                        <div class="layui-input-inline">
+                            <div class="layui-form-item">
+                                        <select lay-verify="required" id="companyStudyId" name="PaymentModeID" class="SelectPaymentMode">
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">公司网址</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyWeb" >
+                        </div>
+
+                        <label class="layui-form-label">公司地址</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyAddress" >
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">招聘要求</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyRequire" >
+                        </div>
+
+                        <label class="layui-form-label">岗位工资</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companySalary" >
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">公司邮箱</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyMailbox" >
+                        </div>
+
+                        <label class="layui-form-label">公司微信</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyWechat" >
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">公司电话</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyPhone" >
+                        </div>
+
+                        <label class="layui-form-label">公司图片</label>
+                        <div class="layui-input-inline" style="text-align: center;">
+                            <input type="file" name="file" required  lay-verify="required"  accept="image/gif, image/x-ms-bmp, image/bmp,image/jpeg,image/x-png,audio/x-mpeg" autocomplete="off" class="layui-input" id="companyPicture" >
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学生可见否</label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="sex" value="1" id="view" title="是">
+                            <input type="radio" name="sex" value="0" id="noView" title="否">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="layui-form-label">公司介绍</label>
+                        <textarea name="desc" placeholder="请描述面试情况" class="form-control layui-textarea" id="companyIntroduce" ></textarea>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <div>
+
+                            <input type="button" id="surebtn" class="layui-btn layui-btn-fluid" value="确定" style="margin-left: 0;width: 40%">
+                            <!--<a href="#" id="surebtn" type="button" class="layui-btn layui-btn-fluid" style="margin-left: 0;width: 40%">确定</a>-->
+                            <a href="#" type="button" class="layui-btn layui-btn-fluid" style="margin-right: 0;width: 40%;float: right" >返回</a>
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--<select class="form-control" id="companyStudyId1" name="selectStudy"> </select>-->
+</div>
+
+
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<!--<script src="/sybida/layui/layui.js"    ></script>-->
+<script src="/sybida/layui/layui.all.js"    ></script>
+<script src="/sybida/company/js/insertCompany.js"></script>
+<script src="/sybida/publicTool/js/dateutil.js"></script>
+
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+
+
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+    });
+</script>
+
+<script>
+    var layer
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+
+    layui.use('laydate',function () {
+            var laydate=layui.laydate;
+            laydate.render({
+                elem:'#companyEndTime'
+                ,type:'datetime'
+            })
+        }
+    );
+    layui.use('laydate',function () {
+            var laydate=layui.laydate;
+            laydate.render({
+                elem:'#companyStartTime'
+                ,type:'datetime'
+            })
+        }
+    );
+</script>
+</body>
+</html>
