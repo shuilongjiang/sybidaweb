@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Layui</title>
+    <meta charset="UTF-8">
+    <title>学生查看简历评价</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/sybida/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../bs/bootstrap.min.css">
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
     <style>
+
         .nav_guide {
             width: 660px;
             height: 30px;
@@ -47,12 +48,12 @@
 
     </style>
 </head>
-<body>
 <br>
+<body>
 <span>
 
 </span>
-<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="/" class="nav_guide">学生就业情况</a>
+<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="#" class="nav_guide">学生查看简历评价</a>
 </div>
 <div class="container">
     <br>
@@ -68,58 +69,32 @@
             <option name="pageSize" value="50">50条</option>
             <option name="pageSize" value="80">80条</option>
             <option name="pageSize" value="100">100条</option>
-
         </select>
         <button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
-        <input type="text" value="" placeholder="请输入您要查找的学生ID" id="searcheStuId" style="width: 200px;height: 32px;border-radius: 0em;border-color: #e6e6e6">
-        <button type="button" id="selectButt1" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
-
     </div>
-
-    <table class="table table-striped table-hover table-bordered" id="showAllInfo">
-        <tr class="active">
-
-            <th>学生ID</th>
-            <th>学生姓名</th>
-            <th>学生学习方向</th>
-            <th>offer公司</th>
-            <th>公司联系方式</th>
-            <th>公司福利</th>
-            <th>学生就业城市</th>
+    <table class="layui-table" style="margin-top: 10px" id="showAllInfo">
+        <tr>
+            <th colspan="4" style="text-align: center"><h2>查看简历信息</h2></th>
         </tr>
-        <hr/>
-    </table>
-
-</div>
-<div class="container" style="text-align: center">
-    <nav aria-label="...">
-        <ul class="pagination" id="pagination">
-        </ul>
-    </nav>
-</div>
-
-<div class="container" style="width: 70%;margin: 0 auto;display: none;" id="detailCon">
-    <table class="table table-striped table-hover table-bordered" id="detailedInfo">
-        <tr class="active">
-            <th>学生ID</th>
-            <th>学生姓名</th>
-            <th>学生学习方向</th>
-            <th>offer公司</th>
-            <th>公司联系方式</th>
-            <th>公司福利</th>
-            <th>学生就业城市</th>
+        <tr>
+            <th>简历ID</th>
+            <th>评价人ID</th>
+            <th>评价内容</th>
+            <th>评论图片</th>
         </tr>
-        <hr/>
     </table>
+    <div class="container" style="text-align: center">
+        <nav aria-label="...">
+            <ul class="pagination" id="pagination">
+            </ul>
+        </nav>
+    </div>
 </div>
 
-<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
-<script src="js/studentJobTeacher.js"></script>
+
+<script src="../jquery/jquery-3.3.1.min.js"></script>
+<script src="../common/js/locahostadress.js"></script>
+<script src="js/studentVitae.js"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
-<script src="/sybida/layui/layui.js"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-
-
-
 </body>
 </html>

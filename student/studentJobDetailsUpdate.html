@@ -29,7 +29,7 @@
     <ol class="breadcrumb"style="border-bottom: #009688 1px solid;">
         <li><a href="#">首页</a></li>
 
-        <li class="active">Offer记录详情修改</li>
+        <li class="active">就业记录详情修改</li>
     </ol>
 </div>
 
@@ -38,7 +38,7 @@
     <table class="layui-table" lay-skin="line" style="width: 90%;margin: 0 auto">
         <thead>
         <tr>
-            <th style="text-align: center"><h3>Offer记录详情</h3></th>
+            <th style="text-align: center"><h3>就业记录详情</h3></th>
 
         </tr>
         </thead>
@@ -52,9 +52,7 @@
                         <input type="text" class="form-control" id="studentName"  readonly>
                     </div>
 
-                    <!-- 隐藏域 -->
-                    <input type="hidden" id="offerStudentId">
-                    <input type="hidden" id="offerId">
+
 
                     <div class="form-group">
                         <label for="sex">性别</label>
@@ -75,55 +73,55 @@
                     </div>
 
                 </form>
-                <form action=""  method="post"  class="layui-form" id="auditionform" >
+                <form action=""  method="post"  class="layui-form" id="jobform" >
+
+                    <!-- 隐藏域 -->
+                    <input type="hidden" id="jobStudentId">
+                    <input type="hidden" id="jobId">
                     <div class="form-group">
-                        <label for="offerCompany">录用所在公司</label>
-                        <input type="text" class="form-control" id="offerCompany" placeholder="请输入录用所在公司">
+                        <label for="jobFirm">就业企业</label>
+                        <input type="text" class="form-control" id="jobFirm" placeholder="请输入就业企业">
                         <p class="tip" style="color: red"></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="offerContact">公司联系方式</label>
-                        <input type="text" class="form-control" id="offerContact" placeholder="请输入公司联系方式">
+                        <label for="jobContact">企业联系方式</label>
+                        <input type="text" class="form-control" id="jobContact" placeholder="请输入企业联系方式">
                         <p class="tip" style="color: red"></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="offerAddress">公司具体地址</label>
-                        <input type="text" class="form-control" id="offerAddress" placeholder="请输入公司具体地址">
+                        <label for="jobWeal">企业福利</label>
+                        <input type="text" class="form-control" id="jobWeal" placeholder="请输入企业福利">
                         <p class="tip" style="color: red"></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="offerDatetime">Offer需答复时间</label>
+                        <label for="jobEndTime">实习到期日期</label>
                         <!--<input type="text" class="form-control" id="test1" placeholder="请选择面试时间">-->
-                        <input type="text" class="form-control" id="offerDatetime" placeholder="请输入Offer需答复时间">
+                        <input type="text" class="form-control" id="jobEndTime" placeholder="请输入实习到期日期">
                         <p class="tip" style="color: red"></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="offerPracticeSalary">实习工资</label>
-                        <input type="text" class="form-control" id="offerPracticeSalary" placeholder="请输入实习工资">
-                        <p class="tip" style="color: red"></p>
+                        <label for="jobPicture1">修改相关就业信息</label>
+                        <input type="file" accept="image/gif, image/x-ms-bmp, image/bmp,image/jpeg,image/x-png,audio/x-mpeg" class="jobPicture1" value="jobPicture1" id="jobPicture1" name="file">
                     </div>
 
                     <div class="form-group">
-                        <label for="offerReallySalary">转正工资</label>
-                        <input type="text" class="form-control" id="offerReallySalary" placeholder="请输入转正工资">
-                        <p class="tip" style="color: red"></p>
+                        <label for="jobPicture">相关就业信息</label>
+                        <div>
+                            <img src="" class="jobPicture" id="jobPicture" style="max-width: none;margin-top:10px;
+                                 background-size: contain;width:100%;height: auto;">
+                        </div>
+
                     </div>
 
 
-                    <div class="form-group">
-                        <label for="offerHiredate">须入职日期</label>
-                        <!--<input type="text" class="form-control" id="test1" placeholder="请选择面试时间">-->
-                        <input type="text" class="form-control" id="offerHiredate" placeholder="请输入须入职日期">
-                        <p class="tip" style="color: red"></p>
-                    </div>
 
 
                     <div class="layui-form-item">
-                        <div class="layui-input-block">
+                        <div style="background-size: contain;width: 100%;height: auto;margin: 0px auto;">
                             <!--<button class="layui-btn" lay-submit lay-filter="formDemo" type="submit">立即提交</button>-->
                             <input type="button" class="layui-btn" id="submitList" value="立即提交" onclick="return false;">
                             <!--<a type="button" class="layui-btn" id="submitList" value="立即提交"></a>-->
@@ -145,7 +143,7 @@
 <script src="/sybida/bs/bootstrap.min.js"></script>
 <!--<script src="/sybida/layui/layui.js"    ></script>-->
 <script src="/sybida/layui/layui.all.js"    ></script>
-<script src="/sybida/student/js/studentOfferDetailsUpdate.js"></script>
+<script src="/sybida/student/js/studentJobDetailsUpdate.js"></script>
 <script src="/sybida/publicTool/js/dateutil.js"></script>
 
 <script>
@@ -154,16 +152,7 @@
 
         //执行一个laydate实例
         laydate.render({
-            elem: '#offerDatetime' //指定元素
-            ,type: 'datetime' //日期时间选择器
-        });
-    });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#offerHiredate' //指定元素
+            elem: '#jobEndTime' //指定元素
             ,type: 'datetime' //日期时间选择器
         });
     });

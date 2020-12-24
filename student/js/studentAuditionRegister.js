@@ -99,7 +99,7 @@ $("#submitList").click(function () {
                 // alert("提交成功");
                 layer.open({
                     content: "提交成功"
-                    , btn: ['确定','取消'],
+                    , btn: ['查看','确定'],
                     style: 'width:80%',
                     yes: function(index, layero){
                         location.href="/sybida/student/studentAudition.html"; //跳到指定页面

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>查看学生面试经历</title>
+    <title>查看学生Offer记录</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -24,7 +24,7 @@
     <ol class="breadcrumb"style="border-bottom: #009688 1px solid;">
         <li><a href="#">首页</a></li>
 
-        <li class="active">学生面试经历</li>
+        <li class="active">查看学生Offer记录</li>
     </ol>
 </div>
 <div class="container">
@@ -60,9 +60,11 @@
             <th>姓名</th>
             <th>性别</th>
             <th>班级</th>
-            <th>面试公司</th>
-            <th>面试地点</th>
-            <th>面试时间</th>
+            <th>录用所在公司</th>
+            <th>公司联系方式</th>
+            <th>Offer需答复时间</th>
+            <th>实习工资</th>
+            <th>转正工资</th>
             <th>修改时间</th>
             <th>操作</th>
             <th>删除</th>
@@ -107,7 +109,7 @@
             <div class="modal-body" style="margin-top: 20px;">
                 <form>
                     <div class="form-group">
-                        <label id="mm" class="control-label">确认将所选的全部学生面试经历删除？</label>
+                        <label id="mm" class="control-label">确认将所选的全部学生offer记录删除？</label>
                     </div>
                 </form>
             </div>
@@ -122,7 +124,7 @@
 
 <script src="/sybida/bs/bootstrap.min.js"></script>
 <script src="/sybida/layui/layui.js"    ></script>
-<script src="/sybida/teacher/js/studentInterviewTeacher.js"></script>
+<script src="/sybida/teacher/js/studentOfferForTeacher.js"></script>
 <script src="/sybida/publicTool/js/dateutil.js"></script>
 
 
@@ -152,22 +154,22 @@
         }
         if(s.length>0){
             $.post({
-            url:url+"/audition/deleteAllStudentAudition",
-            // 告知传递参数类型为json，不可缺少
-            contentType:"application/json",
-            data:JSON.stringify(s),
-            success:function(data){
-                if(data.code===1){
-                    location.href="/sybida/teacher/studentInterviewTeacher.html?pageNum=1&pageSize="+pageSize+"&classNum="+classNum
+                url:url+"/offer/deleteAllStudentOffer",
+                // 告知传递参数类型为json，不可缺少
+                contentType:"application/json",
+                data:JSON.stringify(s),
+                success:function(data){
+                    if(data.code===1){
+                        location.href="/sybida/teacher/studentOfferForTeacher.html?pageNum=1&pageSize="+pageSize+"&classNum="+classNum
 
-                }else{
-                    layer.alert("删除失败请重试！");
-                    $("#exampleModalAll").attr("class","modal fade")
-                    $("#exampleModalAll").css("display","none")
+                    }else{
+                        layer.alert("删除失败请重试！");
+                        $("#exampleModalAll").attr("class","modal fade")
+                        $("#exampleModalAll").css("display","none")
+                    }
+
                 }
-
-            }
-        })}else{
+            })}else{
             layer.alert("所选数据为空！");
             $("#exampleModalAll").attr("class","modal fade")
             $("#exampleModalAll").css("display","none")
