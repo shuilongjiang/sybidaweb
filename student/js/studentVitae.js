@@ -59,12 +59,6 @@ function show() {
 }
 
 
-
-
-
-
-
-
 function pageSelect(data) {
     var html = ``
     if (pageNum == 1) {
