@@ -1,6 +1,5 @@
 var selectClass=-1
 var selectStudy=-1
-
 var pageNum =1
 // 每页默认5条数据
 var pageSize=$("#pageSizeSel").val()
@@ -132,23 +131,6 @@ $.getJSON(url+"/classInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"
         }
     })
 })
-
-//全选全不选
-$("#chk").click(function(){
-    //当全选按钮是选中状态
-    if($(this).is(':checked')){
-        //循环下面所有checkbox
-        $('input[name="optionAll"]').each(function(){
-            //将checkbox状态改为选中
-            $(this).prop("checked",true);
-        });
-    }else{
-
-        $('input[name="optionAll"]').each(function(){
-            $(this).prop("checked",false);
-        });
-    }
-});
 
 
 

@@ -9,7 +9,7 @@ $("#selectButt").click(function () {
     }
 })
 
-
+var userid=getCookie("userid")
 function showDetail(id) {
 
     $.getJSON(url + "/teacher/selectstudentbyid", "id=" + id, function (data) {

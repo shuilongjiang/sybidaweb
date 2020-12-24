@@ -1,30 +1,7 @@
 
 var selectStudy=-1
 
-// $.getJSON(url+"/register/selectStudy",function (data) {
-//     let html = ''
-//
-//     for (let i = 4; i < data.length; i++) {
-//         console.log(data[i]+"============")
-//         html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
-//     }
-//     $('select[name="selectStudy"]').append(html)
-//
-//     var selectA1 = $('select[name="selectStudy"]').find("option"); //从A1下拉框中 搜索值
-//     for(var i=0;i<selectA1.length;i++){
-//         var t=$(selectA1[i]).val()
-//
-//         if(t==selectStudy){
-//             $(selectA1[i]).attr("selected","selected")
-//         }
-//     }
-//     //change事件
-//     $('select[name="selectStudy"]').change(
-//         function (){
-//             selectStudy=$('select[name="selectStudy"]').val()
-//         }
-//     )
-// });
+
 
 $(function () {
     $.getJSON(url + "/register/selectStudy", function (data) {
@@ -96,3 +73,7 @@ $("#surebtn").click(function () {
         }
     })
 })
+
+$("#btntest").click(function () {
+    $("#show").load("/sybida/teacher/allTeacher.html");
+});

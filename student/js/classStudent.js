@@ -41,14 +41,21 @@ $("#selectButt1").click(function () {
     if (!stuName || !(stuName.trim())) {
         location.href = "/sybida/student/classStudent.html?pageNum=1&pageSize="+pageSize+"&userId="+userid
     } else {
-        showDetail(stuName)
+            showDetail(stuName)
     }
 })
-
+var layer
+layui.use('layer', function(){
+    layer = layui.layer;
+});
 function showDetail(stuName) {
     $.getJSON(url + "/student/selectstudentbyname", "stuName=" + stuName+"&classId="+classId, function (data2) {
         if (data2.code == 0){
-            alert("id不存在！")
+            layer.alert("学生不存在", {
+                    skin: 'layui-layer-molv' //样式类名
+                    ,closeBtn: 0
+                }
+            );
         }else {
             $("#detailCon").css('display', '')
             let html = ''
@@ -311,4 +318,5 @@ $("#deleteOneSure").click(function (){
 
 $("#closebtn").click(function () {
     $("#detailCon").css('display', 'none')
+    location.href = "/sybida/student/classStudent.html?pageNum=1&pageSize="+pageSize+"&userId="+userid
 })

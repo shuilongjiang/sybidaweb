@@ -1,17 +1,21 @@
 var classNum=-1
 var classID=-1
+// 获取从前一个页面传递过来的参数
+// var search = window.location.search
+// var arr = search.split("=")
+// var jobStudentId = arr[1]
 
-//用户ID 查询学生姓名和性别
+// console.log(jobStudentId  +"前一个页面传递要修改的jobStudentId")
+
+
+// 获取用户ID
 var userid=getCookie("userid")
-console.log(userid+"=======********")
+
 $.getJSON(url+"/audition/selectStudentById","userid="+userid,function (data){
-    // console.log(data)
     if (data.code == 1) {
-        // console.log(data.data.studentId+"!!!!!!!!!!!!!!!!!!!")
-        // console.log(data.data.studentName+"!!!!!!!!!!!!!!!!!!!")
         $("#studentName").val(data.data.studentName)
 
-        $("#jobStudentId").val(data.data.studentId)
+        $("#auditionStudentId").val(data.data.studentId)
         if("男" == data.data.studentSex){
             $("#male").attr("checked","checked")
             $("#female").attr("disabled","disabled")
@@ -29,6 +33,21 @@ $.getJSON(url+"/audition/selectStudentById","userid="+userid,function (data){
     }
 })
 
+$.getJSON(url+"/job/selectstudentJobbyJobStudentId", "userid=" + userid, function (data) {
+
+    if (data.code == 1) {
+
+        $("#jobFirm").val(data.data.jobFirm)
+        $("#jobContact").val(data.data.jobContact)
+        $("#jobWeal").val(data.data.jobWeal)
+        var date = Date.parse(data.data.jobEndTime)
+        date = new Date(date)
+        $("#jobEndTime").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
+        $(".jobPicture").attr('src', Qnyurl+data.data.jobPicture)
+        $("#jobId").val(data.data.jobId)
+    }
+
+})
 
 function judgeSpace(obj, index){
     let inputValue = obj.val()
@@ -69,6 +88,11 @@ $("#submitList").click(function () {
         var jobWeal = $("#jobWeal").val()
         var jobEndTime = $("#jobEndTime").val()
         var jobStudentId = $("#jobStudentId").val()
+        var jobId = $("#jobId").val()
+
+
+        console.log(jobId+"ppppppppppppppp")
+
 
         var formData = new FormData(document.getElementById("jobform"));
         formData.append("jobFirm", jobFirm);
@@ -76,56 +100,45 @@ $("#submitList").click(function () {
         formData.append("jobWeal",jobWeal);
         formData.append("jobEndTime",jobEndTime);
         formData.append("jobStudentId",jobStudentId);
+        formData.append("jobId",jobId)
 
-        $.getJSON(url+"/job/selectSybidaJobByStudentId","jobStudentId="+jobStudentId,function (data){
-            if (data.code == 0) {
+        $.ajax({
+            type: "post",
+            url: url + "/job/updateSybidaJob",
+            data: formData,
+            cache: false,   // 不缓存
+            processData: false,   // jQuery不要去处理发送的数据
+            contentType: false,   // jQuery不要去设置Content-Type请求头
+            success: function (data) {
+
                 layer.open({
-                    content: "您已登记过，请前往记录平台查看就业记录并修改"
-                    , btn: ['前往', '退出'],
+                    content: "提交成功"
+                    , btn: ['查看','再次修改'],
                     style: 'width:80%',
-
                     yes: function(index, layero){
-
-                        location.href = "/sybida/student/studentJobDetails.html"; //跳到指定页面
+                        location.href="/sybida/student/studentJobDetails.html"; //跳到指定页面
                     },
-                    btn2: function(index, layero){
-                        location.href = "/sybida/student/index.html"
-
-                    }
+                    cancel: function(index,layero){ //按右上角“X”按钮
+                    },
 
                 })
-            }else {
-                $.ajax({
-                    type: "post",
-                    url: url + "/job/addSybidaJob",
-                    data: formData,
-                    cache: false,   // 不缓存
-                    processData: false,   // jQuery不要去处理发送的数据
-                    contentType: false,   // jQuery不要去设置Content-Type请求头
-                    success: function (data) {
-                        // alert("提交成功");
-                        layer.open({
-                            content: "提交成功",
-                            btn: ['查看', '退出'],
-                            style: 'width:80%',
-                            yes: function(index, layero){
+            },
 
-                                location.href = "/sybida/student/studentJobDetails.html" //跳到指定页面
-                            },
-                            btn2: function(index, layero){
-                                location.href = "/sybida/student/index.html"
 
-                            }
-
-                        })
-                    },
-                    error:function () {
-                        alert("提交出错");
-                    }
-                });
+            error:function () {
+                alert("提交出错");
             }
-        })
+        });
+
     }
+
+})
+
+
+
+$("#return").click(function (){
+    location.href="/sybida/student/studentJobDetails.html";
+
 })
 
 

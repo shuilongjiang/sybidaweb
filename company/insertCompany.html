@@ -32,7 +32,6 @@
 </div>
 
 <div class="container">
-
     <table class="layui-table" lay-skin="line" style="width: 90%;margin: 0 auto">
         <thead>
         <tr>
@@ -140,25 +139,27 @@
 
                     <div class="form-group">
                         <label class="layui-form-label">公司介绍</label>
-                        <textarea name="desc" placeholder="请描述面试情况" class="form-control layui-textarea" id="companyIntroduce" ></textarea>
+                        <textarea name="desc" placeholder="请在这介绍贵公司" class="form-control layui-textarea" id="companyIntroduce" ></textarea>
                     </div>
 
 
                     <div class="layui-form-item">
                         <div>
 
-                            <input type="button" id="surebtn" class="layui-btn layui-btn-fluid" value="确定" style="margin-left: 0;width: 40%">
+                            <input type="button" id="surebtn" class="layui-btn layui-btn-fluid" value="确定" style="margin-left: 0;width: 30%">
                             <!--<a href="#" id="surebtn" type="button" class="layui-btn layui-btn-fluid" style="margin-left: 0;width: 40%">确定</a>-->
-                            <a href="#" type="button" class="layui-btn layui-btn-fluid" style="margin-right: 0;width: 40%;float: right" >返回</a>
+                            <a href="#" type="button" class="layui-btn layui-btn-fluid" style="margin-right:3%;width: 30%;float: right" >返回</a>
+                            <a href="#" type="button" class="layui-btn layui-btn-fluid" style="margin-right: 0;width: 30%;float: right" >生成二维码</a>
                         </div>
                     </div>
                 </form>
+                <div style="border:solid red 1px;width: 200px;height: 200px;margin: 0 auto;display: none" id="show" ></div>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <!--<select class="form-control" id="companyStudyId1" name="selectStudy"> </select>-->
+
 </div>
 
 

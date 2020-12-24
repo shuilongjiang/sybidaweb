@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生查看简历评价</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <style>
+
+        .nav_guide {
+            width: 660px;
+            height: 30px;
+            line-height: 30px;
+            border: 0px;
+            margin-bottom: 0px;
+            margin-top: 0px;
+            padding: 0px;
+        }
+
+        .nav_guide {
+            font-size: 12px;
+            text-decoration: none;
+            outline: none;
+        }
+
+        .nav_guide:link {
+            color: #999999;
+            text-decoration: none;
+        }
+
+        .nav_guide:visited {
+            text-decoration: none;
+            color: #999999;
+        }
+
+        .nav_guide:hover {
+            text-decoration: underline;
+            color: #FF0000;
+        }
+
+        .nav_guide:active {
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<br>
+<body>
+<span>
+
+</span>
+<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="#" class="nav_guide">学生查看简历评价</a>
+</div>
+<div class="container">
+    <br>
+    <div class="layui-form-item">
+        <label class="bg-success" style="line-height: 35px; font-size: 16px;">每页大小:&nbsp;</label>
+        <select class="form-control" id="pageSizeSel" style="width: 100px; display: inline-block">
+            <option name="pageSize" value="5">5条</option>
+            <option name="pageSize" value="10">10条</option>
+            <option name="pageSize" value="15">15条</option>
+            <option name="pageSize" value="20">20条</option>
+            <option name="pageSize" value="30">30条</option>
+            <option name="pageSize" value="40">40条</option>
+            <option name="pageSize" value="50">50条</option>
+            <option name="pageSize" value="80">80条</option>
+            <option name="pageSize" value="100">100条</option>
+        </select>
+        <button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
+    </div>
+    <table class="layui-table" style="margin-top: 10px" id="showAllInfo">
+        <tr>
+            <th colspan="4" style="text-align: center"><h2>查看简历信息</h2></th>
+        </tr>
+        <tr>
+            <th>简历ID</th>
+            <th>评价人ID</th>
+            <th>评价内容</th>
+            <th>评论图片</th>
+        </tr>
+    </table>
+    <div class="container" style="text-align: center">
+        <nav aria-label="...">
+            <ul class="pagination" id="pagination">
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<script src="../jquery/jquery-3.3.1.min.js"></script>
+<script src="../common/js/locahostadress.js"></script>
+<script src="js/studentVitae.js"></script>
+<script src="/sybida/bs/bootstrap.min.js"></script>
+</body>
+</html>
