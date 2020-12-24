@@ -49,7 +49,7 @@
             <li class="layui-nav-item">
             </li>
             <li class="layui-nav-item"  >
-                 <a href="javascript:;" style="display: inline-block;">未读通知</a><span class="layui-badge " id="advicenum">129</span>
+                 <a href="javascript:;" style="display: inline-block;">未读通知</a><span class="layui-badge " id="advicenum"></span>
                 <dl class="layui-nav-child"
                 style="position: absolute;left: 0;top: 63px;min-width: 30%;line-height: 30px;
     padding:3px 0;box-shadow: 0 4px 6px rgba(0, 0, 0, .12);border: 1px solid #d2d2d2;background-color: #fff;
@@ -92,12 +92,10 @@
                     <a class=""  href="javascript:;">教师模块</a>
                     <dl class="layui-nav-child">
                         <dd><a  id="allTeacher" href="javascript:;">所有教师档案</a></dd>
-                        <dd><a  id="updateTeacher" href="javascript:;">教师用户修改</a></dd>
                         <dd><a  id="addTeacher" href="javascript:;">教师用户添加</a></dd>
-                        <dd><a  id="infoTeacher"  href="javascript:;">教师个人信息完善</a></dd>
                         <dd><a  id="studentInterviewTeacher" href="javascript:;">查看学生面试经历</a></dd>
+                        <dd><a  id="studentOfferTeacher" href="javascript:;">查看学生Offer记录</a></dd>
                         <dd><a  id="studentJobTeacher" href="javascript:;">查看学生就业情况</a></dd>
-                        <dd><a  id="downloadVitaeTeacher" href="javascript:;">查看下载学生简历</a></dd>
                         <dd><a  id="vitaeEvaluateTeacher" href="javascript:;">学生简历查看评级</a></dd>
                         <dd><a  id="companyManagerTeacher" href="javascript:;">管理企业招聘信息</a></dd>
                         <dd><a  id="companyInfoTeacher" href="javascript:;">企业招聘信息展示</a></dd>
@@ -108,26 +106,18 @@
                     <dl class="layui-nav-child">
                         <dd><a  id="addStudent" href="javascript:;">批量添加学生</a></dd>
                         <dd><a  id="infoStudent" href="javascript:;">查看学生档案</a></dd>
-                        <dd><a  id="changeInfoStudent" href="javascript:;">修改学生信息</a></dd>
-                        <dd><a  id="upLoadVitae" href="javascript:;">上传简历</a></dd>
-                        <dd><a  id="updateInfoStudent" href="javascript:;">学生个人信息完善</a></dd>
+                        <dd><a  id="studentPersonalInformation" href="javascript:;">学生个人信息完善</a></dd>
                         <dd><a  id="careerQuizStudent" href="javascript:;">职业测评</a></dd>
-                        <dd><a  id="jobStudent" href="javascript:;">就业状态信息登记</a></dd>
-                        <dd><a  id="studentAuditionRegister" href="javascript:;">面试经历登记</a></dd>
-                    </dl>
+                       </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a class=""  href="javascript:;">公共模块</a>
                     <dl class="layui-nav-child">
-                        <dd><a  id="changePsw" href="javascript:;">修改密码</a></dd>
-                        <dd><a  id="resetPsw" href="javascript:;">重置密码</a></dd>
-                        <dd><a  id="noticeTool" href="javascript:;">查看通知</a></dd>
-                        <dd><a  id="receiveNotice" href="javascript:;">接收通知</a></dd>
                         <dd><a  id="codeCompany" href="javascript:;">发布招聘信息并生成二维码</a></dd>
                         <dd><a  id="classInfo" href="javascript:;">班级信息管理</a></dd>
                         <dd><a  id="studyInfo" href="javascript:;">学习方向信息管理</a></dd>
                         <dd><a  id="makeNotice" href="javascript:;">发布通知</a></dd>
-                        <dd><a  id="fileExchange" href="javascript:;">师生文件交互</a></dd>
+                        <dd><a  id="fileExchange" href="javascript:;">学习交流博客</a></dd>
 
                     </dl>
                 </li>
@@ -186,7 +176,7 @@
             if(data.code==1){
 
                 if(data.data.messageNum==0) {
-                    $("#advicenum").html("")
+                    $("#advicenum").html("0")
                 }else{
                     $("#advicenum").html(data.data.messageNum)
                 }
@@ -248,9 +238,17 @@
     }
 
 
+   $("#changePswNav").click(
+       function () {
+           $("#ifream1").attr("src","../publicTool/changePsw.html")
+           iframeSrc = $("#ifream1").attr("src")
+           var storage = window.sessionStorage;
+           storage.setItem("ifreammanager",iframeSrc);
+       }
+   )
     $("#infoNav").click(
         function () {
-            $("#ifream1").attr("src","../publicTool/noticeTool.html")
+            $("#ifream1").attr("src","../publicTool/receiveNotice.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanager",iframeSrc);
@@ -305,38 +303,10 @@
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
-    $("#receiveNotice").click(
-        function () {
-            $("#ifream1").attr("src","../publicTool/receiveNotice.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanager",iframeSrc);
-        }
-    )
-    $("#noticeTool").click(
-        function () {
-            $("#ifream1").attr("src","../publicTool/noticeTool.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanager",iframeSrc);
-        }
-    )
-    $("#resetPsw").click(
-        function () {
-            $("#ifream1").attr("src","../publicTool/resetPsw.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanager",iframeSrc);
-        }
-    )
-    $("#changePsw").click(
-        function () {
-            $("#ifream1").attr("src","../publicTool/changePsw.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanager",iframeSrc);
-        }
-    )
+
+
+
+
     $("#studentAuditionRegister").click(
         function () {
             $("#ifream1").attr("src","../student/studentAuditionRegister.html")
@@ -361,22 +331,15 @@
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
-    $("#updateInfoStudent").click(
+    $("#studentPersonalInformation").click(
         function () {
-            $("#ifream1").attr("src","../student/updateInfoStudent.html")
+            $("#ifream1").attr("src","../student/studentPersonalInformation.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
-    $("#upLoadVitae").click(
-        function () {
-            $("#ifream1").attr("src","../student/upLoadVitae.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanager",iframeSrc);
-        }
-    )
+
     $("#changeInfoStudent").click(
         function () {
             $("#ifream1").attr("src","../student/changeInfoStudent.html")
@@ -395,7 +358,7 @@
     )
     $("#addStudent").click(
         function () {
-            $("#ifream1").attr("src","../student/addStudent.html")
+            $("#ifream1").attr("src","../common/register.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanager",iframeSrc);
@@ -434,14 +397,7 @@
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
-    $("#updateTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/updateTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanager",iframeSrc);
-        }
-    )
+
     $("#addTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/addTeacher.html")
@@ -451,14 +407,7 @@
         }
     )
 
-    $("#infoTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/infoTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanager",iframeSrc);
-        }
-    )
+
     $("#studentInterviewTeacher").click(
         function () {
             $("#ifream1").attr("src","../teacher/studentInterviewTeacher.html")
@@ -467,22 +416,25 @@
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
+   $("#studentOfferTeacher").click(
+       function () {
+           $("#ifream1").attr("src","../teacher/studentOfferForTeacher.html")
+           iframeSrc = $("#ifream1").attr("src")
+           var storage = window.sessionStorage;
+           storage.setItem("ifreammanager",iframeSrc);
+       }
+   )
+
+
     $("#studentJobTeacher").click(
         function () {
-            $("#ifream1").attr("src","../teacher/studentJobTeacher.html")
+            $("#ifream1").attr("src","../teacher/studentJobForTeacher.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanager",iframeSrc);
         }
     )
-    $("#downloadVitaeTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/downloadVitaeTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanager",iframeSrc);
-        }
-    )
+
 </script>
 </body>
 </html>
