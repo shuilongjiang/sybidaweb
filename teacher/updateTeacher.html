@@ -15,11 +15,15 @@
 <div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="#" class="nav_guide">教室用户信息修改</a>
 </div>
 <div class="container">
-    <div class="navbar" style="margin-top: 30px">
-        <span>请输入需要修改信息的教师的ID：</span><input type="text" placeholder="教师ID" id="searcheStuId">&nbsp;&nbsp;<button
-            class="btn btn-success" id="selectButt">查找
-    </button>
-    </div>
+    <!--<div class="navbar" style="margin-top: 30px">-->
+
+        <!--<span>请输入需要修改信息的教师的ID：</span><input type="text" maxlength="2" placeholder="教师ID" id="searcheStuId">&nbsp;&nbsp;-->
+        <!--<button-->
+                <!--class="btn btn-success" id="selectButt">查找-->
+        <!--</button>-->
+
+
+    <!--</div>-->
     <form action="" method="post" enctype="multipart/form-data" id="teacherform">
         <table class="layui-table  " style="margin-top: 10px">
             <tr>
@@ -27,9 +31,9 @@
             </tr>
             <tr class="warning" id="detailedInfo">
                 <td>教师ID：</td>
-                <td><input type="text" class="teachId" readonly></td>
+                <td><input type="text" class="teachId"  readonly></td>
                 <td>教师姓名：</td>
-                <td><input type="text" class="teachName" readonly ></td>
+                <td><input type="text" class="teachName" readonly></td>
             </tr>
             <tr>
                 <td>性别：</td>
@@ -42,7 +46,8 @@
             </tr>
             <tr>
                 <td>点击修改头像</td>
-                <td><input type="file" accept="image/gif, image/x-ms-bmp, image/bmp,image/jpeg,image/x-png,audio/x-mpeg" class="addPic" value="addPic" id="addPic" name="file"></td>
+                <td><input type="file" accept="image/gif, image/x-ms-bmp, image/bmp,image/jpeg,image/x-png,audio/x-mpeg"
+                           class="addPic" value="addPic" id="addPic" name="file"></td>
                 <td>学习方向ID：</td>
                 <td><input type="text" class="teachStudyId" placeholder="请输入学习方向ID" maxlength='1'></td>
             </tr>
