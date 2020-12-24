@@ -11,13 +11,14 @@ var object = {}
 //     }
 //     // showDetail(teachId)
 // })
-var userid = getCookie("userid")
-
+var search=location.search
+var userid1 =search.split("=")
+var userid=userid1[1]
+console.log("==="+userid)
 show()
 
 function show() {
-    $.getJSON(url + "/teacher/selectteacherbyid", "userid=" + userid, function (data) {
-        console.log(data)
+    $.getJSON(url + "/teacher/selectteacherbyidone", "userid=" + userid, function (data) {
         var teacherInfo = data.data
         $(".teachId").val(teacherInfo.teachId)
         $(".teachName").val(teacherInfo.teachName)

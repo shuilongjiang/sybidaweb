@@ -15,7 +15,7 @@
 <div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="#" class="nav_guide">教室用户信息修改</a>
 </div>
 <div class="container">
-
+    
     <form action="" method="post" enctype="multipart/form-data" id="teacherform">
         <table class="layui-table  " style="margin-top: 10px">
             <tr>
@@ -64,9 +64,9 @@
             <!--</tr>-->
             <tr style="text-align: center">
                 <td colspan="4">
-                    <input type="button" class="btn btn-success" id="submitList" value="确认"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button
-                        class="btn btn-danger">取消
-                </button>
+                    <input type="button" class="btn btn-success" id="submitList" value="确认">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                        class="btn btn-danger" href="javascript:history.back()">取消
+                </a>
                 </td>
             </tr>
         </table>
@@ -74,6 +74,11 @@
 </div>
 <script src="../jquery/jquery-3.3.1.min.js"></script>
 <script src="../common/js/locahostadress.js"></script>
-<script src="js/updateTeacher.js"></script>
+<script src="js/updateTeacherformanager.js"></script>
+<script>
+    function goback() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>
