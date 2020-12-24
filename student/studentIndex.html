@@ -310,8 +310,8 @@
                     <ul class="dropdown-user-menu">
                         <li><a href="#" id="studentPersonalInformation"> <i class="uil-user"></i> 个人中心 </a> </li>
                         <li><a href="#" id="changePsw"> <i class="uil-bolt"></i> 账号管理</a> </li>
-                        <li><a href="#"> <i class="uil-thumbs-up"></i> </a></li>
-                        <li><a href="#"> <i class="uil-history"></i> 求职助手 </a></li>
+                        <li><a href="#" id="vitae"> <i class="uil-thumbs-up"></i> 查看简历评价 </a></li>
+                        <li><a href="#"> <i class="uil-history"></i> </a></li>
                         <li><a href="#"> <i class="uil-cog"></i>隐私设置 </a></li>
                         <li><a href="#" style="color:#ff8400"> <i class="uil-bolt"></i> 升级为VIP</a> </li>
                         <li>
@@ -554,6 +554,15 @@
     )
 
 
+
+    $("#vitae").click(
+        function () {
+            $("#ifream1").attr("src","../student/studentVitae.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreamstudent",iframeSrc);
+        }
+    )
 </script>
 <!--用户头像-->
 <script>
