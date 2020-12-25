@@ -1,3 +1,4 @@
+var userid=getCookie("userid")
 
 $("#submitList").click(function () {
 
@@ -21,8 +22,15 @@ $("#submitList").click(function () {
         cache: false,   // 不缓存
         processData: false,   // jQuery不要去处理发送的数据
         contentType: false,   // jQuery不要去设置Content-Type请求头
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success: function (data) {
-            alert("ok");
+            if (data == -1000) {
+                location.href = logindexurl
+            }else {
+                alert("ok");
+            }
         },
         error:function () {
             alert("上传出错");

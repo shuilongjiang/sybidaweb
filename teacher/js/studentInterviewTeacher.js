@@ -1,6 +1,5 @@
 var pageNum=1
 var pageSize=$("#pageSizeSel").val()
-
 var classNum=-1
 var search=location.search
 var arr=search.split("&")
@@ -39,31 +38,40 @@ $("#selectButt").click(function (){
 //班级号下拉选框
 var userid=getCookie("userid")
 console.log(userid+"========")
-$.getJSON(url+"/audition/selectClass","userid="+userid,function (data){
-    // console.log(data)
-    var htm=`<option value="-1">全部</option>`
-    for (var i=0;i<data.data.length;i++){
-        htm+=`<option value="${data.data[i].classId}">${data.data[i].classNum}</option>`
-    }
-    $("#classNum").append(htm)
+$.getJSON({
+    url:url+"/audition/selectClass",
+    data:"userid="+userid,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data){
+        if(data== -1000){
+            location.href=logindexurl
+        }else {
+            var htm=`<option value="-1">全部</option>`
+            for (var i=0;i<data.data.length;i++){
+                htm+=`<option value="${data.data[i].classId}">${data.data[i].classNum}</option>`
+            }
+            $("#classNum").append(htm)
 
-    var selectA1 = $("#classNum").find("option"); //从A1下拉框中 搜索值
-    for(var i=0;i<selectA1.length;i++){
-        var t=$(selectA1[i]).val()
+            var selectA1 = $("#classNum").find("option"); //从A1下拉框中 搜索值
+            for(var i=0;i<selectA1.length;i++){
+                var t=$(selectA1[i]).val()
 
-        if(t==classNum){
-            $(selectA1[i]).attr("selected","selected")
+                if(t==classNum){
+                    $(selectA1[i]).attr("selected","selected")
+                }
+
+            }
+            //change事件
+            $('#classNum').change(
+                function (){
+                    classNum=$("#classNum").val()
+
+                }
+            )
         }
-
-    }
-    //change事件
-    $('#classNum').change(
-        function (){
-           classNum=$("#classNum").val()
-
-        }
-    )
-})
+}})
 
 
 
@@ -85,25 +93,31 @@ $('input[name="checkAll"]').click(function(){
 });
 pageshoe();
 function pageshoe(){
-    $.getJSON(url+"/audition/selectpage","pageSize="+pageSize+"&pageNum="+pageNum+"&classNum="+classNum+"&userid="+userid,function (data){
-        let html = ''
-        var le=data.data.list
-        // console.log(data)
-        // console.log(data.data.list)
-        for(let i = 0; i < le.length; i++){
+    $.getJSON({
+        url:url+"/audition/selectpage",
+        data:"pageSize="+pageSize+"&pageNum="+pageNum+"&classNum="+classNum+"&userid="+userid,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data){
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+                let html = ''
+                var le=data.data.list
+                // console.log(data)
+                // console.log(data.data.list)
+                for(let i = 0; i < le.length; i++){
 
-            var date1 = Date.parse(le[i].auditionTime)
-            date1 = new Date(date1)
-            var date2 = Date.parse(le[i].auditionAlterTime)
-            date2 = new Date(date2)
+                    var date1 = Date.parse(le[i].auditionTime)
+                    date1 = new Date(date1)
+                    var date2 = Date.parse(le[i].auditionAlterTime)
+                    date2 = new Date(date2)
 
 
-            // if(!le[i].id){le[i].id=""}
-            if (i%2==0){
-                html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
-
-            
-            
+                    // if(!le[i].id){le[i].id=""}
+                    if (i%2==0){
+                        html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
             <td>${le[i].studentName}</td>
             <td>${le[i].studentSex}</td>
             <td>${le[i].classNum}</td>
@@ -121,8 +135,8 @@ function pageshoe(){
 
                data-id="${le[i].auditionId}" data-name="${le[i].studentName}" data-target="#exampleModal" >删除</a></td>
         </tr>`
-            }else{
-                html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
+                    }else{
+                        html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
 
             <td>${le[i].studentName}</td>
             <td>${le[i].studentSex}</td>
@@ -139,43 +153,43 @@ function pageshoe(){
 
                data-id="${le[i].auditionId}" data-name="${le[i].studentName}" data-target="#exampleModal" >删除</a></td>
        </td></tr>`
-            }
-        }
-        html+=`<tr><td colspan="10"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所有</button></td></tr>`
-        $("table").append(html)
-
-
-        changeinterview()
-        var deleteAll={}
-        $("#deleteBySelect").click(function (){
-            $("#exampleModalAll").attr("class","modal fade in")
-            $("#exampleModalAll").css("display","inline-block")
-        })
-        pageSelect(data.data)
-        $("input[name='optionAll']").click(function (){
-            if ($(this).is(':checked')) {
-                // 如果当前框被选中，则判断是否需要勾选全选框
-                var checkbox = $("input[name='optionAll']");
-                var length = $(checkbox).length;
-                if (length > 0) {
-                    for (var i = 0; i < length; i++) {
-                        if ($(checkbox[i]).is(":checked") != true) {
-                            break;// 如果有未勾选的选择框，不需要勾选全选，跳出循环
-                        }
-                        if (i == length - 1) {
-                            // 如果到最后一个选择框仍然是勾选状态，即所有选择框都被勾选，则勾选全选框
-                            $("input[name='checkAll']")
-                                .prop("checked", true);
-                        }
                     }
                 }
-            } else {
-                // 如果当前选择框未勾选，则取消全选框勾选状态
-                $("input[name='checkAll']").prop("checked", false);
-            }
-        })
+                html+=`<tr><td colspan="10"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所有</button></td></tr>`
+                $("table").append(html)
 
-    })
+
+                changeinterview()
+                var deleteAll={}
+                $("#deleteBySelect").click(function (){
+                    $("#exampleModalAll").attr("class","modal fade in")
+                    $("#exampleModalAll").css("display","inline-block")
+                })
+                pageSelect(data.data)
+                $("input[name='optionAll']").click(function (){
+                    if ($(this).is(':checked')) {
+                        // 如果当前框被选中，则判断是否需要勾选全选框
+                        var checkbox = $("input[name='optionAll']");
+                        var length = $(checkbox).length;
+                        if (length > 0) {
+                            for (var i = 0; i < length; i++) {
+                                if ($(checkbox[i]).is(":checked") != true) {
+                                    break;// 如果有未勾选的选择框，不需要勾选全选，跳出循环
+                                }
+                                if (i == length - 1) {
+                                    // 如果到最后一个选择框仍然是勾选状态，即所有选择框都被勾选，则勾选全选框
+                                    $("input[name='checkAll']")
+                                        .prop("checked", true);
+                                }
+                            }
+                        }
+                    } else {
+                        // 如果当前选择框未勾选，则取消全选框勾选状态
+                        $("input[name='checkAll']").prop("checked", false);
+                    }
+                })
+            }
+    }})
 }
 
 
@@ -243,16 +257,24 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     modal.find('#messagetext').text('确认删除学生-' +name+'-的面试记录吗？')
 })
 $("#deleteOneSure").click(function (){
-
-    console.log(idtea +"++++++++++++++++++++++....********************************")
-
-    $.post(url+"/audition/deleteStudentAudition","deleteAuditionId="+idtea,function (data) {
-        if(data.code==1){
-            location.href="/sybida/teacher/studentInterviewTeacher.html?pageNum=1&pageSize="+pageSize+"&classNum="+classNum
-        }else{
-            layer.alert("删除失败");
-        }
-    },"json")
+    $.post({
+        url:url+"/audition/deleteStudentAudition",
+        data:"deleteAuditionId="+idtea,
+        dataType:"json",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+                if(data.code==1){
+                    location.href="/sybida/teacher/studentInterviewTeacher.html?pageNum=1&pageSize="+pageSize+"&classNum="+classNum
+                }else{
+                    layer.alert("删除失败");
+                }
+            }
+    }})
 
     //删除写这里
 })

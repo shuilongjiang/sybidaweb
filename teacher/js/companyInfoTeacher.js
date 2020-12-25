@@ -1,6 +1,7 @@
 var currPage = 1
 // 每页默认5条数据
 var pageSize = 9
+var userid=getCookie("userid")
 // 获取传递的参数  /showhero.html?currPage=2--?currPage=2
 var search = location.search
 // 按照=对参数分割
@@ -21,13 +22,19 @@ $.ajax({
     async:false,
     dataType:"json",
     type:"get",
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
     success:function (data){
-        console.log(data)
-        let html = ''
-        companyList = data.data.list
-        console.log(companyList)
-        for(let i = 0; i < companyList.length; i++){
-            html+=`
+        if(data== -1000){
+            location.href=logindexurl
+        }else {
+            console.log(data)
+            let html = ''
+            companyList = data.data.list
+            console.log(companyList)
+            for(let i = 0; i < companyList.length; i++){
+                html+=`
             <div class="col-sm-4">
             <div class="ibox">
                 <div class="ibox-title">
@@ -68,14 +75,14 @@ $.ajax({
             </div>
             </div>
             `
+            }
+            $("#showCompany").append(html)
+
+            console.log(data)
+            generatePage(data.data.navigatepageNums, data.data.pageNum
+                , data.data.pages)
         }
-        $("#showCompany").append(html)
-
-        console.log(data)
-        generatePage(data.data.navigatepageNums, data.data.pageNum
-            , data.data.pages)
-    }
-
+        }
 })
 
 // 当前页
