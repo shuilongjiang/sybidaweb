@@ -1,8 +1,29 @@
 
 var selectStudy=-1
+var codeId1
+var codeId=0
+var markName
+var search=location.search
+var arr=search.split("?")
+if(arr.length>1){
+    codeId1=arr[1]
+    markName=codeId1.split("=")[0]
+    codeId=codeId1.split("=")[1]
+}
+
+if (markName=="markid") {
 
 
+    $.getJSON(url + "/company/codeisenable", "codeId=" + codeId, function (data) {
+        if (data.code == 1) {
+            $("#codeId").css("display", "none");
+        } else {
+            $("#tbodyid").empty();
+            layer.alert("验证码已过期，请重新联系管理员")
+        }
+    })
 
+}
 $(function () {
     $.getJSON(url + "/register/selectStudy", function (data) {
         for (let k = 4; k < data.length; k++) {
@@ -15,6 +36,7 @@ $(function () {
     });
 })
 
+var userid=getCookie("userid")
 
 var layer
 layui.use('layer', function(){
@@ -22,8 +44,8 @@ layui.use('layer', function(){
 });
 
 $("#surebtn").click(function () {
-    var companyUserId= $("#companyUserId").val()
-    var companyMarkId= $("#companyMarkId").val()
+    // var companyUserId= $("#companyUserId").val()
+    // var companyMarkId= $("#companyMarkId").val()
     var companyName= $("#companyName").val()
     var companyEndTime= $("#companyEndTime").val()
     var companyStartTime= $("#companyStartTime").val()
@@ -37,9 +59,10 @@ $("#surebtn").click(function () {
     var companyPhone= $("#companyPhone").val()
     var companyIsView=  $("input[type='radio']:checked").val();
     var companyIntroduce= $("#companyIntroduce").val()
-    let formData = new FormData(document.getElementById("formId"));
-    formData.append('companyUserId', companyUserId);
-    formData.append('companyMarkId', companyMarkId);
+    let formData = new FormData();
+    formData.append("file", $('[type="file"]')[0].files[0]);
+   // / /formData.append('companyUserId', companyUserId);
+    formData.append('companyMarkId', codeId);
     formData.append('companyName', companyName);
     formData.append('companyEndTime', companyEndTime);
     formData.append('companyStartTime', companyStartTime);
@@ -53,6 +76,8 @@ $("#surebtn").click(function () {
     formData.append('companyPhone', companyPhone);
     formData.append('companyIsView', companyIsView);
     formData.append('companyIntroduce', companyIntroduce);
+     // formData.append('companyNull2', userid);
+
 
     $.ajax({
         url: url + "/company/insertcompany",
@@ -74,6 +99,11 @@ $("#surebtn").click(function () {
     })
 })
 
-$("#btntest").click(function () {
-    $("#show").load("/sybida/teacher/allTeacher.html");
-});
+
+$("#codeId").click(function () {
+    console.log("df=======================")
+    $("#show").css("display", "block");
+    // $("#show").load("/sybida/common/twocode.html");
+    $("#codeId").attr('disabled', true);
+})
+
