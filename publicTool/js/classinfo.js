@@ -246,3 +246,20 @@ $("#deleteOneSure").click(function (){
     //删除写这里
 })
 
+//全选全不选
+$("#chk").click(function(){
+    //当全选按钮是选中状态
+    if($(this).is(':checked')){
+        //循环下面所有checkbox
+        $('input[name="optionAll"]').each(function(){
+            //将checkbox状态改为选中
+            $(this).prop("checked",true);
+        });
+    }else{
+
+        $('input[name="optionAll"]').each(function(){
+            $(this).prop("checked",false);
+        });
+    }
+});
+
