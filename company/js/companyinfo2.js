@@ -34,11 +34,9 @@ $('#pageSizeSel').change(
 )
 
 $("#selectButt").click(function (){
-    location.href="/sybida/company/companyinfo.html?pageNum=1&pageSize="+pageSize
+    location.href="/sybida/company/companyinfo2.html?pageNum=1&pageSize="+pageSize
 })
 
-
-console.log(pageSize+"============================")
 
 $.getJSON(url+"/company/selectcompanyinfo","pageSize="+pageSize+"&pageNum="+pageNum,function (data){
     let html=''
@@ -96,7 +94,7 @@ $.getJSON(url+"/company/selectcompanyinfo","pageSize="+pageSize+"&pageNum="+page
         <td>${list[i].companyName}</td>
         <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-        <td>${list[i].companyStudyId}</td>
+        <td>${list[i].studyAspect}</td>
         <td>${list[i].companyAddress}</td>
         <td>${list[i].companyRequire}</td>
         <td>${list[i].companyWeb}</td>
@@ -112,7 +110,7 @@ $.getJSON(url+"/company/selectcompanyinfo","pageSize="+pageSize+"&pageNum="+page
         <td>${list[i].companyName}</td>
         <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-        <td>${list[i].companyStudyId}</td>
+        <td>${list[i].studyAspect}</td>
         <td>${list[i].companyAddress}</td>
         <td>${list[i].companyRequire}</td>
         <td>${list[i].companyWeb}</td>
@@ -163,7 +161,7 @@ $.getJSON(url+"/company/selectcompanyinfo","pageSize="+pageSize+"&pageNum="+page
         if(text.trim()=='查看详情'){
             var  id =$(this).attr("value")
             console.log(id+"====++++++++++++++++")
-            location.href="/sybida/publicTool/updateClass.html?classId="+id;
+            location.href="/sybida/company/companyDetails.html?companyId="+id;
 
         }
     })
@@ -176,20 +174,20 @@ function pageSelect(data){
 
         html+=`<li class="disabled"><a href="#" aria-label="Previous">&laquo;</a></li>`
     }else{
-        html+=`<li><a href="/sybida/company/companyinfo.html?pageNum=${pageNum-1}&pageSize=${pageSize}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
+        html+=`<li><a href="/sybida/company/companyinfo2.html?pageNum=${pageNum-1}&pageSize=${pageSize}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
     }
     for(var i=data.navigateFirstPage;i<=data.navigateLastPage;i++){
         if(pageNum==i){
             html+=`<li class="active"><a href="#">${i}</a></li>`
         }else{
-            html+=`<li><a href="/sybida/company/companyinfo.html?pageNum=${i}&pageSize=${pageSize}">${i}</a></li>`
+            html+=`<li><a href="/sybida/company/companyinfo2.html?pageNum=${i}&pageSize=${pageSize}">${i}</a></li>`
         }
     }
     if((data.pages)<=pageNum){
         html+=`<li class="disabled"><a href="#">&raquo;</a></li>`
     }else{
         var pa=parseInt(pageNum)+1
-        html+=`<li><a href="/sybida/company/companyinfo.html?pageNum=${pa}&pageSize=${pageSize}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
+        html+=`<li><a href="/sybida/company/companyinfo2.html?pageNum=${pa}&pageSize=${pageSize}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
     }
     html+=`<span style="font-family: '微软雅黑';font-size: 15px;margin-left:200px;padding-top: 10px;line-height: 40px">共&nbsp;${data.pages}&nbsp;页</span>`
     $("#pagination").append(html)
@@ -225,11 +223,115 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 $("#deleteOneSure").click(function (){
     $.post(url+"/company/deleteonecompany","companyId="+companyId,function (data) {
         if(data.code==1){
-            location.href="/sybida/company/companyinfo.html?pageNum=1&pageSize="+pageSize
+            location.href="/sybida/company/companyinfo2.html?pageNum=1&pageSize="+pageSize
         }else{
             layer.alert("删除失败");
         }
     },"json")
 
     //删除写这里
+})
+
+
+$("#selectButt1").click(function () {
+    let stuName = $("#searcheStuId").val()
+    if (!stuName || !(stuName.trim())) {
+        location.href = "/sybida/company/companyinfo2.html?pageNum=1&pageSize="+pageSize
+    } else {
+        showDetail(stuName)
+    }
+})
+
+function showDetail(stuName) {
+    $.getJSON(url + "/company/selectbycompanyname", "stuName=" + stuName, function (data2) {
+        if (data2.code == 0){
+            layer.alert("学生不存在", {
+                    skin: 'layui-layer-molv' //样式类名
+                    ,closeBtn: 0
+                }
+            );
+        }else {
+            $("#detailCon").css('display', '')
+            let html = ''
+            console.log(data2)
+            let list = data2.data
+            console.log(list+"=================")
+                if (!list.companyName){
+                    list.companyName = "未完善"
+                }
+                if (!list.companyStartTime) {
+                    list.companyStartTime = "未完善"
+                }
+                if (!list.classStudyId) {
+                    list.classStudyId = "未完善"
+                }
+                if (!list.classTime) {
+                    list.classTime = "未完善"
+                }
+                if (!list.companyEndTime) {
+                    list.companyEndTime = "未完善"
+                }
+                if (!list.companyStudyId) {
+                    list.companyStudyId = "未完善"
+                }
+                if (!list.companyAddress) {
+                    list.companyAddress = "未完善"
+                }
+                if (!list.companyRequire) {
+                    list.companyRequire = "未完善"
+                }
+                if (!list.companyWeb) {
+                    list.companyWeb = "未完善"
+                }
+                if (!list.companySalary) {
+                    list.companySalary = "未完善"
+                }
+                if (!list.companyMailbox) {
+                    list.companyMailbox = "未完善"
+                }
+                if (!list.companyPhone) {
+                    list.companyPhone = "未完善"
+                }
+                var date = Date.parse(list.companyStartTime)
+                date = new Date(date)
+
+                var date2=Date.parse(list.companyEndTime)
+                date2=new Date(date2);
+
+                if (i % 2 == 0) {
+                    html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].companyId}"></td>
+        <td>${list.teachName}</td>
+        <td>${list.companyName}</td>
+        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+        <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+        <td>${list.studyAspect}</td>
+        <td>${list.companyAddress}</td>
+        <td>${list.companyRequire}</td>
+        <td>${list.companyWeb}</td>
+        <td>${list.companySalary}</td>
+        <td>${list.companyMailbox}</td>
+        <td>${list.companyPhone}</td></tr>`
+                }else{
+                    html +=` <tr class="info">
+       <td>${list.teachName}</td>
+        <td>${list.companyName}</td>
+        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+        <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
+        <td>${list.studyAspect}</td>
+        <td>${list.companyAddress}</td>
+        <td>${list.companyRequire}</td>
+        <td>${list.companyWeb}</td>
+        <td>${list.companySalary}</td>
+        <td>${list.companyMailbox}</td>
+        <td>${list.companyPhone}</td></tr>`
+          $("#selecttable").append(html)
+                }
+
+        }
+    })
+}
+
+$("#closebtn").click(function () {
+    $("#detailCon").css('display', 'none')
+    location.href = "/sybida/company/companyinfo2.html?pageNum=1&pageSize="+pageSize
 })

@@ -42,17 +42,18 @@
         <tr>
             <td>
                 <form class="layui-form layui-form-pane" enctype="multipart/form-data" id="formId">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">推荐老师</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyUserId" readonly>
-                        </div>
+                    <!--<div class="layui-form-item">-->
+                        <!--<label class="layui-form-label">推荐老师</label>-->
+                        <!--<div class="layui-input-inline">-->
+                            <!--<input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyUserId" >-->
+                        <!--</div>-->
 
-                        <label class="layui-form-label">扫码进入</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyMarkId" readonly>
-                        </div>
-                    </div>
+                        <!--&lt;!&ndash;<label class="layui-form-label">扫码进入</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="layui-input-inline">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<input type="text" name="title" required  lay-verify="required"  autocomplete="off" class="layui-input" id="companyMarkId" >&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                    <!--</div>-->
 
 
                     <div class="layui-form-item">
@@ -129,13 +130,13 @@
                         </div>
                     </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">学生可见否</label>
-                        <div class="layui-input-inline">
-                            <input type="radio" name="sex" value="1" id="view" title="是">
-                            <input type="radio" name="sex" value="0" id="noView" title="否">
-                        </div>
-                    </div>
+                    <!--<div class="layui-form-item">-->
+                        <!--<label class="layui-form-label">学生可见否</label>-->
+                        <!--<div class="layui-input-inline">-->
+                            <!--<input type="radio" name="sex" value="1" id="view" title="是">-->
+                            <!--<input type="radio" name="sex" value="0" id="noView" title="否">-->
+                        <!--</div>-->
+                    <!--</div>-->
 
                     <div class="form-group">
                         <label class="layui-form-label">公司介绍</label>
@@ -148,15 +149,12 @@
 
                             <input type="button" id="surebtn" class="layui-btn layui-btn-fluid" value="确定" style="margin-left: 0;width: 30%">
                             <!--<a href="#" id="surebtn" type="button" class="layui-btn layui-btn-fluid" style="margin-left: 0;width: 40%">确定</a>-->
-                            <input  type="button" id="codeId" class="layui-btn layui-btn-fluid" style="margin-right: 0;width: 30%;"   value="生成二维码" >
                             <input type="button" id="back" class="layui-btn layui-btn-fluid" value="返回" style="width: 30%">
 
                         </div>
                     </div>
                 </form>
-                <div style="width: 220px;height: 220px;margin: 0 auto;display: none" id="show" >
-                    <iframe src="/sybida/common/twocode.html"  style="width: 100%;height:200px;overflow: visible ;color: #2b542c"； scrolling="no" id="ifream1" name="ifream1" ></iframe>
-                </div>
+
             </td>
         </tr>
         </tbody>
