@@ -44,8 +44,8 @@ layui.use('layer', function(){
 });
 
 $("#surebtn").click(function () {
-    // var companyUserId= $("#companyUserId").val()
-    // var companyMarkId= $("#companyMarkId").val()
+    var companyUserId= $("#companyUserId").val()
+    var companyMarkId= $("#companyMarkId").val()
     var companyName= $("#companyName").val()
     var companyEndTime= $("#companyEndTime").val()
     var companyStartTime= $("#companyStartTime").val()
@@ -100,10 +100,10 @@ $("#surebtn").click(function () {
 })
 
 
-$("#codeId").click(function () {
-    console.log("df=======================")
-    $("#show").css("display", "block");
-    // $("#show").load("/sybida/common/twocode.html");
-    $("#codeId").attr('disabled', true);
-})
-
+// $("#codeId").click(function () {
+//     console.log("df=======================")
+//     $("#show").css("display", "block");
+//     // $("#show").load("/sybida/common/twocode.html");
+//     $("#codeId").attr('disabled', true);
+// })
+//
