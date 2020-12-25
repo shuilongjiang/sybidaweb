@@ -53,7 +53,8 @@
                                 <li><a id="addclassInfo" href="javascript:;">查看全校学生</a></li>
                                 <li><a id="studyInfo" href="javascript:;">学习方向管理</a></li>
                                 <li><a id="studentInterviewTeacher" href="javascript:;">查看学生面试经历</a></li>
-                                <li><a id="studentJobTeacher" href="javascript:;">查看学生就业情况</a></li>
+                                <li><a id="studentJobForTeacher" href="javascript:;">查看学生就业情况</a></li>
+                                <li><a id="studentOfferForTeacher" href="javascript:;">查看学生Offer</a></li>
                             </ul>
                         </div>
                     </div>
@@ -256,14 +257,23 @@
             storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
-    $("#studentJobTeacher").click(
+    $("#studentJobForTeacher").click(
         function () {
-            $("#ifream1").attr("src","../teacher/studentJobTeacher.html")
+            $("#ifream1").attr("src","../teacher/studentJobForTeacher.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanagerteacher",iframeSrc);
         }
     )
+    $("#studentOfferForTeacher").click(
+        function () {
+            $("#ifream1").attr("src","../teacher/studentOfferForTeacher.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanagerteacher",iframeSrc);
+        }
+    )
+
     $("#studyInfo").click(
         function () {
             $("#ifream1").attr("src","../publicTool/studyInfo.html")
