@@ -6,9 +6,17 @@ if(arr.length>1) {
 }
 var classNum
 // 获取英雄信息并填充到页面输入框中
-
+var userid=getCookie("userid")
 // 获取员工的信息 ，已知什么条件
-$.getJSON(url+"/classInfo/showOneClass?classId="+id,function (data) {
+$.getJSON({
+    url:url+"/classInfo/showOneClass?classId="+id,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data) {
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
     if (!data.data.classNum) {
         data.data.classNum="未完善"
     }
@@ -130,7 +138,7 @@ $.getJSON(url+"/classInfo/showOneClass?classId="+id,function (data) {
             }
         }
     })
-})
+}}})
 
 var classIsGraduate=$("#classIsGraduate").val();
 var layer
@@ -154,8 +162,13 @@ $("#btnsave").click(function () {
         processData: false,   // 用于对参数进行序列化处理，这里必须设为false
         contentType:false,
         dataType:"json",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success:function (data) {
-            console.log("----------------------------------")
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
             if(data.code == 1) {
                 layer.alert('修改成功！', {
                         skin: 'layui-layer-molv' //样式类名
@@ -163,7 +176,7 @@ $("#btnsave").click(function () {
                     }
                 );
             }
-        }
+        }}
     })
 });
 

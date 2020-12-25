@@ -22,32 +22,40 @@
 <script src="/sybida/layui/layui.js"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
 <script>
+    var userid=getCookie("userid")
     var selectClass=1
-    $.getJSON(url+"/classInfo/selectClass",function (data) {
-        var html=`<option value="-1">请选择班级</option>`
-        for (let i = 0; i < data.length; i++) {
-            html += `<option value="${data[i].classId}">${data[i].classNum}</option>`
-        }
-        $('#classNum').append(html);
+    $.getJSON({
+        url:url+"/classInfo/selectClass",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
+                var html=`<option value="-1">请选择班级</option>`
+                for (let i = 0; i < data.length; i++) {
+                    html += `<option value="${data[i].classId}">${data[i].classNum}</option>`
+                }
+                $('#classNum').append(html);
 
+                var selectA1 = $('#classNum').find("option"); //从A1下拉框中 搜索值
+                for(var i=0;i<selectA1.length;i++){
+                    var t=$(selectA1[i]).val()
 
-        var selectA1 = $('#classNum').find("option"); //从A1下拉框中 搜索值
-        for(var i=0;i<selectA1.length;i++){
-            var t=$(selectA1[i]).val()
-
-            if(t==selectClass){
-                $(selectA1[i]).attr("selected","selected")
+                    if(t==selectClass){
+                        $(selectA1[i]).attr("selected","selected")
+                    }
+                }
+      //change事件
+                $('#classNum').change(
+                    function (){
+                        selectClass=$('#classNum').val()
+                        $("#abtn").attr("href","http://localhost:8080/teacher/selectstudentclassid?classId="+selectClass);
+                    }
+                )
             }
-        }
-//change事件
-        $('#classNum').change(
-            function (){
-                selectClass=$('#classNum').val()
-                console.log(selectClass+"=========================")
-                $("#abtn").attr("href","http://localhost:8080/teacher/selectstudentclassid?classId="+selectClass);
-            }
-        )
-    });
+    }});
 
 </script>
 </body>

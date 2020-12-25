@@ -1,6 +1,6 @@
 var pageNum = 1
 var pageSize = $("#pageSizeSel").val()
-
+var userid=getCookie("userid")
 // var teacherStudy=-1
 var search = location.search
 var arr = search.split("&")
@@ -55,8 +55,16 @@ $('input[name="checkAll"]').click(function () {
 show();
 
 function show() {
-    $.getJSON(url + "/teacher/selectallvitae", "pageSize=" + pageSize + "&pageNum=" + pageNum, function (data) {
-
+    $.getJSON({
+        url:url + "/teacher/selectallvitae",
+        data:"pageSize=" + pageSize + "&pageNum=" + pageNum,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
         let html = ''
         var list = data.data.list
         for (let i = 0; i < list.length; i++) {
@@ -171,7 +179,7 @@ function show() {
             }
         })
 
-    })
+    }}})
 }
 
 function pageSelect(data) {
@@ -219,17 +227,26 @@ $("#addVitaeLevel").click(function () {
      var picture ="11"
 
     if (judgeAll()) {
-        $.getJSON(url + "/teacher/insertvitaeevaluatelevel", "comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&studentId=" + vitaeStudentId, function (data) {
+        $.getJSON({
+            url:url + "/teacher/insertvitaeevaluatelevel",
+            data:"comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&studentId=" + vitaeStudentId,
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+                if (data.code == 1) {
+                    alert("评价成功！")
+                    location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
 
-            if (data.code == 1) {
-                alert("评价成功！")
-                location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
-
-            } else {
-                alert("评价失败！")
-                location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
+                } else {
+                    alert("评价失败！")
+                    location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
+                }
             }
-        })
+        }})
     }
 })
 
@@ -327,7 +344,6 @@ function judgeAll() {
 function getBlob(downloadUrl) {
     return new Promise(resolve => {
         const xhr = new XMLHttpRequest();
-
         xhr.open('GET', downloadUrl, true);
         xhr.responseType = 'blob';
         xhr.onload = () => {

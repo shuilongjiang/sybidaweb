@@ -3,7 +3,15 @@ var arr = search.split("=")
 if(arr.length>1) {
     var id = arr[1]
 }
-$.getJSON(url+"studyInfo/showonestudy?studyId="+id,function (data) {
+var userid=getCookie("userid")
+$.getJSON({url:url+"studyInfo/showonestudy?studyId="+id,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data) {
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
     if(data.code == 1) {
         $("#studyId").val(data.data.studyId)
         $("#studyAspect").val(data.data.studyAspect)
@@ -36,7 +44,7 @@ $.getJSON(url+"studyInfo/showonestudy?studyId="+id,function (data) {
             }
         }
     }
-})
+}}})
 
 var layer
 layui.use('layer', function(){
@@ -48,8 +56,13 @@ $('#btnsave').click(function (){
         url:url+"/studyInfo/updatestudy",
         data:$("#updateform").serialize(),
         dataType:"json",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success:function (data){
-
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
             if(data.code == 1) {
                 layer.alert('修改成功！', {
                         skin: 'layui-layer-molv' //样式类名
@@ -57,6 +70,6 @@ $('#btnsave').click(function (){
                     }
                 );
             }
-        }
+        }}
     })
 })

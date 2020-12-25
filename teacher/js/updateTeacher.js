@@ -1,23 +1,21 @@
 var object = {}
 
-// $("#selectButt").click(function () {
-//     let teachId = $("#searcheStuId").val()
-//
-//     if (!teachId || !(teachId.trim())) {
-//         location.href = "/sybida/teacher/updateTeacher.html"
-//     } else {
-//
-//         showDetail(teachId)
-//     }
-//     // showDetail(teachId)
-// })
 var userid = getCookie("userid")
 
 show()
 
 function show() {
-    $.getJSON(url + "/teacher/selectteacherbyid", "userid=" + userid, function (data) {
-        console.log(data)
+    $.getJSON({
+        url:url + "/teacher/selectteacherbyid",
+        data:"userid=" + userid,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
+
         var teacherInfo = data.data
         $(".teachId").val(teacherInfo.teachId)
         $(".teachName").val(teacherInfo.teachName)
@@ -32,16 +30,13 @@ function show() {
             $("input[name=sex][value='女']").attr("checked", true);
         }
 
-        console.log("======================")
-        console.log(data)
 
-    })
+
+    }}})
 }
 
 
 $("#submitList").click(function () {
-    // console.log("123")
-
     var gender
     var id = $(".teachId").val()
     var name = $(".teachName").val()
@@ -83,8 +78,14 @@ $("#submitList").click(function () {
         cache: false,   // 不缓存
         processData: false,   // jQuery不要去处理发送的数据
         contentType: false,   // jQuery不要去设置Content-Type请求头
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success: function (data) {
-            alert("ok");
+
+            if(data== -1000){
+                location.href=logindexurl
+            }else{alert("ok");}
         },
         error: function () {
             alert("上传出错");

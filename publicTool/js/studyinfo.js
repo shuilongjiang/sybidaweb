@@ -17,12 +17,20 @@ if(arr.length>1){
     selectStudy=selectStudy1.split("=")[1]
 }
 
-// location.href="/sybida/publicTool/classInfo.html?currPage=1&pageSize="+pageSize
-
 $("#selectButt").click(function (){
     location.href="/sybida/publicTool/studyInfo.html?pageNum=1&pageSize="+pageSize+"&selectStudy="+selectStudy
 })
-$.getJSON(url+"studyInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"&selectStudy="+selectStudy,function (data){
+var userid=getCookie("userid")
+$.getJSON({
+    url:url+"studyInfo/selectPage",
+    data:"pageSize="+pageSize+"&pageNum="+pageNum+"&selectStudy="+selectStudy,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data){
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
     let html=''
     var list= data.data.list
     for (let i=0;i<list.length;i++) {
@@ -69,10 +77,6 @@ $.getJSON(url+"studyInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"&
     }
     html+=`<tr><td colspan="10"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
     $("table").append(html)
-
-
-
-    // var deleteAll={}
     $("#deleteBySelect").click(function (){
         $("#exampleModalAll").attr("class","modal fade in")
         $("#exampleModalAll").css("display","inline-block")
@@ -83,7 +87,7 @@ $.getJSON(url+"studyInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"&
             // 如果当前框被选中，则判断是否需要勾选全选框
             var checkbox = $("input[name='optionAll']");
             var length = $(checkbox).length;
-            console.log(length+"=========================")
+
             if (length > 0) {
                 for (var i = 0; i < length; i++) {
                     if ($(checkbox[i]).is(":checked") != true) {
@@ -107,12 +111,11 @@ $.getJSON(url+"studyInfo/selectPage","pageSize="+pageSize+"&pageNum="+pageNum+"&
         console.log("========="+text)
         if(text.trim()=='修改'){
             var  id =$(this).attr("value")
-            console.log(id+"====++++++++++++++++")
             location.href="/sybida/publicTool/updateStudy.html?studyId="+id;
 
         }
     })
-})
+}}})
 
 //全选全不选
 $("#chk").click(function(){
@@ -160,7 +163,14 @@ function pageSelect(data){
 }
 
 
-$.getJSON(url+"/register/selectStudy",function (data){
+$.getJSON({url:url+"/register/selectStudy",
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data){
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
     var html=`<option value="-1">全部</option>`
     for (let i = 0; i < data.length; i++) {
         html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
@@ -181,7 +191,7 @@ $.getJSON(url+"/register/selectStudy",function (data){
             selectStudy=$('#selectStudy').val()
         }
     )
-});
+}}});
 
 var selectA2 = $("#pageSizeSel").find("option"); //从A1下拉框中 搜索值
 for(var i=0;i<selectA2.length;i++){
@@ -210,16 +220,24 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     modal.find('#messagetext').text('确认将班级-' +name+'-离职吗？')
 })
 $("#deleteOneSure").click(function (){
-    $.post(url+"/studyInfo/deleteStudyId","studyId="+studyId,function (data) {
-        if(data.code==1){
-            console.log(data.code+"======================")
-            location.href="/sybida/publicTool/studyInfo.html?pageNum=1&pageSize="+pageSize+"&selectClass="+selectClass
-        }else{
-            layer.alert("删除失败");
-        }
-    },"json")
+    $.post({
+        url:url+"/studyInfo/deleteStudyId",
+        data:"studyId="+studyId,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+                if (data.code == 1) {
+                    location.href = "/sybida/publicTool/studyInfo.html?pageNum=1&pageSize=" + pageSize + "&selectClass=" + selectClass
+                } else {
+                    layer.alert("删除失败");
+                }
+            }
+    }})
 
-    //删除写这里
 })
 
 

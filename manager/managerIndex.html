@@ -11,9 +11,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
-    <script>
-
-    </script>
     <style>
         .body{
             display: none;
@@ -157,8 +154,6 @@
          if(iframeSrc){
              $("#ifream1").attr("src",iframeSrc)
          }
-
-
     }
    var userid=getCookie("userid")
     layui.use('layer', function(){
@@ -171,33 +166,37 @@
         data: "userid="+userid ,
         // contentType: 'application/json;charset=utf-8',
         dataType: 'json',
-
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success: function (data) {
-            if(data.code==1){
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+                if (data.code == 1) {
 
-                if(data.data.messageNum==0) {
-                    $("#advicenum").html("0")
-                }else{
-                    $("#advicenum").html(data.data.messageNum)
+                    if (data.data.messageNum == 0) {
+                        $("#advicenum").html("0")
+                    } else {
+                        $("#advicenum").html(data.data.messageNum)
+                    }
+                    if (data.data.teachName) {
+                        $("#username").html(data.data.teachName + "--管理员")
+                    } else {
+
+                    }
+                    if (data.data.teachPhoto) {
+
+                        $("#userphotoA").attr("src", Qnyurl + data.data.teachPhoto)
+                        $("#userphotoA").attr("filter", "none")
+                    } else {
+
+                    }
+
+
+                } else {
+                    alert("请检查网络是否连接" + data);
                 }
-                if(data.data.teachName){
-                    $("#username").html(data.data.teachName+"--管理员")
-                }else{
-
-                }
-                if(data.data.teachPhoto){
-
-                    $("#userphotoA").attr("src",Qnyurl+data.data.teachPhoto)
-                    $("#userphotoA").attr("filter","none")
-                }else{
-
-                }
-
-
-
-
-            }else{
-                alert("请检查网络是否连接" + data);
             }
         },
         error: function (data) {
@@ -219,7 +218,9 @@
            data: "userid="+userid ,
            // contentType: 'application/json;charset=utf-8',
            dataType: 'json',
-
+           beforeSend: function(request) {
+               request.setRequestHeader("token", userid);
+           },
            success: function () {
 
            }
