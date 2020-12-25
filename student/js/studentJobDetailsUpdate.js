@@ -48,7 +48,8 @@ $.getJSON({url:url+"/audition/selectStudentById",data:"userid="+userid,
         }
 }})
 
-$.getJSON({url:url+"/job/selectstudentJobbyJobStudentId",data: "userid=" + userid,
+$.getJSON({url:url+"/job/selectstudentJobbyJobStudentId",
+    data: "userid=" + userid,
     beforeSend: function(request) {
         request.setRequestHeader("token", userid);
     },
@@ -111,10 +112,6 @@ $("#submitList").click(function () {
         var jobStudentId = $("#jobStudentId").val()
         var jobId = $("#jobId").val()
 
-
-        console.log(jobId+"ppppppppppppppp")
-
-
         var formData = new FormData(document.getElementById("jobform"));
         formData.append("jobFirm", jobFirm);
         formData.append("jobContact",jobContact);
@@ -122,7 +119,7 @@ $("#submitList").click(function () {
         formData.append("jobEndTime",jobEndTime);
         formData.append("jobStudentId",jobStudentId);
         formData.append("jobId",jobId)
-
+        var userid=getCookie("userid")
         $.ajax({
             type: "post",
             url: url + "/job/updateSybidaJob",
@@ -130,8 +127,13 @@ $("#submitList").click(function () {
             cache: false,   // 不缓存
             processData: false,   // jQuery不要去处理发送的数据
             contentType: false,   // jQuery不要去设置Content-Type请求头
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
             success: function (data) {
-
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
                 layer.open({
                     content: "提交成功"
                     , btn: ['查看','再次修改'],
@@ -143,7 +145,7 @@ $("#submitList").click(function () {
                     },
 
                 })
-            },
+            }},
 
 
             error:function () {
