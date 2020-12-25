@@ -1,19 +1,17 @@
-
 var selectStudy=-1
 var codeId1
-var codeId=0
+   var codeId=0
 var markName
 var search=location.search
 var arr=search.split("?")
 if(arr.length>1){
     codeId1=arr[1]
     markName=codeId1.split("=")[0]
-    codeId=codeId1.split("=")[1]
 }
 
 if (markName=="markid") {
 
-
+    codeId=codeId1.split("=")[1]
     $.getJSON(url + "/company/codeisenable", "codeId=" + codeId, function (data) {
         if (data.code == 1) {
             $("#codeId").css("display", "none");
@@ -24,6 +22,8 @@ if (markName=="markid") {
     })
 
 }
+
+
 $(function () {
     $.getJSON(url + "/register/selectStudy", function (data) {
         for (let k = 4; k < data.length; k++) {
@@ -36,16 +36,18 @@ $(function () {
     });
 })
 
-var userid=getCookie("userid")
 
 var layer
 layui.use('layer', function(){
     layer = layui.layer;
 });
 
+var userid=getCookie("userid");
+
 $("#surebtn").click(function () {
-    // var companyUserId= $("#companyUserId").val()
-    // var companyMarkId= $("#companyMarkId").val()
+    console.log(userid+"==========================================")
+    var companyUserId= $("#companyUserId").val()
+    var companyMarkId= $("#companyMarkId").val()
     var companyName= $("#companyName").val()
     var companyEndTime= $("#companyEndTime").val()
     var companyStartTime= $("#companyStartTime").val()
@@ -59,9 +61,9 @@ $("#surebtn").click(function () {
     var companyPhone= $("#companyPhone").val()
     var companyIsView=  $("input[type='radio']:checked").val();
     var companyIntroduce= $("#companyIntroduce").val()
-    let formData = new FormData();
-    formData.append("file", $('[type="file"]')[0].files[0]);
-   // / /formData.append('companyUserId', companyUserId);
+    let formData = new FormData(document.getElementById("formId"));
+    // formData.append("file", $('[type="file"]')[0].files[0]);
+    // formData.append('companyUserId', companyUserId);
     formData.append('companyMarkId', codeId);
     formData.append('companyName', companyName);
     formData.append('companyEndTime', companyEndTime);
@@ -74,9 +76,9 @@ $("#surebtn").click(function () {
     formData.append('companyMailbox', companyMailbox);
     formData.append('companyWechat', companyWechat);
     formData.append('companyPhone', companyPhone);
-    formData.append('companyIsView', companyIsView);
+    // formData.append('companyIsView', companyIsView);
     formData.append('companyIntroduce', companyIntroduce);
-     // formData.append('companyNull2', userid);
+    formData.append('companyNull2', userid);
 
 
     $.ajax({
