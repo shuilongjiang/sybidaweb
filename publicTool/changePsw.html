@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
     <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
-
-
     <style>
         body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
         h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
@@ -32,14 +30,10 @@
             font-size: 15px;
             color:#fff;
             text-align: center;
-
         }
-
-
         .strong p{
             font-size: 0;
         }
-
         .strong p.active2 span:nth-child(2){
             background: #000000;
         }
@@ -49,8 +43,6 @@
         .strong p.active1 span:nth-child(1){
             background: #000000;
         }
-
-
         .warn{
             display: inline-block;
             width:18px;
@@ -95,7 +87,6 @@
 <div class="container" style="width: 450px;">
     <label for="old">输入原密码 <span style="margin-left: 25px;margin-bottom: 8px;" class="old"></span></label>
     <input type="password" maxlength="16" class="form-control" id="old" placeholder="OldPassword" style="margin-bottom: 20px">
-
     <label for="psd">输入新密码 <span style="margin-left: 25px;margin-bottom: 8px;" class="psdInfo"></span></label>
     <input type="password" maxlength="16" class="form-control" id="psd" placeholder="Password">
 
@@ -110,8 +101,6 @@
     <div class="passWord1-wrapper">
         <label for="psd1">确认密码：<span class="psd1Info" style="margin-left: 25px;margin-top: 8px;"></span></label>
         <input type="password" disabled class="form-control" id="psd1" placeholder="Password">
-
-
     </div>
     <br>
     <div style="text-align: center">
@@ -121,8 +110,6 @@
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/layui/layui.js" charset="utf-8"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
-
-
 <script>
     var layer
     layui.use('layer', function(){
@@ -133,61 +120,56 @@
         var psd1=$("#psd1").val()
         var oldpsd=$("#old").val()
         //前端获取cookie的值
-        function getCookie(name) {
-            var prefix = name + "="  // name=
-            // name=  第一次出现的位置
-            var start = document.cookie.indexOf(prefix)
-            if (start == -1) {
-                return null;
-            }
-            // 从0+5这个位置开始，找到;第一次出现的位置，也就是这个cookie值得结束位置
-            var end = document.cookie.indexOf(";", start + prefix.length)
-            // name=wangwu
-            // Hm_lvt_eaa57ca47dacb4ad4f5a2570;name=wangwu
-            // 将字符串得总长度就是截取值得结束位置
-            if (end == -1) { // 没有找到分号
-                end = document.cookie.length;
-            }
-            var value = document.cookie.substring(start + prefix.length, end)
-            return unescape(value);
-        }
         var userId = getCookie("userid")
         if (oldpsd){
             if(userId){
                 $.post({
                     url:url+"/login/oldChangePsd",
                     data:"userId="+userId+"&oldpsd="+oldpsd,
+                    beforeSend: function(request) {
+                        request.setRequestHeader("token", userId);
+                    },
                     success:function(data){
-                        if(data.code===1){
-                            if(psd==psd1 && psd && psd1){
-                                if(userId){
-                                    $.post({
-                                        url:url+"/login/changepsd",
-                                        data:"userId="+userId+"&psd="+psd,
-                                        success:function(data){
-                                            if(data.code===1){
-                                                // window.parent.location.reload(); //刷新父页面
-                                                // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                                                // parent.layer.close(index);
+                        if(data== -1000){
+                            location.href=logindexurl
+                        }else {
+                            if (data.code === 1) {
+                                if (psd == psd1 && psd && psd1) {
+                                    if (userId) {
+                                        $.post({
+                                            url: url + "/login/changepsd",
+                                            data: "userId=" + userId + "&psd=" + psd,
+                                            beforeSend: function(request) {
+                                                request.setRequestHeader("token", userid);
+                                            },
+                                            success: function (data) {
+                                                if(data== -1000){
+                                                    location.href=logindexurl
+                                                }else {
+                                                    if (data.code === 1) {
+                                                        // window.parent.location.reload(); //刷新父页面
+                                                        // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                                                        // parent.layer.close(index);
 
-                                                top.location.replace("/sybida/login.html?check=1");
-                                                //  window.location.href="http:/sybida/login.html?check=1/";
+                                                        top.location.replace("/sybida/login.html?check=1");
+                                                        //  window.location.href="http:/sybida/login.html?check=1/";
 
-                                            }else{
-                                                layer.alert("密码修改失败请重试！");
+                                                    } else {
+                                                        layer.alert("密码修改失败请重试！");
+
+                                                    }
+                                                }
 
                                             }
-
-                                        }
-                                    })
-                                } else {
-                                    alert("修改密码失败，请重新登录！！！")
+                                        })
+                                    } else {
+                                        alert("修改密码失败，请重新登录！！！")
+                                    }
                                 }
+                            } else {
+                                alert("原密码错误！！！")
+                                return
                             }
-                        }else {
-                            alert("原密码错误！！！")
-                            // window.parent.location.reload();
-                            return
                         }
                     }
                 })
@@ -238,26 +220,20 @@
                 fl.className="active1";
             }
             if(this.value.length>5){
-
                 psd1.removeAttribute("disabled");
                 psd1Info.style.display="inline-block";
                 psd1Info.innerHTML='<i class="warn"></i> 再输入一次';
             }else{
-
                 psd1.setAttribute("disabled","disabled");
                 psd1Info.style.display="none";
                 psd1.value="";
             }
             if(this.value.length>18){
-
             }else{
-
                 psd1.value="";
             }
-
         }
         oldpsd.onblur=function(){
-
             if(this.value==""){
                 oldInfo.innerHTML='<i class="cuo"></i> 不能为空';
             }else if(this.value.length<6||this.value.length>16){
@@ -266,9 +242,7 @@
                 oldInfo.innerHTML='<i class="right"></i> OK';
             }
         }
-
         psd.onblur=function(){
-
             if(this.value==""){
                 psdInfo.innerHTML='<i class="cuo"></i> 不能为空';
             }else if(this.value.length<6||this.value.length>16){
@@ -277,7 +251,6 @@
                 psdInfo.innerHTML='<i class="right"></i> OK';
             }
         }
-
         psd1.onblur=function(){
             if(this.value!=psd.value){
                 psd1Info.innerHTML='<i class="cuo"></i> 两次输入的密码不一致';
