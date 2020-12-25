@@ -179,8 +179,6 @@ function show() {
             }
 
             html += `<tr class="warning">]
-<!--<td style="width: 80px;">-->
-<!--<input type="checkbox" name="optionAll" ></td>-->
             <td>${list[i].studentId}</td>
              <td>${list[i].studentClassId}</td>         
             <td>${list[i].studentName}</td>
