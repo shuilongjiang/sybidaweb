@@ -126,98 +126,45 @@
                      class="dropdown-notifications"  id="dropdown-notifications">
                     <!-- notivication header -->
                     <form action="" method="post" enctype="multipart/form-data" id="ff">
-                    <div class="dropdown-notifications-headline">
-                        <h4 style="height: 30px;line-height: 30px;font-size:16px;">上传简历方向
-                            <select class="form-control" id="teachStudy" style="width: 150px;height: 20px;margin-left:20px;" >
-                             </select>
-                        </h4>
-                    </div>
-                    <!-- notification contents -->
-                    <div class="dropdown-notifications-content uk-flex uk-flex-middle uk-flex-center text-center">
-                        <div class="uk-flex uk-flex-column choose-upload  text-center">
-                            <img src="assets/images/upload.png" width="70" class="m-auto" alt="">
-                            <p class="my-3">简历建议使用 PDF 文件,文件大小不超过8M<br>
-                                如果你已经上传过简历，本次上传将会覆盖之前的简历..
-                            </p>
-                            <div uk-form-custom>
-
-                                <input type="file" id="filej" accept="application/pdf">
-                                <a href="#" class="button soft-warning small" id="chosefile">选择文件</a>
-                                <span id="showname"></span>
-                            </div>
+                        <div class="dropdown-notifications-headline">
+                            <h4 style="height: 30px;line-height: 30px;font-size:16px;">上传简历方向
+                                <select class="form-control" id="teachStudy" style="width: 150px;height: 20px;margin-left:20px;" >
+                                </select>
+                            </h4>
                         </div>
-                        <script>
+                        <!-- notification contents -->
+                        <div class="dropdown-notifications-content uk-flex uk-flex-middle uk-flex-center text-center">
+                            <div class="uk-flex uk-flex-column choose-upload  text-center">
+                                <img src="assets/images/upload.png" width="70" class="m-auto" alt="">
+                                <p class="my-3">简历建议使用 PDF 文件,文件大小不超过8M<br>
+                                    如果你已经上传过简历，本次上传将会覆盖之前的简历..
+                                </p>
+                                <div uk-form-custom>
 
-                            $("#filej").change(function(){
-                                var name1= document.getElementById('filej').files[0].name
-                                var new_value=name1
-                                if (name1.length > 20) {
-                                    new_value = name1.substring(0, 15) + '......' + name1.substring(name1.length - 15, name1.length);
-                                }
-                                $("#showname").html(new_value)
-                            })
+                                    <input type="file" id="filej" accept="application/pdf">
+                                    <a href="#" class="button soft-warning small" id="chosefile">选择文件</a>
+                                    <span id="showname"></span>
+                                </div>
+                            </div>
+                            <script>
 
-                        </script>
-                    </div>
+                                $("#filej").change(function(){
+                                    var name1= document.getElementById('filej').files[0].name
+                                    var new_value=name1
+                                    if (name1.length > 20) {
+                                        new_value = name1.substring(0, 15) + '......' + name1.substring(name1.length - 15, name1.length);
+                                    }
+                                    $("#showname").html(new_value)
+                                })
+
+                            </script>
+                        </div>
                     </form>
-                        <hr class="m-0">
+                    <hr class="m-0">
                     <a onclick="uploadfile1()" id="uploadd4"><div  id="uploadd" class="text-center   " style="" > 确定上传
                     </div></a>
                 </div>
-                <script>
 
-                    function uploadfilepath(){
-                        var userid=getCookie("userid")
-                        $.post(url+"vitae/personalvitae", "userid="+userid+"&isDelete=1",function (data) {
-                            if(data.message){
-                                $("#downfile").attr("href",Qnyurl+data.message)
-                                $("#downfile").attr("download","aa")
-                                $("#downfile").text(" 预览已经上传简历")
-                            }else{
-                                $("#downfile").text("从未上传过简历")
-                            }
-                        });
-                    }
-                    uploadfilepath();
-                    $.getJSON(url+"/register/selectStudy",function (data) {
-                        var html1=``
-                        for(var i=4;i<data.length;i++){
-                            html1+=`<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
-                        }
-                        $("#teachStudy").append(html1)
-                    })
-
-                    function uploadfile1() {
-                        $("#dropdown-notifications").attr("style","display:none;");
-                        var userid=getCookie("userid")
-                        var formData = new FormData(document.getElementById('ff'));
-                        formData.append("file", $("#filej")[0].files[0]);
-                        formData.append("studyid", $("#teachStudy").val() );
-                        formData.append("userid", userid);
-
-                        $.ajax({
-                            type: "post",
-                            url: url+"vitae/uploadvitae",
-                            data: formData,
-                            cache: false,   // 不缓存
-                            processData: false,   // jQuery不要去处理发送的数据
-                            contentType: false,   // jQuery不要去设置Content-Type请求头
-                            success: function (data) {
-                                if(data.message){
-                                    $("#downfile").attr("href",Qnyurl+data.message)
-                                    $("#downfile").attr("download","aa")
-                                    $("#downfile").text(" 预览已经上传简历")
-                                }else{
-                                    $("#downfile").text("从未上传过简历")
-                                }
-                                 alert("上传成功")
-                            },
-                            error:function () {
-                               alert("上传出错,请重试！！！");
-                            }
-                        });
-                    }
-                </script>
 
 
 
@@ -291,7 +238,7 @@
 
 
                 <!-- profile -image    学生用户头像-->
-                    <a class="opts_account" id="studentPhoto1"> </a>
+                <a class="opts_account" id="studentPhoto1"> </a>
                 <!-- profile dropdown  学生用户头像点击下拉框-->
                 <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
                      class="dropdown-notifications small">
@@ -328,7 +275,7 @@
                             </li>
                             <li><a href="#" onclick="exittologin()"> <i class="icon-feather-log-out"></i> 退出登录</a>
                         </div>
-                            </li>
+                        </li>
                     </ul>
                 </div>
                 <script>
@@ -343,7 +290,9 @@
                             data: "userid="+userid ,
                             // contentType: 'application/json;charset=utf-8',
                             dataType: 'json',
-
+                            beforeSend: function(request) {
+                                request.setRequestHeader("token", userid);
+                            },
                             success: function () {
 
                             }
@@ -432,7 +381,86 @@
 <script src="assets/js/main.js"></script>
 
 <script type="text/javascript" src="assets/js/nav.js"></script>
+<script>
+    var userid=getCookie("userid")
+    function uploadfilepath(){
 
+        $.post({
+            url:url+"vitae/personalvitae",
+            data:"userid="+userid+"&isDelete=1",
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }else {
+                    if (data.message) {
+                        $("#downfile").attr("href", Qnyurl + data.message)
+                        $("#downfile").attr("download", "aa")
+                        $("#downfile").text(" 预览已经上传简历")
+                    } else {
+                        $("#downfile").text("从未上传过简历")
+                    }
+                }
+            }});
+    }
+    uploadfilepath();
+    $.getJSON({
+        url:url+"/register/selectStudy",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+                var html1 = ``
+                for (var i = 4; i < data.length; i++) {
+                    html1 += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
+                }
+                $("#teachStudy").append(html1)
+            }
+        }})
+
+    function uploadfile1() {
+        $("#dropdown-notifications").attr("style","display:none;");
+        var userid=getCookie("userid")
+        var formData = new FormData(document.getElementById('ff'));
+        formData.append("file", $("#filej")[0].files[0]);
+        formData.append("studyid", $("#teachStudy").val() );
+        formData.append("userid", userid);
+
+        $.ajax({
+            type: "post",
+            url: url+"vitae/uploadvitae",
+            data: formData,
+            cache: false,   // 不缓存
+            processData: false,   // jQuery不要去处理发送的数据
+            contentType: false,   // jQuery不要去设置Content-Type请求头
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success: function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
+                    if(data.message){
+                        $("#downfile").attr("href",Qnyurl+data.message)
+                        $("#downfile").attr("download","aa")
+                        $("#downfile").text(" 预览已经上传简历")
+                    }else{
+                        $("#downfile").text("从未上传过简历")
+                    }
+                    alert("上传成功")
+                }
+            },
+            error:function () {
+                alert("上传出错,请重试！！！");
+            }
+        });
+    }
+</script>
 
 <script>
     window.onload = wOnload();
@@ -568,17 +596,26 @@
 <!--用户头像-->
 <script>
     var userid=getCookie("userid")
-    $.getJSON(url+"/user/userinfostu","userid="+userid,function (data) {
-        var html=`<img src="${Qnyurl+data.data.studentPhoto}" alt="">`
-        var html2=`<div class="dropdown-user-name">${data.data.studentName}
+    $.getJSON({
+        url:url+"/user/userinfostu",
+        data:"userid="+userid,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+                var html = `<img src="${Qnyurl + data.data.studentPhoto}" alt="">`
+                var html2 = `<div class="dropdown-user-name">${data.data.studentName}
                       <span> 已验证 <i class="uil-check"></i> </span>
                    </div>`
-        $("#studentPhoto1").append(html)
-        $("#studentPhoto2").append(html)
-        $("#studentName").append(html2)
-        $("#userinfonum").html(data.data.messageNum)
+                $("#studentPhoto1").append(html)
+                $("#studentPhoto2").append(html)
+                $("#studentName").append(html2)
+                $("#userinfonum").html(data.data.messageNum)
 
-    })
+            }}})
 </script>
 
 

@@ -11,43 +11,64 @@ var classID=-1
 // 获取用户ID
 var userid=getCookie("userid")
 
-$.getJSON(url+"/audition/selectStudentById","userid="+userid,function (data){
-    if (data.code == 1) {
-        $("#studentName").val(data.data.studentName)
+$.getJSON({url:url+"/audition/selectStudentById",data:"userid="+userid,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data){
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
+            if (data.code == 1) {
+                $("#studentName").val(data.data.studentName)
 
-        $("#auditionStudentId").val(data.data.studentId)
-        if("男" == data.data.studentSex){
-            $("#male").attr("checked","checked")
-            $("#female").attr("disabled","disabled")
-        }else {
-            $("#female").attr("checked","checked")
-            $("#male").attr("disabled","disabled")
+                $("#auditionStudentId").val(data.data.studentId)
+                if("男" == data.data.studentSex){
+                    $("#male").attr("checked","checked")
+                    $("#female").attr("disabled","disabled")
+                }else {
+                    $("#female").attr("checked","checked")
+                    $("#male").attr("disabled","disabled")
+                }
+                classID = data.data.studentClassId
+                // console.log(classID+"========================")
+
+                $.getJSON({url:url+"/audition/selectClassByClassId",data:"classId="+classID,
+                    beforeSend: function(request) {
+                        request.setRequestHeader("token", userid);
+                    },
+                    success:function (data){
+                        if(data== -1000){
+                            location.href=logindexurl
+                        }else{
+                            $("#classNum").val(data.data.classNum)
+                        }
+                }})
+            }
         }
-        classID = data.data.studentClassId
-        // console.log(classID+"========================")
+}})
 
-        $.getJSON(url+"/audition/selectClassByClassId","classId="+classID,function (data){
-            $("#classNum").val(data.data.classNum)
-        })
+$.getJSON({url:url+"/job/selectstudentJobbyJobStudentId",data: "userid=" + userid,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data) {
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
+            if (data.code == 1) {
 
-    }
-})
-
-$.getJSON(url+"/job/selectstudentJobbyJobStudentId", "userid=" + userid, function (data) {
-
-    if (data.code == 1) {
-
-        $("#jobFirm").val(data.data.jobFirm)
-        $("#jobContact").val(data.data.jobContact)
-        $("#jobWeal").val(data.data.jobWeal)
-        var date = Date.parse(data.data.jobEndTime)
-        date = new Date(date)
-        $("#jobEndTime").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
-        $(".jobPicture").attr('src', Qnyurl+data.data.jobPicture)
-        $("#jobId").val(data.data.jobId)
-    }
-
-})
+                $("#jobFirm").val(data.data.jobFirm)
+                $("#jobContact").val(data.data.jobContact)
+                $("#jobWeal").val(data.data.jobWeal)
+                var date = Date.parse(data.data.jobEndTime)
+                date = new Date(date)
+                $("#jobEndTime").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
+                $(".jobPicture").attr('src', Qnyurl+data.data.jobPicture)
+                $("#jobId").val(data.data.jobId)
+            }
+        }
+}})
 
 function judgeSpace(obj, index){
     let inputValue = obj.val()

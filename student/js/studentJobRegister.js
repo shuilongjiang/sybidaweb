@@ -4,30 +4,47 @@ var classID=-1
 //用户ID 查询学生姓名和性别
 var userid=getCookie("userid")
 console.log(userid+"=======********")
-$.getJSON(url+"/audition/selectStudentById","userid="+userid,function (data){
-    // console.log(data)
-    if (data.code == 1) {
-        // console.log(data.data.studentId+"!!!!!!!!!!!!!!!!!!!")
-        // console.log(data.data.studentName+"!!!!!!!!!!!!!!!!!!!")
-        $("#studentName").val(data.data.studentName)
+$.getJSON({url:url+"/audition/selectStudentById",data:"userid="+userid,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data){
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
+            if (data.code == 1) {
+                // console.log(data.data.studentId+"!!!!!!!!!!!!!!!!!!!")
+                // console.log(data.data.studentName+"!!!!!!!!!!!!!!!!!!!")
+                $("#studentName").val(data.data.studentName)
 
-        $("#jobStudentId").val(data.data.studentId)
-        if("男" == data.data.studentSex){
-            $("#male").attr("checked","checked")
-            $("#female").attr("disabled","disabled")
-        }else {
-            $("#female").attr("checked","checked")
-            $("#male").attr("disabled","disabled")
+                $("#jobStudentId").val(data.data.studentId)
+                if("男" == data.data.studentSex){
+                    $("#male").attr("checked","checked")
+                    $("#female").attr("disabled","disabled")
+                }else {
+                    $("#female").attr("checked","checked")
+                    $("#male").attr("disabled","disabled")
+                }
+                classID = data.data.studentClassId
+                // console.log(classID+"========================")
+
+                $.getJSON({
+                    url:url+"/audition/selectClassByClassId",
+                    data:"classId="+classID,
+                    beforeSend: function(request) {
+                        request.setRequestHeader("token", userid);
+                    },
+                    success:function (data){
+                        if(data== -1000){
+                            location.href=logindexurl
+                        }else {
+                            $("#classNum").val(data.data.classNum)
+                        }
+                    }})
+
+            }
         }
-        classID = data.data.studentClassId
-        // console.log(classID+"========================")
-
-        $.getJSON(url+"/audition/selectClassByClassId","classId="+classID,function (data){
-            $("#classNum").val(data.data.classNum)
-        })
-
-    }
-})
+}})
 
 
 function judgeSpace(obj, index){
@@ -77,40 +94,23 @@ $("#submitList").click(function () {
         formData.append("jobEndTime",jobEndTime);
         formData.append("jobStudentId",jobStudentId);
 
-        $.getJSON(url+"/job/selectSybidaJobByStudentId","jobStudentId="+jobStudentId,function (data){
-            if (data.code == 0) {
-                layer.open({
-                    content: "您已登记过，请前往记录平台查看就业记录并修改"
-                    , btn: ['前往', '退出'],
-                    style: 'width:80%',
-
-                    yes: function(index, layero){
-
-                        location.href = "/sybida/student/studentJobDetails.html"; //跳到指定页面
-                    },
-                    btn2: function(index, layero){
-                        location.href = "/sybida/student/index.html"
-
-                    }
-
-                })
-            }else {
-                $.ajax({
-                    type: "post",
-                    url: url + "/job/addSybidaJob",
-                    data: formData,
-                    cache: false,   // 不缓存
-                    processData: false,   // jQuery不要去处理发送的数据
-                    contentType: false,   // jQuery不要去设置Content-Type请求头
-                    success: function (data) {
-                        // alert("提交成功");
+        $.getJSON({url:url+"/job/selectSybidaJobByStudentId",data:"jobStudentId="+jobStudentId,
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function (data){
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
+                    if (data.code == 0) {
                         layer.open({
-                            content: "提交成功",
-                            btn: ['查看', '退出'],
+                            content: "您已登记过，请前往记录平台查看就业记录并修改"
+                            , btn: ['前往', '退出'],
                             style: 'width:80%',
+
                             yes: function(index, layero){
 
-                                location.href = "/sybida/student/studentJobDetails.html" //跳到指定页面
+                                location.href = "/sybida/student/studentJobDetails.html"; //跳到指定页面
                             },
                             btn2: function(index, layero){
                                 location.href = "/sybida/student/index.html"
@@ -118,13 +118,38 @@ $("#submitList").click(function () {
                             }
 
                         })
-                    },
-                    error:function () {
-                        alert("提交出错");
+                    }else {
+                        $.ajax({
+                            type: "post",
+                            url: url + "/job/addSybidaJob",
+                            data: formData,
+                            cache: false,   // 不缓存
+                            processData: false,   // jQuery不要去处理发送的数据
+                            contentType: false,   // jQuery不要去设置Content-Type请求头
+                            success: function (data) {
+                                // alert("提交成功");
+                                layer.open({
+                                    content: "提交成功",
+                                    btn: ['查看', '退出'],
+                                    style: 'width:80%',
+                                    yes: function(index, layero){
+
+                                        location.href = "/sybida/student/studentJobDetails.html" //跳到指定页面
+                                    },
+                                    btn2: function(index, layero){
+                                        location.href = "/sybida/student/index.html"
+
+                                    }
+
+                                })
+                            },
+                            error:function () {
+                                alert("提交出错");
+                            }
+                        });
                     }
-                });
-            }
-        })
+                }
+        }})
     }
 })
 

@@ -37,25 +37,36 @@
 
 <script>
     show()
+
     function show() {
         var userid=getCookie("userid")
-        $.getJSON(url + "/student/selectstudentvitae","userid=" + userid,function (data) {
-            console.log(userid)
-            let html = ''
-            console.log(data)
-            var list = data.data
-            console.log(list)
-            for (let i = 0; i < list.length; i++) {
-                html += `<tr class="warning">]
-            <td>${list[i].vitaeId}</td>
-            <td>${list[i].studyAspect}</td>
-           <td> <a href="/sybida/student/studentVitae66.html?vitaeId=${list[i].vitaeId}" type="button" id="showEvaluateBtn" class="layui-btn layui-btn-xs">查看简历评价</a></td>
+        $.getJSON({url:url + "/student/selectstudentvitae",data:"userid=" + userid,
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
+                    console.log(userid)
+                    let html = ''
+                    console.log(data)
+                    var list = data.data
+                    console.log(list)
+                    for (let i = 0; i < list.length; i++) {
+                        html += `<tr class="warning">]
+                                    <td>${list[i].vitaeId}</td>
+                                    <td>${list[i].studyAspect}</td>
+                                   <td> <a href="/sybida/student/studentVitae66.html?vitaeId=${list[i].vitaeId}" type="button" id="showEvaluateBtn" class="layui-btn layui-btn-xs">查看简历评价</a></td>
             <!--<td><button type="button" id="selectEvaluateBtn" class="layui-btn layui-btn-xs">查看简历评价</button>-->
             <!--<button type="button" class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae()">下载</button></td>-->
-        </tr>`
-            }
-            $("#showAllInfo").append(html)
-        })
+                                </tr>`
+                    }
+                    $("#showAllInfo").append(html)
+
+                }
+
+        }})
     }
 
     // onclick="showEvaluate('${list[i].vitaeId}');"

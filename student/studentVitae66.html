@@ -40,25 +40,35 @@
     console.log(vitaeId1)
     console.log(vitaeId)
 
+    var userid=getCookie("userid")
     showEvaluate()
     function showEvaluate() {
 
-        $.getJSON(url + "/student/selectevaluatebyvitaeid", "vitaeId="+vitaeId ,function (data) {
+        $.getJSON({url:url + "/student/selectevaluatebyvitaeid", data:"vitaeId="+vitaeId ,
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
+                    let html = ''
+                    console.log(data)
+                    var list = data.data
+                    console.log(list)
+                    for (let i = 0; i < list.length; i++) {
+                        html += `<tr class="warning">]
+                                    <td>${list[i].teachName}</td>
+                                    <td>${list[i].vitaeEvaluateComment}</td>
+                                    <td>${list[i].vitaeEvaluatePicture}</td>
+                                    <td>${list[i].vitaeEvaluateAlterTime}</td>
+                                  </tr>`
+                    }
+                                 $("#showAllInfo").append(html)
+                }
 
-            let html = ''
-            console.log(data)
-            var list = data.data
-            console.log(list)
-            for (let i = 0; i < list.length; i++) {
-                html += `<tr class="warning">]
-            <td>${list[i].teachName}</td>
-            <td>${list[i].vitaeEvaluateComment}</td>
-            <td>${list[i].vitaeEvaluatePicture}</td>
-            <td>${list[i].vitaeEvaluateAlterTime}</td>
-        </tr>`
-            }
-            $("#showAllInfo").append(html)
-        })
+
+        }})
     }
 </script>
 

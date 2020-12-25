@@ -58,21 +58,28 @@ $('input[name="checkAll"]').click(function(){
 });
 pageshoe();
 function pageshoe(){
-    $.getJSON(url+"/offer/selectpageStudentOffer","pageSize="+pageSize+"&pageNum="+pageNum+"&userid="+userid,function (data){
-        let html = ''
-        var le=data.data.list
-        // console.log(data)
-        // console.log(data.data.list)
+    $.getJSON({url:url+"/offer/selectpageStudentOffer",data:"pageSize="+pageSize+"&pageNum="+pageNum+"&userid="+userid,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data){
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
+                let html = ''
+                var le=data.data.list
+                // console.log(data)
+                // console.log(data.data.list)
 
-        for(let i = 0; i < le.length; i++){
-            // if(!le[i].id){le[i].id=""}
+                for(let i = 0; i < le.length; i++){
+                    // if(!le[i].id){le[i].id=""}
 
-            var date1 = Date.parse(le[i].offerDatetime)
-            date1 = new Date(date1)
-            var date2 = Date.parse(le[i].offerAlterTime)
-            date2 = new Date(date2)
-            if (i%2==0){
-                html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
+                    var date1 = Date.parse(le[i].offerDatetime)
+                    date1 = new Date(date1)
+                    var date2 = Date.parse(le[i].offerAlterTime)
+                    date2 = new Date(date2)
+                    if (i%2==0){
+                        html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
             <td>${le[i].studentName}</td>
             <td>${le[i].offerCompany}</td>
             <td>${le[i].offerContact}</td>
@@ -90,8 +97,8 @@ function pageshoe(){
 
                data-id="${le[i].offerId}" data-name="${le[i].offerCompany}" data-target="#exampleModal" >删除</a></td>
         </tr>`
-            }else{
-                html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
+                    }else{
+                        html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
             <td>${le[i].studentName}</td>
             <td>${le[i].offerCompany}</td>
             <td>${le[i].offerContact}</td>
@@ -107,43 +114,43 @@ function pageshoe(){
 
                data-id="${le[i].offerId}" data-name="${le[i].offerCompany}" data-target="#exampleModal" >删除</a></td>
        </td></tr>`
-            }
-        }
-        html+=`<tr><td colspan="10"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所有</button></td></tr>`
-        $("table").append(html)
-
-
-        changeinterview()
-        var deleteAll={}
-        $("#deleteBySelect").click(function (){
-            $("#exampleModalAll").attr("class","modal fade in")
-            $("#exampleModalAll").css("display","inline-block")
-        })
-        pageSelect(data.data)
-        $("input[name='optionAll']").click(function (){
-            if ($(this).is(':checked')) {
-                // 如果当前框被选中，则判断是否需要勾选全选框
-                var checkbox = $("input[name='optionAll']");
-                var length = $(checkbox).length;
-                if (length > 0) {
-                    for (var i = 0; i < length; i++) {
-                        if ($(checkbox[i]).is(":checked") != true) {
-                            break;// 如果有未勾选的选择框，不需要勾选全选，跳出循环
-                        }
-                        if (i == length - 1) {
-                            // 如果到最后一个选择框仍然是勾选状态，即所有选择框都被勾选，则勾选全选框
-                            $("input[name='checkAll']")
-                                .prop("checked", true);
-                        }
                     }
                 }
-            } else {
-                // 如果当前选择框未勾选，则取消全选框勾选状态
-                $("input[name='checkAll']").prop("checked", false);
-            }
-        })
+                html+=`<tr><td colspan="10"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所有</button></td></tr>`
+                $("table").append(html)
 
-    })
+
+                changeinterview()
+                var deleteAll={}
+                $("#deleteBySelect").click(function (){
+                    $("#exampleModalAll").attr("class","modal fade in")
+                    $("#exampleModalAll").css("display","inline-block")
+                })
+                pageSelect(data.data)
+                $("input[name='optionAll']").click(function (){
+                    if ($(this).is(':checked')) {
+                        // 如果当前框被选中，则判断是否需要勾选全选框
+                        var checkbox = $("input[name='optionAll']");
+                        var length = $(checkbox).length;
+                        if (length > 0) {
+                            for (var i = 0; i < length; i++) {
+                                if ($(checkbox[i]).is(":checked") != true) {
+                                    break;// 如果有未勾选的选择框，不需要勾选全选，跳出循环
+                                }
+                                if (i == length - 1) {
+                                    // 如果到最后一个选择框仍然是勾选状态，即所有选择框都被勾选，则勾选全选框
+                                    $("input[name='checkAll']")
+                                        .prop("checked", true);
+                                }
+                            }
+                        }
+                    } else {
+                        // 如果当前选择框未勾选，则取消全选框勾选状态
+                        $("input[name='checkAll']").prop("checked", false);
+                    }
+                })
+            }
+    }})
 }
 
 
@@ -213,15 +220,21 @@ $("#deleteOneSure").click(function (){
 
     console.log(idtea +"++++++++++++++++++++++....********************************")
 
-    $.post(url+"/offer/deleteStudentOffer","deleteOfferId="+idtea,function (data) {
-        if(data.code==1){
-            location.href="/sybida/student/studentOffer.html?pageNum=1&pageSize="+pageSize
-        }else{
-            layer.alert("删除失败");
-        }
-    },"json")
-
-    //删除写这里
+    $.post({url:url+"/offer/deleteStudentOffer",data:"deleteOfferId="+idtea,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
+                if(data.code==1){
+                    location.href="/sybida/student/studentOffer.html?pageNum=1&pageSize="+pageSize
+                }else{
+                    layer.alert("删除失败");
+                }
+            }
+    }},"json")
 })
 
 

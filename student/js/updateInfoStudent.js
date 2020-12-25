@@ -12,48 +12,52 @@ $("#selectButt").click(function () {
 var userid=getCookie("userid")
 function showDetail(id) {
 
-    $.getJSON(url + "/teacher/selectstudentbyid", "id=" + id, function (data) {
-        if (data.code == 0) {
-            alert("id不存在")
-        }else{
-            var studentInfo = data.data
-            $(".studentId").val(studentInfo.studentId)
-            $(".studentName").val(studentInfo.studentName)
-            $(".studentSchool").val(studentInfo.studentSchool)
-            $(".studentSpecialty").val(studentInfo.studentSpecialty)
-            $(".studentWechat").val(studentInfo.studentWechat)
-            $(".studentMailbox").val(studentInfo.studentMailbox)
-            $(".studentStudyId").val(studentInfo.studentStudyId)
-            $(".studentCity").val(studentInfo.studentCity)
-            $(".studentAddress").val(studentInfo.studentAddress)
-            $(".studentClassId").val(studentInfo.studentClassId)
-            $(".studentUrgent").val(studentInfo.studentUrgent)
-            $(".studentPhone").val(studentInfo.studentPhone)
-            $(".studentIdentityNum").val(studentInfo.studentIdentity)
-            $(".studentRoom").val(studentInfo.studentRoom)
-            $(".studentParentName").val(studentInfo.studentParentName)
-            $(".studentParentPhone").val(studentInfo.studentParentPhone)
-            $(".StudentPhoto").attr('src', Qnyurl+studentInfo.studentPhoto)
-            $(".IsGraduation").val(studentInfo.studentIsGraduation)
-            // $(".studentPicUrl").val(studentInfo.studentPhoto)
+    $.getJSON({url:url + "/teacher/selectstudentbyid",data:"id=" + id,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
+                if (data.code == 0) {
+                    alert("id不存在")
+                }else{
+                    var studentInfo = data.data
+                    $(".studentId").val(studentInfo.studentId)
+                    $(".studentName").val(studentInfo.studentName)
+                    $(".studentSchool").val(studentInfo.studentSchool)
+                    $(".studentSpecialty").val(studentInfo.studentSpecialty)
+                    $(".studentWechat").val(studentInfo.studentWechat)
+                    $(".studentMailbox").val(studentInfo.studentMailbox)
+                    $(".studentStudyId").val(studentInfo.studentStudyId)
+                    $(".studentCity").val(studentInfo.studentCity)
+                    $(".studentAddress").val(studentInfo.studentAddress)
+                    $(".studentClassId").val(studentInfo.studentClassId)
+                    $(".studentUrgent").val(studentInfo.studentUrgent)
+                    $(".studentPhone").val(studentInfo.studentPhone)
+                    $(".studentIdentityNum").val(studentInfo.studentIdentity)
+                    $(".studentRoom").val(studentInfo.studentRoom)
+                    $(".studentParentName").val(studentInfo.studentParentName)
+                    $(".studentParentPhone").val(studentInfo.studentParentPhone)
+                    $(".StudentPhoto").attr('src', Qnyurl+studentInfo.studentPhoto)
+                    $(".IsGraduation").val(studentInfo.studentIsGraduation)
+                    // $(".studentPicUrl").val(studentInfo.studentPhoto)
 
-            if (studentInfo.studentSex == "男") {
-                $("input[name=sex][value='男']").attr("checked", true);
-            } else {
-                $("input[name=sex][value='女']").attr("checked", true);
+                    if (studentInfo.studentSex == "男") {
+                        $("input[name=sex][value='男']").attr("checked", true);
+                    } else {
+                        $("input[name=sex][value='女']").attr("checked", true);
+                    }
+
+                    if (studentInfo.studentIsGraduation == "1") {
+                        $("input[name=graduation][value='1']").attr("checked", true);
+                    } else {
+                        $("input[name=graduation][value='0']").attr("checked", true);
+                    }
+                }
             }
-
-            if (studentInfo.studentIsGraduation == "1") {
-                $("input[name=graduation][value='1']").attr("checked", true);
-            } else {
-                $("input[name=graduation][value='0']").attr("checked", true);
-            }
-        }
-
-        // let html= ''
-        // console.log(data)
-
-    })
+    }})
 }
 
 $("#submitList").click(function () {
@@ -131,14 +135,20 @@ $("#submitList").click(function () {
         cache: false,   // 不缓存
         processData: false,   // jQuery不要去处理发送的数据
         contentType: false,   // jQuery不要去设置Content-Type请求头
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success: function (data) {
-            alert("ok");
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
+                alert("ok");
+            }
         },
         error:function () {
             alert("上传出错");
         }
     });
-
 })
 
 

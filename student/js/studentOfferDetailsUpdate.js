@@ -7,59 +7,69 @@ var offerId = arr[1]
 
 console.log(offerId  +"前一个页面传递要修改的offerId")
 
-
-
-$.getJSON(url+"/offer/selectstudentOfferbyOfferId", "offerId=" + offerId, function (data) {
-
-    if (data.code == 1) {
-
-        // $("#studentName").val(data.data.studentName)
-        // $("#studentSex").val(data.data.studentSex)
-        // $("#classNum").val(data.data.classNum)
-        $("#offerCompany").val(data.data.offerCompany)
-        $("#offerContact").val(data.data.offerContact)
-        $("#offerAddress").val(data.data.offerAddress)
-        var date = Date.parse(data.data.offerDatetime)
-        date = new Date(date)
-        $("#offerDatetime").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
-        $("#offerPracticeSalary").val(data.data.offerPracticeSalary)
-        $("#offerReallySalary").val(data.data.offerReallySalary)
-        var date = Date.parse(data.data.offerHiredate)
-        date = new Date(date)
-        $("#offerHiredate").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
-        $("#offerId").val(data.data.offerId)
-    }
-
-})
-
-
-// 获取用户ID
 var userid=getCookie("userid")
 
-$.getJSON(url+"/audition/selectStudentById","userid="+userid,function (data){
-    // console.log(data)
-    if (data.code == 1) {
-        // console.log(data.data.studentId+"!!!!!!!!!!!!!!!!!!!")
-        // console.log(data.data.studentName+"!!!!!!!!!!!!!!!!!!!")
-        $("#studentName").val(data.data.studentName)
+$.getJSON({url:url+"/offer/selectstudentOfferbyOfferId",data:"offerId=" + offerId,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data) {
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
+            if (data.code == 1) {
 
-        $("#auditionStudentId").val(data.data.studentId)
-        if("男" == data.data.studentSex){
-            $("#male").attr("checked","checked")
-            $("#female").attr("disabled","disabled")
-        }else {
-            $("#female").attr("checked","checked")
-            $("#male").attr("disabled","disabled")
+                // $("#studentName").val(data.data.studentName)
+                // $("#studentSex").val(data.data.studentSex)
+                // $("#classNum").val(data.data.classNum)
+                $("#offerCompany").val(data.data.offerCompany)
+                $("#offerContact").val(data.data.offerContact)
+                $("#offerAddress").val(data.data.offerAddress)
+                var date = Date.parse(data.data.offerDatetime)
+                date = new Date(date)
+                $("#offerDatetime").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
+                $("#offerPracticeSalary").val(data.data.offerPracticeSalary)
+                $("#offerReallySalary").val(data.data.offerReallySalary)
+                var date = Date.parse(data.data.offerHiredate)
+                date = new Date(date)
+                $("#offerHiredate").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
+                $("#offerId").val(data.data.offerId)
+            }
         }
-        classID = data.data.studentClassId
-        // console.log(classID+"========================")
+}})
 
-        $.getJSON(url+"/audition/selectClassByClassId","classId="+classID,function (data){
-            $("#classNum").val(data.data.classNum)
-        })
 
-    }
-})
+
+$.getJSON({url:url+"/audition/selectStudentById",data:"userid="+userid,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data){
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
+            if (data.code == 1) {
+                // console.log(data.data.studentId+"!!!!!!!!!!!!!!!!!!!")
+                // console.log(data.data.studentName+"!!!!!!!!!!!!!!!!!!!")
+                $("#studentName").val(data.data.studentName)
+
+                $("#auditionStudentId").val(data.data.studentId)
+                if("男" == data.data.studentSex){
+                    $("#male").attr("checked","checked")
+                    $("#female").attr("disabled","disabled")
+                }else {
+                    $("#female").attr("checked","checked")
+                    $("#male").attr("disabled","disabled")
+                }
+                classID = data.data.studentClassId
+                // console.log(classID+"========================")
+
+                $.getJSON(url+"/audition/selectClassByClassId","classId="+classID,function (data){
+                    $("#classNum").val(data.data.classNum)
+                })
+            }
+        }
+}})
 
 
 
@@ -139,22 +149,25 @@ $("#submitList").click(function () {
             cache: false,   // 不缓存
             processData: false,   // jQuery不要去处理发送的数据
             contentType: false,   // jQuery不要去设置Content-Type请求头
-            success: function (data) {
-
-                layer.open({
-                    content: "提交成功"
-                    , btn: ['确定','取消'],
-                    style: 'width:80%',
-                    yes: function(index, layero){
-                        location.href="/sybida/student/studentOfferDetails.html?id=" + offerId; //跳到指定页面
-                    },
-                    cancel: function(index,layero){ //按右上角“X”按钮
-                    },
-
-                })
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
             },
-
-
+            success: function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
+                    layer.open({
+                        content: "提交成功"
+                        , btn: ['确定','取消'],
+                        style: 'width:80%',
+                        yes: function(index, layero){
+                            location.href="/sybida/student/studentOfferDetails.html?id=" + offerId; //跳到指定页面
+                        },
+                        cancel: function(index,layero){ //按右上角“X”按钮
+                        },
+                    })
+                }
+            },
             error:function () {
                 alert("提交出错");
             }
