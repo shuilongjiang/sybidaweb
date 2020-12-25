@@ -368,6 +368,9 @@
     if(check==1){
         alert("初次修改密码成功，请重新登录！")
     }
+    if(check==2){
+        alert("会话过期，请重新登录！")
+    }
     var getOnlineUser = function () {
         $.get(url+"/login/loginpeople",function (data) {
             $('#online-user').text('在线人数：' + data.code);
@@ -499,13 +502,11 @@
                         data: "phone="+account+"&psw="+password,
                        // contentType: 'application/json;charset=utf-8',
                         dataType: 'json',
-                        // xhrFields: {
-                        //     withCredentials: true//为真而执行跨域名请求
-                        // },
                         success: function (data) {
                             if(data.code==1){
                                 var uid="userid="+data.data[0].userNull2
                                 document.cookie=uid
+
                                 if(data.message==1){
                                     showFetch1()
                                 }else{

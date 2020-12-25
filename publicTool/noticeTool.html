@@ -7,4 +7,27 @@
 <body>
 查看通知
 </body>
+<script>
+
+</script>
+<script type="text/javascript" src="/sybida/common/js/locahostadress.js"></script>
+<script type="text/javascript" src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script>
+    var userid=getCookie("userid")
+    $.post({url: url+"/company/ecode",
+        data:"userid=11111",
+        //添加头部信息
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid+"1");
+        },
+        success:function(data){
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
+                    ////////
+                }
+
+        }
+    },"json")
+    </script>
 </html>

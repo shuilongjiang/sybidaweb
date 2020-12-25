@@ -194,6 +194,7 @@
                         formData.append("file", $("#filej")[0].files[0]);
                         formData.append("studyid", $("#teachStudy").val() );
                         formData.append("userid", userid);
+
                         $.ajax({
                             type: "post",
                             url: url+"vitae/uploadvitae",
@@ -212,7 +213,7 @@
                                  alert("上传成功")
                             },
                             error:function () {
-                                alert("上传出错,请重试！！！");
+                               alert("上传出错,请重试！！！");
                             }
                         });
                     }
