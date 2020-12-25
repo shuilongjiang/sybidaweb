@@ -11,56 +11,59 @@
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
 
 <body>
-<span>
-
-</span>
-<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="#" class="nav_guide">学生查看简历评价</a>
-</div>
 <div class="container">
     <br>
     <table class="layui-table" style="margin-top: 10px" id="showAllInfo">
         <tr>
-            <th colspan="6" style="text-align: center"><h2>查看简历信息</h2></th>
+            <th colspan="6" style="text-align: center"><h2>简历评价表</h2></th>
         </tr>
         <tr>
-            <th>简历ID</th>
-            <th>简历方向</th>
-            <th>操作</th>
+            <th>评价人姓名</th>
+            <th>评价内容</th>
+            <th>评价图片</th>
+            <th>评价时间</th>
         </tr>
     </table>
 </div>
-
 <script src="../jquery/jquery-3.3.1.min.js"></script>
 <script src="../common/js/locahostadress.js"></script>
+
 <script src="/sybida/bs/bootstrap.min.js"></script>
-<script src="/sybida/layui/layui.js"></script>
 
 <script>
-    show()
-    function show() {
-        var userid=getCookie("userid")
-        $.getJSON(url + "/student/selectstudentvitae","userid=" + userid,function (data) {
-            console.log(userid)
+
+
+    var search=location.search
+    var vitaeId1=search.split("=")
+    var vitaeId=vitaeId1[1]
+    console.log(search)
+    console.log(vitaeId1)
+    console.log(vitaeId)
+
+    showEvaluate()
+    function showEvaluate() {
+
+        $.getJSON(url + "/student/selectevaluatebyvitaeid", "vitaeId="+vitaeId ,function (data) {
+
             let html = ''
             console.log(data)
             var list = data.data
             console.log(list)
             for (let i = 0; i < list.length; i++) {
                 html += `<tr class="warning">]
-            <td>${list[i].vitaeId}</td>
-            <td>${list[i].studyAspect}</td>
-           <td> <a href="/sybida/student/studentVitae66.html?vitaeId=${list[i].vitaeId}" type="button" id="showEvaluateBtn" class="layui-btn layui-btn-xs">查看简历评价</a></td>
-            <!--<td><button type="button" id="selectEvaluateBtn" class="layui-btn layui-btn-xs">查看简历评价</button>-->
-            <!--<button type="button" class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae()">下载</button></td>-->
+            <td>${list[i].teachName}</td>
+            <td>${list[i].vitaeEvaluateComment}</td>
+            <td>${list[i].vitaeEvaluatePicture}</td>
+            <td>${list[i].vitaeEvaluateAlterTime}</td>
         </tr>`
             }
             $("#showAllInfo").append(html)
         })
     }
-
-    // onclick="showEvaluate('${list[i].vitaeId}');"
-
 </script>
+
+
+
 
 </body>
 </html>
