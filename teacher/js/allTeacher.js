@@ -119,7 +119,7 @@ function pageshoe(){
             <td>${le[i].teachTel}</td>
             <td>${le[i].teachWechat}</td>
             <td>${le[i].teachQq}</td>
-            <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a></td>
+            <td><a class="layui-btn layui-btn-xs" lay-event="edit"  href="/sybida/teacher/updateTeacherformanager.html?userid=${le[i].teachId}">编辑</a></td>
             <td>
             
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
@@ -135,7 +135,7 @@ function pageshoe(){
             <td>${le[i].teachTel}</td>
             <td>${le[i].teachWechat}</td>
             <td>${le[i].teachQq}</td>
-            <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a></td>
+            <td><a class="layui-btn layui-btn-xs" lay-event="edit" href="/sybida/teacher/updateTeacherformanager.html?userid=${le[i].teachId}">编辑</a></td>
             <td> <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
               
                data-id="${le[i].teachId}" data-name="${le[i].teachName}" data-target="#exampleModal" >离职</a></td>
