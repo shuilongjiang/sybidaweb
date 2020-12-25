@@ -481,13 +481,19 @@
                         }
                     }
                     if(s.length>0){
+
                         var index=layer.confirm('确定删除吗？', {
                             btn: ['确定','取消'] //按钮
                         }, function(){
+                            var userid1=getCookie("userid")
+                            var messageInfo={
+                                "list":s,
+                                "userId":userid1,
+                            }
                             $.post({
                                 url:url+"/news/deleteallreceive",
                                 contentType:"application/json",
-                                data:JSON.stringify(s),
+                                data:JSON.stringify(messageInfo),
                                 success:function(data){
                                     if(data.code===1){
                                         layer.close(index)
@@ -739,11 +745,12 @@
     }
     //单个删除收件箱
     function deleteReceiveMessage(id,elaa) {
+        var userid1=getCookie("userid")
         var index=layer.confirm('确定删除这条接收到的信息吗？', {
             btn: ['确定','取消'] //按钮
         }, function(){
             $(elaa).parent().parent().parent().remove()
-            $.post(url+"/news/delectonereceive","receiveId="+id,function (data) {
+            $.post(url+"/news/delectonereceive","receiveId="+id+"&userid="+userid1,function (data) {
             },"json")
             layer.close(index)
         }, function(){
@@ -752,10 +759,11 @@
     }
     // <!--标为已读===========================-->
     function receiveRead(id,elaa) {
+        var userid1=getCookie("userid")
         $.ajax({
             url: url+"/news/isread",
             type: "post",
-            data: "receiveId="+id ,
+            data: "receiveId="+id+"&userid="+userid1 ,
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
