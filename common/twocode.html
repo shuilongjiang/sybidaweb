@@ -21,7 +21,6 @@
 
 $(document).ready(function(){
 	var userId = getCookie("userid")
-   console.log(userId+"-----")
 	$.post(url+"/company/ecode", "userid="+userId,function(data){
 
 

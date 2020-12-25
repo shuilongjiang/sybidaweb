@@ -16,9 +16,8 @@
     var userid=getCookie("userid")
     $.post({url: url+"/company/ecode",
         data:"userid=11111",
-        //添加头部信息
         beforeSend: function(request) {
-            request.setRequestHeader("token", userid+"1");
+            request.setRequestHeader("token", userid);
         },
         success:function(data){
                 if(data== -1000){

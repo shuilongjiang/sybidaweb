@@ -1,8 +1,15 @@
 var selectClass=-1
 var selectStudy=-1
 var selectTeacher=-1
-
-$.getJSON(url+"/register/selectClass",function (data) {
+var userid=getCookie("userid")
+$.getJSON({url:url+"/register/selectClass",
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data) {
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
     let html = ''
     for (let i = 0; i < data.length; i++) {
         html += `<option value="${data[i].classId}">${data[i].classNum}</option>`
@@ -22,55 +29,72 @@ $.getJSON(url+"/register/selectClass",function (data) {
         function (){
             selectClass=$('select[name="selectClass"]').val()
         }
-    )
-});
+    )}
+}});
 
-$.getJSON(url+"/register/selectStudy",function (data) {
-    let html = ''
-    for (let i = 4; i < data.length; i++) {
-        html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
-    }
-    $('select[name="selectStudy"]').append(html)
+$.getJSON({
+    url: url+"/register/selectStudy",
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data) {
+        if(data== -1000){
+            location.href=logindexurl
+        }else {
+            let html = ''
+            for (let i = 4; i < data.length; i++) {
+                html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
+            }
+            $('select[name="selectStudy"]').append(html)
 
-    var selectA1 = $('select[name="selectStudy"]').find("option"); //从A1下拉框中 搜索值
-    for(var i=0;i<selectA1.length;i++){
-        var t=$(selectA1[i]).val()
+            var selectA1 = $('select[name="selectStudy"]').find("option"); //从A1下拉框中 搜索值
+            for (var i = 0; i < selectA1.length; i++) {
+                var t = $(selectA1[i]).val()
 
-        if(t==selectStudy){
-            $(selectA1[i]).attr("selected","selected")
+                if (t == selectStudy) {
+                    $(selectA1[i]).attr("selected", "selected")
+                }
+            }
+            //change事件
+            $('select[name="selectStudy"]').change(
+                function () {
+                    selectStudy = $('select[name="selectStudy"]').val()
+                }
+            )
         }
-    }
-    //change事件
-    $('select[name="selectStudy"]').change(
-        function (){
-            selectStudy=$('select[name="selectStudy"]').val()
+}});
+
+
+$.getJSON({url:url+"/register/selectTeacher",
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success:function (data) {
+        if(data== -1000){
+            location.href=logindexurl
+        }else {
+            let html = ''
+            for (let i = 0; i < data.length; i++) {
+                html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
+            }
+            $('select[name="selectTeacher"]').append(html)
+
+            var selectA1 = $('select[name="selectTeacher"]').find("option"); //从A1下拉框中 搜索值
+            for (var i = 0; i < selectA1.length; i++) {
+                var t = $(selectA1[i]).val()
+
+                if (t == selectTeacher) {
+                    $(selectA1[i]).attr("selected", "selected")
+                }
+            }
+            //change事件
+            $('select[name="selectTeacher"]').change(
+                function () {
+                    selectTeacher = $('select[name="selectTeacher"]').val()
+                }
+            )
         }
-    )
-});
-
-
-$.getJSON(url+"/register/selectTeacher",function (data) {
-    let html = ''
-    for (let i = 0; i < data.length; i++) {
-        html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
-    }
-    $('select[name="selectTeacher"]').append(html)
-
-    var selectA1 = $('select[name="selectTeacher"]').find("option"); //从A1下拉框中 搜索值
-    for(var i=0;i<selectA1.length;i++){
-        var t=$(selectA1[i]).val()
-
-        if(t==selectTeacher){
-            $(selectA1[i]).attr("selected","selected")
-        }
-    }
-    //change事件
-    $('select[name="selectTeacher"]').change(
-        function (){
-            selectTeacher=$('select[name="selectTeacher"]').val()
-        }
-    )
-});
+}});
 
 $("[type='button']").click(function () {
     // $("#btnSendCode1").value();
@@ -88,33 +112,39 @@ $("[type='button']").click(function () {
         processData: false,   // 用于对参数进行序列化处理，这里必须设为false
         contentType:false,
         dataType:"json",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success:function (data) {
-            if(data.code == 666) {
-                layer.alert('插入成功！', {
-                        skin: 'layui-layer-molv' //样式类名
-                        ,closeBtn: 0
-                    }
-                );
-            }else if (data.code==100000){
-                layer.alert(data.message, {
-                        skin: 'layui-layer-molv' //样式类名
-                        ,closeBtn: 0
-                    }
-                );
+            if (data == -1000) {
+                location.href = logindexurl
+            } else {
+                if (data.code == 666) {
+                    layer.alert('插入成功！', {
+                            skin: 'layui-layer-molv' //样式类名
+                            , closeBtn: 0
+                        }
+                    );
+                } else if (data.code == 100000) {
+                    layer.alert(data.message, {
+                            skin: 'layui-layer-molv' //样式类名
+                            , closeBtn: 0
+                        }
+                    );
 
-            }else if (data.code==-1){
-                layer.alert("插入失败,"+ data.message+"，或者其他问题", {
-                        skin: 'layui-layer-molv' //样式类名
-                        ,closeBtn: 0
-                    }
-                );
-            }
-                else {
-                layer.alert("插入失败,第"+data.code+"条班里已存在，或者其他问题", {
-                        skin: 'layui-layer-molv' //样式类名
-                        ,closeBtn: 0
-                    }
-                );
+                } else if (data.code == -1) {
+                    layer.alert("插入失败," + data.message + "，或者其他问题", {
+                            skin: 'layui-layer-molv' //样式类名
+                            , closeBtn: 0
+                        }
+                    );
+                } else {
+                    layer.alert("插入失败,第" + data.code + "条班里已存在，或者其他问题", {
+                            skin: 'layui-layer-molv' //样式类名
+                            , closeBtn: 0
+                        }
+                    );
+                }
             }
         }
     })

@@ -103,13 +103,23 @@
                 classLab.innerHTML = "";
             }
             var className=$("#classCreate").val()
-            $.getJSON(url+"/register/selectClassName?className="+className,function (data) {
-                if (data.code==1){
+            $.getJSON({
+                url:url+"/register/selectClassName?className="+className,
+                beforeSend: function(request) {
+                    request.setRequestHeader("token", userid);
+                },
+                success:function (data) {
+                    if(data== -1000){
+                        location.href=logindexurl
+                    }else {
 
-                }else {
-                    classLab.innerHTML = '<i class="warn"></i> 班级名重复，换一个试试';
-                }
-            })
+                        if (data.code == 1) {
+
+                        } else {
+                            classLab.innerHTML = '<i class="warn"></i> 班级名重复，换一个试试';
+                        }
+                    }
+            }})
         }
         }
 
