@@ -125,6 +125,7 @@
 <script src="/sybida/teacher/js/allTeacher.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+    var userid=getCookie("userid")
     var layer
     layui.use('layer', function(){
         layer = layui.layer;
@@ -150,7 +151,11 @@
             // 告知传递参数类型为json，不可缺少
             contentType:"application/json",
             data:JSON.stringify(s),
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
             success:function(data){
+
                 if(data.code===1){
                     location.href="/sybida/teacher/allTeacher.html?pageNum=1&pageSize="+pageSize+"&teacherStudy="+teacherStudy
 
@@ -162,10 +167,17 @@
 
             }
         })}else{
+
             layer.alert("所选数据为空！");
             $("#exampleModalAll").attr("class","modal fade")
             $("#exampleModalAll").css("display","none")
         }
+
+
+
+
+
+
     })
 </script>
 

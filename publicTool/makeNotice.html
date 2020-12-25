@@ -68,82 +68,91 @@
             userid: userid,
         },
         dataType: "json",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success: function (result) {
-            layui.use(['tree', 'util'], function(){
-                var tree = layui.tree
-                    ,layer = layui.layer
-                    ,util = layui.util
-                    ,data = result.data
-                        tree.render({
-                     elem: '#test12'
-                    ,data: data
-                    ,showCheckbox: true  //是否显示复选框
-                    ,id: 'demoId1'
-                    ,isJump: true //是否允许点击节点时弹出新窗口跳转
-                    ,click: function(obj){
-                        var data = obj.data;  //获取当前点击的节点数据
-                        // layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(data));
-                    }
-                });
-
-                //按钮事件
-                util.event('lay-demo', {
-                    getChecked: function(othis){
-                        var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
-
-                        var text = tinyMCE.activeEditor.getContent();
-
-                        console.log(checkVal(text)+"======")
-                        if(checkedData.length==0){
-                            layer.open({
-                                type: 1,
-                                skin: 'layui-layer-demo', //样式类名
-                                closeBtn: 0, //不显示关闭按钮
-                                anim: 2,
-                                shadeClose: true, //开启遮罩关闭
-                                content: '<br><br><div style="width: 200px;height: 5 0px;text-align: center">发件人不能为空</div><br><br>'
-                            });
-                        }else{
-                            var list=new Array()
-                            var k=0
-                            for (let i = 0; i <checkedData.length ; i++) {
-                                for (let j = 0; j <checkedData[i].children.length ; j++) {
-                                    list[k++]=checkedData[i].children[j].id
-                                }
-                            }
-                            var messageInfo={
-                                "list":list,
-                                "userId":userid,
-                                "messageInfo":tinyMCE.activeEditor.getContent(),
-                            }
-                            $.post({
-                                url:url+"/news/sendmessagetomanypeople",
-                                // 告知传递参数类型为json，不可缺少
-                                contentType:"application/json",
-                                data:JSON.stringify(messageInfo),
-                                success:function(result){
-                                    layer.confirm('信息已经发送成功', {
-                                        btn: ['老子知道了'] //按钮
-                                    }, function(){
-                                        location.reload();
-                                    });
-                                }
-                            })
+            if(result== -1000){
+                location.href=logindexurl
+            }else {
+                layui.use(['tree', 'util'], function () {
+                    var tree = layui.tree
+                        , layer = layui.layer
+                        , util = layui.util
+                        , data = result.data
+                    tree.render({
+                        elem: '#test12'
+                        , data: data
+                        , showCheckbox: true  //是否显示复选框
+                        , id: 'demoId1'
+                        , isJump: true //是否允许点击节点时弹出新窗口跳转
+                        , click: function (obj) {
+                            var data = obj.data;  //获取当前点击的节点数据
+                            // layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(data));
                         }
-                    }
-                    ,setChecked: function(){
-                        tree.setChecked('demoId1', [12, 16]); //勾选指定节点
-                    }
-                    ,reload: function(){
-                        //重载实例
-                        tree.reload('demoId1', {
+                    });
 
-                        });
+                    //按钮事件
+                    util.event('lay-demo', {
+                        getChecked: function (othis) {
+                            var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
+                            var text = tinyMCE.activeEditor.getContent();
+                            if (checkedData.length == 0) {
+                                layer.open({
+                                    type: 1,
+                                    skin: 'layui-layer-demo', //样式类名
+                                    closeBtn: 0, //不显示关闭按钮
+                                    anim: 2,
+                                    shadeClose: true, //开启遮罩关闭
+                                    content: '<br><br><div style="width: 200px;height: 5 0px;text-align: center">发件人不能为空</div><br><br>'
+                                });
+                            } else {
+                                var list = new Array()
+                                var k = 0
+                                for (let i = 0; i < checkedData.length; i++) {
+                                    for (let j = 0; j < checkedData[i].children.length; j++) {
+                                        list[k++] = checkedData[i].children[j].id
+                                    }
+                                }
+                                var messageInfo = {
+                                    "list": list,
+                                    "userId": userid,
+                                    "messageInfo": tinyMCE.activeEditor.getContent(),
+                                }
+                                $.post({
+                                    url: url + "/news/sendmessagetomanypeople",
+                                    // 告知传递参数类型为json，不可缺少
+                                    contentType: "application/json",
+                                    data: JSON.stringify(messageInfo),
+                                    beforeSend: function(request) {
+                                        request.setRequestHeader("token", userid);
+                                    },
+                                    success: function (result) {
+                                        if(result== -1000){
+                                            location.href=logindexurl
+                                        }else {
+                                            layer.confirm('信息已经发送成功', {
+                                                btn: ['老子知道了'] //按钮
+                                            }, function () {
+                                                location.reload();
+                                            });
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                        , setChecked: function () {
+                            tree.setChecked('demoId1', [12, 16]); //勾选指定节点
+                        }
+                        , reload: function () {
+                            //重载实例
+                            tree.reload('demoId1', {});
 
-                    }
+                        }
+                    });
+
                 });
-
-            });
+            }
 
         },
         error: function () {

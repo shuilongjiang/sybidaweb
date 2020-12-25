@@ -384,27 +384,33 @@
         data: "userid="+userid ,
         // contentType: 'application/json;charset=utf-8',
         dataType: 'json',
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success: function (data) {
-            if(data.code==1){
-
-                if(data.data.messageNum==0) {
-                    $("#advicenum").html("")
-                }else{
-                    $("#advicenum").html(data.data.messageNum)
-                }
-                if(data.data.teachName){
-                    $("#username").html(data.data.teachName+"--班主任")
-                }else{
-
-                }
-                if(data.data.teachPhoto){
-                    $("#userphotoA").attr("src",Qnyurl+data.data.teachPhoto)
-                    $("#userphotoA").attr("filter","none")
-                }else{
-
-                }
+            if (data == -1000) {
+                location.href = logindexurl
             }else{
-                alert("请检查网络是否连接" + data);
+                if(data.code==1){
+                    if(data.data.messageNum==0) {
+                        $("#advicenum").html("")
+                    }else{
+                        $("#advicenum").html(data.data.messageNum)
+                    }
+                    if(data.data.teachName){
+                        $("#username").html(data.data.teachName+"--班主任")
+                    }else{
+
+                    }
+                    if(data.data.teachPhoto){
+                        $("#userphotoA").attr("src",Qnyurl+data.data.teachPhoto)
+                        $("#userphotoA").attr("filter","none")
+                    }else{
+
+                    }
+                }else{
+                    alert("请检查网络是否连接" + data);
+                }
             }
         },
         error: function (data) {
@@ -425,7 +431,9 @@
             data: "userid="+userid ,
             // contentType: 'application/json;charset=utf-8',
             dataType: 'json',
-
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
             success: function () {
 
             }

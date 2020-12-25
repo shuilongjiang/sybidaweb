@@ -1,24 +1,22 @@
 var object = {}
-
-// $("#selectButt").click(function () {
-//     let teachId = $("#searcheStuId").val()
-//
-//     if (!teachId || !(teachId.trim())) {
-//         location.href = "/sybida/teacher/updateTeacher.html"
-//     } else {
-//
-//         showDetail(teachId)
-//     }
-//     // showDetail(teachId)
-// })
 var search=location.search
 var userid1 =search.split("=")
 var userid=userid1[1]
-console.log("==="+userid)
+
 show()
 
 function show() {
-    $.getJSON(url + "/teacher/selectteacherbyidone", "userid=" + userid, function (data) {
+    var userid5=getCookie("userid")
+    $.getJSON({
+        url:url + "/teacher/selectteacherbyidone",
+        data:"userid=" + userid,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid5);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else{
         var teacherInfo = data.data
         $(".teachId").val(teacherInfo.teachId)
         $(".teachName").val(teacherInfo.teachName)
@@ -32,17 +30,12 @@ function show() {
         } else {
             $("input[name=sex][value='女']").attr("checked", true);
         }
-
-        console.log("======================")
-        console.log(data)
-
-    })
+    }}})
 }
 
 
 $("#submitList").click(function () {
     // console.log("123")
-
     var gender
     var id = $(".teachId").val()
     var name = $(".teachName").val()
@@ -55,8 +48,6 @@ $("#submitList").click(function () {
         gender = $(".teachsex2").val()
 
     }
-    // var sex
-
     var wechat = $(".teachWechat").val()
     var studyId = $(".teachStudyId").val()
     var tel = $(".teachTel").val()
@@ -76,7 +67,7 @@ $("#submitList").click(function () {
     formData.append("teachTel", tel);
     formData.append("teachQq", qq);
 
-
+    var userid5=getCookie("userid")
     $.ajax({
         type: "post",
         url: url + "/teacher/updateteacherinfo",
@@ -84,8 +75,14 @@ $("#submitList").click(function () {
         cache: false,   // 不缓存
         processData: false,   // jQuery不要去处理发送的数据
         contentType: false,   // jQuery不要去设置Content-Type请求头
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid5);
+        },
         success: function (data) {
-            alert("ok");
+
+            if(data== -1000){
+                location.href=logindexurl
+            }else{alert("ok");}
         },
         error: function () {
             alert("上传出错");

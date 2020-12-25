@@ -200,17 +200,26 @@
     toltalnumdef()
     // <!--收件箱加载-->
     function toltalnumdef() {
-        $.post(url+"news/receivemessagecount", "userid="+userid, function (data1) {
-            var toltalnum=data1.code;
+        $.post({url:url+"news/receivemessagecount",
+            data:"userid="+userid,
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function (data1) {
+                if(data1== -1000){
+                    location.href=logindexurl
+                }else{
+                    var toltalnum=data1.code;
 
-            if(toltalnum==0){
-                $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
-        没有信息  </div>`)
-            }else{
-                $("#receivemessage").html(`  `)
-                sendmessagea1(toltalnum);
-            }
-        },"json");
+                    if(toltalnum==0){
+                        $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+                没有信息  </div>`)
+                    }else{
+                        $("#receivemessage").html(`  `)
+                        sendmessagea1(toltalnum);
+                    }
+                }
+        }});
     }
 
     //全选全不选======================================================================================
@@ -263,7 +272,7 @@
                             layer.msg("玩命加载中")
                             pagenum--;
                             bflag=false;
-                            bflag=doSomething(pagenum);
+                            bflag=doSomethingsendmessagea(pagenum);
                         }
                     }
                 }
@@ -271,16 +280,25 @@
         });
         function doSomethingsendmessagea(pagenum) {
             var userid1=getCookie("userid")
-            $.post(url+"news/receivemessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
-                var html =``
-                for(var i =data.data.length-1; i>=0; i--){
-                    var mytime =data.data[i].newsSendTime
-                    var isread=data.data[i].receiveIsRead
-                    var mytime1 =mytime.substring(0,mytime.indexOf(".")).replace("T","/")
+            $.post({url:url+"news/receivemessage",
+                data:"pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum,
+                beforeSend: function(request) {
+                    request.setRequestHeader("token", userid1);
+                },
+                success:function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }
+                else {
+                    var html = ``
+                    for (var i = data.data.length - 1; i >= 0; i--) {
+                        var mytime = data.data[i].newsSendTime
+                        var isread = data.data[i].receiveIsRead
+                        var mytime1 = mytime.substring(0, mytime.indexOf(".")).replace("T", "/")
 
-                    if(isread==0){
+                        if (isread == 0) {
 
-                        html+=` <div class="infolisted">
+                            html += ` <div class="infolisted">
             <div class="bg-primary infolistedtop">
                     <div class="infolistedtopleft" >
                         <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
@@ -304,8 +322,9 @@
                 <div style="clear: both"></div>
 
             </div>
-        </div>`}else{
-                        html+=` <div class="infolisted">
+        </div>`
+                        } else {
+                            html += ` <div class="infolisted">
             <div class="bg-primary infolistedtop">
                     <div class="infolistedtopleft" >
                         <input style="height: 15px;width: 15px;" type="checkbox" name="optionAll" value="${data.data[i].receiveId}">
@@ -328,47 +347,54 @@
 
             </div>
         </div>`
+                        }
                     }
-                }
-                $("#receivemessage").append(html)
+                    $("#receivemessage").append(html)
 
-                bflag=true;
-                if(pagenum==1){
-                    layer.msg("没有更多了---我是有底线的哦")
-                    $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+                    bflag = true;
+                    if (pagenum == 1) {
+                        layer.msg("没有更多了---我是有底线的哦")
+                        $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
         已经到底了！！</div>`)
-                }
+                    }
 //自己试试看=========================================================================
-                $("input[name='optionAll']").click(function (){
-                    if ($(this).is(':checked')) {
-                        // 如果当前框被选中，则判断是否需要勾选全选框
-                        var checkbox = $("input[name='optionAll']");
-                        var length = $(checkbox).length;
-                        if (length > 0) {
-                            for (var i = 0; i < length; i++) {
-                                if ($(checkbox[i]).is(":checked") != true) {
-                                    break;// 如果有未勾选的选择框，不需要勾选全选，跳出循环
-                                }
-                                if (i == length - 1) {
-                                    // 如果到最后一个选择框仍然是勾选状态，即所有选择框都被勾选，则勾选全选框
-                                    $("#chk").prop("checked", true);
+                    $("input[name='optionAll']").click(function () {
+                        if ($(this).is(':checked')) {
+                            // 如果当前框被选中，则判断是否需要勾选全选框
+                            var checkbox = $("input[name='optionAll']");
+                            var length = $(checkbox).length;
+                            if (length > 0) {
+                                for (var i = 0; i < length; i++) {
+                                    if ($(checkbox[i]).is(":checked") != true) {
+                                        break;// 如果有未勾选的选择框，不需要勾选全选，跳出循环
+                                    }
+                                    if (i == length - 1) {
+                                        // 如果到最后一个选择框仍然是勾选状态，即所有选择框都被勾选，则勾选全选框
+                                        $("#chk").prop("checked", true);
+                                    }
                                 }
                             }
+                        } else {
+                            // 如果当前选择框未勾选，则取消全选框勾选状态
+                            $("#chk").prop("checked", false);
                         }
-                    } else {
-                        // 如果当前选择框未勾选，则取消全选框勾选状态
-                        $("#chk").prop("checked", false);
-                    }
-                });
+                    });
 
+                }
 
-
-            },"json");
+            }});
         }
         function doSomethingsendmessagea1(pagenum) {
             var userid1=getCookie("userid")
-            $.post(url+"news/receivemessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
-
+            $.post({url:url+"news/receivemessage",
+                data:"pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum,
+                beforeSend: function(request) {
+                    request.setRequestHeader("token", userid);
+                },
+                success:function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
                 var html =`<div class="infolisted" >
                 <div class="bg-primary infolistedtop" style="height:50px;">
                     <div class="infolistedtopleft" style="margin-top: 10px;">
@@ -494,15 +520,22 @@
                                 url:url+"/news/deleteallreceive",
                                 contentType:"application/json",
                                 data:JSON.stringify(messageInfo),
-                                success:function(data){
-                                    if(data.code===1){
-                                        layer.close(index)
-                                        $("#nothingtodo").html("")
-                                        $("#receivemessage").html("")
-                                        toltalnumdef()
+                                beforeSend: function(request) {
+                                    request.setRequestHeader("token", userid1);
+                                },
+                                success:function(data) {
+                                    if(data== -1000){
+                                        location.href=logindexurl
                                     }else{
-                                        layer.close(index)
-                                        layer.msg("删除失败请重试！");
+                                        if (data.code === 1) {
+                                            layer.close(index)
+                                            $("#nothingtodo").html("")
+                                            $("#receivemessage").html("")
+                                            toltalnumdef()
+                                        } else {
+                                            layer.close(index)
+                                            layer.msg("删除失败请重试！");
+                                        }
                                     }
                                 }
                             })
@@ -517,21 +550,31 @@
                     }
                 })
 
-            },"json");
+            }}});
         }
     }
     // <!--发件箱加载-->
     function toltalnum1() {
-        $.post(url+"news/hadSendmessagecount", "userid="+userid, function (data1) {
-            var toltalnum=data1.code;
-            if(toltalnum==0){
-                $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
-        你还没有发送任何信息 </div>`)
-            }else{
+        $.post({
+            url:url+"news/hadSendmessagecount",
+            data:"userid="+userid,
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function (data1) {
+                if(data1== -1000){
+                    location.href=logindexurl
+                }else {
+                    var toltalnum = data1.code;
+                    if (toltalnum == 0) {
+                        $("#nothingtodo").html(`<div  style="text-align: center;padding-bottom: 20px;padding-top: 20px;font-size: 18px;color: white;background-color: #C1C1C1">
+                你还没有发送任何信息 </div>`)
+                    } else {
 
-                sendmessagea(toltalnum);
-            }
-        },"json");
+                        sendmessagea(toltalnum);
+                    }
+                }
+        }});
     }
     // <!--发件箱加载-->
     function sendmessagea(toltalnum) {
@@ -561,7 +604,16 @@
         });
         function doSomething(pagenum) {
             var userid1=getCookie("userid")
-            $.post(url+"news/hadsendmessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
+            $.post({
+                url:url+"news/hadsendmessage",
+                data:"pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum,
+                beforeSend: function(request) {
+                    request.setRequestHeader("token", userid1);
+                },
+                success:function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
                 var html =``
                 for(var i =data.data.length-1; i>=0; i--){
                     var mytime =data.data[i].newsSendTime
@@ -578,7 +630,7 @@
                                              </div>
                                 <div style="margin-top: 10px;">
                                     <div style="float: left"><span style="color: #aaa; font-weight: 400;"><i>${mytime1}</i></span></div>
-                                    <div style="float: right;margin-right: 15px;"><span ><a class=""onclick="deletesendMessage(${data.data[i].newsId},this)">删除</a></span></div>
+                                    <div style="float: right;margin-right: 15px;"><span ><a class="layui-btn layui-btn-danger layui-btn-xs"onclick="deletesendMessage(${data.data[i].newsId},this)">删除</a></span></div>
                                     <div style="clear: both"></div>
 
                                 </div>
@@ -617,11 +669,20 @@
                     }
                 });
 
-            },"json");
-        }
+            }}});
+    }
         function doSomething1(pagenum) {
             var userid1=getCookie("userid")
-            $.post(url+"news/hadsendmessage", "pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum, function (data) {
+            $.post({
+                url:url+"news/hadsendmessage",
+                data:"pagesize="+pagesize+"&userid="+userid1+"&pagenum="+pagenum,
+                beforeSend: function(request) {
+                    request.setRequestHeader("token", userid);
+                },
+                success:function (data) {
+                    if(data== -1000){
+                        location.href=logindexurl
+                    }else{
                 var html =`<div class="infolisted" >
                 <div class="bg-primary infolistedtop" style="height:50px;">
                     <div class="infolistedtopleft" style="margin-top: 10px;">
@@ -706,29 +767,38 @@
                                 url:url+"/news/deleteallnews",
                                 contentType:"application/json",
                                 data:JSON.stringify(s),
+                                beforeSend: function(request) {
+                                    request.setRequestHeader("token", userid);
+                                },
                                 success:function(data){
-                                    if(data.code===1){
-                                        layer.close(index)
-                                        $("#nothingtodo").html("")
-                                        $("#sendmessage").html("")
-                                        toltalnum1();
-                                    }else{
-                                        layer.close(index)
-                                        layer.msg("删除失败请重试！");
+                                    if(data== -1000){
+                                        location.href=logindexurl
+                                    }else {
+                                        if (data.code === 1) {
+                                            layer.close(index)
+                                            $("#nothingtodo").html("")
+                                            $("#sendmessage").html("")
+                                            toltalnum1();
+                                        } else {
+                                            layer.close(index)
+                                            layer.msg("删除失败请重试！");
+                                        }
                                     }
                                 }
                             })
                         }, function(){
                             layer.close(index)
                         });
-                        }else{
+                    }else{
                         layer.alert("所选数据为空！");
                     }
                 })
-            },"json");
+            }}});
         }
     }
 
+
+    //单个删除发件箱
 
     //单个删除发件箱
     function deletesendMessage(id,elaa){
@@ -736,8 +806,13 @@
            btn: ['确定','取消'] //按钮
        }, function(){
            $(elaa).parent().parent().parent().parent().remove()
-           $.post(url+"/news/delectonesend","newsId="+id,function (data) {
-           },"json")
+           $.post({url:url+"/news/delectonesend",
+               data:"newsId="+id,
+               beforeSend: function(request) {
+                   request.setRequestHeader("token", userid);
+               },
+               success:function (data) {
+           }})
            layer.close(index)
        }, function(){
            layer.close(index)
@@ -750,8 +825,13 @@
             btn: ['确定','取消'] //按钮
         }, function(){
             $(elaa).parent().parent().parent().remove()
-            $.post(url+"/news/delectonereceive","receiveId="+id+"&userid="+userid1,function (data) {
-            },"json")
+            $.post({url:url+"/news/delectonereceive",
+                data:"receiveId="+id+"&userid="+userid1,
+                beforeSend: function(request) {
+                    request.setRequestHeader("token", userid1);
+                },
+                success:function (data) {
+            }})
             layer.close(index)
         }, function(){
             layer.close(index)
@@ -765,13 +845,19 @@
             type: "post",
             data: "receiveId="+id+"&userid="+userid1 ,
             dataType: "json",
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid1);
+            },
             success: function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
                 if (data.code == 1) {
                     elaa.parentNode.parentNode.innerHTML="已读"
                 } else {
                     alert("标记失败！")
                 }
-            }
+            }}
         })
     }
 
