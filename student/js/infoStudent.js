@@ -44,10 +44,10 @@ $("#selectButt1").click(function () {
 })
 
 var userid=getCookie("userid")
-function showDetail(id) {
+function showDetail(name) {
 
 
-    $.getJSON({url:url + "/teacher/selectstudentbyid",data:"id=" + id,
+    $.getJSON({url:url + "/teacher/selectStudentByName",data:"name=" + name,
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
         },
@@ -58,63 +58,81 @@ function showDetail(id) {
                 if (data.code == 0) {
                     alert("id不存在！")
                 } else {
-                    $("#detailCon").css('display', '')
-                    let html = ''
+                    let html = '<tbody><tr class="active">\n' +
+                        '            <!--<th style="width: 80px;">-->\n' +
+                        '                <!--<input type="checkbox" name="checkAll">&nbsp;&nbsp;全选</th>-->\n' +
+                        '            <th>学生姓名</th>\n' +
+                        '            <th>学生性别</th>\n' +
+                        '            <th>班级ID</th>\n' +
+                        '            <th>毕业学校</th>\n' +
+                        '            <th>手机号</th>\n' +
+                        '            <th>身份证号</th>\n' +
+                        '            <th>是否毕业</th>\n' +
+                        '            <th>专业</th>\n' +
+                        '            <th>微信</th>\n' +
+                        '            <th>就业城市</th>\n' +
+                        '            <th>家长电话</th>\n' +
+                        '            <th>家长姓名</th>\n' +
+                        '        </tr>\n' +
+                        '        <hr/>'
                     console.log(data)
-                    var list = data.data
+                    var list = data.data.list
                     console.log(list)
-                    if (!list.studentSex) {
-                        list.studentSex = "暂无"
-                    }
-                    if (!list.studentIdentity) {
-                        list.studentIdentity = "暂无"
-                    }
-                    if (!list.studentIsGraduation) {
-                        list.studentIsGraduation = "暂无"
-                    }
-                    if (!list.studentSchool) {
-                        list.studentSchool = "暂无"
-                    }
-                    if (!list.studentSpecialty) {
-                        list.studentSpecialty = "暂无"
-                    }
-                    if (!list.studentWechat) {
-                        list.studentWechat = "暂无"
-                    }
-                    if (!list.studentParentPhone) {
-                        list.studentParentPhone = "暂无"
-                    }
-                    if (!list.studentParentName) {
-                        list.studentParentName = "暂无"
-                    }
-                    if (!list.studentClassId) {
-                        list.studentClassId = "暂无"
-                    }
-                    if (!list.studentPhone) {
-                        list.studentPhone = "暂无"
-                    }
-                    if (!list.studentCity) {
-                        list.studentCity = "暂无"
-                    }
+                    for (let i = 0; i < list.length; i++) {
+                        if (!list[i].studentSex) {
+                            list[i].studentSex = "暂无"
+                        }
+                        if (!list[i].studentIdentity) {
+                            list[i].studentIdentity = "暂无"
+                        }
+                        if (!list[i].studentIsGraduation) {
+                            list[i].studentIsGraduation = "暂无"
+                        }
+                        if (!list[i].studentSchool) {
+                            list[i].studentSchool = "暂无"
+                        }
+                        if (!list[i].studentSpecialty) {
+                            list[i].studentSpecialty = "暂无"
+                        }
+                        if (!list[i].studentWechat) {
+                            list[i].studentWechat = "暂无"
+                        }
+                        if (!list[i].studentParentPhone) {
+                            list[i].studentParentPhone = "暂无"
+                        }
+                        if (!list[i].studentParentName) {
+                            list[i].studentParentName = "暂无"
+                        }
+                        if (!list[i].studentClassId) {
+                            list[i].studentClassId = "暂无"
+                        }
+                        if (!list[i].studentPhone) {
+                            list[i].studentPhone = "暂无"
+                        }
+                        if (!list[i].studentCity) {
+                            list[i].studentCity = "暂无"
+                        }
 
-                    html += `<tr class="warning">
-                                <td>${list.studentId}</td>
-                                <td>${list.studentClassId}</td>
-                                <td>${list.studentName}</td>
-                                <td>${list.studentSex}</td>
-                                <td>${list.studentIdentity}</td>
-                                <td>${list.studentIsGraduation}</td>
-                                <td>${list.studentSchool}</td>
-                                <td>${list.studentSpecialty}</td>
-                                <td>${list.studentWechat}</td>          
-                                <td>${list.studentCity}</td>    
-                                <td>${list.studentParentPhone}</td>
-                                <td>${list.studentParentName}</td>
-                                <td>${list.studentPhone}</td>
+                        html += `<tr class="warning">]
+                                  <td>${list[i].studentName}</td>
+                                  <td>${list[i].studentSex}</td>
+                                 <td>${list[i].studentClassId}</td>  
+                                 <td>${list[i].studentSchool}</td>        
+                                 <td>${list[i].studentIdentity}</td>
+                                 <td>${list[i].studentIsGraduation}</td>
+                                 <td>${list[i].studentSpecialty}</td>
+                                 <td>${list[i].studentWechat}</td>          
+                                 <td>${list[i].studentCity}</td>
+                                 <td>${list[i].studentParentPhone}</td>        
+                                 <td>${list[i].studentParentName}</td>
+                                 <td>${list[i].studentPhone}</td>
             
-     
-                              </tr>`
-                    $("#detailedInfo").append(html)
+                             </tr>`
+                    }
+                    html+='</tbody>'
+                    $("#showAllInfo").empty();
+                    $("#showAllInfo").append(html)
+                    $("#pagination").css('display','none');
                 }
             }
         }
@@ -191,19 +209,20 @@ function show() {
                     }
 
                     html += `<tr class="warning">]
-                                 <td>${list[i].studentId}</td>
-                                 <td>${list[i].studentClassId}</td>         
+                              
                                  <td>${list[i].studentName}</td>
-                                 <td>${list[i].studentSex}</td>
+                                  <td>${list[i].studentSex}</td>
+                                 <td>${list[i].studentClassId}</td>  
+                                 <td>${list[i].studentSchool}</td>   
+                                   <td>${list[i].studentPhone}</td>     
                                  <td>${list[i].studentIdentity}</td>
                                  <td>${list[i].studentIsGraduation}</td>
-                                 <td>${list[i].studentSchool}</td>
                                  <td>${list[i].studentSpecialty}</td>
                                  <td>${list[i].studentWechat}</td>          
                                  <td>${list[i].studentCity}</td>
                                  <td>${list[i].studentParentPhone}</td>        
                                  <td>${list[i].studentParentName}</td>
-                                 <td>${list[i].studentPhone}</td>
+                               
             
                              </tr>`
                 }
