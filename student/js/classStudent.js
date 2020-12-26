@@ -56,7 +56,7 @@ function showDetail(stuName) {
             request.setRequestHeader("token", userid);
         },
         success:function (data2) {
-            if(data== -1000){
+            if(data2== -1000){
                 location.href=logindexurl
             }else{
                 if (data2.code == 0){
@@ -193,33 +193,33 @@ function show() {
                             list[i].studentCity = "暂无"
                         }
                         html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>
-            <td>${list[i].studentId}</td>
-            <td>${list[i].studentName}</td>
-            <td>${list[i].studentSex}</td>
-            <td>${list[i].studentIdentity}</td>
-            <td>${list[i].studentIsGraduation}</td>
-            <td>${list[i].studentSchool}</td>
-            <td>${list[i].studentSpecialty}</td>
-            <td>${list[i].studentWechat}</td>
-            <td>${list[i].studentCity}</td>
-            <td>${list[i].studentParentPhone}</td>
-            <td>${list[i].studentParentName}</td>
-            <td>${list[i].studentPhone}</td>
-            <td>${list[i].studentClassId}</td>
-            <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">修改</a></td>
-            <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-        data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>`
+                                   <td>${list[i].studentId}</td>
+                                   <td>${list[i].studentName}</td>
+                                   <td>${list[i].studentSex}</td>
+                                   <td>${list[i].studentIdentity}</td>
+                                   <td>${list[i].studentIsGraduation}</td>
+                                   <td>${list[i].studentSchool}</td>
+                                   <td>${list[i].studentSpecialty}</td>
+                                   <td>${list[i].studentWechat}</td>
+                                   <td>${list[i].studentCity}</td>
+                                   <td>${list[i].studentParentPhone}</td>
+                                   <td>${list[i].studentParentName}</td>
+                                   <td>${list[i].studentPhone}</td>
+                                   <td>${list[i].studentClassId}</td>
+                                   <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">修改</a></td>
+                                   <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                               data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>`
                     }
                     // $("#showAllInfo").append(html)
 
-                    html+=`<tr><td colspan="16"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
-                    $("#showAllInfo").append(html)
+                         html+=`<tr><td colspan="16"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
+                         $("#showAllInfo").append(html)
 
                     // var deleteAll={}
-                    $("#deleteBySelect").click(function (){
-                        $("#exampleModalAll").attr("class","modal fade in")
-                        $("#exampleModalAll").css("display","inline-block")
-                    })
+                         $("#deleteBySelect").click(function (){
+                             $("#exampleModalAll").attr("class","modal fade in")
+                             $("#exampleModalAll").css("display","inline-block")
+                         })
 
 
                     $("input[name='optionAll']").click(function (){

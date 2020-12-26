@@ -128,7 +128,7 @@ $.getJSON({ url:url+"/classInfo/selectPage",
                 console.log("=========" + text)
                 if (text.trim() == '修改') {
                     var id = $(this).attr("value")
-                    console.log(id + "====++++++++++++++++")
+
                     location.href = "/sybida/publicTool/updateClass.html?classId=" + id;
 
                 }
