@@ -73,9 +73,10 @@ $.getJSON({url:url+"/register/selectTeacher",
         if(data== -1000){
             location.href=logindexurl
         }else {
+
             let html = ''
             for (let i = 0; i < data.length; i++) {
-                html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
+                html += `<option value="${data[i].userId}">${data[i].userName}</option>`
             }
             $('select[name="selectTeacher"]').append(html)
 
@@ -96,14 +97,33 @@ $.getJSON({url:url+"/register/selectTeacher",
         }
 }});
 
+function submitXML(){
+    var fileInput = $('#reportXML').get(0).files[0];
+    console.info(fileInput);
+    if(fileInput){
+        $("#reportXMLform").submit();
+    }else{
+        alert("请选择上传文件！");
+    }
+}
+
 $("[type='button']").click(function () {
-    // $("#btnSendCode1").value();
+     let classname= $("#classCreate").val();
+     if (!classname){
+         layer.alert('班级名不为空！', {
+                 skin: 'layui-layer-molv' //样式类名
+                 , closeBtn: 0
+             }
+         );
+         return false
+     }
     let formData = new FormData();
     formData.append("file", $('[type="file"]')[0].files[0]);
     formData.append('classCreate',$("#classCreate").val());
     formData.append('insetManager',$("#insetManagerId").val());
     formData.append('selectStudy',selectStudy);
     formData.append('selectTeacher',selectTeacher);
+
     $.ajax({
         url:url+"/register/registerstudent",
         type : 'post',
@@ -138,12 +158,14 @@ $("[type='button']").click(function () {
                             , closeBtn: 0
                         }
                     );
+
                 } else {
                     layer.alert("插入失败,第" + data.code + "条班里已存在，或者其他问题", {
                             skin: 'layui-layer-molv' //样式类名
                             , closeBtn: 0
                         }
                     );
+
                 }
             }
         }
