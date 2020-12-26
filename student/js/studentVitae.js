@@ -37,11 +37,15 @@ function show() {
                                 <td>${list[i].studyAspect}</td>
                                 <td>${list[i].vitaeAlterTime}</td>
                                 <td> 
-                                <a href="/sybida/student/studentVitae66.html?vitaeId=${list[i].vitaeId}" type="button" id="showEvaluateBtn" class="layui-btn layui-btn-xs">查看简历评价</a>
+                                <button onclick="showVitaeBtn('${list[i].vitaeId}')" class="layui-btn layui-btn-xs" >查看简历评价</button>
                                 <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].vitaeId}','${list[i].studyAspect}')" style="width: 100px">下载</button></td>
                                 </tr>`
                 }
                 $("#showAllInfo").append(html)
+
+
+
+
 
                 var layer
                 layui.use('layer', function(){
@@ -105,6 +109,23 @@ function show() {
         }})
 }
 
+function showVitaeBtn(id) {
+    var userid=getCookie("userid")
+    $.getJSON({url:url + "/student/selectevaluatebyvitaeid", data:"vitaeId="+id ,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            } else if(data.code==0){
+                alert("该简历暂无评价")
+            } else {
+                location.href= "/sybida/student/studentVitae66.html?id="+id;
+            }
+
+        }})
+}
 
 
 function Map() {
@@ -160,8 +181,6 @@ function Map() {
         s += "}";
         return s;
     };
-
-
 }
 
 function downloadVitae(downloadUrl, id, aspect) {
@@ -184,7 +203,6 @@ function getBlob(downloadUrl) {
         xhr.send();
     });
 }
-
 function saveAs(blob, filename) {
     if (window.navigator.msSaveOrOpenBlob) {
         navigator.msSaveBlob(blob, filename);
