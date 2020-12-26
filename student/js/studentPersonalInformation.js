@@ -1,6 +1,5 @@
 // 用户ID查询学生
 var userid=getCookie("userid")
-
 $.getJSON({url:url + "/student/selectstudentbyid",data: "userid=" + userid,
     beforeSend: function(request) {
         request.setRequestHeader("token", userid);

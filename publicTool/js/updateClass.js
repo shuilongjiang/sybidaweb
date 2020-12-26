@@ -16,7 +16,8 @@ $.getJSON({
     success:function (data) {
         if(data== -1000){
             location.href=logindexurl
-        }else{
+        }
+        else{
     if (!data.data.classNum) {
         data.data.classNum="未完善"
     }
@@ -75,7 +76,16 @@ $.getJSON({
 
     var classTeachId=data.data.classTeachId
 
-    $.getJSON(url+"/register/selectTeacher",function (data) {
+    $.getJSON({
+       url: url+"/register/selectTeacher",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }
+            else{
         let html = ''
         for (let i = 0; i < data.length; i++) {
             html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
@@ -96,10 +106,19 @@ $.getJSON({
                 selectStudy=$('select[name="selectStudy"]').val()
             }
         )
-    });
+    }}});
 
     var classManagerId=data.data.classManagerId
-    $.getJSON(url+"/register/selectTeacher",function (data) {
+    $.getJSON({
+        url:url+"/register/selectTeacher",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }
+            else{
         let html = ''
         for (let i = 0; i < data.length; i++) {
             html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
@@ -119,12 +138,21 @@ $.getJSON({
                 selectStudy=$('select[name="selectStudy"]').val()
             }
         )
-    });
+    }}});
 
 
 
     var classStudyId=data.data.classStudyId
-    $.getJSON(url+"/register/selectStudy",function (data) {
+    $.getJSON({
+        url:url+"/register/selectStudy",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }
+            else{
         let html = ''
         for (let i = 4; i < data.length; i++) {
             html += `<option value="${data[i].studyId}">${data[i].studyAspect}</option>`
@@ -137,7 +165,7 @@ $.getJSON({
                 $(selectA1[i]).attr("selected","selected")
             }
         }
-    })
+    }}})
 }}})
 
 var classIsGraduate=$("#classIsGraduate").val();
@@ -162,6 +190,9 @@ $("#btnsave").click(function () {
         processData: false,   // 用于对参数进行序列化处理，这里必须设为false
         contentType:false,
         dataType:"json",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
         },
