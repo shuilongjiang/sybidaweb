@@ -251,7 +251,6 @@ function show() {
                         console.log("========="+text)
                         if(text.trim()=='修改'){
                             var  id =$(this).attr("value")
-                            console.log(id+"====++++++++++++++++")
                             location.href="/sybida/student/updateInfoStudent.html?id="+id;
                         }
                     })
