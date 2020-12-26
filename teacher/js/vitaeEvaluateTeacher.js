@@ -113,7 +113,6 @@ function show() {
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td>${list[i].vitaeLevel}</td>
             <td>${list[i].vitaeIsNew}</td>
-         
             <td>${list[i].vitaeIsRead}</td> 
             <td>${list[i].vitaeDownloadFrequency}</td>
             <td>${list[i].vitaeHistoryFrequency}</td>
@@ -276,15 +275,17 @@ function updateVitaeLevel(vitaeId, userid, name,vitaeurl) {
 $("#addVitaeLevel").click(function () {
 
     var vitaeId = $("#vitaeID").val()
-    var vitaeStudentId = $("#vitaeEvaluateUserId").val()
+    var vitaeEvaluateId = $("#vitaeEvaluateId").val()
     var vitaeComment = $("#vitaeEvaluateComment").val()
 
      var picture ="11"
-
+    var userid=getCookie("userid")
+    console.log(userid)
     if (judgeAll()) {
+
         $.getJSON({
             url:url + "/teacher/insertvitaeevaluatelevel",
-            data:"comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&studentId=" + vitaeStudentId,
+            data:"comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&userid=" + userid,
             beforeSend: function(request) {
                 request.setRequestHeader("token", userid);
             },
