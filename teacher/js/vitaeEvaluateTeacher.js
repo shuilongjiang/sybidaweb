@@ -147,14 +147,69 @@ function show() {
                 // 告知传递参数类型为json，不可缺少
                 contentType:"application/json",
                 data:JSON.stringify(s),
+                    beforeSend: function(request) {
+                        request.setRequestHeader("token", userid);
+                    },
                 success:function(data){
-                    layer.close(index);
-                    downloadfile(Qnyurl+data,"学生简历")
+                    if(data== -1000){
+                        location.href=logindexurl
+                    }else {
+                        layer.close(index);
+                        downloadfile(Qnyurl + data, "学生简历")
+                    }
                 }
             })}else{
                 layer.alert("所选数据为空！");
             }
         })
+
+
+
+
+                $("#downzipcode").click(function () {
+                    var checkbox = $("input[name='optionAll']");
+                    var s=new Array();
+                    var j=0
+                    for(var i = 0;i<checkbox.length;i++)
+                    {
+                        if(checkbox[i].checked==true)
+                        {
+                            s[j++]=(checkbox[i].value)
+                        }
+                    }
+                    if(s.length>0){
+                        var index = layer.load(1, {
+                            shade: [0.1,'#fff'] //0.1透明度的白色背景
+                        });
+                        $.post({
+                            url:url+"/teacherdownload/downloadvitaezip",
+                            // 告知传递参数类型为json，不可缺少
+                            contentType:"application/json",
+                            data:JSON.stringify(s),
+                            beforeSend: function(request) {
+                                request.setRequestHeader("token", userid);
+                            },
+                            success:function(data){
+                                if(data== -1000){
+                                    location.href=logindexurl
+                                }else{
+                                    layer.close(index);
+                                    layer.open({
+                                        type: 2,
+                                        title:"扫描该二维码即可保存Zip简历",
+                                        closeBtn: 1, //不显示关闭按钮
+                                        shade: [0],
+                                        area: ['540px', '600px'],
+                                        anim: 2,
+                                        content: ['/sybida/common/ercode/index.html?key='+data, 'no'], //iframe的url，no代表不显示滚动条
+
+                                    });
+                                    // downloadfile(Qnyurl+data,"学生简历")
+                            }}
+                        })}else{
+                        layer.alert("所选数据为空！");
+                    }
+                })
         pageSelect(data.data)
         $("input[name='optionAll']").click(function () {
             if ($(this).is(':checked')) {

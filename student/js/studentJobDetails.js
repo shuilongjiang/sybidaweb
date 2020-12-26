@@ -1,4 +1,3 @@
-// 获取用户ID
 var userid=getCookie("userid")
 $.getJSON({url:url+"/job/selectstudentJobbyJobStudentId",data: "userid=" + userid,
     beforeSend: function(request) {
