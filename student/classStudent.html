@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/sybida/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <script src="/sybida/common/js/xlsx.full.min.js" charset="utf-8"></script>
 </head>
 <body>
 <br>
@@ -17,18 +18,11 @@
 <div class="container">
     <br>
     <div class="layui-form-item">
-        <label class="bg-success" style="line-height: 35px; font-size: 16px;">每页大小:&nbsp;</label>
-        <select class="form-control" id="pageSizeSel" style="width: 100px; display: inline-block">
-            <option name="pageSize" value="5">5条</option>
-            <option name="pageSize" value="10">10条</option>
-            <option name="pageSize" value="15">15条</option>
-            <option name="pageSize" value="20">20条</option>
-            <option name="pageSize" value="30">30条</option>
-            <option name="pageSize" value="40">40条</option>
-            <option name="pageSize" value="50">50条</option>
-            <option name="pageSize" value="80">80条</option>
-            <option name="pageSize" value="100">100条</option>
+        <label class="bg-success" style="line-height: 35px; font-size: 16px;">您的班级:&nbsp;</label>
+        <select class="form-control" id="classNum" style="width: 100px; display: inline-block">
+
         </select>
+
         <button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
         <input type="text" value="" placeholder="请输入您要查找的学生姓名" id="searcheStuId" style="width: 200px;height: 32px;border-radius: 0em;border-color: #e6e6e6">
         <button type="button" id="selectButt1" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
