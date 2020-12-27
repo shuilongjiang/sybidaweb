@@ -51,14 +51,12 @@ $.getJSON({
                      if (!list[i].classTime) {
                          list[i].classTime = "未完善"
                      }
-                     if (list[i].classIsGraduate == 1) {
-                         list[i].classIsGraduate = "是"
-                     } else if (list[i].classIsGraduate == 0) {
-                         list[i].classIsGraduate = "否"
+                     if (list[i].classNull1 == 1) {
+                         list[i].classNull1 = "待业"
+                     } else if (list[i].classNull1 == 0) {
+                         list[i].classNull1 = "已经毕业"
                      }
-                     if (!list[i].classIsGraduate) {
-                         list[i].classIsGraduate = "未完善"
-                     }
+
                      if (!list[i].classAlterTime) {
                          list[i].classAlterTime = "未完善"
                      }
@@ -76,7 +74,7 @@ $.getJSON({
                 <td>${list[i].classManagerId}</td>
                 <td>${list[i].classStudyId}</td>
                 <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-                <td>${list[i].classIsGraduate}</td>
+                <td>${list[i].classNull1}</td>
                 <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                 <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].classId}">修改</a></td>
                 <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
@@ -88,7 +86,7 @@ $.getJSON({
                 <td>${list[i].classManagerId}</td>
                 <td>${list[i].classStudyId}</td>
                 <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-                <td>${list[i].classIsGraduate}</td>
+                <td>${list[i].classNull1}</td>
                 <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                 <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].classId}">修改</a></td>
                 <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
