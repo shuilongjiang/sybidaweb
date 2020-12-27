@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../bs/bootstrap.min.css">
+
+
+</head>
+<body>
+<span>
+<hr/>
+</span>
+<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="#" class="nav_guide">学生个人信息</a>
+</div>
+<div class="container">
+    <div class="navbar" style="margin-top: 30px">
+    </div>
+    <form action="" method="post" enctype="multipart/form-data" id="studentform">
+        <table class="layui-table  " style="margin-top: 10px">
+            <tr>
+                <th colspan="4" style="text-align: center"><h2>查看学生信息</h2></th>
+            </tr>
+            <tr class="warning" id="detailedInfo">
+                <td>学生姓名：</td>
+                <td><input type="text" class="studentName" readonly></td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td>
+                    <input type="text" name="sex" class="studentSex" readonly>
+                </td>
+                <td>是否毕业</td>
+                <td>
+                    <input type="text" class="IsGraduation" name="graduation" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>毕业学校：</td>
+                <td><input type="text" class="studentSchool" readonly></td>
+                <td>专业：</td>
+                <td><input type="text" class="studentSpecialty" readonly></td>
+            </tr>
+            <tr>
+                <td>微信：</td>
+                <td><input type="text" class="studentWechat" readonly></td>
+                <td>邮箱：</td>
+                <td><input type="email" class="studentMailbox" readonly></td>
+            </tr>
+            <tr>
+                <td>学习方向：</td>
+                <td><input type="text" class="studentStudyId" readonly></td>
+                <td>就业城市：</td>
+                <td><input type="text" class="studentCity" readonly></td>
+            </tr>
+            <tr>
+                <td>家庭住址：</td>
+                <td><input type="text" class="studentAddress" readonly></td>
+
+            </tr>
+            <tr>
+                <td>班级ID：</td>
+                <td><input type="text" class="studentClassId" readonly</td>
+                <td>紧急联系电话电话：</td>
+                <td><input type="text" class="studentUrgent" readonly></td>
+            </tr>
+            <tr>
+                <td>学生电话：</td>
+                <td><input type="text" class="studentPhone" readonly></td>
+                <td>身份证号：</td>
+                <td><input type="text" class="studentIdentityNum" readonly></td>
+            </tr>
+            <tr>
+                <td>学生寝室：</td>
+                <td><input maxlength="6" type="text" class="studentRoom" readonly></td>
+                <td>学生照片：</td>
+                <td><img src="" class="StudentPhoto" id="studentphotourl" alt="暂无图片" style="height:50px;width: 40px;">
+                </td>
+            </tr>
+            <tr>
+                <td>家长姓名：</td>
+                <td><input type="text" class="studentParentName" readonly></td>
+                <td>家长电话：</td>
+                <td><input type="text" class="studentParentPhone" readonly></td>
+            </tr>
+            <tr><input type="button" value="返回上一级" class="layui-btn" onclick="returnInfoStudent()"/></tr>
+        </table>
+    </form>
+</div>
+<script src="../jquery/jquery-3.3.1.min.js"></script>
+<script src="../common/js/locahostadress.js"></script>
+<script src="js/seeStudent.js"></script>
+</body>
+</html>
