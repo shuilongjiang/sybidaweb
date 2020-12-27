@@ -43,6 +43,24 @@ $("#selectButt1").click(function () {
     }
 })
 
+//全选全不选
+$("#chk").click(function(){
+    //当全选按钮是选中状态
+    if($(this).is(':checked')){
+        //循环下面所有checkbox
+        $('input[name="optionAll"]').each(function(){
+            //将checkbox状态改为选中
+            $(this).prop("checked",true);
+        });
+    }else{
+
+        $('input[name="optionAll"]').each(function(){
+            $(this).prop("checked",false);
+        });
+    }
+});
+
+
 var userid=getCookie("userid")
 function showDetail(name) {
 
@@ -58,12 +76,14 @@ function showDetail(name) {
                 if (data.code == 0) {
                     alert("id不存在！")
                 } else {
+
                     let html = '<tbody><tr class="active">\n' +
+                        '<th scope="col"><input type="checkbox" id="chk">&nbsp;&nbsp;全选</th>'+
                         '            <!--<th style="width: 80px;">-->\n' +
                         '                <!--<input type="checkbox" name="checkAll">&nbsp;&nbsp;全选</th>-->\n' +
                         '            <th>学生姓名</th>\n' +
                         '            <th>学生性别</th>\n' +
-                        '            <th>班级ID</th>\n' +
+                        '            <th>班级名称</th>\n' +
                         '            <th>毕业学校</th>\n' +
                         '            <th>手机号</th>\n' +
                         '            <th>身份证号</th>\n' +
@@ -73,6 +93,8 @@ function showDetail(name) {
                         '            <th>就业城市</th>\n' +
                         '            <th>家长电话</th>\n' +
                         '            <th>家长姓名</th>\n' +
+                        ' <th scope="col">查看</th>\n' +
+                        '            <th scope="col">删除</th>'+
                         '        </tr>\n' +
                         '        <hr/>'
                     console.log(data)
@@ -103,8 +125,8 @@ function showDetail(name) {
                         if (!list[i].studentParentName) {
                             list[i].studentParentName = "暂无"
                         }
-                        if (!list[i].studentClassId) {
-                            list[i].studentClassId = "暂无"
+                        if (!list[i].classNum) {
+                            list[i].classNum = "暂无"
                         }
                         if (!list[i].studentPhone) {
                             list[i].studentPhone = "暂无"
@@ -113,26 +135,40 @@ function showDetail(name) {
                             list[i].studentCity = "暂无"
                         }
 
-                        html += `<tr class="warning">]
+                        html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>
                                   <td>${list[i].studentName}</td>
                                   <td>${list[i].studentSex}</td>
-                                 <td>${list[i].studentClassId}</td>  
+                                 <td>${list[i].classNum}</td>  
                                  <td>${list[i].studentSchool}</td>        
+                                 <td>${list[i].studentPhone}</td>
                                  <td>${list[i].studentIdentity}</td>
                                  <td>${list[i].studentIsGraduation}</td>
-                                 <td>${list[i].studentSpecialty}</td>
-                                 <td>${list[i].studentWechat}</td>          
-                                 <td>${list[i].studentCity}</td>
-                                 <td>${list[i].studentParentPhone}</td>        
+                                 <td>${list[i].studentSpecialty}</td>          
+                                 <td>${list[i].studentWechat}</td>
+                                 <td>${list[i].studentCity}</td>        
+                                 <td>${list[i].studentParentPhone}</td>
                                  <td>${list[i].studentParentName}</td>
-                                 <td>${list[i].studentPhone}</td>
+                                 <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">查看</a></td>
+                                     <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                               data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>\\\`
             
                              </tr>`
                     }
+                    html+=`<tr><td colspan="16"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
                     html+='</tbody>'
                     $("#showAllInfo").empty();
                     $("#showAllInfo").append(html)
                     $("#pagination").css('display','none');
+
+                    $("a[name='update']").click(function (){
+                        var text=$(this).text()
+                        console.log("========="+text)
+                        if(text.trim()=='查看'){
+                            var  id =$(this).attr("value")
+                            console.log(id+"====++++++++++++++++")
+                            location.href="/sybida/student/seeStudent.html?id="+id;
+                        }
+                    })
                 }
             }
         }
@@ -198,8 +234,8 @@ function show() {
                     if (!list[i].studentParentName) {
                         list[i].studentParentName = "暂无"
                     }
-                    if (!list[i].studentClassId) {
-                        list[i].studentClassId = "暂无"
+                    if (!list[i].classNum) {
+                        list[i].classNum = "暂无"
                     }
                     if (!list[i].studentPhone) {
                         list[i].studentPhone = "暂无"
@@ -208,27 +244,40 @@ function show() {
                         list[i].studentCity = "暂无"
                     }
 
-                    html += `<tr class="warning">]
-                              
+                    html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>                          
                                  <td>${list[i].studentName}</td>
                                   <td>${list[i].studentSex}</td>
-                                 <td>${list[i].studentClassId}</td>  
-                                 <td>${list[i].studentSchool}</td>   
-                                   <td>${list[i].studentPhone}</td>     
+                                 <td>${list[i].classNum}</td>  
+                                 <td>${list[i].studentSchool}</td>        
+                                 <td>${list[i].studentPhone}</td>
                                  <td>${list[i].studentIdentity}</td>
                                  <td>${list[i].studentIsGraduation}</td>
-                                 <td>${list[i].studentSpecialty}</td>
-                                 <td>${list[i].studentWechat}</td>          
-                                 <td>${list[i].studentCity}</td>
-                                 <td>${list[i].studentParentPhone}</td>        
+                                 <td>${list[i].studentSpecialty}</td>          
+                                 <td>${list[i].studentWechat}</td>
+                                 <td>${list[i].studentCity}</td>        
+                                 <td>${list[i].studentParentPhone}</td>
                                  <td>${list[i].studentParentName}</td>
-                               
-            
+                                     <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">查看</a></td>
+                                     <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                               data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>\`
                              </tr>`
                 }
+                html+=`<tr><td colspan="16"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
                 $("#showAllInfo").append(html)
-
+                $("#deleteBySelect").click(function (){
+                    $("#exampleModalAll").attr("class","modal fade in")
+                    $("#exampleModalAll").css("display","inline-block")
+                })
                 pageSelect(data.data)
+                $("a[name='update']").click(function (){
+                    var text=$(this).text()
+                    console.log("========="+text)
+                    if(text.trim()=='查看'){
+                        var  id =$(this).attr("value")
+                        console.log(id+"====++++++++++++++++")
+                        location.href="/sybida/student/seeStudent.html?id="+id;
+                    }
+                })
                 $("input[name='optionAll']").click(function () {
                     if ($(this).is(':checked')) {
                         // 如果当前框被选中，则判断是否需要勾选全选框

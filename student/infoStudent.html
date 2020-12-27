@@ -79,11 +79,12 @@
 
     <table class="table table-striped table-hover table-bordered" id="showAllInfo">
         <tr class="active">
+            <th scope="col"><input type="checkbox" id="chk">&nbsp;&nbsp;全选</th>
             <!--<th style="width: 80px;">-->
             <!--<input type="checkbox" name="checkAll">&nbsp;&nbsp;全选</th>-->
             <th>学生姓名</th>
             <th>学生性别</th>
-            <th>班级ID</th>
+            <th>班级名称</th>
             <th>毕业学校</th>
             <th>手机号</th>
             <th>身份证号</th>
@@ -93,6 +94,8 @@
             <th>就业城市</th>
             <th>家长电话</th>
             <th>家长姓名</th>
+            <th scope="col">查看</th>
+            <th scope="col">删除</th>
         </tr>
         <hr/>
     </table>
@@ -104,13 +107,58 @@
         </ul>
     </nav>
 </div>
+<div>
+    <!--单个模态框-->
+    <div class="modal fade" style="margin-top:100px;padding-top:100px;" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body" style="margin-top: 20px;">
+                    <form>
+                        <div class="form-group" >
+                            <label id="messagetext" class="control-label">Message:</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" id="deleteOneSure" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--多个删除模态框-->
+    <div class="modal fade" id="exampleModalAll" style="margin-top:100px;padding-top:100px;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">删除</h4>
+                </div>
+                <div class="modal-body" style="margin-top: 20px;">
+                    <form>
+                        <div class="form-group">
+                            <label id="mm" class="control-label">确认将所选的学生删除</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  id="canle" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" id="deleteAllSure" class="btn btn-primary">确认删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 <div class="container" style="width: 70%;margin: 0 auto;display: none;" id="detailCon">
     <table class="table table-striped table-hover table-bordered" id="detailedInfo">
         <tr class="active">
 
             <th>学生姓名</th>
             <th>学生性别</th>
-            <th>班级ID</th>
+            <th>班级名称</th>
             <th>毕业学校</th>
             <th>手机号</th>
             <th>身份证号</th>
@@ -120,6 +168,8 @@
             <th>就业城市</th>
             <th>家长电话</th>
             <th>家长姓名</th>
+            <th scope="col">修改</th>
+            <th scope="col">删除</th>
         </tr>
         <hr/>
     </table>
@@ -155,6 +205,96 @@
         });
     }
     )
+
+
+    $("#canle").click(function (){
+        $("#exampleModalAll").attr("class","modal fade")
+        $("#exampleModalAll").css("display","none")
+    })
+
+    var idtea
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        idtea = button.data('id') // Extract info from data-* attributes
+        var name = button.data('name') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('#messagetext').text('确认将学生-' +name+'-删除吗？')
+    })
+
+    $("#deleteOneSure").click(function (){
+        var s=new Array();
+        console.log(idtea+"======================")
+        s[0] = idtea;
+        $.post({url:url+"/student/deleteallstudent",
+            // 告知传递参数类型为json，不可缺少
+            contentType:"application/json",
+            data:JSON.stringify(s),
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function (data) {
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
+                    if(data.code==1){
+                        location.href="/sybida/student/infoStudent.html?pageNum=1&pageSize="+pageSize;
+                    }else{
+                        layer.alert("删除失败");
+                    }
+                }
+
+            }},"json")
+
+        //删除写这里
+    })
+
+    $("#deleteAllSure").click(function (){
+
+        var checkbox = $("input[name='optionAll']");
+        var s=new Array();
+        var j=0
+        for(var i = 0;i<checkbox.length;i++)
+        {
+            if(checkbox[i].checked==true)
+            {console.log(checkbox[i].value)
+                s[j++]=(checkbox[i].value)
+            }
+        }
+        var userid=getCookie("userid")
+        if(s.length>0){ $.post({
+            url:url+"/student/deleteallstudent",
+            // 告知传递参数类型为json，不可缺少
+            contentType:"application/json",
+            data:JSON.stringify(s),
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function(data){
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
+                    if(data.code===1){
+                        location.href="/sybida/student/infoStudent.html?pageNum=1&pageSize="+pageSize;
+
+                    }else{
+                        layer.alert("删除失败请重试！");
+                        $("#exampleModalAll").attr("class","modal fade")
+                        $("#exampleModalAll").css("display","none")
+                    }
+
+                }
+
+            }
+        })}else{
+
+            layer.alert("所选数据为空！");
+            $("#exampleModalAll").attr("class","modal fade")
+            $("#exampleModalAll").css("display","none")
+        }
+    })
+
 
 </script>
 
