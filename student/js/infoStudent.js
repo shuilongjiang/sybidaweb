@@ -78,7 +78,8 @@ function showDetail(name) {
                 } else {
 
                     let html = '<tbody><tr class="active">\n' +
-                        '<th scope="col"><input type="checkbox" id="chk">&nbsp;&nbsp;全选</th>'+
+                        '<th scope="col">' +
+                        '<input type="checkbox" id="checkAgain">&nbsp;&nbsp;全选</th>'+
                         '            <!--<th style="width: 80px;">-->\n' +
                         '                <!--<input type="checkbox" name="checkAll">&nbsp;&nbsp;全选</th>-->\n' +
                         '            <th>学生姓名</th>\n' +
@@ -154,8 +155,9 @@ function showDetail(name) {
             
                              </tr>`
                     }
-                    html+=`<tr><td colspan="16"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
+                    html+=`<tr><td colspan="16"><button type="button" id="deleteBySelectIds" class="btn btn-danger">删除所选</button></td></tr>`
                     html+='</tbody>'
+
                     $("#showAllInfo").empty();
                     $("#showAllInfo").append(html)
                     $("#pagination").css('display','none');
@@ -168,6 +170,28 @@ function showDetail(name) {
                             console.log(id+"====++++++++++++++++")
                             location.href="/sybida/student/seeStudent.html?id="+id;
                         }
+                    })
+
+                    //全选全不选
+                    $("#checkAgain").click(function(){
+                        //当全选按钮是选中状态
+                        if($(this).is(':checked')){
+                            //循环下面所有checkbox
+                            $('input[name="optionAll"]').each(function(){
+                                //将checkbox状态改为选中
+                                $(this).prop("checked",true);
+                            });
+                        }else{
+
+                            $('input[name="optionAll"]').each(function(){
+                                $(this).prop("checked",false);
+                            });
+                        }
+                    });
+
+                    $("#deleteBySelectIds").click(function (){
+                        $("#exampleModalAll").attr("class","modal fade in")
+                        $("#exampleModalAll").css("display","inline-block")
                     })
                 }
             }

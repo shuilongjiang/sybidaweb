@@ -34,8 +34,29 @@ $("#selectButt").click(function () {
     location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
 })
 
+
 //全选全不选
-$('input[name="checkAll"]').click(function () {
+// $('input[name="checSybidaOfferMapperkAll"]').click(function () {
+//     // alert("123")
+//     console.log("123")
+//     //当全选按钮是选中状态
+//     if ($(this).is(':checked')) {
+//         //循环下面所有checkbox
+//         $('input[name="optionAll"]').each(function () {
+//             //将checkbox状态改为选中
+//             $(this).prop("checked", true);
+//         });
+//     } else {
+//
+//         $('input[name="optionAll"]').each(function () {
+//             $(this).prop("checked", false);
+//         });
+//     }
+// });
+//
+//全选全不选
+$("#checkAll").click(function () {
+    console.log("123")
     //当全选按钮是选中状态
     if ($(this).is(':checked')) {
         //循环下面所有checkbox
@@ -51,6 +72,22 @@ $('input[name="checkAll"]').click(function () {
     }
 });
 
+$(".qwer").click(function () {
+console.log("123")
+    //当全选按钮是选中状态
+    if ($(this).is(':checked')) {
+        //循环下面所有checkbox
+        $('input[name="optionAll"]').each(function () {
+            //将checkbox状态改为选中
+            $(this).prop("checked", true);
+        });
+    } else {
+
+        $('input[name="optionAll"]').each(function () {
+            $(this).prop("checked", false);
+        });
+    }
+});
 
 show();
 
@@ -90,7 +127,8 @@ function show() {
             }
 
             if(list[i].vitaeUrl){
-                html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
+                html += `<tr class="warning">]<td style="width: 80px;">
+            <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
             <td>${list[i].vitaeId}</td>
             <td>${list[i].vitaeStudentId}</td>
             <td id="studentName1">${list[i].studentName}</td>
