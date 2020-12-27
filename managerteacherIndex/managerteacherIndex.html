@@ -397,9 +397,11 @@
                     }else{
                         $("#advicenum").html(data.data.messageNum)
                     }
-                    if(data.data.teachName){
+                    if(data.data.teachName && data.data.userAuthority==0){
                         $("#username").html(data.data.teachName+"--班主任")
-                    }else{
+                    }else if(data.data.teachName && data.data.userAuthority==1){
+                        $("#username").html(data.data.teachName+"--任课老师")
+                    }else {
 
                     }
                     if(data.data.teachPhoto){
