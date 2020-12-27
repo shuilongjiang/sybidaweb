@@ -153,7 +153,6 @@ $.getJSON({
                                     list[i].studentCity = "暂无"
                                 }
                                 html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>
-            <td>${list[i].studentId}</td>
             <td>${list[i].studentName}</td>
             <td>${list[i].studentSex}</td>
             <td>${list[i].studentIdentity}</td>
@@ -165,7 +164,7 @@ $.getJSON({
             <td>${list[i].studentParentPhone}</td>
             <td>${list[i].studentParentName}</td>
             <td>${list[i].studentPhone}</td>
-            <td>${list[i].studentClassId}</td>
+            <td>${list[i].studentNull1}</td>
             <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">修改</a></td>
             <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
         data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>`
