@@ -180,7 +180,8 @@
                                     }
                                 }
                             } else {
-                                alert("原密码错误！！！")
+                                layer.msg("原密码错误！！！！！", {icon: 4,time:800});
+
                                 return
                             }
                         }
@@ -188,7 +189,8 @@
                 })
             }
         } else {
-            alert("请写原密码！！！")
+            layer.msg("请写原密码！！！！！", {icon: 4,time:800});
+
             return
         }
 
