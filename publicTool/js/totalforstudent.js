@@ -5,11 +5,14 @@ layui.use('layer', function(){
 });
 var userid=getCookie("userid")
 var search = location.search
-var arr1 = search.split("?")
-var arr = arr1[1].split("=")
-if(arr[0]=="classId"){
-    classId=arr[1]
+if(!search){}else{
+    var arr1 = search.split("?")
+    var arr = arr1[1].split("=")
+    if(arr[0]=="classId"){
+        classId=arr[1]
+    }
 }
+
 $("#selectButt").click(function () {
     location.href = "/sybida/publicTool/totalforstudent.html?classId="+classId
 })

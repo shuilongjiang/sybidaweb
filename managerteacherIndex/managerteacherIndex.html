@@ -19,95 +19,17 @@
 <body>
 <!--头部-->
 <div class="header" style="position: relative">
-    <div style="width: 100px;height: 20px;position: absolute;top: 85px;left: 300px" >
+    <div style="width: 100px;height: 20px;position: absolute;top: 85px;left:18%" >
         <span id="username">你好</span>
     </div>
     <div class="head clearfix">
-        <div class="logo" ><a href=""><img id="userphotoA" style=" margin-bottom: 5px; border-radius:100%; border: #ADC016 2px solid; margin-top: 0"  src="" alt="思必达"/></a>
+        <div class="logo" ><a href=""><img id="userphotoA" style="margin-left: 20%; margin-bottom: 5px; border-radius:100%; border: #ADC016 2px solid; margin-top: 0"  src="" alt="思必达"/></a>
              <br><button id="login" class="btn" style="border: none" onclick="exittologin()" >退出登录</button>
         </div>
 
-        <div class="nav_m">
+        <div class="nav_m" id="navallmany">
             <div class="n_icon">导航栏</div>
-            <ul class="nav clearfix">
-                <li class="now"><a id="first" href="#">首页</a></li>
-                <li>
-                	<a href="javascript:void(0);">注册管理</a>
-                    <div class="er">
-                    	<div class="er_m">
-                            <i>&nbsp;</i>
-                            <ul>
-                                <li><a id="register" href="javascript:void(0);">表格导入注册</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                	<a href="javascript:void(0);">学生管理</a>
-                    <div class="er">
-                    	<div class="er_m">
-                            <i>&nbsp;</i>
-                            <ul>
-                                <li><a id="infoStudent" href="javascript:;">查看班级学生</a></li>
-                                <li><a id="classInfo" href="javascript:;">查看班级</a></li>
-                                <li><a id="addclassInfo" href="javascript:;">查看全校学生</a></li>
-                                <li><a id="studyInfo" href="javascript:;">学习方向管理</a></li>
-                                <li><a id="studentInterviewTeacher" href="javascript:;">查看学生面试经历</a></li>
-                                <li><a id="studentJobForTeacher" href="javascript:;">查看学生就业情况</a></li>
-                                <li><a id="studentOfferForTeacher" href="javascript:;">查看学生Offer</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                	<a href="javascript:void(0);">简历管理</a>
-                    <div class="er">
-                    	<div class="er_m">
-                            <i>&nbsp;</i>
-                            <ul>
-                                <li><a id="downloadVitaeTeacher" href="javascript:;">下载简历</a></li>
-                                <li><a id="vitaeEvaluateTeacher"href="javascript:;">简历查看评级</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" >5</span></a>
-                    <div class="er">
-                    	<div class="er_m">
-                            <i>&nbsp;</i>
-                            <ul>
-                                <li><a id="makeNotice" href="javascript:void(0);">发布通知</a></li>
-                                <li><a  id="receiveNotice" href="javascript:void(0);">接收通知</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                	<a href="javascript:void(0);">我的</a>
-                    <div class="er">
-                    	<div class="er_m">
-                            <i>&nbsp;</i>
-                            <ul>
-                                <li><a id="changeTeacher"href="javascript:void(0);">修改个人信息</a></li>
-                                <li><a id="changePsw" href="javascript:void(0);">修改密码</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                	<a href="#">联系我们</a>
-                    <div class="er">
-                    	<div class="er_m">
-                            <i>&nbsp;</i>
-                            <ul>
-                                <li><a href="#">联系我们</a></li>
-                                <li><a href="#">客户留言</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+
         </div>
     </div>
 </div>
@@ -204,172 +126,7 @@
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 <script src="/sybida/layui/layui.js"></script>
 <script>
-    window.onload = wOnload();
-    //这是刷新浏览器执行的事件
-    function wOnload() {
-        var storage = window.sessionStorage;
-        var iframeSrc= storage.getItem("ifreammanagerteacher");
-        if(iframeSrc){
-            $("#ifream1").attr("src",iframeSrc);
-        }
 
-    }
-
-
-
-    $("#register").click(function () {
-
-        $("#ifream1").attr("src","/sybida/common/register.html")
-        iframeSrc = $("#ifream1").attr("src")
-        var storage = window.sessionStorage;
-        storage.setItem("ifreammanagerteacher",iframeSrc);
-
-    })
-    $("#classInfo").click(function () {
-
-        $("#ifream1").attr("src","/sybida/publicTool/classInfo.html")
-        iframeSrc = $("#ifream1").attr("src")
-        var storage = window.sessionStorage;
-        storage.setItem("ifreammanagerteacher",iframeSrc);
-
-    })
-    $("#infoStudent").click(
-        function () {
-            $("#ifream1").attr("src","../student/classStudent.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#addclassInfo").click(
-        function () {
-            $("#ifream1").attr("src","../student/infoStudent.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#studyInfo").click(
-        function () {
-            $("#ifream1").attr("src","../publicTool/studyInfo.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#studentJobForTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/studentJobForTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#studentOfferForTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/studentOfferForTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-
-    $("#studyInfo").click(
-        function () {
-            $("#ifream1").attr("src","../publicTool/studyInfo.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-
-    $("#downloadVitaeTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/vitaeEvaluateTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#vitaeEvaluateTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/vitaeEvaluateTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#changeTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/updateTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#resetPsw").click(
-        function () {
-            $("#ifream1").attr("src","../publicTool/resetPsw.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#changePsw").click(
-        function () {
-            $("#ifream1").attr("src","../publicTool/changePsw.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-
-    $("#studentInterviewTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/studentInterviewTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-
-    $("#login").click(
-        function () {
-            top.location.replace("/sybida/login.html");
-        }
-    )
-    $("#first").click(
-        function () {
-            $("#ifream1").attr("src","/sybida/managerteacherIndex/body.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#makeNotice").click(
-        function () {
-            $("#ifream1").attr("src","/sybida/publicTool/makeNotice.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#noticeTool").click(
-        function () {
-            $("#ifream1").attr("src","/sybida/publicTool/noticeTool.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
-    $("#receiveNotice").click(
-        function () {
-            $("#ifream1").attr("src","/sybida/publicTool/receiveNotice.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanagerteacher",iframeSrc);
-        }
-    )
 
 </script>
 <script>
@@ -399,8 +156,176 @@
                     }
                     if(data.data.teachName && data.data.userAuthority==0){
                         $("#username").html(data.data.teachName+"--班主任")
+
+                        var html=``
+                         html=` <ul class="nav clearfix">
+                <li class="now"><a id="first" href="#">首页</a></li>
+                <li>
+                	<a href="javascript:void(0);">注册管理</a>
+                    <div class="er">
+                    	<div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+                                <li><a id="register" href="javascript:void(0);">表格导入注册</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                	<a href="javascript:void(0);">学生管理</a>
+                    <div class="er">
+                    	<div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+                                <li><a id="infoStudent" href="javascript:;">查看班级学生</a></li>
+                                <li><a id="classInfo" href="javascript:;">查看班级</a></li>
+                                <li><a id="studyInfo" href="javascript:;">学习方向管理</a></li>
+                                </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">学生就业</a>
+                    <div class="er">
+                        <div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+                                <li><a id="infostudentjob" href="javascript:;">就业数据统计</a></li>
+                                </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">企业管理</a>
+                    <div class="er">
+                        <div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+
+                                <li><a id="addcompanyinfo"href="javascript:;">添加企业信息</a></li>
+                                <li><a id="selectcompanyinfo"href="javascript:;">查看招聘信息</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" >5</span></a>
+                    <div class="er">
+                    	<div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+                                <li><a id="makeNotice" href="javascript:void(0);">发布通知</a></li>
+                                <li><a  id="receiveNotice" href="javascript:void(0);">接收通知</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                	<a href="javascript:void(0);">我的</a>
+                    <div class="er">
+                    	<div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+                                <li><a id="changeTeacher"href="javascript:void(0);">修改个人信息</a></li>
+                                <li><a id="changePsw" href="javascript:void(0);">修改密码</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>`
+                        $("#navallmany").append(html)
+
+
+
+
+
+
                     }else if(data.data.teachName && data.data.userAuthority==1){
                         $("#username").html(data.data.teachName+"--任课老师")
+                        var html=``
+                        html=` <ul class="nav clearfix">
+                <li class="now"><a id="first" href="#">首页</a></li>
+
+                <li>
+                	<a href="javascript:void(0);">学生管理</a>
+                    <div class="er">
+                    	<div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+                                <li><a id="infoStudent" href="javascript:;">查看班级学生</a></li>
+                                <li><a id="classInfo" href="javascript:;">查看班级</a></li>
+                                <li><a id="studyInfo" href="javascript:;">学习方向管理</a></li>
+                                </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">学生就业</a>
+                    <div class="er">
+                        <div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+                                <li><a id="infostudentjob" href="javascript:;">就业数据统计</a></li>
+                                <li><a id="studentInterviewTeacher" href="javascript:;">查看学生面试经历</a></li>
+                                <li><a id="studentJobForTeacher" href="javascript:;">查看学生就业情况</a></li>
+                                <li><a id="studentOfferForTeacher" href="javascript:;">查看学生Offer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">企业管理</a>
+                    <div class="er">
+                        <div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+
+                                <li><a id="addcompanyinfo"href="javascript:;">添加企业信息</a></li>
+                                <li><a id="selectcompanyinfo"href="javascript:;">查看招聘信息</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                	<a href="javascript:void(0);">简历管理</a>
+                    <div class="er">
+                    	<div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+
+                                <li><a id="vitaeEvaluateTeacher"href="javascript:;">简历查看评级</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" >5</span></a>
+                    <div class="er">
+                    	<div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+                                <li><a id="makeNotice" href="javascript:void(0);">发布通知</a></li>
+                                <li><a  id="receiveNotice" href="javascript:void(0);">接收通知</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                	<a href="javascript:void(0);">我的</a>
+                    <div class="er">
+                    	<div class="er_m">
+                            <i>&nbsp;</i>
+                            <ul>
+                                <li><a id="changeTeacher"href="javascript:void(0);">修改个人信息</a></li>
+                                <li><a id="changePsw" href="javascript:void(0);">修改密码</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>`
+                        $("#navallmany").append(html)
                     }else {
 
                     }
@@ -410,6 +335,197 @@
                     }else{
 
                     }
+                    window.onload = wOnload();
+                    //这是刷新浏览器执行的事件
+                    function wOnload() {
+                        var storage = window.sessionStorage;
+                        var iframeSrc= storage.getItem("ifreammanagerteacher");
+                        if(iframeSrc){
+                            $("#ifream1").attr("src",iframeSrc);
+                        }
+
+                    }
+
+
+
+                    $("#register").click(function () {
+
+                        $("#ifream1").attr("src","/sybida/common/register.html")
+                        iframeSrc = $("#ifream1").attr("src")
+                        var storage = window.sessionStorage;
+                        storage.setItem("ifreammanagerteacher",iframeSrc);
+
+                    })
+                    $("#classInfo").click(function () {
+
+                        $("#ifream1").attr("src","/sybida/publicTool/classInfo.html")
+                        iframeSrc = $("#ifream1").attr("src")
+                        var storage = window.sessionStorage;
+                        storage.setItem("ifreammanagerteacher",iframeSrc);
+
+                    })
+                    $("#infoStudent").click(
+                        function () {
+                            $("#ifream1").attr("src","../student/classStudent.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#addclassInfo").click(
+                        function () {
+                            $("#ifream1").attr("src","../student/infoStudent.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#studyInfo").click(
+                        function () {
+                            $("#ifream1").attr("src","../publicTool/studyInfo.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#studentJobForTeacher").click(
+                        function () {
+                            $("#ifream1").attr("src","../teacher/studentJobForTeacher.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#studentOfferForTeacher").click(
+                        function () {
+                            $("#ifream1").attr("src","../teacher/studentOfferForTeacher.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+
+                    $("#studyInfo").click(
+                        function () {
+                            $("#ifream1").attr("src","../publicTool/studyInfo.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+
+                    $("#downloadVitaeTeacher").click(
+                        function () {
+                            $("#ifream1").attr("src","../teacher/vitaeEvaluateTeacher.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#vitaeEvaluateTeacher").click(
+                        function () {
+                            $("#ifream1").attr("src","../teacher/vitaeEvaluateTeacher.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#changeTeacher").click(
+                        function () {
+                            $("#ifream1").attr("src","../teacher/updateTeacher.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+
+                    $("#resetPsw").click(
+                        function () {
+                            $("#ifream1").attr("src","../publicTool/resetPsw.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#addcompanyinfo").click(
+                        function () {
+                            $("#ifream1").attr("src","../company/insertCompany.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#selectcompanyinfo").click(
+                        function () {
+                            $("#ifream1").attr("src","../company/companyinfo2.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#changePsw").click(
+                        function () {
+                            $("#ifream1").attr("src","../publicTool/changePsw.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+
+                    $("#studentInterviewTeacher").click(
+                        function () {
+                            $("#ifream1").attr("src","../teacher/studentInterviewTeacher.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+
+                    $("#login").click(
+                        function () {
+                            top.location.replace("/sybida/login.html");
+                        }
+                    )
+                    $("#first").click(
+                        function () {
+                            $("#ifream1").attr("src","/sybida/managerteacherIndex/body.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#infostudentjob").click(
+                        function () {
+                            $("#ifream1").attr("src","/sybida/publicTool/totalforstudent.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#makeNotice").click(
+                        function () {
+                            $("#ifream1").attr("src","/sybida/publicTool/makeNotice.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#noticeTool").click(
+                        function () {
+                            $("#ifream1").attr("src","/sybida/publicTool/noticeTool.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+                    $("#receiveNotice").click(
+                        function () {
+                            $("#ifream1").attr("src","/sybida/publicTool/receiveNotice.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
                 }else{
                     alert("请检查网络是否连接" + data);
                 }
