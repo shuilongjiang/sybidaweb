@@ -298,8 +298,6 @@ function updateVitaeLevel(vitaeId, userid, name,vitaeurl) {
     $("#vitaeEvaluateUserName").val(name)
     $("#iframe3").attr("src",Qnyurl+vitaeurl)
 }
-
-
 $("#addVitaeLevel").click(function () {
 
     var vitaeId = $("#vitaeID").val()
