@@ -80,9 +80,6 @@
                                     <li>
                                         <a id="offerStudent" href="#" class="s_btn">offer登记</a>
                                     </li>
-                                    <li>
-                                        <a id="jobStudent" href="#" class="s_btn">就业登记</a>
-                                    </li>
                                 </ul>
                             </li>
                             <li class="has-sub">
@@ -95,9 +92,6 @@
                                     </li>
                                     <li>
                                         <a id="offerStudent2" href="#" class="s_btn">offer记录</a>
-                                    </li>
-                                    <li>
-                                        <a id="jobStudent2" href="#" class="s_btn">就业记录</a>
                                     </li>
                                 </ul>
                             </li>
@@ -493,24 +487,6 @@
         }
     )
 
-    $("#jobStudent").click(
-        function () {
-            $("#ifream1").attr("src","../student/studentJobRegister.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreamstudent",iframeSrc);
-        }
-    )
-
-    $("#jobStudent2").click(
-        function () {
-            $("#ifream1").attr("src","../student/studentJobDetails.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreamstudent",iframeSrc);
-        }
-    )
-
 
 
     $("#studentAuditionRegister").click(
@@ -566,7 +542,7 @@
 
     $("#offerStudent").click(
         function () {
-            $("#ifream1").attr("src","../student/studentOfferRegister.html")
+            $("#ifream1").attr("src","../student/studentPersonalOfferRegister.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreamstudent",iframeSrc);
@@ -575,7 +551,7 @@
 
     $("#offerStudent2").click(
         function () {
-            $("#ifream1").attr("src","../student/studentOffer.html")
+            $("#ifream1").attr("src","../student/studentPersonalOffer.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreamstudent",iframeSrc);
