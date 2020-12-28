@@ -103,6 +103,8 @@ function show() {
                 list[i].vitaeHistoryFrequency = "暂无"
             }
 
+            var date = Date.parse(list[i].vitaeAlterTime)
+            date = new Date(date)
             // if(list[i].vitaeUrl){
             console.log(list[i].vitaeLevel)
             if (list[i].vitaeLevel == 1){
@@ -123,7 +125,7 @@ function show() {
      
             <td>${list[i].vitaeIsRead}</td> 
            
-            <td >${list[i].vitaeAlterTime}</td>
+            <td >${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
            <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
            <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}','${list[i].studyAspect}')">下载</button></td>
         </tr>`
@@ -146,7 +148,7 @@ function show() {
      
             <td>${list[i].vitaeIsRead}</td> 
            
-            <td>${list[i].vitaeAlterTime}</td>
+            <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
            <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
            <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}','${list[i].studyAspect}')">下载</button></td>
         </tr>`
