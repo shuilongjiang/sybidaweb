@@ -35,10 +35,6 @@
     var search=location.search
     var vitaeId1=search.split("=")
     var vitaeId=vitaeId1[1]
-    console.log(search)
-    console.log(vitaeId1)
-    console.log(vitaeId)
-
     var userid=getCookie("userid")
     showEvaluate()
     function showEvaluate() {
@@ -52,9 +48,7 @@
                     location.href=logindexurl
                 }else{
                     let html = ''
-                    console.log(data)
                     var list = data.data
-                    console.log(list)
                     for (let i = 0; i < list.length; i++) {
                         html += `<tr class="warning">]
                                     <td>${list[i].teachName}</td>

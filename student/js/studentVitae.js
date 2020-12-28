@@ -32,14 +32,32 @@ function show() {
                 console.log(data)
                 var list = data.data
                 console.log(list)
+
                 for (let i = 0; i < list.length; i++) {
-                    html += `<tr class="warning">
+                    if(list[i].vitaeLevel==1){
+                        list[i].vitaeLevel="可投递"
+                    }else {
+                        list[i].vitaeLevel ="继续修改"
+                    }
+                    console.log(list[i].vitaeLevel)
+                    if(list[i].vitaeIsRead==0){
+                        html += `<tr class="warning">
                                 <td>${list[i].studyAspect}</td>
                                 <td>${list[i].vitaeAlterTime}</td>
+                                <td>${list[i].vitaeLevel}</td>
+                                <td> 
+                                <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].vitaeId}','${list[i].studyAspect}')" style="width: 100px">下载</button></td>
+                                </tr>`
+                    }else {
+                        html += `<tr class="warning">
+                                <td>${list[i].studyAspect}</td>
+                                <td>${list[i].vitaeAlterTime}</td>
+                                <td>${list[i].vitaeLevel}</td>
                                 <td> 
                                 <button onclick="showVitaeBtn('${list[i].vitaeId}')" class="layui-btn layui-btn-xs" >查看简历评价</button>
                                 <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].vitaeId}','${list[i].studyAspect}')" style="width: 100px">下载</button></td>
                                 </tr>`
+                    }
                 }
                 $("#showAllInfo").append(html)
 
@@ -118,9 +136,7 @@ function showVitaeBtn(id) {
         success:function (data) {
             if(data== -1000){
                 location.href=logindexurl
-            } else if(data.code==0){
-                alert("该简历暂无评价")
-            } else {
+            }  else {
                 location.href= "/sybida/student/studentVitae66.html?id="+id;
             }
 

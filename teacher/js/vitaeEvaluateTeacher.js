@@ -98,7 +98,7 @@ function show() {
             if (list[i].vitaeLevel == 1) {
                 list[i].vitaeLevel = "可投递"
             }else {
-                list[i].vitaeLevel = "暂未评级"
+                list[i].vitaeLevel = "还需改善"
             }
             if (!list[i].vitaeDownloadFrequency) {
                 list[i].vitaeDownloadFrequency = "暂无"
