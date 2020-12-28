@@ -1,7 +1,7 @@
 var object = {}
 
-var userid = getCookie("userid")
 
+var userid = getCookie("userid")
 $(".teachTel").blur(function () {
     // alert("123")
     var phone = $(".teachTel").val();
@@ -23,6 +23,7 @@ $("#reload").click(function () {
 show()
 
 function show() {
+
     $.getJSON({
         url: url + "/teacher/selectteacherbyid",
         data: "userid=" + userid,
@@ -33,7 +34,6 @@ function show() {
             if (data == -1000) {
                 location.href = logindexurl
             } else {
-
                 var teacherInfo = data.data
                 $(".teachId").val(teacherInfo.teachId)
                 $(".teachName").val(teacherInfo.teachName)
@@ -105,14 +105,14 @@ $("#submitList").click(function () {
     formData.append("file", $("#addPic")[0].files[0]);
     formData.append("teachId", id);
     formData.append("teachPhoto", photourl);
-    formData.append("teachName", name);
-    formData.append("teachSex", gender);
+    // formData.append("teachName", name);
+    // formData.append("teachSex", gender);
     formData.append("teachWechat", wechat);
-    formData.append("teachStudyId", studyId);
-    formData.append("teachTel", tel);
+    // formData.append("teachStudyId", studyId);
+    // formData.append("teachTel", tel);
     formData.append("teachQq", qq);
-    var myreg = /^1[3|4|5|7|8][0-9]{9}$/;
-    if (myreg.test(tel)) {
+    // var myreg = /^1[3|4|5|7|8][0-9]{9}$/;
+
 
         $.ajax({
             type: "post",
@@ -136,8 +136,4 @@ $("#submitList").click(function () {
                 alert("上传出错");
             }
         });
-    } else {
-        alert("手机号格式不正确")
-    }
-
 })
