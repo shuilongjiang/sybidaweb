@@ -15,6 +15,10 @@ $(".teachTel").blur(function () {
     }
 })
 
+$("#reload").click(function () {
+ window.reload
+})
+
 
 show()
 
@@ -34,7 +38,7 @@ function show() {
                 $(".teachId").val(teacherInfo.teachId)
                 $(".teachName").val(teacherInfo.teachName)
                 $(".teachWechat").val(teacherInfo.teachWechat)
-                $(".teachStudyId").val(teacherInfo.teachStudyId)
+                $(".studyAspect").val(teacherInfo.studyAspect)
                 $(".teachTel").val(teacherInfo.teachTel)
                 $(".teachQq").val(teacherInfo.teachQq)
                 $(".teachPhoto").attr('src', Qnyurl + teacherInfo.teachPhoto)
