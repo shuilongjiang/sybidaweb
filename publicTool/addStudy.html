@@ -104,6 +104,18 @@
 </script>
 <script>
     $('#surebtn').click(function (){
+        if (!studyAspect){
+            layer.alert('班级名不为空！', {
+                    skin: 'layui-layer-molv' //样式类名
+                    , closeBtn: 0
+                }
+            );
+            setTimeout(function () {
+                window.location.reload();
+            }, 3000);
+            return false
+        }
+
         console.log($("#formId").serialize())
         $.post({
             url:url+"/studyInfo/addstudy",
@@ -132,6 +144,16 @@
                 }}
         })
     })
+</script>
+<script>
+    var classLab = document.getElementsByClassName("tip")[0];
+    var studyAspect=document.getElementById("studyAspect")
+    studyAspect.onblur = function () {
+        if (this.value== "") {
+            classLab.innerHTML = '<i class="cuo"></i> 不能为空';
+        } else {
+            classLab.innerHTML = "";
+        }}
 </script>
 </body>
 </html>

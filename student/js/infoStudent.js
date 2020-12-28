@@ -298,7 +298,7 @@ function show() {
                     console.log("========="+text)
                     if(text.trim()=='查看'){
                         var  id =$(this).attr("value")
-                        console.log(id+"====++++++++++++++++")
+
                         location.href="/sybida/student/seeStudent.html?id="+id;
                     }
                 })
