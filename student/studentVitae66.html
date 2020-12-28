@@ -29,7 +29,7 @@
 </div>
 <script src="../jquery/jquery-3.3.1.min.js"></script>
 <script src="../common/js/locahostadress.js"></script>
-
+<script src="/sybida/publicTool/js/dateutil.js"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
 
 <script>
@@ -48,6 +48,7 @@
     var vitaeId= vitaeId1.split("=")[1]
     var qny=qnyl.split("=")[1]
 
+
     $("#ifreamq").attr("src",Qnyurl+qny)
     var userid=getCookie("userid")
     showEvaluate()
@@ -61,13 +62,16 @@
                 if(data== -1000){
                     location.href=logindexurl
                 }else{
+
                     let html = ''
                     var list = data.data
                     for (let i = 0; i < list.length; i++) {
+                        var date = Date.parse(list[i].vitaeEvaluateAlterTime)
+                        date = new Date(date);
                         html += `<tr class="warning">]
                                     <td>${list[i].teachName}</td>
                                     <td style="height: 200px;">${list[i].vitaeEvaluateComment}</td>
-                                    <td>${list[i].vitaeEvaluateAlterTime}</td>
+                                    <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                                   </tr>`
                     }
                 $("#showAllInfo").append(html)
