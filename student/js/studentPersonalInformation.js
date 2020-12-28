@@ -1,6 +1,6 @@
 // 用户ID查询学生
 var userid=getCookie("userid")
-$.getJSON({url:url + "/student/selectstudentbyid",data: "userid=" + userid,
+$.getJSON({url:url + "/student/selectstudentByUserid",data: "userid=" + userid,
     beforeSend: function(request) {
         request.setRequestHeader("token", userid);
     },
@@ -18,10 +18,10 @@ $.getJSON({url:url + "/student/selectstudentbyid",data: "userid=" + userid,
                 $(".studentSpecialty").val(studentInfo.studentSpecialty)
                 $(".studentWechat").val(studentInfo.studentWechat)
                 $(".studentMailbox").val(studentInfo.studentMailbox)
-                $(".studentStudyId").val(studentInfo.studentStudyId)
+                $(".studentStudyId").val(studentInfo.studyAspect)
                 $(".studentCity").val(studentInfo.studentCity)
                 $(".studentAddress").val(studentInfo.studentAddress)
-                $(".studentClassId").val(studentInfo.studentClassId)
+                $(".studentClassId").val(studentInfo.classNum)
                 $(".studentUrgent").val(studentInfo.studentUrgent)
                 $(".studentPhone").val(studentInfo.studentPhone)
                 $(".studentIdentityNum").val(studentInfo.studentIdentity)
@@ -34,18 +34,18 @@ $.getJSON({url:url + "/student/selectstudentbyid",data: "userid=" + userid,
 
                 if ("男" == studentInfo.studentSex ) {
                     $("input[name=sex][value='男']").attr("checked", true);
-                    $("input[name=sex][value='女']").attr("disabled","disabled");
+                    // $("input[name=sex][value='女']").attr("disabled","disabled");
                 } else {
                     $("input[name=sex][value='女']").attr("checked", true);
-                    $("input[name=sex][value='男']").attr("disabled","disabled");
+                    // $("input[name=sex][value='男']").attr("disabled","disabled");
                 }
 
                 if (studentInfo.studentIsGraduation == "1") {
                     $("input[name=graduation][value='1']").attr("checked", true);
-                    $("input[name=graduation][value='0']").attr("disabled","disabled");
+                    // $("input[name=graduation][value='0']").attr("disabled","disabled");
                 } else {
                     $("input[name=graduation][value='0']").attr("checked", true);
-                    $("input[name=graduation][value='1']").attr("disabled","disabled");
+                    // $("input[name=graduation][value='1']").attr("disabled","disabled");
                 }
             }
         }
@@ -84,14 +84,14 @@ $("#submitList").click(function () {
     var specialty = $(".studentSpecialty").val()
     var wechat = $(".studentWechat").val()
     var mail = $(".studentMailbox").val()
-    var studyId = $(".studentStudyId").val()
+    // var studyId = $(".studentStudyId").val()
     var city = $(".studentCity").val()
     var address = $(".studentAddress").val()
     var parentPhone = $(".studentParentPhone").val()
     var parentName = $(".studentParentName").val()
     var urgent = $(".studentUrgent").val()
     var phone = $(".studentPhone").val()
-    var classId = $(".studentClassId").val()
+    // var classId = $(".studentClassId").val()
     var room = $(".studentRoom").val()
     var photourl = $("#studentphotourl").attr("src")
     var lenstr=photourl.lastIndexOf("/")
@@ -109,14 +109,14 @@ $("#submitList").click(function () {
     formData.append("studentSpecialty",specialty);
     formData.append("studentWechat",wechat);
     formData.append("studentMailbox",mail);
-    formData.append("studentStudyId",studyId);
+    // formData.append("studentStudyId",studyId);
     formData.append("studentCity",city);
     formData.append("studentAddress",address);
     formData.append("studentParentPhone",parentPhone);
     formData.append("studentParentName",parentName);
     formData.append("studentUrgent",urgent);
     formData.append("studentPhone",phone);
-    formData.append("studentClassId",classId);
+    // formData.append("studentClassId",classId);
     formData.append("studentRoom",room);
 
 
