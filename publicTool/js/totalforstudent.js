@@ -82,19 +82,19 @@ function showtotal() {
             ,totalRow: true
             ,cols: [[
                 {type: 'checkbox', fixed: 'left' ,sort: true, }
-                ,{field:'num', title:'序号', width:60, fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
-                ,{field:'studentName', title:'姓名', width:120, edit: 'text'}
+                ,{field:'num', title:'序号', width:'8%', fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
+                ,{field:'studentName', title:'姓名', width:'10%', edit: 'text'}
 
-                // ,{field:'studentNull1', title:'学生级别', width:80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
+                // ,{field:'studentNull1', title:'学生级别', width:'10%', fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
                 // ,{field:'email', title:'邮箱', width:150, edit: 'text', templet: function(res){
                 //         return '<em>'+ res.email +'</em>'
                 //     }}
-                ,{field:'studentNull1', title:'学生级别', width:120, sort: true, totalRow: true}
-                ,{field:'offerNum', title:'Offer个数', width:120, sort: true, totalRow: true}
-                ,{field:'auditionNum', title:'面试次数', width:120, sort: true, totalRow: true}
-                ,{field:'haveJob', title:'是否就业', width:120, sort: true, totalRow: true}
-                ,{field:'uploadNum', title:'上传简历次数', width:120, sort: true, totalRow: true}
-                ,{field:'nullOne', title:'可投递简历数', width:120, sort: true, totalRow: true}
+                ,{field:'studentNull1', title:'学生级别', width:'10%', sort: true, totalRow: true}
+                ,{field:'offerNum', title:'Offer个数', width:'10%', sort: true, totalRow: true}
+                ,{field:'auditionNum', title:'面试次数', width:'10%', sort: true, totalRow: true}
+                ,{field:'haveJob', title:'是否就业', width:'10%', sort: true, totalRow: true}
+                ,{field:'uploadNum', title:'上传简历次数', width:'12%', sort: true, totalRow: true}
+                ,{field:'nullOne', title:'可投递简历数', width:'12%', sort: true, totalRow: true}
 
                 // ,{field:'haveJob', title:'是否就业', width:80, sort: true, totalRow: true}
                 // ,{field:'sex', title:'性别', width:80, edit: 'text', sort: true}
