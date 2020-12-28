@@ -195,8 +195,8 @@ function pageshoe(){
                                       </td>
                                          
                                       <td>
-                                         <button class="layui-btn layui-btn-xs layui-btn-warm layui-btn-disabled" lay-event="edit" 
-                                         date-offerId ="${le[i].offerId}">已选择就业</button>
+                                         <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit" 
+                                         onclick="canceljob(${le[i].offerId})" date-offerId ="${le[i].offerId}">取消就业</button>
                                       </td>   
                                   </tr>`
                             }else{
@@ -218,8 +218,8 @@ function pageshoe(){
                                       </td>
                                          
                                       <td>
-                                         <button class="layui-btn layui-btn-xs layui-btn-warm layui-btn-disabled" lay-event="edit" 
-                                         date-offerId ="${le[i].offerId}">已选择就业</button>
+                                         <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit" 
+                                         onclick="canceljob(${le[i].offerId})" date-offerId ="${le[i].offerId}">取消就业</button>
                                       </td>  
                                 </tr>`
                             }
@@ -364,6 +364,36 @@ function surejob(offerId){
                      yes: function(index, layero){
                      location.href="/sybida/student/studentPersonalOffer.html?pageNum=1&pageSize="+pageSize
                      },
+                    btn2: function(index, layero){
+                        location.href="/sybida/student/studentPersonalOfferDetails.html?id=" + offerId;
+                    },
+                })
+            }
+        },
+        error:function () {
+            alert("提交出错");
+        }
+    })
+}
+
+
+//取消就业
+function canceljob(offerId){
+    $.getJSON({url:url+"/offer/updateSybidaOfferCancelJob",data:"offerId="+offerId,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if (data == -1000) {
+                location.href = logindexurl
+            } else {
+                layer.open({
+                    content: "已取消就业"
+                    , btn: ['确定','查看'],
+                    style: 'width:80%',
+                    yes: function(index, layero){
+                        location.href="/sybida/student/studentPersonalOffer.html?pageNum=1&pageSize="+pageSize
+                    },
                     btn2: function(index, layero){
                         location.href="/sybida/student/studentPersonalOfferDetails.html?id=" + offerId;
                     },
