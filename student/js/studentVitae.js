@@ -54,7 +54,7 @@ function show() {
                                 <td>${list[i].vitaeAlterTime}</td>
                                 <td>${list[i].vitaeLevel}</td>
                                 <td> 
-                                <button onclick="showVitaeBtn('${list[i].vitaeId}')" class="layui-btn layui-btn-xs" >查看简历评价</button>
+                                <button onclick="showVitaeBtn('${list[i].vitaeId}','${list[i].vitaeUrl}')" class="layui-btn layui-btn-xs" >查看简历评价</button>
                                 <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].vitaeId}','${list[i].studyAspect}')" style="width: 100px">下载</button></td>
                                 </tr>`
                     }
@@ -80,7 +80,7 @@ function show() {
                             s[j++]=(checkbox[i].value)
                         }
                     }
-                    console.log(s)
+
                     if(s.length>0){
                         var index = layer.load(1, {
                             shade: [0.1,'#fff'] //0.1透明度的白色背景
@@ -127,9 +127,9 @@ function show() {
         }})
 }
 
-function showVitaeBtn(id) {
+function showVitaeBtn(id,qnyurl) {
     var userid=getCookie("userid")
-    $.getJSON({url:url + "/student/selectevaluatebyvitaeid", data:"vitaeId="+id ,
+    $.getJSON({url:url + "/student/selectevaluatebyvitaeid", data:"vitaeId="+id,
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
         },
@@ -137,7 +137,7 @@ function showVitaeBtn(id) {
             if(data== -1000){
                 location.href=logindexurl
             }  else {
-                location.href= "/sybida/student/studentVitae66.html?id="+id;
+                location.href= "/sybida/student/studentVitae66.html?id="+id+"&qnyurl="+qnyurl ;
             }
 
         }})
