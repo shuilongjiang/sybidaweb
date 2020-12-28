@@ -132,7 +132,7 @@ $("#submitList").click(function () {
                 if (data == -1000) {
                     location.href = logindexurl
                 } else {
-                    layer.alert('插入成功！', {
+                    layer.alert('修改成功！', {
                             skin: 'layui-layer-molv' //样式类名
                             , closeBtn: 0
                         }
@@ -143,7 +143,11 @@ $("#submitList").click(function () {
                 }
             },
             error: function () {
-                alert("上传出错");
+                layer.alert('修改出错！', {
+                        skin: 'layui-layer-molv' //样式类名
+                        , closeBtn: 0
+                    }
+                );
             }
         });
 })
