@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学习方向</title>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+
+
+    <style>
+        form{
+            width: 65%;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<body id="tbodyid" style="height: 800px;" >
+
+<br>
+
+
+<div >
+    <ol class="breadcrumb"style="border-bottom: #009688 1px solid;">
+        <li><a href="#">首页</a></li>
+
+        <li class="active">添加学习方向</li>
+    </ol>
+</div>
+
+<div class="container">
+    <table class="layui-table" lay-skin="line" style="width: 90%;margin: 0 auto">
+        <thead>
+        <tr>
+            <th style="text-align: center"><h3>添加学习方向</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <form class="layui-form layui-form-pane" enctype="multipart/form-data" id="formId">
+                    <div class="layui-form-item">
+                        <div class="form-group">
+                            <label for="studyAspect">学习方向</label>
+                            <input type="text" name="studyAspect" class="form-control" id="studyAspect">
+                            <p class="tip" style="color: red"></p>
+                        </div>
+                     <div class="form-group">
+                        <label class="studyIntroduce">详情介绍</label>
+                        <textarea name="studyIntroduce"  placeholder="请在这介绍学习方向" class="form-control layui-textarea" id="studyIntroduce" ></textarea>
+                     </div>
+
+
+                    <div class="layui-form-item">
+                        <div>
+                            <input type="button" id="surebtn" class="layui-btn layui-btn-fluid" value="确定" style="margin-left: 0;width: 49%">
+                            <input type="button" id="back" class="layui-btn layui-btn-fluid" value="返回" style="margin-left: 1%;width: 49%">
+                        </div>
+                    </div>
+                    </div>
+                </form>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<!--<script src="/sybida/layui/layui.js"    ></script>-->
+<script src="/sybida/layui/layui.all.js"    ></script>
+<script src="/sybida/company/js/insertCompany.js"></script>
+<script src="/sybida/publicTool/js/dateutil.js"></script>
+
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+
+
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+    });
+</script>
+
+<script>
+    var layer
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+</script>
+<script>
+    $('#surebtn').click(function (){
+        console.log($("#formId").serialize())
+        $.post({
+            url:url+"/studyInfo/addstudy",
+            data:$("#formId").serialize(),
+            dataType:"json",
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
+            success:function (data){
+                if(data== -1000){
+                    location.href=logindexurl
+                }else{
+                    if(data.code == 1) {
+                        layer.alert('插入成功！', {
+                                skin: 'layui-layer-molv' //样式类名
+                                ,closeBtn: 0
+                            }
+                        );
+                    }else {
+                        layer.alert('插入失败！', {
+                                skin: 'layui-layer-molv' //样式类名
+                                ,closeBtn: 0
+                            }
+                        );
+                    }
+                }}
+        })
+    })
+</script>
+</body>
+</html>

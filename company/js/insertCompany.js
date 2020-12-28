@@ -12,20 +12,37 @@ if(arr.length>1){
 if (markName=="markid") {
 
     codeId=codeId1.split("=")[1]
-    $.getJSON(url + "/company/codeisenable", "codeId=" + codeId, function (data) {
+    $.getJSON({
+        url:url + "/company/codeisenable",
+        data:"codeId=" + codeId,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if (data == -1000) {
+                location.href = logindexurl
+            } else {
         if (data.code == 1) {
             $("#codeId").css("display", "none");
         } else {
             $("#tbodyid").empty();
             layer.alert("验证码已过期，请重新联系管理员")
         }
-    })
+    }}})
 
 }
 
 
 $(function () {
-    $.getJSON(url + "/register/selectStudy", function (data) {
+    $.getJSON({
+        url:url + "/register/selectStudy",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if (data == -1000) {
+                location.href = logindexurl
+            } else {
         for (let k = 4; k < data.length; k++) {
             $(".SelectPaymentMode").append("<option value='" + data[k].studyId + "'>" + data[k].studyAspect + "</option>");
         }
@@ -33,7 +50,7 @@ $(function () {
             var form = layui.form;
             form.render();
         });
-    });
+    }}});
 })
 
 
@@ -89,13 +106,20 @@ $("#surebtn").click(function () {
         processData: false,   // 用于对参数进行序列化处理，这里必须设为false
         contentType: false,
         dataType: "json",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
         success: function (data) {
-            if (data.code == 1) {
-                layer.alert('填写成功！', {
-                        skin: 'layui-layer-molv' //样式类名
-                        , closeBtn: 0
-                    }
-                );
+            if (data == -1000) {
+                location.href = logindexurl
+            } else {
+                if (data.code == 1) {
+                    layer.alert('填写成功！', {
+                            skin: 'layui-layer-molv' //样式类名
+                            , closeBtn: 0
+                        }
+                    );
+                }
             }
         }
     })

@@ -60,7 +60,7 @@
     <div class="layui-form-item">
         <label class="bg-success" style="line-height: 35px; font-size: 16px;">每页大小:&nbsp;</label>
         <select class="form-control" id="pageSizeSel" style="width: 100px; display: inline-block">
-            <option name="pageSize" value="5">5条</option>
+
             <option name="pageSize" value="10">10条</option>
             <option name="pageSize" value="15">15条</option>
             <option name="pageSize" value="20">20条</option>
@@ -88,12 +88,12 @@
             <th>学生ID</th>
             <th>学生姓名</th>
             <th>学习方向</th>
-            <th>简历级别</th>
-            <th>全新简历</th>
+            <th>学生评价</th>
+            <th>可投递</th>
+            <th>最新上传</th>
             <th>已读</th>
-            <th>下载次数</th>
-            <th>历史下载总次数</th>
-            <th style="width: 120px">修改时间</th>
+
+            <th style="width: 240px">修改时间</th>
             <th style="width: 100px">操作</th>
         </tr>
         <hr/>
@@ -129,16 +129,16 @@
         </div>
         <div class="form-group">
             <label for="vitaeEvaluateComment">简历评价</label>
+            <select name="dotodoit" id="dotodoit">
+                <option value="0">继续修改</option>
+                <option value="1">可以投递</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="vitaeEvaluateComment">简历评价</label>
             <textarea type="text" class="form-control" id="vitaeEvaluateComment"value="" style="height: 350px;"></textarea>
             <p class="tips" style="color: red"></p>
         </div>
-
-        <!--<div class="form-group">-->
-            <!--<label for="vitaeEvaluatePicture">简历评价图片</label>-->
-            <!--<input type="text" class="form-control" id="vitaeEvaluatePicture"value="addPic" name="file">-->
-            <!--<p class="tips" style="color: red"></p>-->
-        <!--</div>-->
-
         <input type="button" class="btn btn-primary" id="addVitaeLevel" value="增加简历评价">
     </form>
     </div>

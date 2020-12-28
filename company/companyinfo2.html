@@ -120,7 +120,7 @@
                         <div class="modal-body" style="margin-top: 20px;">
                             <form>
                                 <div class="form-group">
-                                    <label id="mm" class="control-label">确认将所选的班级删除</label>
+                                    <label id="mm" class="control-label">确认将所选的公司删除</label>
                                 </div>
                             </form>
                         </div>
@@ -169,14 +169,20 @@
             // 告知传递参数类型为json，不可缺少
             contentType:"application/json",
             data:JSON.stringify(s),
+            beforeSend: function(request) {
+                request.setRequestHeader("token", userid);
+            },
             success:function(data){
-                if(data.code===1){
-                    location.href="/sybida/company/companyinfo.html?pageNum=1&pageSize="+pageSize
+                if (data == -1000) {
+                    location.href = logindexurl
+                } else{
+                    if(data.code===1){
+                    location.href="/sybida/company/companyinfo2.html?pageNum=1&pageSize="+pageSize
                 }else{
                     layer.alert("删除失败请重试！");
                     $("#exampleModalAll").attr("class","modal fade")
                     $("#exampleModalAll").css("display","none")
-                }
+                }}
             }
         })}else{
 
