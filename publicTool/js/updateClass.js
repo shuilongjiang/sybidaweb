@@ -77,7 +77,7 @@ $.getJSON({
     var classTeachId=data.data.classTeachId
 
     $.getJSON({
-       url: url+"/register/selectTeacher",
+       url: url+"/classInfo/selectTeacher",
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
         },
@@ -87,8 +87,8 @@ $.getJSON({
             }
             else{
         let html = ''
-        for (let i = 0; i < data.length; i++) {
-            html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
+        for (let i = 0; i < data.data.length; i++) {
+            html += `<option value="${data.data[i].teachId}">${data.data[i].teachName}</option>`
         }
         $('select[name="teachName"]').append(html)
 
@@ -110,7 +110,7 @@ $.getJSON({
 
     var classManagerId=data.data.classManagerId
     $.getJSON({
-        url:url+"/register/selectTeacher",
+        url:url+"/classInfo/selectTeacher",
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
         },
@@ -120,8 +120,8 @@ $.getJSON({
             }
             else{
         let html = ''
-        for (let i = 0; i < data.length; i++) {
-            html += `<option value="${data[i].teachId}">${data[i].teachName}</option>`
+        for (let i = 0; i < data.data.length; i++) {
+            html += `<option value="${data.data[i].teachId}">${data.data[i].teachName}</option>`
         }
         $('select[name="managerName"]').append(html)
 
@@ -181,7 +181,7 @@ $("#btnsave").click(function () {
     formData.append('classManagerId',$("#managerName").val());
     formData.append('classStudyId',$("#classStudy").val());
     formData.append('classTime',$("#classTime").val());
-    formData.append('classIsGraduate',classIsGraduate);
+    formData.append('classNull1',classIsGraduate);
     $.ajax({
         url:url+"/classInfo/updateclassinfo",
         type : 'post',
