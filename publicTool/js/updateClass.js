@@ -33,8 +33,12 @@ $.getJSON({
     if (!data.data.classTime) {
         data.data.classTime="未完善"
     }
-    if (!data.data.classIsGraduate) {
-    }
+    // if (data.data.classNull1==1) {
+    //     data.data.classNull1="否"
+    // }else if (data.data.classNull1==0){
+    //     data.data.classNull1="是"
+    // }
+
     if (!data.data.classAlterTime) {
         data.data.classAlterTime="未完善"
     }
@@ -59,8 +63,7 @@ $.getJSON({
             }
         }
 
-
-
+       var grade=data.data.classNull1;
 
         $("#classId").val(data.data.classId)
         $("#className").val(data.data.classNum)
@@ -69,10 +72,23 @@ $.getJSON({
         date = new Date(date)
         $("#classTime").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
 
-        $("#classIsGraduate").val(data.data.classIsGraduate)
-        // var date = Date.parse(data.data.classAlterTime)
-        // date = new Date(date)
-        // $("#alterClass").val(date.pattern("yyyy-MM-dd HH:mm:ss"))
+
+            var selectA2 = $("#classIsGraduate").find("option"); //从A1下拉框中 搜索值
+            for(var i=0;i<selectA2.length;i++){
+                var t=$(selectA2[i]).val()
+                if(t==grade){
+                    $(selectA2[i]).attr("selected","selected")
+                }
+            }
+//每页条数的change事件
+            $('#classIsGraduate').change(
+                function (){
+                    grade=$("#classIsGraduate").val()
+                }
+            )
+
+            $("#classIsGraduate").val(grade)
+
 
     var classTeachId=data.data.classTeachId
 
@@ -88,7 +104,7 @@ $.getJSON({
             else{
         let html = ''
         for (let i = 0; i < data.data.length; i++) {
-            html += `<option value="${data.data[i].teachId}">${data.data[i].teachName}</option>`
+            html += `<option value="${data.data[i].userId}">${data.data[i].userName}</option>`
         }
         $('select[name="teachName"]').append(html)
 
@@ -110,7 +126,7 @@ $.getJSON({
 
     var classManagerId=data.data.classManagerId
     $.getJSON({
-        url:url+"/classInfo/selectTeacher",
+        url:url+"/classInfo/selectmanager",
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
         },
@@ -121,7 +137,7 @@ $.getJSON({
             else{
         let html = ''
         for (let i = 0; i < data.data.length; i++) {
-            html += `<option value="${data.data[i].teachId}">${data.data[i].teachName}</option>`
+            html += `<option value="${data.data[i].userId}">${data.data[i].userName}</option>`
         }
         $('select[name="managerName"]').append(html)
 
