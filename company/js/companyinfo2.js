@@ -233,13 +233,22 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     modal.find('#messagetext').text('确认将公司-' +name+'-删除吗？')
 })
 $("#deleteOneSure").click(function (){
-    $.post(url+"/company/deleteonecompany","companyId="+companyId,function (data) {
+    $.post({url:url+"/company/deleteonecompany",
+          data:"companyId="+companyId,
+        dataType:"json",
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if (data == -1000) {
+                location.href = logindexurl
+            } else {
         if(data.code==1){
             location.href="/sybida/company/companyinfo2.html?pageNum=1&pageSize="+pageSize
         }else{
             layer.alert("删除失败");
         }
-    },"json")
+    }}})
 
     //删除写这里
 })
@@ -255,20 +264,28 @@ $("#selectButt1").click(function () {
 })
 
 function showDetail(stuName) {
-    $.getJSON(url + "/company/selectbycompanyname", "stuName=" + stuName, function (data2) {
-        if (data2.code == 0){
-            layer.alert("学生不存在", {
-                    skin: 'layui-layer-molv' //样式类名
-                    ,closeBtn: 0
-                }
-            );
-        }else {
-            $("#detailCon").css('display', '')
-            let html = ''
-            console.log(data2)
-            let list = data2.data
-            console.log(list+"=================")
-                if (!list.companyName){
+    $.getJSON({url:url + "/company/selectbycompanyname",
+               data:"stuName=" + stuName,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+               success:function (data2) {
+                   if (data == -1000) {
+                       location.href = logindexurl
+                   } else {
+                if (data2.code == 0) {
+                layer.alert("公司不存在", {
+                        skin: 'layui-layer-molv' //样式类名
+                        , closeBtn: 0
+                    }
+                );
+            } else {
+                $("#detailCon").css('display', '')
+                let html = ''
+                console.log(data2)
+                let list = data2.data
+                console.log(list + "=================")
+                if (!list.companyName) {
                     list.companyName = "未完善"
                 }
                 if (!list.companyStartTime) {
@@ -307,11 +324,11 @@ function showDetail(stuName) {
                 var date = Date.parse(list.companyStartTime)
                 date = new Date(date)
 
-                var date2=Date.parse(list.companyEndTime)
-                date2=new Date(date2);
+                var date2 = Date.parse(list.companyEndTime)
+                date2 = new Date(date2);
 
                 if (i % 2 == 0) {
-                    html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].companyId}"></td>
+                    html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].companyId}"></td>
         <td>${list.teachName}</td>
         <td>${list.companyName}</td>
         <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
@@ -323,8 +340,8 @@ function showDetail(stuName) {
         <td>${list.companySalary}</td>
         <td>${list.companyMailbox}</td>
         <td>${list.companyPhone}</td></tr>`
-                }else{
-                    html +=` <tr class="info">
+                } else {
+                    html += ` <tr class="info">
        <td>${list.teachName}</td>
         <td>${list.companyName}</td>
         <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
@@ -336,11 +353,12 @@ function showDetail(stuName) {
         <td>${list.companySalary}</td>
         <td>${list.companyMailbox}</td>
         <td>${list.companyPhone}</td></tr>`
-          $("#selecttable").append(html)
+                    $("#selecttable").append(html)
                 }
 
-        }
-    })
+            }
+         }
+        }})
 }
 
 $("#closebtn").click(function () {
