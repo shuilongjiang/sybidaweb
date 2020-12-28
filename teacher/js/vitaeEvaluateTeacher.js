@@ -119,7 +119,7 @@ function show() {
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td >${list[i].studentNull1}</td>
-            <td style="background: #009688;">${list[i].vitaeLevel}</td>
+            <td style=" background: #009688;">${list[i].vitaeLevel}</td>
             <td>${list[i].vitaeIsNew}</td>
      
             <td>${list[i].vitaeIsRead}</td> 
