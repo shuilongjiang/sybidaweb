@@ -90,11 +90,11 @@ function showtotal() {
                 //         return '<em>'+ res.email +'</em>'
                 //     }}
                 ,{field:'studentNull1', title:'学生级别', width:'10%', sort: true, totalRow: true}
-                ,{field:'offerNum', title:'Offer个数', width:'10%', sort: true, totalRow: true}
-                ,{field:'auditionNum', title:'面试次数', width:'10%', sort: true, totalRow: true}
-                ,{field:'haveJob', title:'是否就业', width:'10%', sort: true, totalRow: true}
-                ,{field:'uploadNum', title:'上传简历次数', width:'12%', sort: true, totalRow: true}
-                ,{field:'nullOne', title:'可投递简历数', width:'12%', sort: true, totalRow: true}
+                ,{field:'offerNum', title:'Offer个数', width:'11%', sort: true, totalRow: true}
+                ,{field:'auditionNum', title:'面试次数', width:'11%', sort: true, totalRow: true}
+                ,{field:'haveJob', title:'是否就业', width:'11%', sort: true, totalRow: true}
+                ,{field:'uploadNum', title:'上传简历次数', width:'15%', sort: true, totalRow: true}
+                ,{field:'nullOne', title:'可投递简历数', width:'15%', sort: true, totalRow: true}
 
                 // ,{field:'haveJob', title:'是否就业', width:80, sort: true, totalRow: true}
                 // ,{field:'sex', title:'性别', width:80, edit: 'text', sort: true}
