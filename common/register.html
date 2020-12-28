@@ -121,13 +121,13 @@
         var classLab = document.getElementsByClassName("tip")[0];
         createClass.onfocus = function () {
             classLab.style.display = "inline-block";
-            classLab.innerHTML = '<i class="warn"></i> 请输入1-6个字符';
+            classLab.innerHTML = '<i class="warn"></i> 请输入1-20个字符';
         }
         createClass.onblur = function () {
             if (this.value== "") {
                 classLab.innerHTML = '<i class="cuo"></i> 不能为空';
-            } else if (this.value.length < 1 || this.value.length > 6) {
-                classLab.innerHTML = '<i class="cuo"></i> 长度应为1-6个字符';
+            } else if (this.value.length < 1 || this.value.length > 20) {
+                classLab.innerHTML = '<i class="cuo"></i> 长度应为1-20个字符';
             } else {
                 classLab.innerHTML = "";
             }
