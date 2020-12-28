@@ -43,11 +43,29 @@ $("#selectButt1").click(function () {
     }
 })
 
+//全选全不选
+$("#chk").click(function(){
+    //当全选按钮是选中状态
+    if($(this).is(':checked')){
+        //循环下面所有checkbox
+        $('input[name="optionAll"]').each(function(){
+            //将checkbox状态改为选中
+            $(this).prop("checked",true);
+        });
+    }else{
+
+        $('input[name="optionAll"]').each(function(){
+            $(this).prop("checked",false);
+        });
+    }
+});
+
+
 var userid=getCookie("userid")
-function showDetail(id) {
+function showDetail(name) {
 
 
-    $.getJSON({url:url + "/teacher/selectstudentbyid",data:"id=" + id,
+    $.getJSON({url:url + "/teacher/selectStudentByName",data:"name=" + name,
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
         },
@@ -58,63 +76,123 @@ function showDetail(id) {
                 if (data.code == 0) {
                     alert("id不存在！")
                 } else {
-                    $("#detailCon").css('display', '')
-                    let html = ''
-                    console.log(data)
-                    var list = data.data
-                    console.log(list)
-                    if (!list.studentSex) {
-                        list.studentSex = "暂无"
-                    }
-                    if (!list.studentIdentity) {
-                        list.studentIdentity = "暂无"
-                    }
-                    if (!list.studentIsGraduation) {
-                        list.studentIsGraduation = "暂无"
-                    }
-                    if (!list.studentSchool) {
-                        list.studentSchool = "暂无"
-                    }
-                    if (!list.studentSpecialty) {
-                        list.studentSpecialty = "暂无"
-                    }
-                    if (!list.studentWechat) {
-                        list.studentWechat = "暂无"
-                    }
-                    if (!list.studentParentPhone) {
-                        list.studentParentPhone = "暂无"
-                    }
-                    if (!list.studentParentName) {
-                        list.studentParentName = "暂无"
-                    }
-                    if (!list.studentClassId) {
-                        list.studentClassId = "暂无"
-                    }
-                    if (!list.studentPhone) {
-                        list.studentPhone = "暂无"
-                    }
-                    if (!list.studentCity) {
-                        list.studentCity = "暂无"
-                    }
 
-                    html += `<tr class="warning">
-                                <td>${list.studentId}</td>
-                                <td>${list.studentClassId}</td>
-                                <td>${list.studentName}</td>
-                                <td>${list.studentSex}</td>
-                                <td>${list.studentIdentity}</td>
-                                <td>${list.studentIsGraduation}</td>
-                                <td>${list.studentSchool}</td>
-                                <td>${list.studentSpecialty}</td>
-                                <td>${list.studentWechat}</td>          
-                                <td>${list.studentCity}</td>    
-                                <td>${list.studentParentPhone}</td>
-                                <td>${list.studentParentName}</td>
-                                <td>${list.studentPhone}</td>
+                    let html = '<tbody><tr class="active">\n' +
+                        '<th scope="col">' +
+                        '<input type="checkbox" id="checkAgain">&nbsp;&nbsp;全选</th>'+
+                        '            <!--<th style="width: 80px;">-->\n' +
+                        '                <!--<input type="checkbox" name="checkAll">&nbsp;&nbsp;全选</th>-->\n' +
+                        '            <th>学生姓名</th>\n' +
+                        '            <th>学生性别</th>\n' +
+                        '            <th>班级名称</th>\n' +
+                        '            <th>毕业学校</th>\n' +
+                        '            <th>手机号</th>\n' +
+                        '            <th>身份证号</th>\n' +
+                        '            <th>是否毕业</th>\n' +
+                        '            <th>专业</th>\n' +
+                        '            <th>微信</th>\n' +
+                        '            <th>就业城市</th>\n' +
+                        '            <th>家长电话</th>\n' +
+                        '            <th>家长姓名</th>\n' +
+                        ' <th scope="col">查看</th>\n' +
+                        '            <th scope="col">删除</th>'+
+                        '        </tr>\n' +
+                        '        <hr/>'
+                    console.log(data)
+                    var list = data.data.list
+                    console.log(list)
+                    for (let i = 0; i < list.length; i++) {
+                        if (!list[i].studentSex) {
+                            list[i].studentSex = "暂无"
+                        }
+                        if (!list[i].studentIdentity) {
+                            list[i].studentIdentity = "暂无"
+                        }
+                        if (!list[i].studentIsGraduation) {
+                            list[i].studentIsGraduation = "暂无"
+                        }
+                        if (!list[i].studentSchool) {
+                            list[i].studentSchool = "暂无"
+                        }
+                        if (!list[i].studentSpecialty) {
+                            list[i].studentSpecialty = "暂无"
+                        }
+                        if (!list[i].studentWechat) {
+                            list[i].studentWechat = "暂无"
+                        }
+                        if (!list[i].studentParentPhone) {
+                            list[i].studentParentPhone = "暂无"
+                        }
+                        if (!list[i].studentParentName) {
+                            list[i].studentParentName = "暂无"
+                        }
+                        if (!list[i].classNum) {
+                            list[i].classNum = "暂无"
+                        }
+                        if (!list[i].studentPhone) {
+                            list[i].studentPhone = "暂无"
+                        }
+                        if (!list[i].studentCity) {
+                            list[i].studentCity = "暂无"
+                        }
+
+                        html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>
+                                  <td>${list[i].studentName}</td>
+                                  <td>${list[i].studentSex}</td>
+                                 <td>${list[i].classNum}</td>  
+                                 <td>${list[i].studentSchool}</td>        
+                                 <td>${list[i].studentPhone}</td>
+                                 <td>${list[i].studentIdentity}</td>
+                                 <td>${list[i].studentIsGraduation}</td>
+                                 <td>${list[i].studentSpecialty}</td>          
+                                 <td>${list[i].studentWechat}</td>
+                                 <td>${list[i].studentCity}</td>        
+                                 <td>${list[i].studentParentPhone}</td>
+                                 <td>${list[i].studentParentName}</td>
+                                 <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">查看</a></td>
+                                     <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                               data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>\\\`
             
-     
-                              </tr>`
-                    $("#detailedInfo").append(html)
+                             </tr>`
+                    }
+                    html+=`<tr><td colspan="16"><button type="button" id="deleteBySelectIds" class="btn btn-danger">删除所选</button></td></tr>`
+                    html+='</tbody>'
+
+                    $("#showAllInfo").empty();
+                    $("#showAllInfo").append(html)
+                    $("#pagination").css('display','none');
+
+                    $("a[name='update']").click(function (){
+                        var text=$(this).text()
+                        console.log("========="+text)
+                        if(text.trim()=='查看'){
+                            var  id =$(this).attr("value")
+                            console.log(id+"====++++++++++++++++")
+                            location.href="/sybida/student/seeStudent.html?id="+id;
+                        }
+                    })
+
+                    //全选全不选
+                    $("#checkAgain").click(function(){
+                        //当全选按钮是选中状态
+                        if($(this).is(':checked')){
+                            //循环下面所有checkbox
+                            $('input[name="optionAll"]').each(function(){
+                                //将checkbox状态改为选中
+                                $(this).prop("checked",true);
+                            });
+                        }else{
+
+                            $('input[name="optionAll"]').each(function(){
+                                $(this).prop("checked",false);
+                            });
+                        }
+                    });
+
+                    $("#deleteBySelectIds").click(function (){
+                        $("#exampleModalAll").attr("class","modal fade in")
+                        $("#exampleModalAll").css("display","inline-block")
+                    })
                 }
             }
         }
@@ -180,8 +258,8 @@ function show() {
                     if (!list[i].studentParentName) {
                         list[i].studentParentName = "暂无"
                     }
-                    if (!list[i].studentClassId) {
-                        list[i].studentClassId = "暂无"
+                    if (!list[i].classNum) {
+                        list[i].classNum = "暂无"
                     }
                     if (!list[i].studentPhone) {
                         list[i].studentPhone = "暂无"
@@ -190,26 +268,40 @@ function show() {
                         list[i].studentCity = "暂无"
                     }
 
-                    html += `<tr class="warning">]
-                                 <td>${list[i].studentId}</td>
-                                 <td>${list[i].studentClassId}</td>         
+                    html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>                          
                                  <td>${list[i].studentName}</td>
-                                 <td>${list[i].studentSex}</td>
+                                  <td>${list[i].studentSex}</td>
+                                 <td>${list[i].classNum}</td>  
+                                 <td>${list[i].studentSchool}</td>        
+                                 <td>${list[i].studentPhone}</td>
                                  <td>${list[i].studentIdentity}</td>
                                  <td>${list[i].studentIsGraduation}</td>
-                                 <td>${list[i].studentSchool}</td>
-                                 <td>${list[i].studentSpecialty}</td>
-                                 <td>${list[i].studentWechat}</td>          
-                                 <td>${list[i].studentCity}</td>
-                                 <td>${list[i].studentParentPhone}</td>        
+                                 <td>${list[i].studentSpecialty}</td>          
+                                 <td>${list[i].studentWechat}</td>
+                                 <td>${list[i].studentCity}</td>        
+                                 <td>${list[i].studentParentPhone}</td>
                                  <td>${list[i].studentParentName}</td>
-                                 <td>${list[i].studentPhone}</td>
-            
+                                     <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">查看</a></td>
+                                     <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
+                               data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>\`
                              </tr>`
                 }
+                html+=`<tr><td colspan="16"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
                 $("#showAllInfo").append(html)
-
+                $("#deleteBySelect").click(function (){
+                    $("#exampleModalAll").attr("class","modal fade in")
+                    $("#exampleModalAll").css("display","inline-block")
+                })
                 pageSelect(data.data)
+                $("a[name='update']").click(function (){
+                    var text=$(this).text()
+                    console.log("========="+text)
+                    if(text.trim()=='查看'){
+                        var  id =$(this).attr("value")
+                        console.log(id+"====++++++++++++++++")
+                        location.href="/sybida/student/seeStudent.html?id="+id;
+                    }
+                })
                 $("input[name='optionAll']").click(function () {
                     if ($(this).is(':checked')) {
                         // 如果当前框被选中，则判断是否需要勾选全选框

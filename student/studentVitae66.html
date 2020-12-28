@@ -13,15 +13,14 @@
 <body>
 <div class="container">
     <br>
-    <table class="layui-table" style="margin-top: 10px" id="showAllInfo">
+    <table class="layui-table" style="margin-top: 10px;text-align: center" id="showAllInfo">
         <tr>
-            <th colspan="6" style="text-align: center"><h2>简历评价表</h2></th>
+            <th colspan="6" style="text-align: center;font-weight: bolder;font-size: 30px"><h2>简历评价表</h2></th>
         </tr>
         <tr>
-            <th>评价人姓名</th>
-            <th>评价内容</th>
-            <th>评价图片</th>
-            <th>评价时间</th>
+            <th style="font-size: 20px;text-align: center;font-weight: lighter">评价人姓名</th>
+            <th style="font-size: 20px;text-align: center;font-weight: lighter">评价内容</th>
+            <th style="font-size: 20px;text-align: center;font-weight: lighter">评价时间</th>
         </tr>
     </table>
 </div>
@@ -60,11 +59,10 @@
                         html += `<tr class="warning">]
                                     <td>${list[i].teachName}</td>
                                     <td>${list[i].vitaeEvaluateComment}</td>
-                                    <td>${list[i].vitaeEvaluatePicture}</td>
                                     <td>${list[i].vitaeEvaluateAlterTime}</td>
                                   </tr>`
                     }
-                                 $("#showAllInfo").append(html)
+                $("#showAllInfo").append(html)
                 }
 
 

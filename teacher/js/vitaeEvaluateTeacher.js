@@ -34,8 +34,29 @@ $("#selectButt").click(function () {
     location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
 })
 
+
 //全选全不选
-$('input[name="checkAll"]').click(function () {
+// $('input[name="checSybidaOfferMapperkAll"]').click(function () {
+//     // alert("123")
+//     console.log("123")
+//     //当全选按钮是选中状态
+//     if ($(this).is(':checked')) {
+//         //循环下面所有checkbox
+//         $('input[name="optionAll"]').each(function () {
+//             //将checkbox状态改为选中
+//             $(this).prop("checked", true);
+//         });
+//     } else {
+//
+//         $('input[name="optionAll"]').each(function () {
+//             $(this).prop("checked", false);
+//         });
+//     }
+// });
+//
+//全选全不选
+$("#checkAll").click(function () {
+    console.log("123")
     //当全选按钮是选中状态
     if ($(this).is(':checked')) {
         //循环下面所有checkbox
@@ -51,6 +72,22 @@ $('input[name="checkAll"]').click(function () {
     }
 });
 
+$(".qwer").click(function () {
+console.log("123")
+    //当全选按钮是选中状态
+    if ($(this).is(':checked')) {
+        //循环下面所有checkbox
+        $('input[name="optionAll"]').each(function () {
+            //将checkbox状态改为选中
+            $(this).prop("checked", true);
+        });
+    } else {
+
+        $('input[name="optionAll"]').each(function () {
+            $(this).prop("checked", false);
+        });
+    }
+});
 
 show();
 
@@ -90,7 +127,8 @@ function show() {
             }
 
             if(list[i].vitaeUrl){
-                html += `<tr class="warning">]<td style="width: 80px;"><input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
+                html += `<tr class="warning">]<td style="width: 80px;">
+            <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
             <td>${list[i].vitaeId}</td>
             <td>${list[i].vitaeStudentId}</td>
             <td id="studentName1">${list[i].studentName}</td>
@@ -113,7 +151,6 @@ function show() {
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td>${list[i].vitaeLevel}</td>
             <td>${list[i].vitaeIsNew}</td>
-         
             <td>${list[i].vitaeIsRead}</td> 
             <td>${list[i].vitaeDownloadFrequency}</td>
             <td>${list[i].vitaeHistoryFrequency}</td>
@@ -147,14 +184,69 @@ function show() {
                 // 告知传递参数类型为json，不可缺少
                 contentType:"application/json",
                 data:JSON.stringify(s),
+                    beforeSend: function(request) {
+                        request.setRequestHeader("token", userid);
+                    },
                 success:function(data){
-                    layer.close(index);
-                    downloadfile(Qnyurl+data,"学生简历")
+                    if(data== -1000){
+                        location.href=logindexurl
+                    }else {
+                        layer.close(index);
+                        downloadfile(Qnyurl + data, "学生简历")
+                    }
                 }
             })}else{
                 layer.alert("所选数据为空！");
             }
         })
+
+
+
+
+                $("#downzipcode").click(function () {
+                    var checkbox = $("input[name='optionAll']");
+                    var s=new Array();
+                    var j=0
+                    for(var i = 0;i<checkbox.length;i++)
+                    {
+                        if(checkbox[i].checked==true)
+                        {
+                            s[j++]=(checkbox[i].value)
+                        }
+                    }
+                    if(s.length>0){
+                        var index = layer.load(1, {
+                            shade: [0.1,'#fff'] //0.1透明度的白色背景
+                        });
+                        $.post({
+                            url:url+"/teacherdownload/downloadvitaezip",
+                            // 告知传递参数类型为json，不可缺少
+                            contentType:"application/json",
+                            data:JSON.stringify(s),
+                            beforeSend: function(request) {
+                                request.setRequestHeader("token", userid);
+                            },
+                            success:function(data){
+                                if(data== -1000){
+                                    location.href=logindexurl
+                                }else{
+                                    layer.close(index);
+                                    layer.open({
+                                        type: 2,
+                                        title:"扫描该二维码即可保存Zip简历",
+                                        closeBtn: 1, //不显示关闭按钮
+                                        shade: [0],
+                                        area: ['540px', '600px'],
+                                        anim: 2,
+                                        content: ['/sybida/common/ercode/index.html?key='+data, 'no'], //iframe的url，no代表不显示滚动条
+
+                                    });
+                                    // downloadfile(Qnyurl+data,"学生简历")
+                            }}
+                        })}else{
+                        layer.alert("所选数据为空！");
+                    }
+                })
         pageSelect(data.data)
         $("input[name='optionAll']").click(function () {
             if ($(this).is(':checked')) {
@@ -221,15 +313,17 @@ function updateVitaeLevel(vitaeId, userid, name,vitaeurl) {
 $("#addVitaeLevel").click(function () {
 
     var vitaeId = $("#vitaeID").val()
-    var vitaeStudentId = $("#vitaeEvaluateUserId").val()
+    var vitaeEvaluateId = $("#vitaeEvaluateId").val()
     var vitaeComment = $("#vitaeEvaluateComment").val()
 
      var picture ="11"
-
+    var userid=getCookie("userid")
+    console.log(userid)
     if (judgeAll()) {
+
         $.getJSON({
             url:url + "/teacher/insertvitaeevaluatelevel",
-            data:"comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&studentId=" + vitaeStudentId,
+            data:"comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&userid=" + userid,
             beforeSend: function(request) {
                 request.setRequestHeader("token", userid);
             },
