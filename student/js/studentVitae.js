@@ -32,14 +32,32 @@ function show() {
                 console.log(data)
                 var list = data.data
                 console.log(list)
+
                 for (let i = 0; i < list.length; i++) {
-                    html += `<tr class="warning">
+                    if(list[i].vitaeLevel==1){
+                        list[i].vitaeLevel="可投递"
+                    }else {
+                        list[i].vitaeLevel ="继续修改"
+                    }
+                    console.log(list[i].vitaeLevel)
+                    if(list[i].vitaeIsRead==0){
+                        html += `<tr class="warning">
                                 <td>${list[i].studyAspect}</td>
                                 <td>${list[i].vitaeAlterTime}</td>
+                                <td>${list[i].vitaeLevel}</td>
                                 <td> 
-                                <button onclick="showVitaeBtn('${list[i].vitaeId}')" class="layui-btn layui-btn-xs" >查看简历评价</button>
                                 <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].vitaeId}','${list[i].studyAspect}')" style="width: 100px">下载</button></td>
                                 </tr>`
+                    }else {
+                        html += `<tr class="warning">
+                                <td>${list[i].studyAspect}</td>
+                                <td>${list[i].vitaeAlterTime}</td>
+                                <td>${list[i].vitaeLevel}</td>
+                                <td> 
+                                <button onclick="showVitaeBtn('${list[i].vitaeId}','${list[i].vitaeUrl}')" class="layui-btn layui-btn-xs" >查看简历评价</button>
+                                <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].vitaeId}','${list[i].studyAspect}')" style="width: 100px">下载</button></td>
+                                </tr>`
+                    }
                 }
                 $("#showAllInfo").append(html)
 
@@ -62,7 +80,7 @@ function show() {
                             s[j++]=(checkbox[i].value)
                         }
                     }
-                    console.log(s)
+
                     if(s.length>0){
                         var index = layer.load(1, {
                             shade: [0.1,'#fff'] //0.1透明度的白色背景
@@ -109,19 +127,17 @@ function show() {
         }})
 }
 
-function showVitaeBtn(id) {
+function showVitaeBtn(id,qnyurl) {
     var userid=getCookie("userid")
-    $.getJSON({url:url + "/student/selectevaluatebyvitaeid", data:"vitaeId="+id ,
+    $.getJSON({url:url + "/student/selectevaluatebyvitaeid", data:"vitaeId="+id,
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
         },
         success:function (data) {
             if(data== -1000){
                 location.href=logindexurl
-            } else if(data.code==0){
-                alert("该简历暂无评价")
-            } else {
-                location.href= "/sybida/student/studentVitae66.html?id="+id;
+            }  else {
+                location.href= "/sybida/student/studentVitae66.html?id="+id+"&qnyurl="+qnyurl ;
             }
 
         }})

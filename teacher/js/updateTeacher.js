@@ -1,7 +1,10 @@
 var object = {}
 
+var layer
+layui.use('layer', function(){
+    layer = layui.layer;
+});
 var userid = getCookie("userid")
-
 $(".teachTel").blur(function () {
     // alert("123")
     var phone = $(".teachTel").val();
@@ -23,6 +26,7 @@ $("#reload").click(function () {
 show()
 
 function show() {
+
     $.getJSON({
         url: url + "/teacher/selectteacherbyid",
         data: "userid=" + userid,
@@ -33,7 +37,6 @@ function show() {
             if (data == -1000) {
                 location.href = logindexurl
             } else {
-
                 var teacherInfo = data.data
                 $(".teachId").val(teacherInfo.teachId)
                 $(".teachName").val(teacherInfo.teachName)
@@ -105,14 +108,14 @@ $("#submitList").click(function () {
     formData.append("file", $("#addPic")[0].files[0]);
     formData.append("teachId", id);
     formData.append("teachPhoto", photourl);
-    formData.append("teachName", name);
-    formData.append("teachSex", gender);
+    // formData.append("teachName", name);
+    // formData.append("teachSex", gender);
     formData.append("teachWechat", wechat);
-    formData.append("teachStudyId", studyId);
-    formData.append("teachTel", tel);
+    // formData.append("teachStudyId", studyId);
+    // formData.append("teachTel", tel);
     formData.append("teachQq", qq);
-    var myreg = /^1[3|4|5|7|8][0-9]{9}$/;
-    if (myreg.test(tel)) {
+    // var myreg = /^1[3|4|5|7|8][0-9]{9}$/;
+
 
         $.ajax({
             type: "post",
@@ -129,15 +132,22 @@ $("#submitList").click(function () {
                 if (data == -1000) {
                     location.href = logindexurl
                 } else {
-                    alert("ok");
+                    layer.alert('修改成功！', {
+                            skin: 'layui-layer-molv' //样式类名
+                            , closeBtn: 0
+                        }
+                    );
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
                 }
             },
             error: function () {
-                alert("上传出错");
+                layer.alert('修改出错！', {
+                        skin: 'layui-layer-molv' //样式类名
+                        , closeBtn: 0
+                    }
+                );
             }
         });
-    } else {
-        alert("手机号格式不正确")
-    }
-
 })

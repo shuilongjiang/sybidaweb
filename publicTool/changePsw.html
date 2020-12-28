@@ -164,7 +164,7 @@
                                                         // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                                                         // parent.layer.close(index);
 
-                                                        top.location.replace("/sybida/login.html?check=1");
+                                                        top.location.replace("/sybida/login.html");
                                                         //  window.location.href="http:/sybida/login.html?check=1/";
 
                                                     } else {
@@ -176,7 +176,11 @@
                                             }
                                         })
                                     } else {
-                                        alert("修改密码失败，请重新登录！！！")
+                                        layer.alert('修改密码失败，请重新登录！！！', {
+                                                skin: 'layui-layer-molv' //样式类名
+                                                , closeBtn: 0
+                                            }
+                                        );
                                     }
                                 }
                             } else {

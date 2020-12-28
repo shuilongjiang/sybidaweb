@@ -38,23 +38,16 @@
             </tr>
             <tr>
                 <td>职称</td>
-                <td><input type="text" class="studyAspect" id="studyAspect" readonly></td>
+                <td><input type="text" class="studyAspect" id="studyAspect"></td>
                 <td>点击修改头像</td>
                 <td><input type="file" accept="image/gif, image/x-ms-bmp, image/bmp,image/jpeg,image/x-png,audio/x-mpeg"
                            class="addPic" value="addPic" id="addPic" name="file"></td>
-                <!--<td>职称</td>-->
-                <!--<td><select class="form-control" id="teachStudyId" style="width: 100px; display: inline-block" >-->
-                    <!--<option name="pageSize" value="1">班主任</option>-->
-                    <!--<option name="pageSize" value="2">教师</option>-->
-                    <!--<option name="pageSize" value="3">预留</option>-->
-                    <!--<option name="pageSize" value="4">预留</option>-->
-                <!--</select></td>-->
             </tr>
-            </tr>
+
             <tr>
                 <td>联系电话：</td>
                 <td><input type="text" class="teachTel" placeholder="请输入联系电话" readonly><span id="phonetip" style="color:red"></span></td>
-                <td>微信：</td>
+                <td>微信</td>
                 <td><input type="text" class="teachWechat" placeholder="请输入微信" maxlength='13'></td>
 
             </tr>
@@ -72,13 +65,14 @@
             <tr style="text-align: center">
                 <td colspan="4">
                     <input type="button" class="btn btn-success" id="submitList" value="确认"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-danger" id="reload()">取消
+                    <button class="btn btn-danger" id="reload()">重置
                 </button>
                 </td>
             </tr>
         </table>
     </form>
 </div>
+<script src="/sybida/layui/layui.js"></script>
 <script src="../jquery/jquery-3.3.1.min.js"></script>
 <script src="../common/js/locahostadress.js"></script>
 <script src="js/updateTeacher.js"></script>

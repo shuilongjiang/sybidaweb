@@ -23,22 +23,33 @@
             <th style="font-size: 20px;text-align: center;font-weight: lighter">评价时间</th>
         </tr>
     </table>
+    <iframe style="width: 100%;height: 800px;" id="ifreamq">
+
+    </iframe>
 </div>
 <script src="../jquery/jquery-3.3.1.min.js"></script>
 <script src="../common/js/locahostadress.js"></script>
-
+<script src="/sybida/publicTool/js/dateutil.js"></script>
 <script src="/sybida/bs/bootstrap.min.js"></script>
 
 <script>
 
 
     var search=location.search
-    var vitaeId1=search.split("=")
-    var vitaeId=vitaeId1[1]
-    console.log(search)
-    console.log(vitaeId1)
-    console.log(vitaeId)
+    var arr=search.split("?")
+    var arr1=arr[1]
 
+    var arr2=arr1.split("&")
+
+    var qnyl=arr2[1]
+    console.log(qnyl)
+    var vitaeId1=arr2[0]
+    console.log(vitaeId1)
+    var vitaeId= vitaeId1.split("=")[1]
+    var qny=qnyl.split("=")[1]
+
+
+    $("#ifreamq").attr("src",Qnyurl+qny)
     var userid=getCookie("userid")
     showEvaluate()
     function showEvaluate() {
@@ -51,15 +62,16 @@
                 if(data== -1000){
                     location.href=logindexurl
                 }else{
+
                     let html = ''
-                    console.log(data)
                     var list = data.data
-                    console.log(list)
                     for (let i = 0; i < list.length; i++) {
+                        var date = Date.parse(list[i].vitaeEvaluateAlterTime)
+                        date = new Date(date);
                         html += `<tr class="warning">]
                                     <td>${list[i].teachName}</td>
-                                    <td>${list[i].vitaeEvaluateComment}</td>
-                                    <td>${list[i].vitaeEvaluateAlterTime}</td>
+                                    <td style="height: 200px;">${list[i].vitaeEvaluateComment}</td>
+                                    <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                                   </tr>`
                     }
                 $("#showAllInfo").append(html)
