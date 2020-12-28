@@ -116,8 +116,10 @@ function show() {
             } else {
                 list[i].vitaeIsNew = "否"
             }
-            if (!list[i].vitaeLevel) {
-                list[i].vitaeLevel = "暂无"
+            if (list[i].vitaeLevel == 1) {
+                list[i].vitaeLevel = "可投递"
+            }else {
+                list[i].vitaeLevel = "暂未评级"
             }
             if (!list[i].vitaeDownloadFrequency) {
                 list[i].vitaeDownloadFrequency = "暂无"
