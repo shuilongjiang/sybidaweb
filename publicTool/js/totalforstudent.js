@@ -89,11 +89,13 @@ function showtotal() {
                 // ,{field:'email', title:'邮箱', width:150, edit: 'text', templet: function(res){
                 //         return '<em>'+ res.email +'</em>'
                 //     }}
-                ,{field:'studentNull1', title:'学生级别', width:180, sort: true, totalRow: true}
-                ,{field:'offerNum', title:'Offer个数', width:180, sort: true, totalRow: true}
-                ,{field:'auditionNum', title:'面试次数', width:180, sort: true, totalRow: true}
-                ,{field:'haveJob', title:'是否就业', width:180, sort: true, totalRow: true}
-                ,{field:'uploadNum', title:'上传简历次数', width:180, sort: true, totalRow: true}
+                ,{field:'studentNull1', title:'学生级别', width:150, sort: true, totalRow: true}
+                ,{field:'offerNum', title:'Offer个数', width:150, sort: true, totalRow: true}
+                ,{field:'auditionNum', title:'面试次数', width:150, sort: true, totalRow: true}
+                ,{field:'haveJob', title:'是否就业', width:150, sort: true, totalRow: true}
+                ,{field:'uploadNum', title:'上传简历次数', width:150, sort: true, totalRow: true}
+                ,{field:'nullOne', title:'可投递简历数', width:150, sort: true, totalRow: true}
+
                 // ,{field:'haveJob', title:'是否就业', width:80, sort: true, totalRow: true}
                 // ,{field:'sex', title:'性别', width:80, edit: 'text', sort: true}
                 // ,{field:'logins', title:'登入次数', width:100, sort: true, totalRow: true}
