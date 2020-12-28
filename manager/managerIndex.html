@@ -103,7 +103,7 @@
                     <dl class="layui-nav-child">
                         <dd><a  id="addStudent" href="javascript:;">批量添加学生</a></dd>
                         <dd><a  id="infoStudent" href="javascript:;">查看学生档案</a></dd>
-                        <dd><a  id="studentPersonalInformation" href="javascript:;">学生个人信息完善</a></dd>
+                        <dd><a  id="studentPersonalInformation" href="javascript:;">学生就业分析</a></dd>
                         <dd><a  id="careerQuizStudent" href="javascript:;">职业测评</a></dd>
                        </dl>
                 </li>
@@ -111,6 +111,7 @@
                     <a class=""  href="javascript:;">公共模块</a>
                     <dl class="layui-nav-child">
                         <dd><a  id="codeCompany" href="javascript:;">发布招聘信息并生成二维码</a></dd>
+                        <dd><a  id="showcodeCompany" href="javascript:;">查看企业招聘信息</a></dd>
                         <dd><a  id="classInfo" href="javascript:;">班级信息管理</a></dd>
                         <dd><a  id="studyInfo" href="javascript:;">学习方向信息管理</a></dd>
                         <dd><a  id="makeNotice" href="javascript:;">发布通知</a></dd>
@@ -299,7 +300,15 @@
     })
     $("#codeCompany").click(
         function () {
-            $("#ifream1").attr("src","../publicTool/codeCompany.html")
+            $("#ifream1").attr("src","../company/insertCompany.html")
+            iframeSrc = $("#ifream1").attr("src")
+            var storage = window.sessionStorage;
+            storage.setItem("ifreammanager",iframeSrc);
+        }
+    )
+   $("#showcodeCompany").click(
+        function () {
+            $("#ifream1").attr("src","../company/companyinfo2.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanager",iframeSrc);
@@ -335,7 +344,7 @@
     )
     $("#studentPersonalInformation").click(
         function () {
-            $("#ifream1").attr("src","../student/studentPersonalInformation.html")
+            $("#ifream1").attr("src","/sybida/publicTool/totalforstudent.html")
             iframeSrc = $("#ifream1").attr("src")
             var storage = window.sessionStorage;
             storage.setItem("ifreammanager",iframeSrc);
