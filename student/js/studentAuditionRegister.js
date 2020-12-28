@@ -13,8 +13,7 @@ $.getJSON({url:url+"/audition/selectStudentById",data:"userid="+userid,
             location.href=logindexurl
         }else{
             if (data.code == 1) {
-                // console.log(data.data.studentId+"!!!!!!!!!!!!!!!!!!!")
-                // console.log(data.data.studentName+"!!!!!!!!!!!!!!!!!!!")
+
                 $("#studentName").val(data.data.studentName)
 
                 $("#auditionStudentId").val(data.data.studentId)
@@ -26,7 +25,6 @@ $.getJSON({url:url+"/audition/selectStudentById",data:"userid="+userid,
                     $("#male").attr("disabled","disabled")
                 }
                 classID = data.data.studentClassId
-                // console.log(classID+"========================")
 
                 $.getJSON({
                     url:url+"/audition/selectClassByClassId",

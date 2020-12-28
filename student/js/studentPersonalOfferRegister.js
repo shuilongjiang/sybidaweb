@@ -22,8 +22,6 @@ $.getJSON({url:url+"/audition/selectStudentById",data:"userid="+userid,
                     $("#male").attr("disabled","disabled")
                 }
                 classID = data.data.studentClassId
-                console.log(classID+"classID")
-                console.log(data.data)
                 $.getJSON({
                     url:url+"/audition/selectClassByClassId",
                     data:"classId="+classID,
