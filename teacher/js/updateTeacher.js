@@ -1,6 +1,9 @@
 var object = {}
 
-
+var layer
+layui.use('layer', function(){
+    layer = layui.layer;
+});
 var userid = getCookie("userid")
 $(".teachTel").blur(function () {
     // alert("123")
@@ -129,7 +132,14 @@ $("#submitList").click(function () {
                 if (data == -1000) {
                     location.href = logindexurl
                 } else {
-                    alert("ok");
+                    layer.alert('插入成功！', {
+                            skin: 'layui-layer-molv' //样式类名
+                            , closeBtn: 0
+                        }
+                    );
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
                 }
             },
             error: function () {
