@@ -34,29 +34,8 @@ $("#selectButt").click(function () {
     location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
 })
 
-
-//全选全不选
-// $('input[name="checSybidaOfferMapperkAll"]').click(function () {
-//     // alert("123")
-//     console.log("123")
-//     //当全选按钮是选中状态
-//     if ($(this).is(':checked')) {
-//         //循环下面所有checkbox
-//         $('input[name="optionAll"]').each(function () {
-//             //将checkbox状态改为选中
-//             $(this).prop("checked", true);
-//         });
-//     } else {
-//
-//         $('input[name="optionAll"]').each(function () {
-//             $(this).prop("checked", false);
-//         });
-//     }
-// });
-//
 //全选全不选
 $("#checkAll").click(function () {
-    console.log("123")
     //当全选按钮是选中状态
     if ($(this).is(':checked')) {
         //循环下面所有checkbox
@@ -73,7 +52,6 @@ $("#checkAll").click(function () {
 });
 
 $(".qwer").click(function () {
-console.log("123")
     //当全选按钮是选中状态
     if ($(this).is(':checked')) {
         //循环下面所有checkbox
@@ -99,18 +77,19 @@ function show() {
             request.setRequestHeader("token", userid);
         },
         success:function (data) {
+
             if(data== -1000){
                 location.href=logindexurl
             }else{
         let html = ''
         var list = data.data.list
         for (let i = 0; i < list.length; i++) {
+
             if (list[i].vitaeIsRead == 1) {
                 list[i].vitaeIsRead = "是"
             } else {
                 list[i].vitaeIsRead = "否"
             }
-
             if (list[i].vitaeIsNew == 1) {
                 list[i].vitaeIsNew = "是"
             } else {
@@ -128,36 +107,51 @@ function show() {
                 list[i].vitaeHistoryFrequency = "暂无"
             }
 
-            if(list[i].vitaeUrl){
-                html += `<tr class="warning">]<td style="width: 80px;">
+            // if(list[i].vitaeUrl){
+            if (list[i].vitaeLevel == 1){
+                if (list[i].vitaeLevel == 1) {
+                    list[i].vitaeLevel = "可投递"
+                } else {
+                    list[i].vitaeLevel = "继续修改"
+                }
+                html += `<tr class="" >]<td style="width: 80px;">
             <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
             <td>${list[i].vitaeId}</td>
             <td>${list[i].vitaeStudentId}</td>
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
-            <td>${list[i].vitaeLevel}</td>
+            <td >${list[i].studentNull1}</td>
+            <td style="background: #009688;">${list[i].vitaeLevel}</td>
             <td>${list[i].vitaeIsNew}</td>
      
             <td>${list[i].vitaeIsRead}</td> 
-            <td>${list[i].vitaeDownloadFrequency}</td>
-            <td>${list[i].vitaeHistoryFrequency}</td>
-            <td>${list[i].vitaeAlterTime}</td>
+           
+            <td >${list[i].vitaeAlterTime}</td>
            <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
            <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}','${list[i].studyAspect}')">下载</button></td>
         </tr>`
             }else{
-                html += `<tr class="warning">]<td style="width: 80px;"></td>
+                if (list[i].vitaeLevel == 1) {
+                    list[i].vitaeLevel = "可投递"
+                } else {
+                    list[i].vitaeLevel = "继续修改"
+                }
+                html += `<tr class="active">]<td style="width: 80px;">
+            <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
             <td>${list[i].vitaeId}</td>
             <td>${list[i].vitaeStudentId}</td>
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
-            <td>${list[i].vitaeLevel}</td>
+            <td>${list[i].studentNull1}</td>
+            
+             <td>${list[i].vitaeLevel}</td>
             <td>${list[i].vitaeIsNew}</td>
+     
             <td>${list[i].vitaeIsRead}</td> 
-            <td>${list[i].vitaeDownloadFrequency}</td>
-            <td>${list[i].vitaeHistoryFrequency}</td>
+           
             <td>${list[i].vitaeAlterTime}</td>
-           <td>从未上传简历</td>
+           <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
+           <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}','${list[i].studyAspect}')">下载</button></td>
         </tr>`
             }
         }
@@ -201,10 +195,6 @@ function show() {
                 layer.alert("所选数据为空！");
             }
         })
-
-
-
-
                 $("#downzipcode").click(function () {
                     var checkbox = $("input[name='optionAll']");
                     var s=new Array();
@@ -317,15 +307,15 @@ $("#addVitaeLevel").click(function () {
     var vitaeId = $("#vitaeID").val()
     var vitaeEvaluateId = $("#vitaeEvaluateId").val()
     var vitaeComment = $("#vitaeEvaluateComment").val()
+   var dotodoit=$("#dotodoit").val()
 
-     var picture ="11"
+    var picture ="11"
     var userid=getCookie("userid")
-    console.log(userid)
     if (judgeAll()) {
 
         $.getJSON({
             url:url + "/teacher/insertvitaeevaluatelevel",
-            data:"comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&userid=" + userid,
+            data:"comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&userid=" + userid+"&vitaeEvaluateNull1="+dotodoit,
             beforeSend: function(request) {
                 request.setRequestHeader("token", userid);
             },
@@ -334,12 +324,18 @@ $("#addVitaeLevel").click(function () {
                 location.href=logindexurl
             }else {
                 if (data.code == 1) {
-                    alert("评价成功！")
-                    location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
+                    layer.alert('评价成功', {
+                        skin: 'layui-layer-molv' //样式类名
+                        ,closeBtn: 1
+                    }, function(){
+                        location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum="+pageNum+"&pageSize=" + pageSize
+
+                    });
+
 
                 } else {
                     alert("评价失败！")
-                    location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
+                    location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum="+pageNum+"&pageSize=" + pageSize
                 }
             }
         }})

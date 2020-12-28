@@ -98,7 +98,7 @@ function showDetail(id) {
 
 function returnInfoStudent() {
     // location.href="/sybida/student/infoStudent.html?pageNum=1&pageSize=5";
-    location.href="/sybida/student/classStudent.html?pageNum=1&pageSize=5&classId=-1";
+    location.href="/sybida/student/infoStudent.html?pageNum=1&pageSize=5&classId=-1";
 }
 
 

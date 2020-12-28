@@ -180,6 +180,7 @@
                                 <li><a id="infoStudent" href="javascript:;">查看班级学生</a></li>
                                 <li><a id="classInfo" href="javascript:;">查看班级</a></li>
                                 <li><a id="studyInfo" href="javascript:;">学习方向管理</a></li>
+                                <li><a id="addStudy" href="javascript:;">添加学习方向</a></li>
                                 </ul>
                         </div>
                     </div>
@@ -466,6 +467,15 @@
                     $("#changePsw").click(
                         function () {
                             $("#ifream1").attr("src","../publicTool/changePsw.html")
+                            iframeSrc = $("#ifream1").attr("src")
+                            var storage = window.sessionStorage;
+                            storage.setItem("ifreammanagerteacher",iframeSrc);
+                        }
+                    )
+
+                    $("#addStudy").click(
+                        function () {
+                            $("#ifream1").attr("src","../publicTool/addStudy.html")
                             iframeSrc = $("#ifream1").attr("src")
                             var storage = window.sessionStorage;
                             storage.setItem("ifreammanagerteacher",iframeSrc);
