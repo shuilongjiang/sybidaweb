@@ -1,7 +1,7 @@
 var pageNum = 1
 var pageSize = 5
 var classId=-1
-
+var stuleval=["A","B","C","D","E","F"]
 var userid=getCookie("userid")
 // var teacherStudy=-1
 var search = location.search
@@ -164,8 +164,16 @@ $.getJSON({
             <td>${list[i].studentParentPhone}</td>
             <td>${list[i].studentParentName}</td>
             <td>${list[i].studentPhone}</td>
-            <td>${list[i].studentNull1}</td>
-            <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">修改</a></td>
+            <td> <select onchange="makeleval(${list[i].studentId},this)">`
+                                for (let j = 0; j <stuleval.length ; j++) {
+                                    if(stuleval[j]==list[i].studentNull1){
+                                        html+=` <option value="${stuleval[j]}" selected="selected">${stuleval[j]}</option>`
+                                    }else{
+                                        html+=` <option value="${stuleval[j]}">${stuleval[j]}</option>`
+                                    }
+                                }
+
+           html+=`</select></td><td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">查看详情</a></td>
             <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
         data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>`
                             }
@@ -208,10 +216,10 @@ $.getJSON({
                             $("a[name='update']").click(function (){
                                 var text=$(this).text()
                                 console.log("========="+text)
-                                if(text.trim()=='修改'){
+                                if(text.trim()=='查看详情'){
                                     var  id =$(this).attr("value")
                                     console.log(id+"====++++++++++++++++")
-                                    location.href="/sybida/student/updateInfoStudent.html?id="+id;
+                                    location.href="/sybida/student/seeStudent.html?id="+id;
                                 }
                             })
                             // classId=data.message
@@ -709,4 +717,38 @@ function showDetail(stuName) {
             }
         }
     })
+}
+var layer
+layui.use('layer', function(){
+    layer = layui.layer;
+});
+function makeleval(id,leval){
+    //alert(id+"===="+$(leval).val())
+    let stuId=id
+    let stuLeaval=$(leval).val()
+    $.getJSON({
+        url: url+"/teacher/updateleval",
+        data:"studentId="+stuId+"&stuLeaval="+stuLeaval,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid);
+        },
+        success:function (data) {
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+                if (data.code==1){
+                    layer.alert('修改成功！', {
+                            skin: 'layui-layer-molv' //样式类名
+                            , closeBtn: 0
+                        }
+                    );
+                }else {
+                    layer.alert('修改失败！', {
+                            skin: 'layui-layer-molv' //样式类名
+                            , closeBtn: 0
+                        }
+                    );
+                }
+            }
+        }})
 }
