@@ -64,9 +64,19 @@ $.getJSON({url:url+"/audition/selectStudentById",data:"userid="+userid,
                 classID = data.data.studentClassId
                 // console.log(classID+"========================")
 
-                $.getJSON(url+"/audition/selectClassByClassId","classId="+classID,function (data){
-                    $("#classNum").val(data.data.classNum)
-                })
+                $.getJSON({url:url+"/audition/selectClassByClassId",data:"classId="+classID,
+                    beforeSend: function(request) {
+                        request.setRequestHeader("token", userid);
+                    },
+                    success:function (data){
+                        if(data== -1000){
+                            location.href=logindexurl
+                        }else {
+                            $("#classNum").val(data.data.classNum)
+                        }
+
+
+                }})
             }
         }
 }})
