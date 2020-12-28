@@ -1,7 +1,7 @@
 //访问服务器地址
-var url="http://localhost:8080/"
+var url="http://192.168.5.117:8081/"
 var Qnyurl= "http://qldlxgj0k.hn-bkt.clouddn.com/"
-var logindexurl= "http://localhost:63343/sybida/login.html?check=2"
+var logindexurl= "http://192.168.5.199:8081/sybida/login.html?check=2"
 //根据名字获取cookie
 function getCookie(name) {
     var prefix = name + "="  // name=
