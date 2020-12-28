@@ -95,11 +95,7 @@ function show() {
             } else {
                 list[i].vitaeIsNew = "否"
             }
-            if (list[i].vitaeLevel == 1) {
-                list[i].vitaeLevel = "可投递"
-            }else {
-                list[i].vitaeLevel = "还需改善"
-            }
+
             if (!list[i].vitaeDownloadFrequency) {
                 list[i].vitaeDownloadFrequency = "暂无"
             }
@@ -108,6 +104,7 @@ function show() {
             }
 
             // if(list[i].vitaeUrl){
+            console.log(list[i].vitaeLevel)
             if (list[i].vitaeLevel == 1){
                 if (list[i].vitaeLevel == 1) {
                     list[i].vitaeLevel = "可投递"
@@ -121,7 +118,7 @@ function show() {
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td >${list[i].studentNull1}</td>
-            <td style=" background: #009688;">${list[i].vitaeLevel}</td>
+            <td style="background:#009688;">${list[i].vitaeLevel}</td>
             <td>${list[i].vitaeIsNew}</td>
      
             <td>${list[i].vitaeIsRead}</td> 
