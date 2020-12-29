@@ -1,5 +1,5 @@
 var pageNum = 1
-var pageSize = 5
+var pageSize = 40
 var classId=-1
 var stuleval=["A","B","C","D","E","F"]
 var userid=getCookie("userid")
@@ -44,7 +44,7 @@ layui.use('layer', function(){
 
 
 
-console.log(userid+"==========================")
+
 //根据权限查询班级
 $.getJSON({
     url: url+"/classInfo/selectteachermuticlass",
@@ -284,187 +284,6 @@ $.getJSON({
     }
 });
 
-
-console.log(classId+"=111111111111211111111111111")
-
-// show();
-// function show() {
-//
-//     $.ajax({
-//         url: url+"classInfo/teacheridfindclass2",
-//         type: 'POST',
-//         //   timeout: '30000',
-//         data: "pageSize=" + pageSize + "&pageNum=" + pageNum+"&classId="+classId,
-//         // contentType: 'application/json;charset=utf-8',
-//         dataType: 'json',
-//
-//         beforeSend: function(request) {
-//             request.setRequestHeader("token", userid);
-//         },
-//         success: function (data) {
-//             if(data== -1000){
-//                 location.href=logindexurl
-//             }else{
-//                 console.log(data)
-//                 if(data.code==1) {
-//                     let html = ''
-//                     console.log(data)
-//                     var list = data.data.list
-//                     console.log(list)
-//
-//                     for (let i = 0; i < list.length; i++) {
-//                         if (!list[i].studentSex) {
-//                             list[i].studentSex = "暂无"
-//                         }
-//                         if (!list[i].studentIdentity) {
-//                             list[i].studentIdentity = "暂无"
-//                         }
-//                         if (!list[i].studentIsGraduation) {
-//                             list[i].studentIsGraduation = "暂无"
-//                         }
-//                         if (!list[i].studentSchool) {
-//                             list[i].studentSchool = "暂无"
-//                         }
-//                         if (!list[i].studentSpecialty) {
-//                             list[i].studentSpecialty = "暂无"
-//                         }
-//                         if (!list[i].studentWechat) {
-//                             list[i].studentWechat = "暂无"
-//                         }
-//                         if (!list[i].studentParentPhone) {
-//                             list[i].studentParentPhone = "暂无"
-//                         }
-//                         if (!list[i].studentParentName) {
-//                             list[i].studentParentName = "暂无"
-//                         }
-//                         if (!list[i].studentClassId) {
-//                             list[i].studentClassId = "暂无"
-//                         }
-//                         if (!list[i].studentPhone) {
-//                             list[i].studentPhone = "暂无"
-//                         }
-//                         if (!list[i].studentCity) {
-//                             list[i].studentCity = "暂无"
-//                         }
-//                         html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>
-//             <td>${list[i].studentId}</td>
-//             <td>${list[i].studentName}</td>
-//             <td>${list[i].studentSex}</td>
-//             <td>${list[i].studentIdentity}</td>
-//             <td>${list[i].studentIsGraduation}</td>
-//             <td>${list[i].studentSchool}</td>
-//             <td>${list[i].studentSpecialty}</td>
-//             <td>${list[i].studentWechat}</td>
-//             <td>${list[i].studentCity}</td>
-//             <td>${list[i].studentParentPhone}</td>
-//             <td>${list[i].studentParentName}</td>
-//             <td>${list[i].studentPhone}</td>
-//             <td>${list[i].studentClassId}</td>
-//             <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studentId}">修改</a></td>
-//             <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
-//         data-id="${list[i].studentId}" data-name="${list[i].studentName}" data-target="#exampleModal" >删除</a></td></tr>`
-//                     }
-//                     // $("#showAllInfo").append(html)
-//
-//                     html+=`<tr><td colspan="16"><button type="button" id="deleteBySelect" class="btn btn-danger">删除所选</button></td></tr>`
-//                     $("#showAllInfo").append(html)
-//
-//                     // var deleteAll={}
-//                     $("#deleteBySelect").click(function (){
-//                         $("#exampleModalAll").attr("class","modal fade in")
-//                         $("#exampleModalAll").css("display","inline-block")
-//                     })
-//
-//
-//                     $("input[name='optionAll']").click(function (){
-//                         if ($(this).is(':checked')) {
-//                             // 如果当前框被选中，则判断是否需要勾选全选框
-//                             var checkbox = $("input[name='optionAll']");
-//                             var length = $(checkbox).length;
-//                             console.log(length+"=========================")
-//                             if (length > 0) {
-//                                 for (var i = 0; i < length; i++) {
-//                                     if ($(checkbox[i]).is(":checked") != true) {
-//                                         break;// 如果有未勾选的选择框，不需要勾选全选，跳出循环
-//                                     }
-//                                     if (i == length - 1) {
-//                                         // 如果到最后一个选择框仍然是勾选状态，即所有选择框都被勾选，则勾选全选框
-//                                         $("#chk").prop("checked", true);
-//                                     }
-//                                 }
-//                             }
-//                         } else {
-//                             // 如果当前选择框未勾选，则取消全选框勾选状态
-//                             $("#chk").prop("checked", false);
-//                         }
-//                     });
-//                     pageSelect(data.data)
-//
-//                     $("a[name='update']").click(function (){
-//                         var text=$(this).text()
-//                         console.log("========="+text)
-//                         if(text.trim()=='修改'){
-//                             var  id =$(this).attr("value")
-//                             console.log(id+"====++++++++++++++++")
-//                             location.href="/sybida/student/updateInfoStudent.html?id="+id;
-//                         }
-//                     })
-//                     // classId=data.message
-//                     // $("#abtn").attr("href","http://localhost:8080/teacher/selectstudentclassid?classId="+classId);
-//                     $("#abtn").click(function () {
-//                         console.log("======================")
-//                         console.log(classId+"------------------------------")
-//                         $.getJSON({
-//                             url: url+"/teacher/selectstudentclassid",
-//                             data:"classId="+classId,
-//                             beforeSend: function(request) {
-//                                 request.setRequestHeader("token", userid);
-//                             },
-//                             success:function (data) {
-//                                 if(data== -1000){
-//                                     location.href=logindexurl
-//                                 }else{
-//                                     if (data.code==1){
-//                                         var beforeData = data.data
-//                                         let fields=["学生ID","学生姓名","学生性别","身份证号","是否毕业","毕业学校","专业",
-//                                             "学生微信","邮箱","学习方向","就业城市","家庭住址","家长电话","家长姓名","紧急电话",
-//                                         "学生电话","学生班级","学生寝室","学生头像","修改时间","评级","是否删除"]
-//                                         let afterData = beforeData.map((item)=>{
-//                                             return{
-//                                                 "学生ID" : item.studentId, "学生姓名":item.studentName,
-//                                                 "学生性别":item.studentSex,"身份证号":item.studentIdentity,
-//                                                 "是否毕业":item.studentIsGraduation,"毕业学校":item.studentSchool,
-//                                                 "专业":item.studentSpecialty,"学生微信":item.studentWechat,
-//                                                 "邮箱":item.studentMailbox,"学习方向":item.studentStudyId,
-//                                                 "就业城市":item.studentCity,"家庭住址":item.studentAddress,
-//                                                 "家长电话":item.studentParentPhone,"家长姓名":item.studentParentName,
-//                                                 "紧急电话":item.studentUrgent,"学生电话":item.studentPhone,
-//                                                 "学生班级":item.studentClassId,"学生寝室":item.studentRoom,
-//                                                 "学生头像":item.studentPhoto,"修改时间":item.studentAlterTime,
-//                                                 "修改时间":item.studentAlterTime,"评级":item.studentNull1,
-//                                                 "是否删除":item.studentNull2
-//                                             }
-//                                         })
-//
-//
-//                                         if (typeof XLSX == 'undefined') XLSX = require('xlsx');
-//                                         let ws = XLSX.utils.json_to_sheet(afterData);
-//                                         let wb = XLSX.utils.book_new();
-//                                         XLSX.utils.book_append_sheet(wb, ws, "People");
-//                                         XLSX.writeFile(wb, "学生" + ".xlsx");
-//                                     }
-//                                 }
-//                             }
-//                         })
-//                     })
-//
-//
-//                 }
-//             }
-//
-//             }
-//     })
-// }
 
 //全选全不选
 $("#chk").click(function(){

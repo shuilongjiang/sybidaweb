@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <style>
+        .nav_guide {
+            width: 660px;
+            height: 30px;
+            line-height: 30px;
+            border: 0px;
+            margin-bottom: 0px;
+            margin-top: 0px;
+            padding: 0px;
+        }
+        .nav_guide {
+            font-size: 12px;
+            text-decoration: none;
+            outline: none;
+        }
+        .nav_guide:link {
+            color: #999999;
+            text-decoration: none;
+        }
+        .nav_guide:visited {
+            text-decoration: none;
+            color: #999999;
+        }
+        .nav_guide:hover {
+            text-decoration: underline;
+            color: #FF0000;
+        }
+        .nav_guide:active {
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+<br>
+<span>
+
+</span>
+<div style="border-bottom: #0C0C0C 1px solid;">当前位置：<a href="/" class="nav_guide">学生简历评价</a>
+</div>
+<div class="container">
+    <br>
+    <div class="layui-form-item">
+        <label class="bg-success" style="line-height: 35px; font-size: 16px;">您的班级:&nbsp;</label>
+        <select class="form-control" id="classNum" style="width: 100px; display: inline-block">
+        </select>
+        <label class="bg-success" style="line-height: 35px; font-size: 16px;">每页大小:&nbsp;</label>
+        <select class="form-control" id="pageSizeSel" style="width: 100px; display: inline-block">
+            <option name="pageSize" value="10">10条</option>
+            <option name="pageSize" value="20">20条</option>
+            <option name="pageSize" value="40">40条</option>
+            <option name="pageSize" value="50">50条</option>
+            <option name="pageSize" value="80">80条</option>
+            <option name="pageSize" value="100">100条</option>
+        </select>
+        <button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
+    </div>
+
+
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行的学生姓名</button>
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+            <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+            <button class="layui-btn layui-btn-sm" lay-event="downzip">批量下载</button>
+            <button class="layui-btn layui-btn-sm" lay-event="downzipcode">获取批量下载二维码</button>
+        </div>
+    </script>
+</div>
+
+
+
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/teacher/js/downforallteacher.js"></script>
+<script src="/sybida/bs/bootstrap.min.js"></script>
+<script src="/sybida/layui/layui.js"></script>
+<script src="/sybida/publicTool/js/dateutil.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+
+
+</body>
+</html>

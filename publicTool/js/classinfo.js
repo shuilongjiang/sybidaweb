@@ -21,7 +21,7 @@ $("#selectButt").click(function (){
 var userid=getCookie("userid")
 
 $.getJSON({
-    url: url+"/classInfo/selectuserbyidclass",
+    url: url+"/classInfo/selectuserbyidclass2",
     data:"userId="+userid+"&pageSize="+pageSize+"&pageNum="+pageNum+"&selectClass="+selectClass,
     beforeSend: function(request) {
         request.setRequestHeader("token", userid);
@@ -70,9 +70,9 @@ $.getJSON({
                      if (i % 2 == 0) {
                          html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].classId}"></td>
                 <td><a href="/sybida/student/classStudent.html?pageNum=1&pageSize=5&classId=${list[i].classId}">${list[i].classNum}</a></td>
-                <td>${list[i].classTeachId}</td>
-                <td>${list[i].classManagerId}</td>
-                <td>${list[i].classStudyId}</td>
+                <td>${list[i].tName}</td>
+                <td>${list[i].mName}</td>
+                <td>${list[i].studyAspect}</td>
                 <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                 <td>${list[i].classNull1}</td>
                 <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
@@ -82,9 +82,9 @@ $.getJSON({
                      } else {
                          html += ` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].classId}""></td>
                 <td><a href="/sybida/student/classStudent.html?pageNum=1&pageSize=5&classId=${list[i].classId}">${list[i].classNum}</a></td>
-                <td>${list[i].classTeachId}</td>
-                <td>${list[i].classManagerId}</td>
-                <td>${list[i].classStudyId}</td>
+                <td>${list[i].tName}</td>
+                <td>${list[i].mName}</td>
+                <td>${list[i].studyAspect}</td>
                 <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                 <td>${list[i].classNull1}</td>
                 <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
