@@ -22,7 +22,7 @@
 <div>
     <ul class="layui-nav layui-bg-black" style=" display: flex;justify-content: space-between; align-items: center; height: 125px;">
         <div style="margin-left: 8%;">
-            <li class="layui-nav-item"> <a href="javascript:;"  style="font-size: 20px">首页</a>
+            <li class="layui-nav-item"> <a href="javascript:;" id="first" style="font-size: 20px">首页</a>
             <li class="layui-nav-item"><a href="javascript:void(0);"  style="font-size: 20px">学生管理</a>
                 <dl class="layui-nav-child">
                     <dd><a id="infoStudent" href="javascript:;">查看班级学生</a></dd>
@@ -36,7 +36,6 @@
                 <dl class="layui-nav-child">
                     <dd><a id="infostudentjob" href="javascript:;">就业数据统计</a></dd>
                     <dd><a id="studentInterviewTeacher" href="javascript:;">查看学生面试经历</a></dd>
-                    <dd><a id="studentJobForTeacher" href="javascript:;">查看学生就业情况</a></dd>
                     <dd><a id="studentOfferForTeacher" href="javascript:;">查看学生Offer</a></dd>
                 </dl>
             </li>
@@ -61,13 +60,13 @@
                 <a href="javascript:;"  style="font-size: 20px">消息</a> <span id="advicenum" class="layui-badge">9</span>
                 <dl class="layui-nav-child">
                     <dd><a id="makeNotice" href="javascript:void(0);">发布通知</a></dd>
-                    <dd><a id="receiveNotice" href="javascript:void(0);">接收通知</a></dd>
+                    <dd><a id="receiveNotice" href="/sybida/publicTool/receiveNotice.html" target="_blank">接收通知</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
 
             <li class="layui-nav-item" lay-unselect="">
-                <a href="javascript:;"  style="font-size: 20px"><img id="userphotoA" src="//t.cn/RCzsdCq" style="width: 100px;height: 100px" class="layui-nav-img">我的</a>
+                <a href="javascript:;"  style="font-size: 20px"><img id="userphotoA" src="//t.cn/RCzsdCq" style="width: 70px;height: 70px" class="layui-nav-img">我的</a>
                 <dl class="layui-nav-child">
                     <dd><a id="changeTeacher"href="javascript:void(0);">修改个人信息</a></dd>
                     <dd><a id="changePsw" href="javascript:void(0);">修改密码</a></dd>
@@ -288,7 +287,7 @@
                     )
                     $("#studentOfferForTeacher").click(
                         function () {
-                            $("#ifream1").attr("src","../teacher/studentOfferForTeacher.html")
+                            $("#ifream1").attr("src","../teacher/ClassstudentOfferForTeacher.html")
                             iframeSrc = $("#ifream1").attr("src")
                             var storage = window.sessionStorage;
                             storage.setItem("ifreammanagerteacher",iframeSrc);
@@ -425,14 +424,7 @@
                             storage.setItem("ifreammanagerteacher",iframeSrc);
                         }
                     )
-                    $("#receiveNotice").click(
-                        function () {
-                            $("#ifream1").attr("src","/sybida/publicTool/receiveNotice.html")
-                            iframeSrc = $("#ifream1").attr("src")
-                            var storage = window.sessionStorage;
-                            storage.setItem("ifreammanagerteacher",iframeSrc);
-                        }
-                    )
+
                 }else{
                     alert("请检查网络是否连接" + data);
                 }
