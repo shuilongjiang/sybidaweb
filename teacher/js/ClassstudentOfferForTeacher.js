@@ -130,8 +130,7 @@ function pageshoe(){
                                       </td>
                                          
                                       <td>
-                                         <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit" 
-                                         onclick="surejob(${le[i].offerId})" date-offerId ="${le[i].offerId}">已选择就业</button>
+                                         <p style="font-weight: 700;color: orangered">已选择就业</p>
                                       </td>  
                                </tr>`
                         }else{
@@ -153,8 +152,7 @@ function pageshoe(){
                                       </td>
                                          
                                       <td> 
-                                         <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit" 
-                                         onclick="surejob(${le[i].offerId})" date-offerId ="${le[i].offerId}">已选择就业</button>
+                                         <p style="font-weight: 700;color: orangered">已选择就业</p>
                                       </td>  
                                  </tr>`
                         }
