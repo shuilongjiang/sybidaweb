@@ -165,7 +165,7 @@
                 <!--信息-->
                 <!-- videos feed  -->
                 <!-- Message  notificiation dropdown -->
-                <a href="#" class="opts_icon" id="noticeTool"> <i class="uil-envelope-alt"></i> <span id="userinfonum">4</span> </a>
+                <a href="../publicTool/receiveNotice.html" class="opts_icon" id="noticeTool" target="_blank"> <i class="uil-envelope-alt"></i> <span id="userinfonum">4</span> </a>
 
 
 
@@ -450,14 +450,14 @@
 
 
 
-    $("#noticeTool").click(
-        function () {
-            $("#ifream1").attr("src","../publicTool/receiveNotice.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreamstudent",iframeSrc);
-        }
-    )
+    // $("#noticeTool").click(
+    //     function () {
+    //         $("#ifream1").attr("src","../publicTool/receiveNotice.html")
+    //         iframeSrc = $("#ifream1").attr("src")
+    //         var storage = window.sessionStorage;
+    //         storage.setItem("ifreamstudent",iframeSrc);
+    //     }
+    // )
 
 
     $("#changePsw").click(
