@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>思必达教师首页</title>
+    <script src="/sybida/vue/vue.js"></script>
+    <link rel="stylesheet" href="/sybida/layui/css/layui.css"  media="all">
+    <!--<link rel="stylesheet" href="/sybida/bs/bootstrap.min.css">-->
+    <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="firstVue">
+{{mydata}}</div>
+</body>
+<ul class="layui-nav" style="background-color: white;">
+    <li class="layui-nav-item"><a style="color: #111111;font-size: 16px;" href="">墨绿导航</a></li>
+    <li class="layui-nav-item layui-this"><a href="">产品</a></li>
+    <li class="layui-nav-item"><a href="">大数据</a></li>
+    <li class="layui-nav-item">
+        <a href="javascript:;">解决方案</a>
+        <dl class="layui-nav-child">
+            <dd><a href="">移动模块</a></dd>
+            <dd><a href="">后台模版</a></dd>
+            <dd><a href="">电商平台</a></dd>
+        </dl>
+    </li>
+    <li class="layui-nav-item"><a href="">社区</a></li>
+</ul>
+<script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
+<script src="/sybida/layui/layui.js" charset="utf-8"></script>
+<!--<script src="/sybida/bs/bootstrap.min.js"></script>-->
+
+    <script type="text/javascript">
+        var myVue = new Vue({
+        el:"#firstVue",
+            data:{
+                mydata:"122"
+            }
+    })
+
+
+</script>
+</html>
+<script>
+    layui.use('element', function(){
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
+    });
+</script>

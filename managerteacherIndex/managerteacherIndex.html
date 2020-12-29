@@ -41,7 +41,22 @@
 
 
 <div style="width: 80%; margin: 0 auto;">
-    <iframe src="/sybida/managerteacherIndex/body.html"  style="width: 100%;height:750px;overflow: hidden;color: #2b542c"； scrolling="yes" id="ifream1" name="ifream1"  frameborder="0" ></iframe>
+    <iframe src="/sybida/managerteacherIndex/body.html" frameborder="0" scrolling="no" style="border:0px; width: 100%"   id="ifream1" name="ifream1"  frameborder="0" ></iframe>
+    <script type="text/javascript">
+        function reinitIframe(){
+            var iframe = document.getElementById("ifream1");
+            try{
+                var bHeight=0
+                var dHeight=0
+                bHeight = iframe.contentWindow.document.body.scrollHeight;
+                dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+                var height = Math.min(bHeight, dHeight);
+                iframe.height = height+100;
+            }catch (ex){}
+        }
+        reinitIframe()
+        window.setInterval("reinitIframe()", 200);
+    </script>
 </div>
 
 <div class="fn_bg">
@@ -149,11 +164,7 @@
                 location.href = logindexurl
             }else{
                 if(data.code==1){
-                    if(data.data.messageNum==0) {
-                        $("#advicenum").html("")
-                    }else{
-                        $("#advicenum").html(data.data.messageNum)
-                    }
+
                     if(data.data.teachName && data.data.userAuthority==0){
                         $("#username").html(data.data.teachName+"--班主任")
 
@@ -210,7 +221,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" >5</span></a>
+                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" ></span></a>
                     <div class="er">
                     	<div class="er_m">
                             <i>&nbsp;</i>
@@ -236,12 +247,6 @@
 
             </ul>`
                         $("#navallmany").append(html)
-
-
-
-
-
-
                     }else if(data.data.teachName && data.data.userAuthority==1){
                         $("#username").html(data.data.teachName+"--任课老师")
                         var html=``
@@ -301,7 +306,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" >5</span></a>
+                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" ></span></a>
                     <div class="er">
                     	<div class="er_m">
                             <i>&nbsp;</i>
@@ -327,8 +332,12 @@
 
             </ul>`
                         $("#navallmany").append(html)
+                        if(data.data.messageNum==0) {
+                            $("#advicenum").html("")
+                        }else{
+                            $("#advicenum").html(data.data.messageNum)
+                        }
                     }else {
-
                     }
                     if(data.data.teachPhoto){
                         $("#userphotoA").attr("src",Qnyurl+data.data.teachPhoto)
@@ -551,7 +560,7 @@
         layui.use('layer', function(){
             var layer = layui.layer;
         });
-        console.log("+++"+userid)
+
         $.ajax({
             url: url+"login/exitlogin",
             type: 'POST',
