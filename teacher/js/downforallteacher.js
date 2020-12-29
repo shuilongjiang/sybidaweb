@@ -15,9 +15,6 @@ if (arr.length > 1) {
     classId=teacherStudy1.split("=")[1]
 
 }
-
-
-
 var selectA2 = $("#pageSizeSel").find("option"); //从A1下拉框中 搜索值
 for (var i = 0; i < selectA2.length; i++) {
     var t = $(selectA2[i]).val()
