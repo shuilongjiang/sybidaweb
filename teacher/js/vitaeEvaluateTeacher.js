@@ -1,7 +1,7 @@
 var pageNum = 1
 var pageSize = $("#pageSizeSel").val()
 var userid=getCookie("userid")
-// var teacherStudy=-1
+var classId=-1
 var search = location.search
 var arr = search.split("&")
 if (arr.length > 1) {
@@ -10,15 +10,17 @@ if (arr.length > 1) {
 
     pageSize1 = arr[1]
     pageSize = pageSize1.split("=")[1]
-    //
-    // teacherStudy1=arr[2]
-    // teacherStudy=teacherStudy1.split("=")[1]
+
+    teacherStudy1=arr[2]
+    classId=teacherStudy1.split("=")[1]
 
 }
+
+
+
 var selectA2 = $("#pageSizeSel").find("option"); //从A1下拉框中 搜索值
 for (var i = 0; i < selectA2.length; i++) {
     var t = $(selectA2[i]).val()
-
     if (t == pageSize) {
         $(selectA2[i]).attr("selected", "selected")
     }
@@ -29,9 +31,59 @@ $('#pageSizeSel').change(
     function () {
         pageSize = $("#pageSizeSel").val()
     }
-)
+)//每页条数的change事件
+$.getJSON({
+    url: url+"/classInfo/selectteachermuticlass",
+    data:"userId="+userid,
+    beforeSend: function(request) {
+        request.setRequestHeader("token", userid);
+    },
+    success: function(data) {
+        if(data== -1000){
+            location.href=logindexurl
+        }else{
+            if (classId==-1){
+                console.log(data)
+                var html = ``
+                for (let i = 0; i < data.data.length; i++) {
+                    html += `<option value="${data.data[i].classId}">${data.data[i].classNum}</option>`
+                }
+                $('#classNum').append(html);
+                var selectA1 = $('#classNum').find("option"); //从A1下拉框中 搜索值
+                classId=$(selectA1[0]).val()
+
+                //change事件
+                $('#classNum').change(function () {
+                        classId = $('#classNum').val()
+                    }
+                )
+            }else{
+                var html = ``
+                for (let i = 0; i < data.data.length; i++) {
+                    html += `<option value="${data.data[i].classId}">${data.data[i].classNum}</option>`
+                }
+                $('#classNum').append(html);
+                var selectA1 = $('#classNum').find("option"); //从A1下拉框中 搜索值
+                for (var i = 0; i < selectA1.length; i++) {
+                    var t=$(selectA1[i]).val()
+                    if(t==classId){
+                        $(selectA1[i]).attr("selected", "selected")
+                    }
+                }
+                //change事件
+                $('#classNum').change(function () {
+                        classId = $('#classNum').val()
+                    }
+                )
+            }
+        }
+
+
+        show();
+    }
+});
 $("#selectButt").click(function () {
-    location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize
+    location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize+"&classId="+classId
 })
 
 //全选全不选
@@ -67,12 +119,10 @@ $(".qwer").click(function () {
     }
 });
 
-show();
-
 function show() {
     $.getJSON({
         url:url + "/teacher/selectallvitae",
-        data:"pageSize=" + pageSize + "&pageNum=" + pageNum,
+        data:"pageSize=" + pageSize + "&pageNum=" + pageNum+"&classId="+classId,
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
         },
@@ -106,7 +156,7 @@ function show() {
             var date = Date.parse(list[i].vitaeAlterTime)
             date = new Date(date)
             // if(list[i].vitaeUrl){
-            console.log(list[i].vitaeLevel)
+            console.log(list[i].studentPhone+"====")
             if (list[i].vitaeLevel == 1){
                 if (list[i].vitaeLevel == 1) {
                     list[i].vitaeLevel = "可投递"
@@ -116,7 +166,7 @@ function show() {
                 // <td>${list[i].vitaeId}</td>
                 //             <td>${list[i].vitaeStudentId}</td>
                 html += `<tr class="" >]<td style="width: 80px;">
-            <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
+             <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studyAspect}工程师${list[i].studentName}+${list[i].studentPhone}" name="optionAll" ></td>
            
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
@@ -137,7 +187,7 @@ function show() {
                     list[i].vitaeLevel = "继续修改"
                 }
                 html += `<tr class="active">]<td style="width: 80px;">
-            <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
+            <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studyAspect}工程师+${list[i].studentName}+${list[i].studentPhone}" name="optionAll" ></td>
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td>${list[i].studentNull1}</td>
@@ -149,7 +199,7 @@ function show() {
            
             <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
            <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
-           <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}','${list[i].studyAspect}')">下载</button></td>
+           <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studyAspect}工程师+${list[i].studentName}','${list[i].studentPhone}')">下载</button></td>
         </tr>`
             }
         }
@@ -270,20 +320,20 @@ function pageSelect(data) {
 
         html += `<li class="disabled"><a href="#" aria-label="Previous">&laquo;</a></li>`
     } else {
-        html += `<li><a href="/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=${pageNum - 1}&pageSize=${pageSize}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
+        html += `<li><a href="/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=${pageNum - 1}&pageSize=${pageSize}&classId=${classId}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
     }
     for (var i = data.navigateFirstPage; i <= data.navigateLastPage; i++) {
         if (pageNum == i) {
             html += `<li class="active"><a href="#">${i}</a></li>`
         } else {
-            html += `<li><a href="/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=${i}&pageSize=${pageSize}">${i}</a></li>`
+            html += `<li><a href="/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=${i}&pageSize=${pageSize}&classId=${classId}">${i}</a></li>`
         }
     }
     if ((data.pages) <= pageNum) {
         html += `<li class="disabled"><a href="#">&raquo;</a></li>`
     } else {
         var pa = parseInt(pageNum) + 1
-        html += `<li><a href="/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=${pa}&pageSize=${pageSize}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
+        html += `<li><a href="/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=${pa}&pageSize=${pageSize}&classId=${classId}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>`
     }
     html += `<span style="font-family: '微软雅黑';font-size: 15px;margin-left:200px;padding-top: 10px;line-height: 40px">共&nbsp;${data.pages}&nbsp;页</span>`
     $("#pagination").append(html)
@@ -346,14 +396,14 @@ $("#addVitaeLevel").click(function () {
                         skin: 'layui-layer-molv' //样式类名
                         ,closeBtn: 1
                     }, function(){
-                        location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum="+pageNum+"&pageSize=" + pageSize
+                        location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize+"&classId="+classId
 
                     });
 
 
                 } else {
                     alert("评价失败！")
-                    location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum="+pageNum+"&pageSize=" + pageSize
+                    location.href = "/sybida/teacher/vitaeEvaluateTeacher.html?pageNum=1&pageSize=" + pageSize+"&classId="+classId
                 }
             }
         }})

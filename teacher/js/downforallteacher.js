@@ -14,7 +14,7 @@ if(!search){}else{
 }
 
 $("#selectButt").click(function () {
-    location.href = "/sybida/publicTool/totalforstudent.html?classId="+classId
+    location.href = "/sybida/teacher/downforallteacher.html?classId="+classId
 })
 //根据权限查询班级
 $.getJSON({
@@ -133,16 +133,3 @@ function showtotal() {
     });
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
