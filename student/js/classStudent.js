@@ -155,14 +155,13 @@ $.getJSON({
                                 html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studentId}"></td>
             <td>${list[i].studentName}</td>
             <td>${list[i].studentSex}</td>
-            <td>${list[i].studentIdentity}</td>
+       
             <td>${list[i].studentIsGraduation}</td>
             <td>${list[i].studentSchool}</td>
             <td>${list[i].studentSpecialty}</td>
             <td>${list[i].studentWechat}</td>
             <td>${list[i].studentCity}</td>
-            <td>${list[i].studentParentPhone}</td>
-            <td>${list[i].studentParentName}</td>
+           
             <td>${list[i].studentPhone}</td>
             <td> <select onchange="makeleval(${list[i].studentId},this)">`
                                 for (let j = 0; j <stuleval.length ; j++) {
