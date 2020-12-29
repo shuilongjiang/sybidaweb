@@ -55,21 +55,9 @@
         <label class="bg-success" style="line-height: 35px; font-size: 16px;">您的班级:&nbsp;</label>
         <select class="form-control" id="classNum" style="width: 100px; display: inline-block">
         </select>
-        <label class="bg-success" style="line-height: 35px; font-size: 16px;">每页大小:&nbsp;</label>
-        <select class="form-control" id="pageSizeSel" style="width: 100px; display: inline-block">
-            <option name="pageSize" value="10">10条</option>
-            <option name="pageSize" value="20">20条</option>
-            <option name="pageSize" value="40">40条</option>
-            <option name="pageSize" value="50">50条</option>
-            <option name="pageSize" value="80">80条</option>
-            <option name="pageSize" value="100">100条</option>
-        </select>
         <button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
     </div>
-
-
     <table class="layui-hide" id="test" lay-filter="test"></table>
-
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行的学生姓名</button>
@@ -93,4 +81,18 @@
 
 
 </body>
+<script type="text/html" id="typeTpl">
+    {{#  if(d.vitaeIsRead ==1 ){ }}
+    <span style='color:black'>是</span>
+    {{#  } else { }}
+    <span style='color:red'>否</span>
+    {{#  } }}
+</script>
+<script type="text/html" id="typeTp2">
+    {{#  if(d.vitaeLevel ==1 ){ }}
+    <span style='color:black'>可投递</span>
+    {{#  } else { }}
+    <span style='color:red'>不可投递</span>
+    {{#  } }}
+</script>
 </html>
