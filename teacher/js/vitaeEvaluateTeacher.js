@@ -113,10 +113,11 @@ function show() {
                 } else {
                     list[i].vitaeLevel = "继续修改"
                 }
+                // <td>${list[i].vitaeId}</td>
+                //             <td>${list[i].vitaeStudentId}</td>
                 html += `<tr class="" >]<td style="width: 80px;">
             <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
-            <td>${list[i].vitaeId}</td>
-            <td>${list[i].vitaeStudentId}</td>
+           
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td >${list[i].studentNull1}</td>
@@ -137,8 +138,6 @@ function show() {
                 }
                 html += `<tr class="active">]<td style="width: 80px;">
             <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}+${list[i].studyAspect}${list[i].vitaeId}" name="optionAll" ></td>
-            <td>${list[i].vitaeId}</td>
-            <td>${list[i].vitaeStudentId}</td>
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td>${list[i].studentNull1}</td>
@@ -298,6 +297,28 @@ function updateVitaeLevel(vitaeId, userid, name,vitaeurl) {
     $("#vitaeEvaluateUserId").val(userid)
     $("#vitaeEvaluateUserName").val(name)
     $("#iframe3").attr("src",Qnyurl+vitaeurl)
+    var userid2=getCookie("userid")
+    $.post({
+        url:url+"/teacherdownload/selectevaforvitae",
+        // 告知传递参数类型为json，不可缺少
+        // contentType:"application/json",
+        data:"vitaeId="+vitaeId,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid2);
+        },
+        success:function(data){
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+
+                if(data.code==1){
+                    $("#vitaeEvaluateComment").val(data.data)
+                }
+
+            }
+        }
+    })
+
 }
 $("#addVitaeLevel").click(function () {
 
