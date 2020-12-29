@@ -50,8 +50,8 @@ abbr, acronym {
 .clearfix {
 	display: block;
 }
-/*通用父子盒子嵌套浮动问题解决，结束*/
-/*间隙层开始*/
+通用父子盒子嵌套浮动问题解决，结束
+间隙层开始
 .space_hx { /*横向间隙*/
 	clear: both;
 	width: 100%;
@@ -65,4 +65,4 @@ abbr, acronym {
 	font-size: 1px;
 	overflow: hidden;
 }
-/*间隙层结束*/
+间隙层结束

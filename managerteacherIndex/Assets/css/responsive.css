@@ -5,6 +5,7 @@
 
     .head .nav_m {
         width: 720px;
+        /*border: solid 1px red;*/
     }
 
     .head .nav li a {
@@ -150,8 +151,8 @@
     }
 
     .head .logo img, .head .logo {
-        width: 199px;
-        height: 51px;
+        /*width: 199px;*/
+        /*height: 51px;*/
     }
 
     .head .logo {
@@ -177,6 +178,7 @@
 
     .nav_m .nav {
         width: 740px;
+        /*width: 100%;*/
         position: absolute;
         right: 0;
         top: 90px;
