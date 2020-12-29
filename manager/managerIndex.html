@@ -92,7 +92,6 @@
                         <dd><a  id="addTeacher" href="javascript:;">教师用户添加</a></dd>
                         <dd><a  id="studentInterviewTeacher" href="javascript:;">查看学生面试经历</a></dd>
                         <dd><a  id="studentOfferTeacher" href="javascript:;">查看学生Offer记录</a></dd>
-                        <dd><a  id="studentJobTeacher" href="javascript:;">查看学生就业情况</a></dd>
                         <dd><a  id="vitaeEvaluateTeacher" href="javascript:;">学生简历查看评级</a></dd>
                         <dd><a  id="companyManagerTeacher" href="javascript:;">管理企业招聘信息</a></dd>
                         <dd><a  id="companyInfoTeacher" href="javascript:;">企业招聘信息展示</a></dd>
@@ -105,6 +104,7 @@
                         <dd><a  id="infoStudent" href="javascript:;">查看学生档案</a></dd>
                         <dd><a  id="studentPersonalInformation" href="javascript:;">学生就业分析</a></dd>
                         <dd><a  id="careerQuizStudent" href="javascript:;">职业测评</a></dd>
+                        <dd><a  id="downforallteacher" href="javascript:;">下载简历</a></dd>
                        </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -429,7 +429,7 @@
     )
    $("#studentOfferTeacher").click(
        function () {
-           $("#ifream1").attr("src","../teacher/studentOfferForTeacher.html")
+           $("#ifream1").attr("src","../teacher/ClassstudentOfferForTeacher.html")
            iframeSrc = $("#ifream1").attr("src")
            var storage = window.sessionStorage;
            storage.setItem("ifreammanager",iframeSrc);
@@ -437,14 +437,15 @@
    )
 
 
-    $("#studentJobTeacher").click(
-        function () {
-            $("#ifream1").attr("src","../teacher/studentJobForTeacher.html")
-            iframeSrc = $("#ifream1").attr("src")
-            var storage = window.sessionStorage;
-            storage.setItem("ifreammanager",iframeSrc);
-        }
-    )
+   $("#downforallteacher").click(
+       function () {
+           $("#ifream1").attr("src","../teacher/downforallteacher.html")
+           iframeSrc = $("#ifream1").attr("src")
+           var storage = window.sessionStorage;
+           storage.setItem("ifreammanager",iframeSrc);
+       }
+   )
+
 
 </script>
 </body>

@@ -3,7 +3,6 @@ var search = window.location.search
 var arr = search.split("=")
 var offerId = arr[1]
 
-console.log(offerId+"+_+_+_+_+_+")
 var userid=getCookie("userid")
 $.getJSON({url:url+"/offer/selectstudentOfferbyOfferId",data: "offerId=" + offerId,
     beforeSend: function(request) {
