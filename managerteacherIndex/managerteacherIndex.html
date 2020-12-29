@@ -149,11 +149,7 @@
                 location.href = logindexurl
             }else{
                 if(data.code==1){
-                    if(data.data.messageNum==0) {
-                        $("#advicenum").html("")
-                    }else{
-                        $("#advicenum").html(data.data.messageNum)
-                    }
+
                     if(data.data.teachName && data.data.userAuthority==0){
                         $("#username").html(data.data.teachName+"--班主任")
 
@@ -210,7 +206,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" >5</span></a>
+                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" ></span></a>
                     <div class="er">
                     	<div class="er_m">
                             <i>&nbsp;</i>
@@ -295,7 +291,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" >5</span></a>
+                    <a href="javascript:void(0);">消息<span style="color: red;" id="advicenum" ></span></a>
                     <div class="er">
                     	<div class="er_m">
                             <i>&nbsp;</i>
@@ -321,6 +317,11 @@
 
             </ul>`
                         $("#navallmany").append(html)
+                        if(data.data.messageNum==0) {
+                            $("#advicenum").html("")
+                        }else{
+                            $("#advicenum").html(data.data.messageNum)
+                        }
                     }else {
 
                     }
