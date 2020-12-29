@@ -49,7 +49,7 @@ $.getJSON({
         if(data== -1000){
             location.href=logindexurl
         }else {
-            var htm=`<option value="-1">全部</option>`
+            var htm=``
             for (var i=0;i<data.data.length;i++){
                 htm+=`<option value="${data.data[i].classId}">${data.data[i].classNum}</option>`
             }
@@ -94,7 +94,7 @@ $('input[name="checkAll"]').click(function(){
 pageshoe();
 function pageshoe(){
     $.getJSON({
-        url:url+"/offer/selectpage",
+        url:url+"/offer/selectpage2",
         data:"pageSize="+pageSize+"&pageNum="+pageNum+"&classNum="+classNum+"&userid="+userid,
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
