@@ -58,7 +58,7 @@ $.getJSON({
             html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studyId}"></td>
         <td>${list[i].studyAspect}</td>
         <td>${list[i].studyIntroduce}</td>
-        <td>${list[i].userAuthority}</td>
+      
         <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studyId}">修改</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
@@ -67,7 +67,7 @@ $.getJSON({
             html += ` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].studyId}""></td>
     <td>${list[i].studyAspect}</td>
         <td>${list[i].studyIntroduce}</td>
-        <td>${list[i].userAuthority}</td>
+      
         <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].studyId}">修改</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"

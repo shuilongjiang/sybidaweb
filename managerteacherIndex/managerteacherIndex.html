@@ -236,12 +236,6 @@
 
             </ul>`
                         $("#navallmany").append(html)
-
-
-
-
-
-
                     }else if(data.data.teachName && data.data.userAuthority==1){
                         $("#username").html(data.data.teachName+"--任课老师")
                         var html=``
@@ -551,7 +545,7 @@
         layui.use('layer', function(){
             var layer = layui.layer;
         });
-        console.log("+++"+userid)
+
         $.ajax({
             url: url+"login/exitlogin",
             type: 'POST',
