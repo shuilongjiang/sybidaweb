@@ -298,6 +298,22 @@
 
 
         <iframe src="/sybida/student/index.html" style="overflow: hidden;color: #2b542c" width="100%" height="800px"    id="ifream1" ></iframe>
+        <script type="text/javascript">
+            function reinitIframe(){
+                var iframe = document.getElementById("ifream1");
+                try{
+                    var bHeight=0
+                    var dHeight=0
+                    bHeight = iframe.contentWindow.document.body.scrollHeight;
+                    dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+                    var height = Math.min(bHeight, dHeight);
+                    iframe.height = height+100;
+                }catch (ex){}
+            }
+            reinitIframe()
+            window.setInterval("reinitIframe()", 200);
+        </script>
+
 
         <!-- footer================================================== -->
         <div class="footer">

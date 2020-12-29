@@ -37,7 +37,6 @@ $("#selectButt").click(function (){
 
 //班级号下拉选框
 var userid=getCookie("userid")
-console.log(userid+"========")
 $.getJSON({
     url:url+"/audition/selectClass",
     data:"userid="+userid,
@@ -48,7 +47,7 @@ $.getJSON({
         if(data== -1000){
             location.href=logindexurl
         }else {
-            var htm=`<option value="-1">全部</option>`
+            var htm=``
             for (var i=0;i<data.data.length;i++){
                 htm+=`<option value="${data.data[i].classId}">${data.data[i].classNum}</option>`
             }
@@ -91,10 +90,11 @@ $('input[name="checkAll"]').click(function(){
         });
     }
 });
+
 pageshoe();
 function pageshoe(){
     $.getJSON({
-        url:url+"/audition/selectpage",
+        url:url+"/audition/selectpage2",
         data:"pageSize="+pageSize+"&pageNum="+pageNum+"&classNum="+classNum+"&userid="+userid,
         beforeSend: function(request) {
             request.setRequestHeader("token", userid);
@@ -113,9 +113,6 @@ function pageshoe(){
                     date1 = new Date(date1)
                     var date2 = Date.parse(le[i].auditionAlterTime)
                     date2 = new Date(date2)
-
-
-                    // if(!le[i].id){le[i].id=""}
                     if (i%2==0){
                         html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
             <td>${le[i].studentName}</td>

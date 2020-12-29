@@ -2,9 +2,11 @@
 var search = window.location.search
 var arr = search.split("=")
 var offerId = arr[1]
-
 var userid=getCookie("userid")
-$.getJSON({url:url+"/offer/selectstudentOfferbyOfferId",data: "offerId=" + offerId,
+
+$.getJSON({
+    url:url+"/offer/selectstudentOfferbyOfferId",
+    data:"offerId=" + offerId,
     beforeSend: function(request) {
         request.setRequestHeader("token", userid);
     },
@@ -14,7 +16,6 @@ $.getJSON({url:url+"/offer/selectstudentOfferbyOfferId",data: "offerId=" + offer
         }else{
             let html=''
             if (data.code == 1) {
-
                 $("#studentName").val(data.data.studentName)
                 $("#studentSex").val(data.data.studentSex)
                 $("#classNum").val(data.data.classNum)
@@ -42,9 +43,4 @@ $.getJSON({url:url+"/offer/selectstudentOfferbyOfferId",data: "offerId=" + offer
 }})
 
 
-
-$("#update").click(function (){
-        location.href="/sybida/student/studentPersonalOfferDetailsUpdate.html?id=" + offerId;
-
-})
 
