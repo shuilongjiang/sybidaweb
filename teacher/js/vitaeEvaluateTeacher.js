@@ -166,7 +166,7 @@ function show() {
                 // <td>${list[i].vitaeId}</td>
                 //             <td>${list[i].vitaeStudentId}</td>
                 html += `<tr class="" >]<td style="width: 80px;">
-             <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studyAspect}工程师${list[i].studentName}+${list[i].studentPhone}" name="optionAll" ></td>
+             <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}-${list[i].studyAspect}工程师-${list[i].studentPhone}" name="optionAll" ></td>
            
             <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
@@ -178,7 +178,7 @@ function show() {
            
             <td >${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
            <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
-           <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}','${list[i].studyAspect}')">下载</button></td>
+               <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}-${list[i].studyAspect}工程师','${list[i].studentPhone}')">下载</button></td>
         </tr>`
             }else{
                 if (list[i].vitaeLevel == 1) {
@@ -187,8 +187,8 @@ function show() {
                     list[i].vitaeLevel = "继续修改"
                 }
                 html += `<tr class="active">]<td style="width: 80px;">
-            <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studyAspect}工程师+${list[i].studentName}+${list[i].studentPhone}" name="optionAll" ></td>
-            <td id="studentName1">${list[i].studentName}</td>
+            <input type="checkbox" value="${list[i].vitaeUrl}=${list[i].studentName}-${list[i].studyAspect}工程师-${list[i].studentPhone}" name="optionAll" ></td>
+           <td id="studentName1">${list[i].studentName}</td>
             <td id="studyAspect1">${list[i].studyAspect}</td>
             <td>${list[i].studentNull1}</td>
             
@@ -199,7 +199,7 @@ function show() {
            
             <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
            <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
-           <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studyAspect}工程师+${list[i].studentName}','${list[i].studentPhone}')">下载</button></td>
+           <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}-${list[i].studyAspect}工程师','${list[i].studentPhone}')">下载</button></td>
         </tr>`
             }
         }
@@ -493,7 +493,7 @@ function Map() {
 }
 
 function downloadVitae(downloadUrl, name, aspect) {
-    var res = name.concat("+", aspect)
+    var res = name.concat("-", aspect)
     downloadfile(Qnyurl+downloadUrl,res)
 
 }

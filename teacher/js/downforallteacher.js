@@ -168,7 +168,7 @@ function showtotal() {
                     var k=0
                     var data = checkStatus.data;
                     for (let i = 0; i < data.length; i++) {
-                        ziip[k++]=data[i].vitaeUrl+"="+data[i].studyAspect+"工程师+"+data[i].studentName+"+"+data[i].studentPhone
+                        ziip[k++]=data[i].vitaeUrl+"="+data[i].studentName+"-"+data[i].studyAspect+"工程师-"+data[i].studentPhone
                     }
                     downzip(ziip)
                     break;
@@ -177,7 +177,7 @@ function showtotal() {
                     var j=0
                     var data = checkStatus.data;
                     for (let i = 0; i < data.length; i++) {
-                        s[j++]=data[i].vitaeUrl+"="+data[i].studyAspect+"工程师+"+data[i].studentName+"+"+data[i].studentPhone
+                        s[j++]=data[i].vitaeUrl+"="+data[i].studentName+"-"+data[i].studyAspect+"工程师-"+data[i].studentPhone
                     }
                     downzipcode(s)
                     break;
