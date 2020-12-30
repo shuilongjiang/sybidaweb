@@ -22,7 +22,7 @@ button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0;}
 .slide{display:none;height:490px;padding-top:89px;background:#ff6900;position:relative;position:absolute;z-index:8;}
 /*#bgstylea{background:#ff6900;}*/
 #bgstylea{background: #f7e6d1;}
-#bgstyleb{background: #d3dede;}
+#bgstyleb{background: #dce7e7;}
 /*#bgstyleb{background:#000;}*/
 #bgstylec{background: #d9ebe9;}
 .slide a{display:block;width:100%;height:490px;cursor:pointer;}
@@ -34,7 +34,7 @@ button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0;}
 .obj-d{top:228px;height:164px;}
 .obj-d p{display:block;padding-top:20px;font-size:16px;color:#fff;clear:both;}
 .obj-e{width:366px;height:170px;margin-left:-460px;top:223px;z-index:12;}
-.obj-f{display:block;height:582px;top:0;margin-left:-140px;}
+.obj-f{display:block;height:582px;top:0;margin-left:-110px;}
 .banAnimate .obj-a{display:block;animation-name:baoAni;-webkit-animation:baoAni 0.4s linear 0s normal none;-moz-animation:baoAni 0.4s linear 0s normal none;animation:baoAni 0.4s linear 0s normal none;}
 @-webkit-keyframes baoAni{from{opacity:0;left:60%;} to{opacity:1;left:50%;} }
 @-moz-keyframes baoAni{from{opacity:0;left:60%;} to{opacity:1;left:50%;} }

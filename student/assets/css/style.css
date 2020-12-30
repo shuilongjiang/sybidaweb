@@ -14103,6 +14103,7 @@ header #logo [class~=logo-inverse], .sidebar_innr ul li a:only-child:after, [cla
 
     [class~=main_content] {
         background: white;
+
     }
 
     [class~=main_sidebar] {
