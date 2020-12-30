@@ -406,7 +406,6 @@ $("#addVitaeLevel").click(function () {
     var picture ="11"
     var userid=getCookie("userid")
     if (judgeAll()) {
-
         $.getJSON({
             url:url + "/teacher/insertvitaeevaluatelevel",
             data:"comment=" + vitaeComment + "&picUrl=" + picture + "&vitaeId=" + vitaeId + "&userid=" + userid+"&vitaeEvaluateNull1="+dotodoit,
