@@ -23,6 +23,7 @@ for (var i = 0; i < selectA2.length; i++) {
     }
 
 }
+
 //每页条数的change事件
 $('#pageSizeSel').change(
     function () {

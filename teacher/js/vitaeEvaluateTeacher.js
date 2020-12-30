@@ -347,7 +347,32 @@ function updateVitaeLevel(vitaeId, userid, name,vitaeurl) {
     $("#vitaeEvaluateUserId").val(userid)
     $("#vitaeEvaluateUserName").val(name)
     $("#iframe3").attr("src",Qnyurl+vitaeurl)
+    $("#dotodoit").change(function () {
+        if( $("#dotodoit").val()==1 &&!$("#vitaeEvaluateComment").val() ){
+            $("#vitaeEvaluateComment").val("抓紧时间投递")
+        }
+    })
     var userid2=getCookie("userid")
+    $.post({
+        url:url+"/teacherdownload/selectcomment",
+        // 告知传递参数类型为json，不可缺少
+        // contentType:"application/json",
+        data:"userid="+userid,
+        beforeSend: function(request) {
+            request.setRequestHeader("token", userid2);
+        },
+        success:function(data){
+            if(data== -1000){
+                location.href=logindexurl
+            }else {
+
+
+                    $("#vitaeEvaluateall").val(data.message)
+
+
+            }
+        }
+    })
     $.post({
         url:url+"/teacherdownload/selectevaforvitae",
         // 告知传递参数类型为json，不可缺少
@@ -376,6 +401,7 @@ $("#addVitaeLevel").click(function () {
     var vitaeEvaluateId = $("#vitaeEvaluateId").val()
     var vitaeComment = $("#vitaeEvaluateComment").val()
    var dotodoit=$("#dotodoit").val()
+
 
     var picture ="11"
     var userid=getCookie("userid")
