@@ -170,6 +170,7 @@ function showtotal() {
                     for (let i = 0; i < data.length; i++) {
                         ziip[k++]=data[i].vitaeUrl+"="+data[i].studentName+"-"+data[i].studyAspect+"工程师-"+data[i].studentPhone
                     }
+
                     downzip(ziip)
                     break;
                 case 'downzipcode':
