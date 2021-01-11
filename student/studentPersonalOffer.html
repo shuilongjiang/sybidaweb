@@ -17,15 +17,13 @@
 </head>
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
 
-<body id="body" style="height: 800px;">
+<body id="body" >
 <br>
 
 
 
 <div >
     <ol class="breadcrumb"style="border-bottom: #009688 1px solid;">
-        <li><a href="#">首页</a></li>
-
         <li class="active">个人Offer记录</li>
     </ol>
 </div>
@@ -36,7 +34,7 @@
 
         </select>
 
-        <label class="bg-success" style="line-height: 35px; font-size: 16px;">每页大小:&nbsp;</label>
+        <label  style="line-height: 35px; font-size: 16px;">每页大小:&nbsp;</label>
         <select class="form-control" id="pageSizeSel" style="width: 100px; display: inline-block" >
             <option name="pageSize" value="5">5条</option>
             <option name="pageSize" value="10">10条</option>
@@ -49,13 +47,15 @@
             <option name="pageSize" value="100">100条</option>
 
         </select>
-        <button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
+        <!--<button type="button" id="selectButt" class="btn btn-success">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>-->
+        <button type="button" id="selectButt" class="layui-btn layui-btn-radius">&nbsp;查&nbsp;&nbsp;询&nbsp;</button>
+        <button type="button" id="register" class="layui-btn layui-btn-radius layui-btn-warm" style="float: right"
+                onclick="registerOffer()">&nbsp;Offer登记  </button>
     </div>
 
     <table class="table table-striped table-hover table-bordered">
         <tr class="active">
             <th style="width: 80px;"><input type="checkbox" name="checkAll">&nbsp;&nbsp;全选</th>
-            <th>姓名</th>
             <th>offer学习方向</th>
             <th>录用所在公司</th>
             <th>实习工资</th>

@@ -12564,7 +12564,7 @@ header .head_user .btn.btn-mat:hover {
 }
 
 header #logo img {
-    width: 78.75pt;
+    width: 90pt;
 }
 
 header [class~=head_user] [class~=opts_icon] {
@@ -12984,7 +12984,7 @@ header .head_user .btn.btn-mat {
 }
 
 header #logo {
-    left: 48.75pt;
+    left: 60pt;
 }
 
 header [class~=head_search] [class~=head_search_cont] input {

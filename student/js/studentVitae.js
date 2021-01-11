@@ -99,7 +99,7 @@ function show() {
                         layer.alert("所选数据为空！");
                     }
                 })
-                pageSelect(data.data)
+                // pageSelect(data.data)
                 $("input[name='optionAll.']").click(function () {
                     if ($(this).is(':checked')) {
                         // 如果当前框被选中，则判断是否需要勾选全选框

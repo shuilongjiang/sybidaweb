@@ -186,5 +186,8 @@ $("#submitList").click(function () {
     }
 })
 
+$("#returnOffer").click(function (){
+    location.href="/sybida/student/studentPersonalOffer.html";
 
+})
 

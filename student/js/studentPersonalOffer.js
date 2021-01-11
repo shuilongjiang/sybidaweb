@@ -79,7 +79,6 @@ function pageshoe(){
                     if(0 == le[i].offerPersonisjob){
                         if (i%2==0){
                             html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
-                                      <td>${le[i].studentName}</td>
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
@@ -102,7 +101,6 @@ function pageshoe(){
                                   </tr>`
                         }else{
                             html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
-                                      <td>${le[i].studentName}</td>
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
@@ -129,7 +127,6 @@ function pageshoe(){
                         if (0 == le[i].offerIsjob) {
                             if (i%2==0){
                                 html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
-                                      <td>${le[i].studentName}</td>
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
@@ -153,7 +150,6 @@ function pageshoe(){
                                   </tr>`
                             }else{
                                 html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
-                                      <td>${le[i].studentName}</td>
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
@@ -178,7 +174,6 @@ function pageshoe(){
                         }else if (1 == le[i].offerIsjob){
                             if (i%2==0){
                                 html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
-                                      <td>${le[i].studentName}</td>
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
@@ -201,7 +196,6 @@ function pageshoe(){
                                   </tr>`
                             }else{
                                 html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].offerId}"></td>
-                                      <td>${le[i].studentName}</td>
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
@@ -299,6 +293,18 @@ function pageSelect(data){
     $("#pagination").append(html)
 }
 
+
+//Offer登记
+function registerOffer(){
+    $("button").click(function (){
+        var text = $(this).text() // 获取按钮之间的文本内容
+        // console.log("========")
+        if(text.trim()=='Offer登记'){
+            location.href="/sybida/student/studentPersonalOfferRegister.html";
+
+        }
+    })
+}
 
 
 //查看详情

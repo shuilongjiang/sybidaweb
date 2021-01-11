@@ -82,9 +82,6 @@ function pageshoe(){
                     date2 = new Date(date2)
                     if (i%2==0){
                         html +=`<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
-                                <td>${le[i].studentName}</td>
-                                <td>${le[i].studentSex}</td>
-                                <td>${le[i].classNum}</td>
                                 <td>${le[i].auditionFirm}</td>
                                 <td>${le[i].auditionSite}</td>
                                 <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
@@ -101,10 +98,6 @@ function pageshoe(){
                             </tr>`
                      }else{
                         html +=` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${le[i].auditionId}"></td>
-
-                                <td>${le[i].studentName}</td>
-                                <td>${le[i].studentSex}</td>
-                                <td>${le[i].classNum}</td>
                                 <td>${le[i].auditionFirm}</td>
                                 <td>${le[i].auditionSite}</td>
                                 <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
@@ -187,6 +180,18 @@ function pageSelect(data){
     $("#pagination").append(html)
 }
 
+//面试登记
+function register(){
+    $("button").click(function (){
+        var text = $(this).text() // 获取按钮之间的文本内容
+        // console.log("========")
+        if(text.trim()=='面试登记'){
+            location.href="/sybida/student/studentAuditionRegister.html";
+
+        }
+    })
+}
+
 
 
 //查看详情
@@ -220,8 +225,6 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     modal.find('#messagetext').text('确认删除-' +name+'公司-的面试记录吗？')
 })
 $("#deleteOneSure").click(function (){
-
-    console.log(idtea +"++++++++++++++++++++++....********************************")
 
     $.post({url:url+"/audition/deleteStudentAudition",data:"deleteAuditionId="+idtea,
         beforeSend: function(request) {

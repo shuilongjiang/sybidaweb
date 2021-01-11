@@ -3,7 +3,6 @@ var classID=-1
 
 //用户ID 查询学生姓名和性别
 var userid=getCookie("userid")
-console.log(userid+"=======********")
 $.getJSON({url:url+"/audition/selectStudentById",data:"userid="+userid,
     beforeSend: function(request) {
         request.setRequestHeader("token", userid);
@@ -89,9 +88,6 @@ $("#submitList").click(function () {
         var auditionSituation = $("#auditionSituation").val()
         var auditionStudentId = $("#auditionStudentId").val()
 
-
-        console.log(auditionStudentId+"**********************************")
-
         var formData = new FormData(document.getElementById("auditionform"));
         formData.append("auditionFirm", auditionFirm);
         formData.append("auditionSite",auditionSite);
@@ -99,8 +95,6 @@ $("#submitList").click(function () {
         formData.append("auditionFinish",auditionFinish);
         formData.append("auditionSituation",auditionSituation);
         formData.append("auditionStudentId",auditionStudentId);
-
-        // console.log(formData+"**********************************")
 
 
         $.ajax({
@@ -137,5 +131,8 @@ $("#submitList").click(function () {
     }
 })
 
+$("#returnAudition").click(function (){
+    location.href="/sybida/student/studentAudition.html";
 
+})
 
