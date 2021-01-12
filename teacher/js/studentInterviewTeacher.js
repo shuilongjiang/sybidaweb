@@ -119,7 +119,6 @@ function pageshoe(){
             <td>${le[i].studentSex}</td>
             <td>${le[i].classNum}</td>
             <td>${le[i].auditionFirm}</td>
-            <td>${le[i].auditionSite}</td>
             <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
@@ -139,7 +138,6 @@ function pageshoe(){
             <td>${le[i].studentSex}</td>
             <td>${le[i].classNum}</td>
             <td>${le[i].auditionFirm}</td>
-            <td>${le[i].auditionSite}</td>
             <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             

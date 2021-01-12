@@ -91,9 +91,6 @@ $.getJSON({url:url+"/company/selectcompanyinfo",
                 if (!list[i].companyPhone) {
                     list[i].companyPhone = "未完善"
                 }
-                var date = Date.parse(list[i].companyStartTime)
-                date = new Date(date)
-
                 var date2 = Date.parse(list[i].companyEndTime)
                 date2 = new Date(date2);
 
@@ -101,32 +98,22 @@ $.getJSON({url:url+"/company/selectcompanyinfo",
                     html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].companyId}"></td>
         <td>${list[i].teachName}</td>
         <td>${list[i].companyName}</td>
-        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${list[i].studyAspect}</td>
         <td>${list[i].companyAddress}</td>
-        <td>${list[i].companyRequire}</td>
-        <td>${list[i].companyWeb}</td>
         <td>${list[i].companySalary}</td>
-        <td>${list[i].companyMailbox}</td>
-        <td>${list[i].companyPhone}</td>
         <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].companyId}">查看详情</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
         data-id="${list[i].companyId}" data-name="${list[i].companyName}" data-target="#exampleModal" >删除</a></td></tr>`
                 } else {
-                    html += ` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].companyId}""></td>
+                    html += ` <tr class="info"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].companyId}"></td>
        <td>${list[i].teachName}</td>
         <td>${list[i].companyName}</td>
-        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${list[i].studyAspect}</td>
         <td>${list[i].companyAddress}</td>
-        <td>${list[i].companyRequire}</td>
-        <td>${list[i].companyWeb}</td>
         <td>${list[i].companySalary}</td>
-        <td>${list[i].companyMailbox}</td>
-        <td>${list[i].companyPhone}</td>
-        <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].classId}">查看详情</a></td>
+        <td><a name="update" class="layui-btn layui-btn-xs" lay-event="edit" value="${list[i].companyId}">查看详情</a></td>
         <td><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" data-toggle="modal"
         data-id="${list[i].companyId}" data-name="${list[i].companyName}" data-target="#exampleModal" >删除</a></td></tr>`
                 }
@@ -145,7 +132,6 @@ $.getJSON({url:url+"/company/selectcompanyinfo",
                     // 如果当前框被选中，则判断是否需要勾选全选框
                     var checkbox = $("input[name='optionAll']");
                     var length = $(checkbox).length;
-                    console.log(length + "=========================")
                     if (length > 0) {
                         for (var i = 0; i < length; i++) {
                             if ($(checkbox[i]).is(":checked") != true) {
@@ -169,7 +155,6 @@ $.getJSON({url:url+"/company/selectcompanyinfo",
                 console.log("=========" + text)
                 if (text.trim() == '查看详情') {
                     var id = $(this).attr("value")
-                    console.log(id + "====++++++++++++++++")
                     location.href = "/sybida/company/companyDetails.html?companyId=" + id;
 
                 }
@@ -270,7 +255,7 @@ function showDetail(stuName) {
             request.setRequestHeader("token", userid);
         },
                success:function (data2) {
-                   if (data == -1000) {
+                   if (data2 == -1000) {
                        location.href = logindexurl
                    } else {
                 if (data2.code == 0) {
@@ -284,7 +269,6 @@ function showDetail(stuName) {
                 let html = ''
                 console.log(data2)
                 let list = data2.data
-                console.log(list + "=================")
                 if (!list.companyName) {
                     list.companyName = "未完善"
                 }
@@ -321,38 +305,25 @@ function showDetail(stuName) {
                 if (!list.companyPhone) {
                     list.companyPhone = "未完善"
                 }
-                var date = Date.parse(list.companyStartTime)
-                date = new Date(date)
-
                 var date2 = Date.parse(list.companyEndTime)
                 date2 = new Date(date2);
 
                 if (i % 2 == 0) {
-                    html += `<tr class="warning"><td style="width: 80px;"><input type="checkbox" name="optionAll" value="${list[i].companyId}"></td>
+                    html += `<tr >
         <td>${list.teachName}</td>
         <td>${list.companyName}</td>
-        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${list.studyAspect}</td>
         <td>${list.companyAddress}</td>
-        <td>${list.companyRequire}</td>
-        <td>${list.companyWeb}</td>
-        <td>${list.companySalary}</td>
-        <td>${list.companyMailbox}</td>
-        <td>${list.companyPhone}</td></tr>`
+        <td>${list.companySalary}</td></tr>`
                 } else {
-                    html += ` <tr class="info">
+                    html += ` <tr >
        <td>${list.teachName}</td>
         <td>${list.companyName}</td>
-        <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
         <td>${list.studyAspect}</td>
         <td>${list.companyAddress}</td>
-        <td>${list.companyRequire}</td>
-        <td>${list.companyWeb}</td>
-        <td>${list.companySalary}</td>
-        <td>${list.companyMailbox}</td>
-        <td>${list.companyPhone}</td></tr>`
+        <td>${list.companySalary}</td></tr>`
                     $("#selecttable").append(html)
                 }
 

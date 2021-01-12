@@ -106,8 +106,6 @@ function pageshoe(){
                 let html = ''
                 var le=data.data.list
                 for(let i = 0; i < le.length; i++){
-                    var date1 = Date.parse(le[i].offerResponsetime)
-                    date1 = new Date(date1)
                     var date2 = Date.parse(le[i].offerAlterTime)
                     date2 = new Date(date2)
                     if (1 == le[i].offerIsjob) {
@@ -117,7 +115,6 @@ function pageshoe(){
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
-                                      <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                                       <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
                                       <td><button class="layui-btn layui-btn-xs" lay-event="edit" 
@@ -139,7 +136,6 @@ function pageshoe(){
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
-                                      <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                                       <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
                                       <td><button class="layui-btn layui-btn-xs" lay-event="edit" 
@@ -163,7 +159,6 @@ function pageshoe(){
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
-                                      <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                                       <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
                                       <td><button class="layui-btn layui-btn-xs" lay-event="edit" 
@@ -185,7 +180,6 @@ function pageshoe(){
                                       <td>${le[i].studyAspect}</td>
                                       <td>${le[i].offerCompany}</td>
                                       <td>${le[i].offerPracticeSalary}</td>
-                                      <td>${date1.pattern("yyyy-MM-dd HH:mm:ss")}</td>
                                       <td>${date2.pattern("yyyy-MM-dd HH:mm:ss")}</td>
             
                                       <td><button class="layui-btn layui-btn-xs" lay-event="edit" 

@@ -62,7 +62,6 @@ layui.use('layer', function(){
 var userid=getCookie("userid");
 
 $("#surebtn").click(function () {
-    console.log(userid+"==========================================")
     var companyUserId= $("#companyUserId").val()
     var companyMarkId= $("#companyMarkId").val()
     var companyName= $("#companyName").val()
@@ -79,8 +78,6 @@ $("#surebtn").click(function () {
     var companyIsView=  $("input[type='radio']:checked").val();
     var companyIntroduce= $("#companyIntroduce").val()
     let formData = new FormData(document.getElementById("formId"));
-    // formData.append("file", $('[type="file"]')[0].files[0]);
-    // formData.append('companyUserId', companyUserId);
     formData.append('companyMarkId', codeId);
     formData.append('companyName', companyName);
     formData.append('companyEndTime', companyEndTime);
@@ -93,7 +90,6 @@ $("#surebtn").click(function () {
     formData.append('companyMailbox', companyMailbox);
     formData.append('companyWechat', companyWechat);
     formData.append('companyPhone', companyPhone);
-    // formData.append('companyIsView', companyIsView);
     formData.append('companyIntroduce', companyIntroduce);
     formData.append('companyNull2', userid);
 
@@ -114,11 +110,17 @@ $("#surebtn").click(function () {
                 location.href = logindexurl
             } else {
                 if (data.code == 1) {
-                    layer.alert('填写成功！', {
-                            skin: 'layui-layer-molv' //样式类名
-                            , closeBtn: 0
-                        }
-                    );
+                    layer.open({
+                        content: "提交成功"
+                        , btn: ['查看','确定'],
+                        style: 'width:80%',
+                        yes: function(index, layero){
+                            location.href="/sybida/company/companyinfo2.html"; //跳到指定页面
+                        },
+                        cancel: function(index,layero){ //按右上角“X”按钮
+                        },
+
+                    })
                 }
             }
         }
@@ -126,10 +128,8 @@ $("#surebtn").click(function () {
 })
 
 
-$("#codeId").click(function () {
-    console.log("df=======================")
-    $("#show").css("display", "block");
-    // $("#show").load("/sybida/common/twocode.html");
-    $("#codeId").attr('disabled', true);
-})
+// $("#codeId").click(function () {
+//     $("#show").css("display", "block");
+//     $("#codeId").attr('disabled', true);
+// })
 
