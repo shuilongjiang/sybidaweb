@@ -48,7 +48,6 @@ $.getJSON({url:url+"/company/selectcompanyinfo",
             location.href = logindexurl
         } else {
             let html = ''
-            console.log(data)
             var list = data.data.list
             for (let i = 0; i < list.length; i++) {
 
@@ -267,7 +266,7 @@ function showDetail(stuName) {
             } else {
                 $("#detailCon").css('display', '')
                 let html = ''
-                console.log(data2)
+
                 let list = data2.data
                 if (!list.companyName) {
                     list.companyName = "未完善"

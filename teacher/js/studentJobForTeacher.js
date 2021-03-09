@@ -235,13 +235,6 @@ function changeinterview(){
         }
     })
 }
-
-
-
-
-
-
-
 //删除
 var idtea
 $('#exampleModal').on('show.bs.modal', function (event) {
@@ -272,7 +265,6 @@ $("#deleteOneSure").click(function (){
                 }
             }
     }})
-
     //删除写这里
 })
 

@@ -82,10 +82,6 @@ $("#redisterall").click(function () {
                         location.href = logindexurl
                     }else {
                         if(data.code==0){
-                            console.log(phone+"===")
-                            console.log(name+"===")
-                            console.log(studyid+"===")
-                            /////
                             $.ajax({
                                 type: "post",
                                 url: url + "/registerteacher/insertteacher",
@@ -101,12 +97,9 @@ $("#redisterall").click(function () {
                                             layer.alert("注册成功",{icon: 4},function () {
                                                 location.reload();
                                             });
-
-
                                         }
                                         else{
                                             layer.alert("注册失败，请重试，请重试！！");
-
                                         }
                                     }
                                 },
@@ -116,7 +109,6 @@ $("#redisterall").click(function () {
                             });
                         }else{
                             layer.msg("手机号已存在，请重新填写！！", {icon: 4,time:800});
-
                         }
                     }
                 },

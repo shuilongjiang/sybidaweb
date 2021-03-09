@@ -11,7 +11,7 @@ var arr = search.split("=")
 if(arr.length >1){
     currPage = arr[1]
 }
-console.log(currPage)
+
 
 //"currentPage="+currPage+"&pageSize="+pageSize
 //localhost:8080/web06/teacher/selectAllCompany?currentPage=1&pageSize=9
@@ -29,10 +29,10 @@ $.ajax({
         if(data== -1000){
             location.href=logindexurl
         }else {
-            console.log(data)
+
             let html = ''
             companyList = data.data.list
-            console.log(companyList)
+
             for(let i = 0; i < companyList.length; i++){
                 html+=`
             <div class="col-sm-4">
@@ -77,10 +77,7 @@ $.ajax({
             `
             }
             $("#showCompany").append(html)
-
-            console.log(data)
-            generatePage(data.data.navigatepageNums, data.data.pageNum
-                , data.data.pages)
+            generatePage(data.data.navigatepageNums, data.data.pageNum, data.data.pages)
         }
         }
 })
@@ -92,13 +89,13 @@ $.ajax({
 function generatePage(navigatepageNums, pageNum, pages){
     var html = ''
 
-    console.log(pageNum == 1)
+
     if(pageNum == 1){
         html += `<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
     } else {
         html += `<li><a href="/web06/Sybida/teacher/companyInfoTeacher.html?currPage=${pageNum-1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>`
     }
-     // console.log(navigatePages)
+
     // 生成页码
     for(let i = 0; i < navigatepageNums.length; i++){
          // console.log(navigatepageNums)

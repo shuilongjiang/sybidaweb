@@ -27,19 +27,14 @@ function show() {
             if(data== -1000){
                 location.href=logindexurl
             }else{
-                console.log(userid)
                 let html = ''
-                console.log(data)
                 var list = data.data
-                console.log(list)
-
                 for (let i = 0; i < list.length; i++) {
                     if(list[i].vitaeLevel==1){
                         list[i].vitaeLevel="可投递"
                     }else {
                         list[i].vitaeLevel ="继续修改"
                     }
-                    console.log(list[i].vitaeLevel)
                     if(list[i].vitaeIsRead==0){
                         html += `<tr class="warning">
                                 <td>${list[i].studyAspect}</td>
@@ -91,7 +86,6 @@ function show() {
                             contentType:"application/json",
                             data:JSON.stringify(s),
                             success:function(data){
-                                console.log(data)
                                 layer.close(index);
                                 downloadfile(Qnyurl+data,"学生简历")
                             }

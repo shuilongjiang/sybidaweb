@@ -31,7 +31,8 @@ $('#pageSizeSel').change(
     function () {
         pageSize = $("#pageSizeSel").val()
     }
-)//每页条数的change事件
+)
+//每页条数的change事件
 $.getJSON({
     url: url+"/classInfo/selectteachermuticlass",
     data:"userId="+userid,
@@ -43,7 +44,7 @@ $.getJSON({
             location.href=logindexurl
         }else{
             if (classId==-1){
-                console.log(data)
+
                 var html = ``
                 for (let i = 0; i < data.data.length; i++) {
                     html += `<option value="${data.data[i].classId}">${data.data[i].classNum}</option>`
@@ -155,8 +156,7 @@ function show() {
 
             var date = Date.parse(list[i].vitaeAlterTime)
             date = new Date(date)
-            // if(list[i].vitaeUrl){
-            console.log(list[i].studentPhone+"====")
+
             if (list[i].vitaeLevel == 1){
                 if (list[i].vitaeLevel == 1) {
                     list[i].vitaeLevel = "可投递"
@@ -177,7 +177,7 @@ function show() {
             <td>${list[i].vitaeIsRead}</td> 
            
             <td >${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-           <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
+           <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}','${list[i].vitaeLevel}')">评价</button>
                <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}-${list[i].studyAspect}工程师','${list[i].studentPhone}')">下载</button></td>
         </tr>`
             }else{
@@ -198,7 +198,7 @@ function show() {
             <td>${list[i].vitaeIsRead}</td> 
            
             <td>${date.pattern("yyyy-MM-dd HH:mm:ss")}</td>
-           <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}')">评价</button>
+           <td><button id="updateLevelBtn" class="layui-btn layui-btn-xs" onclick="updateVitaeLevel('${list[i].vitaeId}','${list[i].vitaeStudentId}','${list[i].studentName}','${list[i].vitaeUrl}','${list[i].vitaeLevel}')">评价</button>
            <button class="layui-btn layui-btn-xs" id="fileDownload" onclick="downloadVitae('${list[i].vitaeUrl}','${list[i].studentName}-${list[i].studyAspect}工程师','${list[i].studentPhone}')">下载</button></td>
         </tr>`
             }
@@ -341,38 +341,40 @@ function pageSelect(data) {
 }
 
 
-function updateVitaeLevel(vitaeId, userid, name,vitaeurl) {
+function updateVitaeLevel(vitaeId, userid, name,vitaeurl,isToudi) {
+    if(isToudi=="可投递"){
+        $("#dotodoit").val("1");
+    }
     $(".updateLevel").css('display', '')
     $("#vitaeID").val(vitaeId)
     $("#vitaeEvaluateUserId").val(userid)
     $("#vitaeEvaluateUserName").val(name)
-    $("#iframe3").attr("src",Qnyurl+vitaeurl)
+    $("#iframe3").attr("src","../pdf/web/viewer.html?file="+Qnyurl+vitaeurl)
     $("#dotodoit").change(function () {
         if( $("#dotodoit").val()==1 &&!$("#vitaeEvaluateComment").val() ){
             $("#vitaeEvaluateComment").val("抓紧时间投递")
         }
     })
     var userid2=getCookie("userid")
-    $.post({
-        url:url+"/teacherdownload/selectcomment",
-        // 告知传递参数类型为json，不可缺少
-        // contentType:"application/json",
-        data:"userid="+userid,
-        beforeSend: function(request) {
-            request.setRequestHeader("token", userid2);
-        },
-        success:function(data){
-            if(data== -1000){
-                location.href=logindexurl
-            }else {
-
-
-                    $("#vitaeEvaluateall").val(data.message)
-
-
-            }
-        }
-    })
+    // $.post({
+    //     url:url+"/teacherdownload/selectcomment",
+    //     // 告知传递参数类型为json，不可缺少
+    //     // contentType:"application/json",
+    //     data:"userid="+userid,
+    //     beforeSend: function(request) {
+    //         request.setRequestHeader("token", userid2);
+    //     },
+    //     success:function(data){
+    //         if(data== -1000){
+    //             location.href=logindexurl
+    //         }else {
+    //
+    //                 $("#vitaeEvaluateall").val(data.message)
+    //
+    //
+    //         }
+    //     }
+    // })
     $.post({
         url:url+"/teacherdownload/selectevaforvitae",
         // 告知传递参数类型为json，不可缺少
@@ -387,7 +389,7 @@ function updateVitaeLevel(vitaeId, userid, name,vitaeurl) {
             }else {
 
                 if(data.code==1){
-                    $("#vitaeEvaluateComment").val(data.data)
+                    $("#vitaeEvaluateall").val(data.data)
                 }
 
             }
@@ -499,7 +501,7 @@ function downloadVitae(downloadUrl, name, aspect) {
 }
 
 $("#vitaeEvaluateComment").blur(function () {
-    judgeSpace($(this), 0)
+    judgeSpace($(this), 1)
 })
 
 $("#vitaeEvaluatePicture").blur(function () {

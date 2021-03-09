@@ -229,7 +229,6 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     modal.find('#messagetext').text('确认将教师-' +name+'-离职吗？')
 })
 $("#deleteOneSure").click(function (){
-    console.log(idtea)
     $.post({
          url:url+"/teacher/deleteteacher",
          data:"deleteTeacherId="+idtea,

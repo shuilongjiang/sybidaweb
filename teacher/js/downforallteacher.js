@@ -41,7 +41,6 @@ $.getJSON({
             location.href=logindexurl
         }else{
             if (classId==-1){
-                console.log(data)
                 var html = ``
                 for (let i = 0; i < data.data.length; i++) {
                     html += `<option value="${data.data[i].classId}">${data.data[i].classNum}</option>`
@@ -49,7 +48,6 @@ $.getJSON({
                 $('#classNum').append(html);
                 var selectA1 = $('#classNum').find("option"); //从A1下拉框中 搜索值
                 classId=$(selectA1[0]).val()
-
                 //change事件
                 $('#classNum').change(function () {
                         classId = $('#classNum').val()
@@ -75,8 +73,6 @@ $.getJSON({
                 )
             }
         }
-
-
         showtotal();
     }
 });

@@ -71,9 +71,6 @@ $.getJSON({
             )
         }
 }})
-
-
-
 //全选全不选
 $('input[name="checkAll"]').click(function(){
     //当全选按钮是选中状态
@@ -105,10 +102,7 @@ function pageshoe(){
             }else {
                 let html = ''
                 var le=data.data.list
-                // console.log(data)
-                // console.log(data.data.list)
                 for(let i = 0; i < le.length; i++){
-
                     var date1 = Date.parse(le[i].auditionTime)
                     date1 = new Date(date1)
                     var date2 = Date.parse(le[i].auditionAlterTime)
@@ -224,10 +218,8 @@ function pageSelect(data){
 function changeinterview(){
     $("button").click(function (){
         var text = $(this).text() // 获取按钮之间的文本内容
-        // console.log("========")
         if(text.trim()=='查看详情'){
             let id = $(this).attr("date-auditionId")
-            console.log(id)
             location.href="/sybida/teacher/studentAudition.html?id=" + id;
 
         }

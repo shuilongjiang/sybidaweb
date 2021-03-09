@@ -31,7 +31,6 @@ $.getJSON({
             location.href=logindexurl
         }else{
              if (data.code==1){
-                 console.log(data.data)
                  let html = ''
                  var list = data.data.list
                  for (let i = 0; i < list.length; i++) {
@@ -107,7 +106,7 @@ $.getJSON({
                          // 如果当前框被选中，则判断是否需要勾选全选框
                          var checkbox = $("input[name='optionAll']");
                          var length = $(checkbox).length;
-                         console.log(length + "=========================")
+
                          if (length > 0) {
                              for (var i = 0; i < length; i++) {
                                  if ($(checkbox[i]).is(":checked") != true) {
@@ -128,7 +127,6 @@ $.getJSON({
 
                  $("a[name='update']").click(function () {
                      var text = $(this).text()
-                     console.log("=========" + text)
                      if (text.trim() == '修改') {
                          var id = $(this).attr("value")
 
@@ -261,7 +259,6 @@ $("#deleteOneSure").click(function (){
             location.href=logindexurl
         }else {
             if (data.code == 1) {
-                console.log(data.code + "======================")
                 location.href = "/sybida/publicTool/classInfo.html?pageNum=1&pageSize=" + pageSize + "&selectClass=" + selectClass
             } else {
                 layer.alert("删除失败");

@@ -108,8 +108,8 @@
             <!--<input type="text" class="form-control" id="Id" value="" readonly>-->
         <!--</div>-->
         <div class="form-group">
-            <label for="vitaeEvaluateUserId">学生ID</label>
-            <input type="text" class="form-control" id="vitaeEvaluateUserId" value="" readonly>
+
+            <input type="text" class="form-control" id="vitaeEvaluateUserId" style="display: none" value="" readonly>
         </div>
 
         <div class="form-group">
@@ -117,9 +117,10 @@
             <input type="text" class="form-control" id="vitaeEvaluateUserName" value="" readonly>
         </div>
         <div class="form-group">
-            <label for="vitaeID">学生简历ID</label>
-            <input type="text" class="form-control" id="vitaeID"value="" readonly>
+
+            <input style="display: none" type="text" class="form-control" id="vitaeID"value="" readonly>
         </div>
+        <br>
         <div class="form-group">
             <label for="vitaeEvaluateComment">简历评价</label>
             <select name="dotodoit" id="dotodoit">
@@ -127,10 +128,11 @@
                 <option value="1">可以投递</option>
             </select>
         </div>
+        <br>
         <div class="form-group">
             <label for="vitaeEvaluateall">上次评价</label>
             <textarea type="text" class="form-control" id="vitaeEvaluateall"value="" style="height: 350px;"></textarea>
-            <p class="tips" style="color: red"></p>
+<!--            <p class="tips" style="color: red"></p>-->
         </div>
         <div class="form-group">
             <label for="vitaeEvaluateComment">本次评价</label>
@@ -142,7 +144,7 @@
     </div>
     <div style="float: left;width:68%;margin-left: 2%;">
         <a target="iframe3"  download="" id="showMyvitae"></a>
-        <iframe id="iframe3"  name="iframe3" style="width: 100%;height: 800px;overflow-x : hidden;"></iframe>
+        <iframe id="iframe3"  name="iframe3" style="width: 100%;height: 1000px;margin-bottom:100px;overflow-x : hidden;"></iframe>
     </div>
 </div>
 <script src="/sybida/jquery/jquery-3.3.1.min.js"></script>
@@ -150,6 +152,7 @@
 <script src="/sybida/bs/bootstrap.min.js"></script>
 <script src="/sybida/layui/layui.js"></script>
 <script src="/sybida/publicTool/js/dateutil.js"></script>
+<script src="/pdf/build/pdf.js" ></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 

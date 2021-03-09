@@ -8,9 +8,9 @@ var userid = getCookie("userid")
 $(".teachTel").blur(function () {
     // alert("123")
     var phone = $(".teachTel").val();
-    console.log(phone)
+
     var myreg = /^1[3|4|5|7|8][0-9]{9}$/;
-    console.log(myreg.test(phone))
+
     if (!myreg.test(phone)) {
         $("#phonetip").html("手机号码格式错误")
     } else {
@@ -50,8 +50,6 @@ function show() {
                 } else {
                     $("input[name=sex][value='女']").attr("checked", true);
                 }
-
-
             }
         }
     })
@@ -70,13 +68,11 @@ function checkPhone(phone) {
             if (data == -1000) {
                 location.href = logindexurl
             } else {
-                console.log(data)
                 if (data.code == 1 && data.data.total != 0) {//code==0  --> 没有查到相同的，所以返false
                     phoneCheck = true
                 } else {
                     phoneCheck = false;
                 }
-
             }
         }
     })
@@ -86,14 +82,11 @@ function checkPhone(phone) {
 $("#submitList").click(function () {
     var gender
     var name = $(".teachName").val()
-
     if ($(".teachsex1").prop("checked")) {
         gender = $(".teachsex1").val()
-
     }
     if ($(".teachsex2").prop("checked")) {
         gender = $(".teachsex2").val()
-
     }
     // var sex
     var id = $(".teachId").val()

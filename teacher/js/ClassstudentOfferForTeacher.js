@@ -275,10 +275,9 @@ function pageSelect(data){
 function changeinterview(){
     $("button").click(function (){
         var text = $(this).text() // 获取按钮之间的文本内容
-        // console.log("========")
         if(text.trim()=='查看详情'){
             let id = $(this).attr("date-offerId")
-            console.log(id)
+
             location.href="/sybida/teacher/ClassstudentOffer.html?id=" + id;
 
         }
@@ -304,9 +303,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 })
 $("#deleteOneSure").click(function (){
 
-    console.log(idtea +"++++++++++++++++++++++....********************************")
-
-    $.post({
+   $.post({
         url:url+"/offer/deleteStudentOffer",
         data:"deleteOfferId="+idtea,
         dataType:"json",

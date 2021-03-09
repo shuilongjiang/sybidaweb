@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../bs/bootstrap.min.css">
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
 
+    <script src="/pdf/build/pdf.js" ></script>
 <body>
 <div class="container">
     <br>
@@ -38,18 +39,14 @@
     var search=location.search
     var arr=search.split("?")
     var arr1=arr[1]
-
     var arr2=arr1.split("&")
-
     var qnyl=arr2[1]
-    console.log(qnyl)
     var vitaeId1=arr2[0]
-    console.log(vitaeId1)
     var vitaeId= vitaeId1.split("=")[1]
     var qny=qnyl.split("=")[1]
 
 
-    $("#ifreamq").attr("src",Qnyurl+qny)
+    $("#ifreamq").attr("src","../pdf/web/viewer.html?file="+Qnyurl+qny)
     var userid=getCookie("userid")
     showEvaluate()
     function showEvaluate() {

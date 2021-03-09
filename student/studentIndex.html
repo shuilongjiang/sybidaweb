@@ -1,20 +1,16 @@
-
 <!doctype html>
 <html lang="ch">
-
 <head>
     <title>思必达——学生</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
 
-    <!-- CSS
-    ================================================== -->
+    <!-- CSS ================================================== -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/night-mode.css">
     <link rel="stylesheet" href="assets/css/framework.css">
-    <!-- icons
-    ================================================== -->
+    <!-- icons ================================================== -->
     <link rel="stylesheet" href="assets/css/icons.css">
 
     <!-- Google font
@@ -22,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <script src="assets/js/jquery-1.7.2.min.js"></script>
     <script src="/sybida/common/js/locahostadress.js" charset="utf-8"></script>
+    <script src="/pdf/build/pdf.js" ></script>
     <style>
         #uploadd{
             display: inline-block;
@@ -318,8 +315,10 @@
                     location.href=logindexurl
                 }else {
                     if (data.message) {
-                        $("#downfile").attr("href", Qnyurl + data.message)
-                        $("#downfile").attr("download", "aa")
+                        // window.open( Qnyurl + data.message)
+                        $("#downfile").attr("href", "../pdf/web/viewer.html?file="+Qnyurl + data.message)
+                         $("#downfile").attr("target","_blank")
+                          // $("#downfile").attr("download","aa")
                         $("#downfile").text(" 预览已经上传简历")
                     } else {
                         $("#downfile").text("从未上传过简历")

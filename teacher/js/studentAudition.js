@@ -1,14 +1,9 @@
 // 获取从前一个页面传递过来的参数
 var userid=getCookie("userid")
 var search = window.location.search
-console.log(search)
+
 var arr = search.split("=")
 var id = arr[1]
-
-
-console.log(id)
-
-
 $.getJSON({
     url:url+"/audition/selectstudentInterviewbyauditionId",
     data:"auditionId=" + id,
@@ -20,11 +15,6 @@ $.getJSON({
             location.href=logindexurl
         }else {
             if (data.code == 1) {
-                console.log(data)
-
-                console.log("========")
-                console.log("========")
-
                 $("#studentName").val(data.data.studentName)
                 $("#studentSex").val(data.data.studentSex)
                 $("#classNum").val(data.data.classNum)

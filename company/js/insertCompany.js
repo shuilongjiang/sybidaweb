@@ -127,9 +127,3 @@ $("#surebtn").click(function () {
     })
 })
 
-
-// $("#codeId").click(function () {
-//     $("#show").css("display", "block");
-//     $("#codeId").attr('disabled', true);
-// })
-
