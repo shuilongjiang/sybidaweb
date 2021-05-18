@@ -80,7 +80,7 @@ $("#selectButt").click(function () {
     location.href = "/sybida/teacher/downforallteacher.html?pageNum=1&pageSize=" + pageSize+"&classId="+classId
 })
 
-//全选全不选
+//全选全不
 $("#checkAll").click(function () {
     //当全选按钮是选中状态
     if ($(this).is(':checked')) {

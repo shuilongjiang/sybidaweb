@@ -210,6 +210,6 @@ $("#sureregister").click(function () {
 });
 
 $("#templet").click(function () {
-    downloadfile("http://qldlxgj0k.hn-bkt.clouddn.com/muban.xlsx", "Excel模板")
+    downloadfile(Qnyurl+"muban.xlsx", "Excel模板")
 })
 

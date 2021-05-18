@@ -1,11 +1,10 @@
 //访问服务器地址
-var Qnyurl= "http://qplmfptlp.hn-bkt.clouddn.com/"
+var Qnyurl= "http://qta4pvtrx.hn-bkt.clouddn.com/"
 
 // var url="http://192.168.5.117:8081/"
 //  var logindexurl= "http://192.168.5.199:63343/sybida/login.html?check=2"
-
 var url="http://localhost:8080/"
-var logindexurl= "http://localhost:63343/sybida/login.html?check=2"
+var logindexurl= "http://localhost:63342/sybida/login.html?check=2"
 //根据名字获取cookie
 function getCookie(name) {
     var prefix = name + "="  // name=
